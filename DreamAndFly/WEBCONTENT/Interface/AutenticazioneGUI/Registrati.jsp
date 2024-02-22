@@ -9,16 +9,13 @@
 <title>Registrati</title>
 </head>
 <body>
+
 	<div class="v8_53">
 		<div class="v8_54">
 			<span class="v8_55">CONTATTI cellulare: 3203265329 e-mail:
 				dreamandfly@gmail.com instagram: @_dreamAndFly</span>
 		</div>
-		<div class="v8_56">
-			<div class="v8_57"></div>
-			<span class="v8_58">Login </span><span class="v8_59">Registrati</span>
-			<div class="v8_60"></div>
-		</div>
+		<%@ include file="../Header.jsp" %>
 		<div class="v8_61">
 			<span class="v8_62">REGISTRATI</span><span class="v8_63">Nome</span>
 			<div class="v8_64"></div>

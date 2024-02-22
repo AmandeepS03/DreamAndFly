@@ -9,14 +9,7 @@
 <title>Visualizza/Elimina account</title>
 </head>
 <body>
-	<div class="v35_158">
-		<div class="v35_159">
-			<div class="v35_160"></div>
-			<span class="v35_161">Logout </span><span class="v35_162">Area
-				utente</span>
-			<div class="v35_163"></div>
-			<span class="v35_164">Area riservata</span>
-		</div>
+	<%@ include file="../../Header.jsp" %>
 		<div class="v35_165">
 			<span class="v35_166">CONTATTI cellulare: 3203265329 e-mail:
 				dreamandfly@gmail.com instagram: @_dreamAndFly</span>
@@ -31,6 +24,6 @@
 				<span class="v35_176">Cerca</span>
 			</div>
 		</div>
-	</div>
+	
 </body>
 </html>
