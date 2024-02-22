@@ -9,7 +9,7 @@
 	href="https://fonts.googleapis.com/css?family=Julius+Sans+One&display=swap"
 	rel="stylesheet" />
 <link href="./css/main.css" rel="stylesheet" />
-<title>Document</title>
+<title>Homepage</title>
 </head>
 <body>
 	<div class="v44_15">
