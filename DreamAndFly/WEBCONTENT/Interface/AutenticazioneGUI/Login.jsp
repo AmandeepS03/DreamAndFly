@@ -3,7 +3,7 @@
 <head>
 <link href="https://fonts.googleapis.com/css?family=Inter&display=swap"
 	rel="stylesheet" />
-<link href="./css/main.css" rel="stylesheet" />
+<link href="./css/Login.css" rel="stylesheet" />
 <title>Login</title>
 </head>
 <body>
