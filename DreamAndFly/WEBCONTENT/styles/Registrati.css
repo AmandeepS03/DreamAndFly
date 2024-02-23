@@ -26,13 +26,14 @@ body {
 }
 .v8_61 {
   width: 481px;
-  height: 745px;
   background: rgba(234,234,234,1);
   opacity: 1;
   position: absolute;
   top: 287px;
   left: 480px;
   overflow: hidden;
+  margin:  20px; /* Riduci il margine laterale del contenitore per centrarlo e rendere il layout più compatto */
+  padding: 20px;
 }
 .v8_62 {
   width: 204px;
@@ -178,3 +179,29 @@ body {
   left: 33px;
   overflow: hidden;
 }
+.form-group {
+  margin-bottom: 20px;
+}
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #cccccc;
+}
+
+button {
+ width: 50%;
+  padding: 8px;
+  margin-left: 25%;
+  font-size: 16px;
+   background-color:rgba(161,201,230,1);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+h1 {
+  text-align: center;
+  font-size: 24px;
+}
+
