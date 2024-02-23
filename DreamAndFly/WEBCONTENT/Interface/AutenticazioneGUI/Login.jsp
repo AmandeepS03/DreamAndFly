@@ -9,12 +9,7 @@
 <title>Login</title>
 </head>
 <body>
-	<div class="v8_33">
-		<div class="v8_35">
-			<div class="v8_34"></div>
-			<span class="v8_36">Login </span><span class="v8_37">Registrati</span>
-			<div class="v8_38"></div>
-		</div>
+		<%@ include file="../Header.jsp" %>
 		<div class="v8_40">
 			<span class="v8_42">CONTATTI cellulare: 3203265329 e-mail:
 				dreamandfly@gmail.com instagram: @_dreamAndFly</span>
@@ -30,6 +25,6 @@
 				<span class="v8_52">Login</span>
 			</div>
 		</div>
-	</div>
+	
 </body>
 </html>
