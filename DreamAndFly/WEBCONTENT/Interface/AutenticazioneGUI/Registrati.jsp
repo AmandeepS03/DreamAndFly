@@ -8,14 +8,9 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/styles/Registrati.css">
 <title>Registrati</title>
 </head>
-<body>
-
-	<div class="v8_53">
-		<div class="v8_54">
-
-			<%@ include file="../Footer.jsp" %>	
-		</div>
+<body>		
 		<%@ include file="../Header.jsp" %>
+	
 		<div class="v8_61">
 		<h1>REGISTRATI</h1>
         <form id="regForm" action="/PackAndTravel/RegistratiServlet" method="post" onsubmit="event.preventDefault();checkSignup(this)">
@@ -64,6 +59,7 @@
 			<span class="v8_78">Conferma password</span>
 			<div class="v8_79"></div> -->
 		</div>
-	</div>
+
 </body>
+<%@ include file="../Footer.jsp" %>	
 </html>
