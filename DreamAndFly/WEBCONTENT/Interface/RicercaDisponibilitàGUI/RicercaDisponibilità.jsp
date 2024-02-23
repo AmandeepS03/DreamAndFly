@@ -5,20 +5,15 @@
 <head>
 <link href="https://fonts.googleapis.com/css?family=Inter&display=swap"
 	rel="stylesheet" />
-<link href="./css/main.css" rel="stylesheet" />
+<link href="<%=request.getContextPath() %>/styles/RicercaDisponibilità.css" rel="stylesheet" />
 <title>Ricerca disponibilità</title>
 </head>
 <body>
 	<div class="v9_86">
-		<div class="v9_87">
-			<div class="v9_88"></div>
-			<span class="v9_89">Login</span>
-			<div class="v9_90"></div>
-			<span class="v9_91">Registrati</span>
+		<%@include file="../Header.jsp" %>
 		</div>
 		<div class="v9_92">
-			<span class="v9_93">CONTATTI cellulare: 3203265329 e-mail:
-				dreamandfly@gmail.com instagram: @_dreamAndFly</span>
+			<%@include file="../Footer.jsp" %>
 		</div>
 		<div class="v9_152">
 			<div class="v9_94">

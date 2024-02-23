@@ -5,21 +5,16 @@
 <head>
 <link href="https://fonts.googleapis.com/css?family=Inter&display=swap"
 	rel="stylesheet" />
-<link href="./css/main.css" rel="stylesheet" />
+<link href="<%=request.getContextPath() %>/styles/VisualizzaPrenotazioniGestore.css" rel="stylesheet" />
 <title>Visualizza prenotazioni gestore</title>
 </head>
 <body>
 	<div class="v30_3">
 		<div class="v30_4">
-			<div class="v30_5"></div>
-			<span class="v30_6">Logout </span><span class="v30_7">Area
-				utente</span>
-			<div class="v30_8"></div>
-			<span class="v30_9">Area riservata</span>
+			<%@include file="../../Header.jsp" %>
 		</div>
 		<div class="v30_10">
-			<span class="v30_11">CONTATTI cellulare: 3203265329 e-mail:
-				dreamandfly@gmail.com instagram: @_dreamAndFly</span>
+			<%@include file="../../Footer.jsp" %>
 		</div>
 		<div class="v30_22">
 			<div class="v30_23">

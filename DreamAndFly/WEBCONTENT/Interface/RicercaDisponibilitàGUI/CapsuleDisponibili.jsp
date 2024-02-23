@@ -5,16 +5,12 @@
 <head>
 <link href="https://fonts.googleapis.com/css?family=Inter&display=swap"
 	rel="stylesheet" />
-<link href="./css/main.css" rel="stylesheet" />
+<link href="<%=request.getContextPath() %>/styles/CapsuleDisponibili.css" rel="stylesheet" />
 <title>Capsule disponibili</title>
 </head>
 <body>
 	<div class="v9_155">
-		<div class="v9_156">
-			<div class="v9_157"></div>
-			<span class="v9_158">Login</span>
-			<div class="v9_159"></div>
-			<span class="v9_160">Registrati</span>
+		<%@include file="../Header.jsp" %>
 		</div>
 		<div class="v9_161">
 			<span class="v9_162">CONTATTI cellulare: 3203265329 e-mail:

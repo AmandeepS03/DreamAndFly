@@ -5,21 +5,16 @@
 <head>
 <link href="https://fonts.googleapis.com/css?family=Inter&display=swap"
 	rel="stylesheet" />
-<link href="./css/main.css" rel="stylesheet" />
+<link href="<%=request.getContextPath() %>/styles/Pagamento.css" rel="stylesheet" />
 <title>Document</title>
 </head>
 <body>
 	<div class="v9_194">
 		<div class="v9_195">
-			<div class="v9_196"></div>
-			<span class="v9_197">Logout </span><span class="v9_198">Area
-				utente</span>
-			<div class="v9_199"></div>
-			<span class="v9_200">Le mie prenotazioni</span>
+			<%@include file="../Header.jsp" %>
 		</div>
 		<div class="v9_201">
-			<span class="v9_202">CONTATTI cellulare: 3203265329 e-mail:
-				dreamandfly@gmail.com instagram: @_dreamAndFly</span>
+			<%@include file="../Footer.jsp" %>
 		</div>
 		<div class="v9_203">
 			<div class="v9_212">
