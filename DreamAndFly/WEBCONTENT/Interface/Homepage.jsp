@@ -8,16 +8,15 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Julius+Sans+One&display=swap"
 	rel="stylesheet" />
-<link href="./css/main.css" rel="stylesheet" />
+<link href="<%=request.getContextPath() %>/styles/Homepage.css" rel="stylesheet" />
 <title>Homepage</title>
 </head>
 <body>
 	<div class="v44_15">
 		<div class="v9_40">
 			<div class="v9_46">
-				<span class="v9_47">CONTATTI cellulare: 3203265329 e-mail:
-					dreamandfly@gmail.com instagram: @_dreamAndFly</span>
-			</div>
+				<%@include file="Footer.jsp" %>
+				</div>
 			<div class="v9_61">
 				<div class="v9_54">
 					<div class="v9_55">
@@ -64,13 +63,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="v8_118">
-				<div class="v8_119"></div>
-				<span class="v8_120">Logout </span><span class="v8_121">Area
-					utente</span>
-				<div class="v8_122"></div>
-				<span class="v8_123">Le mie prenotazioni</span>
-			</div>
+			<%@include file="Header.jsp" %>
 		</div>
 	</div>
 </body>

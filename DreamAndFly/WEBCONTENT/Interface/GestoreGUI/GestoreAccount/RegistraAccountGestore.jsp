@@ -6,14 +6,13 @@
 <head>
 <link href="https://fonts.googleapis.com/css?family=Inter&display=swap"
 	rel="stylesheet" />
-<link href="./css/main.css" rel="stylesheet" />
+<link href="<%=request.getContextPath() %>/styles/RegistraAccountGestore.css" rel="stylesheet" />
 <title>Registra account gestore</title>
 </head>
 <body>
 	<div class="v31_60">
 		<div class="v31_61">
-			<span class="v31_62">CONTATTI cellulare: 3203265329 e-mail:
-				dreamandfly@gmail.com instagram: @_dreamAndFly</span>
+			<%@include file="../../Footer.jsp" %>
 		</div>
 		<div class="v31_70">
 			<span class="v31_69">Registra nuovo account gestore</span>
@@ -50,11 +49,7 @@
 			</div>
 		</div>
 		<div class="v31_63">
-			<div class="v31_64"></div>
-			<span class="v31_65">Logout </span><span class="v31_66">Area
-				utente</span>
-			<div class="v31_67"></div>
-			<span class="v31_68">Area riservata</span>
+			<%@include file="../../Header.jsp" %>
 		</div>
 	</div>
 </body>
