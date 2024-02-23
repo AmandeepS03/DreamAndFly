@@ -35,16 +35,13 @@ body {
   overflow: hidden;
 }
 .v8_226 {
-  width: 397px;
+width: 290px;
   color: rgba(0,0,0,1);
   position: absolute;
-  top: 93px;
-  left: 99px;
-  font-family: Inter;
   font-weight: Regular;
-  font-size: 24px;
   opacity: 1;
-  text-align: left;
+  text-align: center;
+  margin-left:25%;
 }
 .v8_227 {
   width: 194px;
@@ -57,4 +54,14 @@ body {
   font-size: 24px;
   opacity: 1;
   text-align: left;
+}
+a{
+	color: #000000;
+	    text-decoration: none;
+
+}
+a:hover{
+	color: #5d5d5d;
+	    text-decoration: none;
+
 }

@@ -12,8 +12,11 @@
 <body>
 	<div class="v8_228">
 		<div class="v8_229">
-			<span class="v8_230">Visualizza prenotazioni</span><span
-				class="v8_231">AREA RISERVATA</span>
+			<div class="v8_230">
+			<h1>AREA RISERVATA</h1>
+			<br>
+			<a href="<%=request.getContextPath() %>/Interface/GestoreGUI/GestorePrenotazioni/VisualizzaPrenotazioniGestore.jsp"><h2>Visualizza prenotazioni</h2> </a>
+			</div>
 		</div>
 		<%@ include file="../../Header.jsp" %>
 		<div class="v8_238">

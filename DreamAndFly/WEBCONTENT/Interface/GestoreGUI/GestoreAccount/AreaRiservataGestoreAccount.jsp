@@ -17,8 +17,12 @@
 		</div>
 		<%@ include file="../../Header.jsp" %>
 		<div class="v8_225">
-			<span class="v8_226">Registra nuovo account gestore
-				Visualizza/elimina account</span><span class="v8_227">AREA RISERVATA</span>
+			<div class="v8_226">
+			<h1>AREA RISERVATA</h1>
+			<br>
+			<a href="<%=request.getContextPath() %>/Interface/GestoreGUI/GestoreAccount/RegistraAccountGestore.jsp"><h2>Registra nuovo account gestore</h2> </a>
+			<a href="<%=request.getContextPath() %>/Interface/GestoreGUI/GestoreAccount/Visualizza-EliminaAccount.jsp"><h2>Visualizza/elimina account</h2></a>
+			</div>
 		</div>
 	</div>
 </body>
