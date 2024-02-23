@@ -13,6 +13,10 @@ body {
   top: 0px;
   left: 0px;
   overflow: hidden;
+   padding: 10px;
+   text-align: center;
+   font-size: 14px;
+   color: #fff;
 }
 .v78_4 {
   width: 365px;
@@ -26,3 +30,44 @@ body {
   opacity: 1;
   text-align: center;
 }
+#footerContatti {
+   margin-bottom: 10px;
+   color: #fff;
+   font-family: serif;
+   font-size: 20px;
+   font-weight: normal;
+}
+
+.footer p {
+   margin-bottom: 5px;
+}
+
+.footer a {
+   color: #fff;
+   text-decoration: none;
+}
+
+.footer a:hover {
+   color: #ccc;
+}
+
+.footer .icon {
+   margin-right: 10px;
+}
+
+.footer .social-media-icons {
+   margin-top: 10px;
+}
+
+.footer .social-media-icons a {
+   display: inline-block;
+   margin-right: 10px;
+   color: #fff;
+   font-size: 18px;
+}
+
+.footer .social-media-icons a:hover {
+   color: #ccc;
+}
+
+
