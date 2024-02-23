@@ -9,14 +9,7 @@
 <title>Area Riservata</title>
 </head>
 <body>
-	<div class="v8_202">
-		<div class="v8_203">
-			<div class="v8_204"></div>
-			<span class="v8_205">Logout </span><span class="v8_206">Area
-				utente</span>
-			<div class="v8_207"></div>
-			<span class="v8_208">Area riservata</span>
-		</div>
+	<%@ include file="../../Header.jsp" %>
 		<div class="v8_209">
 			<span class="v8_210">CONTATTI cellulare: 3203265329 e-mail:
 				dreamandfly@gmail.com instagram: @_dreamAndFly</span>
@@ -26,6 +19,6 @@
 				Modifica disponibilità Modifica prezzo orario Prolunga disponibilità</span><span
 				class="v8_214">AREA RISERVATA</span>
 		</div>
-	</div>
+
 </body>
 </html>

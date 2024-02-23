@@ -15,13 +15,7 @@
 			<span class="v8_230">Visualizza prenotazioni</span><span
 				class="v8_231">AREA RISERVATA</span>
 		</div>
-		<div class="v8_232">
-			<div class="v8_233"></div>
-			<span class="v8_234">Logout </span><span class="v8_235">Area
-				utente</span>
-			<div class="v8_236"></div>
-			<span class="v8_237">Area riservata</span>
-		</div>
+		<%@ include file="../../Header.jsp" %>
 		<div class="v8_238">
 			<span class="v8_239">CONTATTI cellulare: 3203265329 e-mail:
 				dreamandfly@gmail.com instagram: @_dreamAndFly</span>

@@ -14,13 +14,7 @@
 			<span class="v8_242">CONTATTI cellulare: 3203265329 e-mail:
 				dreamandfly@gmail.com instagram: @_dreamAndFly</span>
 		</div>
-		<div class="v8_243">
-			<div class="v8_244"></div>
-			<span class="v8_245">Logout </span><span class="v8_246">Area
-				utente</span>
-			<div class="v8_247"></div>
-			<span class="v8_248">Area riservata</span>
-		</div>
+		<%@ include file="../../Header.jsp" %>
 		<div class="v8_249">
 			<span class="v8_250">Numero:</span>
 			<div class="v8_251"></div>

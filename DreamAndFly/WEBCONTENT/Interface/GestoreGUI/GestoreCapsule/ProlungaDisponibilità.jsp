@@ -10,13 +10,7 @@
 </head>
 <body>
 	<div class="v65_3">
-		<div class="v65_4">
-			<div class="v65_5"></div>
-			<span class="v65_6">Logout </span><span class="v65_7">Area
-				utente</span>
-			<div class="v65_8"></div>
-			<span class="v65_9">Area riservata</span>
-		</div>
+		<%@ include file="../../Header.jsp" %>
 		<div class="v65_10">
 			<span class="v65_11">CONTATTI cellulare: 3203265329 e-mail:
 				dreamandfly@gmail.com instagram: @_dreamAndFly</span>

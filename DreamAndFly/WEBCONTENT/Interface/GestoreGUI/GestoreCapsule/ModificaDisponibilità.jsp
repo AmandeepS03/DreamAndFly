@@ -9,14 +9,7 @@
 <title>Modifica Disponibilità</title>
 </head>
 <body>
-	<div class="v32_5">
-		<div class="v32_6">
-			<div class="v32_7"></div>
-			<span class="v32_8">Logout </span><span class="v32_9">Area
-				utente</span>
-			<div class="v32_10"></div>
-			<span class="v32_11">Area riservata</span>
-		</div>
+	<%@ include file="../../Header.jsp" %>
 		<div class="v32_12">
 			<span class="v32_13">CONTATTI cellulare: 3203265329 e-mail:
 				dreamandfly@gmail.com instagram: @_dreamAndFly</span>
@@ -42,6 +35,5 @@
 				<span class="v33_79">Salva</span>
 			</div>
 		</div>
-	</div>
 </body>
 </html>

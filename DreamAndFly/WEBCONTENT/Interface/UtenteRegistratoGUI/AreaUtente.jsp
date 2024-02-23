@@ -10,13 +10,7 @@
 </head>
 <body>
 	<div class="v8_101">
-		<div class="v8_102">
-			<div class="v8_103"></div>
-			<span class="v8_104">Logout </span><span class="v8_105">Area
-				utente</span>
-			<div class="v8_106"></div>
-			<span class="v8_109">Le mie prenotazioni</span>
-		</div>
+<%@ include file="../Header.jsp" %>
 		<div class="v8_107">
 			<span class="v8_108">CONTATTI cellulare: 3203265329 e-mail:
 				dreamandfly@gmail.com instagram: @_dreamAndFly</span>
