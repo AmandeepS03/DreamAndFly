@@ -13,8 +13,7 @@
 		<%@include file="../Header.jsp" %>
 		</div>
 		<div class="v9_161">
-			<span class="v9_162">CONTATTI cellulare: 3203265329 e-mail:
-				dreamandfly@gmail.com instagram: @_dreamAndFly</span>
+			<%@include file="../Footer.jsp" %>
 		</div>
 		<div class="v9_163">
 			<div class="v9_164">
