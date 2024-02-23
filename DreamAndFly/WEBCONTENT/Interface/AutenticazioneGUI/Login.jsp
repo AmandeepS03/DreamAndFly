@@ -10,9 +10,8 @@
 </head>
 <body>
 		<%@ include file="../Header.jsp" %>
-		<div class="v8_40">
-			<span class="v8_42">CONTATTI cellulare: 3203265329 e-mail:
-				dreamandfly@gmail.com instagram: @_dreamAndFly</span>
+		<div class="v8_40">					
+	<%@ include file="../Footer.jsp" %>	
 		</div>
 		<div class="v8_43">
 			<span class="v8_44">LOGIN</span><span class="v8_45">E-mail</span>
