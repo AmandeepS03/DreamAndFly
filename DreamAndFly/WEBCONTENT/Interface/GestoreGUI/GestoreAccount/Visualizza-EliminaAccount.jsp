@@ -11,8 +11,7 @@
 <body>
 	<%@ include file="../../Header.jsp" %>
 		<div class="v35_165">
-			<span class="v35_166">CONTATTI cellulare: 3203265329 e-mail:
-				dreamandfly@gmail.com instagram: @_dreamAndFly</span>
+			<%@ include file="../../Footer.jsp" %>	
 		</div>
 		<div class="v35_167">
 			<span class="v35_168">Visualizza/Elimina account</span>
