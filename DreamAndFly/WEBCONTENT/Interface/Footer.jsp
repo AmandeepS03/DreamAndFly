@@ -13,14 +13,14 @@
 	<div class="v78_3">
 		<h4 id="footerContatti">CONTATTI</h4>
 		<p>
-			<i class="fas fa-phone icon"></i> 3495782165
+			<i class="fas fa-phone icon"></i> 3203265329
 		</p>
 		<p>
-			<i class="far fa-envelope icon"></i> Dream&amp;Fly@gmail.com
+			<i class="far fa-envelope icon"></i> dream&amp;fly@gmail.com
 		</p>
 		<div class="social-media-icons">
 			<p>
-				<i class="fab fa-instagram"></i> @Dream&amp;Fly
+				<i class="fab fa-instagram"></i> @_dream&amp;Fly
 			</p>
 			<p>
 				<i class="fab fa-facebook"></i> Dream &amp; Fly

@@ -39,31 +39,6 @@
 			<br> <br><a href="">Password dimenticata?</a>
 		</section>
 		</section>
-			<%-- <span class="v8_44">LOGIN</span><span class="v8_45">E-mail</span>
-			<form method="post" action="/PackAndTravel/LoginServlet" id="formLogin">
-				<div class="form-group">
-					<label for="email">Email:</label> <input type="email" id="email"
-						name="email" required>
-				</div>
-				<div class="form-group">
-					<label for="password">Password:</label> <input type="password"
-						id="password" name="password" required>
-				</div>
-				
-			<p  style="color:red "> <%=error %> </p>
-				
-				
-
-				<button type="submit" onclick="errorLogin()">Accedi</button>
-			</form>
-		<!-- 	<div class="v8_46"></div>
-			<span class="v8_47">Password</span>
-			<div class="v8_48"></div>
-			<span class="v8_49">Non hai un account? Registrati!</span><span
-				class="v8_50">Password dimenticata?</span>
-			<div class="v8_51">
-				<span class="v8_52">Login</span>
-			</div> --> --%>
 		</div>
 	
 </body>
