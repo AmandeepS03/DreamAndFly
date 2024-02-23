@@ -17,7 +17,7 @@ body {
 }
 .v8_212 {
   width: 594px;
-  height: 462px;
+  height: 350px;
   background: rgba(234,234,234,1);
   opacity: 1;
   position: absolute;
@@ -29,13 +29,10 @@ body {
   width: 290px;
   color: rgba(0,0,0,1);
   position: absolute;
-  top: 126px;
-  left: 152px;
-  font-family: Inter;
   font-weight: Regular;
-  font-size: 24px;
   opacity: 1;
-  text-align: left;
+  text-align: center;
+  margin-left:25%;
 }
 .v8_214 {
   width: 194px;
@@ -48,4 +45,14 @@ body {
   font-size: 24px;
   opacity: 1;
   text-align: left;
+}
+a{
+	color: #000000;
+	    text-decoration: none;
+
+}
+a:hover{
+	color: #5d5d5d;
+	    text-decoration: none;
+
 }

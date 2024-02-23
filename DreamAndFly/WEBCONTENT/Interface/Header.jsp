@@ -39,7 +39,7 @@
          
          
       </div></div>
-	 <div class="v68_30"></div>
+	  <a href="<%=request.getContextPath() %>/Interface/Homepage.jsp"> <div class="v68_30"></div></a>
 	
 	
    

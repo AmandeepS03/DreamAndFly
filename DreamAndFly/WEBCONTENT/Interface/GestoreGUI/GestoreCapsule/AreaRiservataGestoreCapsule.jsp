@@ -14,9 +14,15 @@
 			<%@ include file="../../Footer.jsp" %>	
 		</div>
 		<div class="v8_212">
-			<span class="v8_213">Registrazione capsula Visualizza capsule
-				Modifica disponibilità Modifica prezzo orario Prolunga disponibilità</span><span
-				class="v8_214">AREA RISERVATA</span>
+		<div class="v8_213">
+			<h1>AREA RISERVATA</h1>
+			<br>
+			<a href="<%=request.getContextPath() %>/Interface/GestoreGUI/GestoreCapsule/RegistraCapsula.jsp"><h2>Registrazione capsula</h2> </a>
+			<a href="<%=request.getContextPath() %>/Interface/GestoreGUI/GestoreCapsule/VisualizzaCapsule.jsp"><h2>Visualizza capsule</h2></a>
+			<a href="<%=request.getContextPath() %>/Interface/GestoreGUI/GestoreCapsule/ModificaDisponibilità.jsp"><h2>Modifica disponibilità</h2></a>
+			<a href="<%=request.getContextPath() %>/Interface/GestoreGUI/GestoreCapsule/ModificaPrezzo.jsp"><h2> Modifica prezzo orario</h2>  </a>
+			<a href="<%=request.getContextPath() %>/Interface/GestoreGUI/GestoreCapsule/ProlungaDisponibilità.jsp"><h2>Prolunga disponibilità</h2></a>
+			</div>
 		</div>
 
 </body>
