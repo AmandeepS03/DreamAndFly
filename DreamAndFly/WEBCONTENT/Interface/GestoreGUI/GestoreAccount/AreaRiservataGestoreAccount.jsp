@@ -12,7 +12,8 @@
 <body>
 	<div class="v8_216">
 		<div class="v8_217">
-			<%@include file="../../Footer.jsp" %>
+
+			<%@ include file="../../Footer.jsp" %>	
 		</div>
 		<%@ include file="../../Header.jsp" %>
 		<div class="v8_225">

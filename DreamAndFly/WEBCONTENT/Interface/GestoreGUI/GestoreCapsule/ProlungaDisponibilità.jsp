@@ -12,8 +12,7 @@
 	<div class="v65_3">
 		<%@ include file="../../Header.jsp" %>
 		<div class="v65_10">
-			<span class="v65_11">CONTATTI cellulare: 3203265329 e-mail:
-				dreamandfly@gmail.com instagram: @_dreamAndFly</span>
+			<%@ include file="../../Footer.jsp" %>	
 		</div>
 		<div class="v65_12">
 			<span class="v65_13">Prolunga disponibilità</span>

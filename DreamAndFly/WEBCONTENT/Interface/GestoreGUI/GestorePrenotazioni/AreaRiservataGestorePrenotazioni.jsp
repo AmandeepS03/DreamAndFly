@@ -17,7 +17,8 @@
 		</div>
 		<%@ include file="../../Header.jsp" %>
 		<div class="v8_238">
-			<%@include file="../../Footer.jsp" %>
+
+			<%@ include file="../../Footer.jsp" %>	
 		</div>
 	</div>
 </body>
