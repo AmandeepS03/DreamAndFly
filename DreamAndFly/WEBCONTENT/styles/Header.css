@@ -26,31 +26,11 @@ body {
   top: 0px;
   left: 0px;
   overflow: hidden;
+  display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
 }
-.v68_28 {
-  width: 80px;
-  color: rgba(255,255,255,1);
-  position: absolute;
-  top: 176px;
-  left: 1322px;
-  font-family: Inter;
-  font-weight: Regular;
-  font-size: 24px;
-  opacity: 1;
-  text-align: center;
-}
-.v68_29 {
-  width: 133px;
-  color: rgba(255,255,255,1);
-  position: absolute;
-  top: 176px;
-  left: 1164px;
-  font-family: Inter;
-  font-weight: Regular;
-  font-size: 24px;
-  opacity: 1;
-  text-align: center;
-}
+
 .v68_30 {
   width: 197px;
   height: 205px;
@@ -64,15 +44,24 @@ body {
   left: 69px;
   overflow: hidden;
 }
-.v68_31 {
-  width: 159px;
-  color: rgba(255,255,255,1);
-  position: absolute;
-  top: 176px;
-  left: 980px;
-  font-family: Inter;
-  font-weight: Regular;
-  font-size: 24px;
-  opacity: 1;
-  text-align: center;
+
+.icons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Posiziona le icone all'estrema destra */
+  margin: 10px;
+
+}
+
+.icons a {
+  color: #fff; /* Colore delle icone */
+  font-size: 20px;
+  margin-left: 10px;
+  text-decoration: none;
+   
+ 
+}
+
+.icons a:hover {
+  color: black; /* Imposta il colore delle icone quando sono attive */
 }
