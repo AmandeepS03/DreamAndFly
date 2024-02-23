@@ -8,29 +8,6 @@
 <link href="<%=request.getContextPath() %>/styles/LeMiePrenotazioni.css" rel="stylesheet" />
 <title>Le mie prenotazioni</title>
 
-<style>
-		caption{
-			border: 2px solid #dddddd;
-			font-weight: bold;
-			background-color: #A1C9E6;
-            font-size: 1.2em;
-		}
-        table {
-            border-collapse: collapse;
-            width: 80%;
-        }
-
-        th, td {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-
-        th {
-            background-color: #f2f2f2;
-            padding: 10px;
-        }
-    </style>
 
 </head>
 <body>
@@ -38,7 +15,8 @@
 	
 	
 	<!-- tabella -->
-		<div class="v76_4">
+		
+		<div class="table-container">
 			<table >
 			<caption> Le mie prenotazioni </caption>  
 			<thead>
