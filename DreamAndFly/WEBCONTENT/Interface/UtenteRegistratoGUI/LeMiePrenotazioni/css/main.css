@@ -1,0 +1,123 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  font-size: 14px;
+}
+.v76_3 {
+  width: 100%;
+  height: 1024px;
+  background: rgba(255,255,255,1);
+  opacity: 1;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+}
+.v76_4 {
+  width: 100%;
+  height: 148px;
+  background: url("../images/v76_4.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  position: absolute;
+  top: 393px;
+  left: 84px;
+  overflow: hidden;
+}
+.v76_5 {
+  width: 100%;
+  height: 230px;
+  background: rgba(161,201,230,1);
+  opacity: 1;
+  position: absolute;
+  top: 794px;
+  left: 0px;
+  overflow: hidden;
+}
+.v76_6 {
+  width: 365px;
+  color: rgba(255,255,255,1);
+  position: absolute;
+  top: 38px;
+  left: 538px;
+  font-family: Inter;
+  font-weight: Regular;
+  font-size: 24px;
+  opacity: 1;
+  text-align: center;
+}
+.v76_7 {
+  width: 100%;
+  height: 222px;
+  background: url("../images/v76_7.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+}
+.v76_8 {
+  width: 100%;
+  height: 222px;
+  background: rgba(21,120,193,0.4000000059604645);
+  opacity: 1;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+}
+.v76_9 {
+  width: 80px;
+  color: rgba(255,255,255,1);
+  position: absolute;
+  top: 176px;
+  left: 1322px;
+  font-family: Inter;
+  font-weight: Regular;
+  font-size: 24px;
+  opacity: 1;
+  text-align: center;
+}
+.v76_10 {
+  width: 133px;
+  color: rgba(255,255,255,1);
+  position: absolute;
+  top: 176px;
+  left: 1164px;
+  font-family: Inter;
+  font-weight: Regular;
+  font-size: 24px;
+  opacity: 1;
+  text-align: center;
+}
+.v76_11 {
+  width: 197px;
+  height: 205px;
+  background: url("../images/v76_11.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  position: absolute;
+  top: 8px;
+  left: 69px;
+  overflow: hidden;
+}
+.v76_12 {
+  width: 222px;
+  color: rgba(255,255,255,1);
+  position: absolute;
+  top: 176px;
+  left: 918px;
+  font-family: Inter;
+  font-weight: Regular;
+  font-size: 24px;
+  opacity: 1;
+  text-align: center;
+}
