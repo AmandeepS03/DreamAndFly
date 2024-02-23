@@ -3,13 +3,29 @@
 <head>
 <link href="https://fonts.googleapis.com/css?family=Inter&display=swap"
 	rel="stylesheet" />
-<link rel="stylesheet" href="<%=request.getContextPath() %>/styles/Footer.css">
-<title>Document</title>
+<link rel="stylesheet"
+	href="<%=request.getContextPath() %>/styles/Footer.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<title>Footer</title>
 </head>
 <body>
 	<div class="v78_3">
-		<span class="v78_4">CONTATTI cellulare: 3203265329 e-mail:
-			dreamandfly@gmail.com instagram: @_dreamAndFly</span>
+		<h4 id="footerContatti">CONTATTI</h4>
+		<p>
+			<i class="fas fa-phone icon"></i> 3495782165
+		</p>
+		<p>
+			<i class="far fa-envelope icon"></i> Dream&amp;Fly@gmail.com
+		</p>
+		<div class="social-media-icons">
+			<p>
+				<i class="fab fa-instagram"></i> @Dream&amp;Fly
+			</p>
+			<p>
+				<i class="fab fa-facebook"></i> Dream &amp; Fly
+			</p>
+		</div>
 	</div>
 </body>
 </html>
