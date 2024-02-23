@@ -12,8 +12,11 @@
 <title></title>
 </head>
 <body>
- 	<div class="v68_26">
- 	 <div class="v68_27">
+<header class="header">
+ 	<div class="logo">
+ 	      <a href="<%=request.getContextPath() %>/Interface/Homepage.jsp"><img src="<%=request.getContextPath() %>/images/logo.png" alt="Logo"> </a>
+ 	
+	</div>
 	 <div class="icons">  
         
          
@@ -38,8 +41,8 @@
          	
          
          
-      </div></div>
-	  <a href="<%=request.getContextPath() %>/Interface/Homepage.jsp"> <div class="v68_30"></div></a>
+      </div>
+	  
 	
 	
    
@@ -50,7 +53,7 @@
 			utente</span>
 		<div class="v68_30"></div>
 		<span class="v68_31">Area riservata</span> -->
-</div> 
-	 
+ 
+	 </header>
 </body>
 </html>

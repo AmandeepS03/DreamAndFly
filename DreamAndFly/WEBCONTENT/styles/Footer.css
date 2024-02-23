@@ -1,35 +1,14 @@
-* {
-  box-sizing: border-box;
-}
-body {
-  font-size: 14px;
-}
-.v78_3 {
-  width: 100%;
-  height: 230px;
-  background: rgba(161,201,230,1);
-  opacity: 1;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  overflow: hidden;
+
+/* Stili comuni per il footer */
+.footer {
+   background-color: rgba(21,120,193,0.4000000059604645);;
    padding: 10px;
    text-align: center;
    font-size: 14px;
    color: #fff;
+   
 }
-.v78_4 {
-  width: 365px;
-  color: rgba(255,255,255,1);
-  position: absolute;
-  top: 38px;
-  left: 538px;
-  font-family: Inter;
-  font-weight: Regular;
-  font-size: 24px;
-  opacity: 1;
-  text-align: center;
-}
+
 #footerContatti {
    margin-bottom: 10px;
    color: #fff;
@@ -69,5 +48,22 @@ body {
 .footer .social-media-icons a:hover {
    color: #ccc;
 }
+
+/* Stili specifici per schermi più piccoli (responsive) */
+@media screen and (max-width: 768px) {
+   .footer {
+      font-size: 12px;
+     margin-bottom: 0px;
+   }
+
+   .footer .social-media-icons a {
+      font-size: 16px;
+   }
+   
+   div{
+	   width: 100%;
+   }
+}
+
 
 

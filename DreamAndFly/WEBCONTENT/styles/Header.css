@@ -3,6 +3,7 @@
 }
 body {
   font-size: 14px;
+  margin:0px;
 }
 .v68_26 {
   width: 100%;
@@ -64,4 +65,28 @@ body {
 
 .icons a:hover {
   color: black; /* Imposta il colore delle icone quando sono attive */
+}
+
+
+.logo {
+  flex-grow: 1;
+  text-align: center;
+  margin-left:65px;
+  display: flex;
+}
+.header {
+  background-color: rgba(21,120,193,0.4000000059604645); /* Colore di sfondo */
+  color: #fff; /* Colore del testo */
+  text-align: center;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 222px;
+}
+
+
+.logo img {
+  width: 222px; /* Dimensione del logo */
+  max-width: 100%;
 }
