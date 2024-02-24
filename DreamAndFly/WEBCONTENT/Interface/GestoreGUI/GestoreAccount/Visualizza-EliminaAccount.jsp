@@ -10,13 +10,11 @@
 </head>
 <body>
 	<%@ include file="../../Header.jsp" %>
-		<div class="v35_165">
-			<%@ include file="../../Footer.jsp" %>	
-		</div>
+		
 		<div class="v35_167">
-			<span class="v35_168">Visualizza/Elimina account</span>
+			<p class="titolo">Visualizza/Elimina account</p>
 		</div>
-		<div class="v35_171"></div>
+		
 		<div class="v35_177">
 			<div class="v35_174"></div>
 			<div class="v35_175">
@@ -25,4 +23,5 @@
 		</div>
 	
 </body>
+<%@ include file="../../Footer.jsp" %>	
 </html>

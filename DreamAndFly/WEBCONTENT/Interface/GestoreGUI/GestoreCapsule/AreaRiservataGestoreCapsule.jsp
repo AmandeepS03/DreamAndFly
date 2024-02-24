@@ -10,9 +10,7 @@
 </head>
 <body>
 	<%@ include file="../../Header.jsp" %>
-		<div class="v8_209">
-			<%@ include file="../../Footer.jsp" %>	
-		</div>
+	
 		<div class="v8_212">
 		<div class="v8_213">
 			<h1>AREA RISERVATA</h1>
@@ -26,4 +24,5 @@
 		</div>
 
 </body>
+<%@ include file="../../Footer.jsp" %>	
 </html>

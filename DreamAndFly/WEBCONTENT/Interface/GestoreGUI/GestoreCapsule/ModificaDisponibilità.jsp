@@ -10,11 +10,10 @@
 </head>
 <body>
 	<%@ include file="../../Header.jsp" %>
-		<div class="v32_12">
-			<%@ include file="../../Footer.jsp" %>	
-		</div>
-		<div class="v32_14"></div>
-		<span class="v32_15">Modifica disponibilità</span>
+	
+		<div class="v32_14">
+		<p class="titolo">Modifica disponibilità</p></div>
+		
 		<div class="v32_16">
 			<span class="v32_17">Numero:</span>
 			<div class="v32_18"></div>
@@ -35,4 +34,5 @@
 			</div>
 		</div>
 </body>
+<%@ include file="../../Footer.jsp" %>	
 </html>

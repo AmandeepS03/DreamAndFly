@@ -1,304 +1,74 @@
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
+
 body {
-  font-size: 14px;
-  font-family: Arial, sans-serif;
+	font-size: 14px;
+	font-family: Arial, sans-serif;
 }
-.v8_101 {
-  width: 100%;
-  height: 1024px;
-  background: rgba(255,255,255,1);
-  opacity: 1;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  overflow: hidden;
-}
-.v8_107 {
-  width: 100%;
-  height: 222px;
-  background: rgba(161,201,230,1);
-  opacity: 1;
-  position: absolute;
-  top: 802px;
-  left: 0px;
-  overflow: hidden;
-}
+
 .v8_125 {
-  width: 412px;
-  background: rgba(234,234,234,1);
-  opacity: 1;
-  overflow: hidden;
-  position: relative; /* Utilizza il posizionamento relativo */
-  margin: 0 auto;
-  margin-top:20px;
-  margin-bottom:20px;
-  padding: 20px;
-  top: 50%; /* Sposta il div verso il basso del 50% rispetto al suo contenitore */
+	width: 412px;
+	background: rgba(234, 234, 234, 1);
+	opacity: 1;
+	overflow: hidden;
+	position: relative; /* Utilizza il posizionamento relativo */
+	margin: 0 auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding: 20px;
+	top: 50%;
+	/* Sposta il div verso il basso del 50% rispetto al suo contenitore */
 }
-.v8_128 {
-  width: 148px;
-  color: rgba(255,255,255,1);
-  position: absolute;
-  top: 210px;
-  left: 132px;
-  font-family: Inter;
-  font-weight: Regular;
-  font-size: 24px;
-  opacity: 1;
-  text-align: left;
-}
-.v8_129 {
-  width: 98px;
-  color: rgba(0,0,0,1);
-  position: absolute;
-  top: 246px;
-  left: 54px;
-  font-family: Inter;
-  font-weight: Regular;
-  font-size: 20px;
-  opacity: 1;
-  text-align: left;
-}
-.v8_130 {
-  width: 317px;
-  height: 35px;
-  background: rgba(255,255,255,1);
-  opacity: 1;
-  position: absolute;
-  top: 279px;
-  left: 47px;
-  overflow: hidden;
-}
-.v8_131 {
-  width: 196px;
-  color: rgba(0,0,0,1);
-  position: absolute;
-  top: 324px;
-  left: 54px;
-  font-family: Inter;
-  font-weight: Regular;
-  font-size: 20px;
-  opacity: 1;
-  text-align: left;
-}
-.v8_132 {
-  width: 317px;
-  height: 35px;
-  background: rgba(255,255,255,1);
-  opacity: 1;
-  position: absolute;
-  top: 358px;
-  left: 47px;
-  overflow: hidden;
-}
-.v8_133 {
-  width: 88px;
-  color: rgba(0,0,0,1);
-  position: absolute;
-  top: 403px;
-  left: 56px;
-  font-family: Inter;
-  font-weight: Regular;
-  font-size: 20px;
-  opacity: 1;
-  text-align: left;
-}
-.v8_134 {
-  width: 317px;
-  height: 35px;
-  background: rgba(255,255,255,1);
-  opacity: 1;
-  position: absolute;
-  top: 437px;
-  left: 47px;
-  overflow: hidden;
-}
-.v8_135 {
-  width: 139px;
-  height: 30px;
-  background: rgba(161,201,230,1);
-  opacity: 1;
-  position: absolute;
-  top: 492px;
-  left: 136px;
-  overflow: hidden;
-}
-.v8_136 {
-  width: 44px;
-  color: rgba(255,255,255,1);
-  position: absolute;
-  top: 3px;
-  left: 47px;
-  font-family: Inter;
-  font-weight: Regular;
-  font-size: 20px;
-  opacity: 1;
-  text-align: left;
-}
-.v8_137 {
-  width: 299px;
-  height: 158px;
-  background: rgba(234,234,234,1);
-  opacity: 1;
-  position: absolute;
-  top: 43px;
-  left: 44px;
-  overflow: hidden;
-}
-.v8_127 {
-  width: 283px;
-  color: rgba(0,0,0,1);
-  position: absolute;
-  top: 42px;
-  left: 0px;
-  font-family: Inter;
-  font-weight: Regular;
-  font-size: 20px;
-  opacity: 1;
-  text-align: left;
-}
-.v8_126 {
-  width: 109px;
-  color: rgba(255,255,255,1);
-  position: absolute;
-  top: 37px;
-  left: 152px;
-  font-family: Inter;
-  font-weight: Regular;
-  font-size: 24px;
-  opacity: 1;
-  text-align: center;
-}
+
 .user-info {
-      padding: 20px;
-      border-radius: 5px;
-      margin: 20px;
-    }
-
-    .user-info h2 {
-      margin-top: 0;
-      text-align:center;
-    }
-
-    .user-info p {
-      margin-bottom: 10px;
-    }
-
-    .user-info strong {
-      font-weight: bold;
-    }
-    
-
-    .input-container {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 10px;
-    }
-
-  input[type="text"],input[type="password"] {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #cccccc;
+	padding: 20px;
+	border-radius: 5px;
+	margin: 20px;
 }
-    
-    fieldset {
-    border: 1px solid #74aeda; /* Imposta il bordo a 1 pixel di spessore e il colore del bordo a #26838b */
-    border-radius: 5px; /*Imposta un bordo arrotondato */
-  }
 
-form{
-	margin:20px;
+.user-info h2 {
+	margin-top: 0;
+	text-align: center;
 }
-    
+
+.user-info p {
+	margin-bottom: 10px;
+}
+
+.user-info strong {
+	font-weight: bold;
+}
+
+.input-container {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 10px;
+}
+
+input[type="text"], input[type="password"] {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #cccccc;
+}
+
+fieldset {
+	border: 1px solid #74aeda;
+	/* Imposta il bordo a 1 pixel di spessore e il colore del bordo a #26838b */
+	border-radius: 5px; /*Imposta un bordo arrotondato */
+}
+
+form {
+	margin: 20px;
+}
+
 button {
- width: 50%;
-  padding: 8px;
-  margin-left: 25%;
-  font-size: 16px;
-   background-color:rgba(161,201,230,1);
-  color: #ffffff;
-  border: none;
-  cursor: pointer;
+	width: 50%;
+	padding: 8px;
+	margin-left: 25%;
+	font-size: 16px;
+	background-color: rgba(161, 201, 230, 1);
+	color: #ffffff;
+	border: none;
+	cursor: pointer;
 }
-
-
-/* @charset "ISO-8859-1";
- body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      
-    }
-
-    h1 {
-      margin-bottom: 20px;
-      text-align:center;
-    }
-
-    .user-info {
-      background-color: #f5f5f5;
-      padding: 20px;
-      border-radius: 5px;
-      margin: 20px;
-    }
-
-    .user-info h2 {
-      margin-top: 0;
-    }
-
-    .user-info p {
-      margin-bottom: 10px;
-    }
-
-    .user-info strong {
-      font-weight: bold;
-    }
-
-    
-
-    .input-container {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 10px;
-    }
-
-    .input-container input[type="password"] {
-      margin-bottom: 5px;
-    }
-    
-    fieldset {
-    border: 1px solid #26838b; Imposta il bordo a 1 pixel di spessore e il colore del bordo a #26838b
-    border-radius: 5px; Imposta un bordo arrotondato
-  }
-
-form{
-	margin:20px;
-}
-
-
-
-#i_miei_ordini{
-	text-align: left;
-	margin-left:20px;
-}
-
-Aggiungi stile al link "I miei ordini"
-#i_miei_ordini a {
-  color: #26838b;
-  text-decoration: none;
-  padding: 5px 10px;
-  border: 1px solid #26838b;
-  border-radius: 5px;
-  transition: background-color 0.3s ease-in-out;
-  font-size: x-large;
-}
-
-#i_miei_ordini a:hover {
-  background-color: #26838b;
-  color: #fff;
-}
-
-
- */

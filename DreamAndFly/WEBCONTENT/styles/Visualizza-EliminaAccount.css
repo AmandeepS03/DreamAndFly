@@ -4,50 +4,25 @@
 body {
   font-size: 14px;
 }
-
-.v35_165 {
-  width: 100%;
-  height: 230px;
-  background: rgba(161,201,230,1);
-  opacity: 1;
-  position: absolute;
-  top: 794px;
-  left: 0px;
-  overflow: hidden;
-}
 .v35_167 {
   width: 953px;
   height: 77px;
   background: rgba(234,234,234,1);
   opacity: 1;
-  position: absolute;
-  top: 289px;
-  left: 244px;
-  overflow: hidden;
+   position: relative; /* Utilizza il posizionamento relativo */
+  margin: 0 auto;
+  margin-top:20px;
+  margin-bottom:20px;
+  top: 50%; /* Sposta il div verso il basso del 50% rispetto al suo contenitore */
+     align-items: center;
+    justify-content: center;
+    display: flex;
 }
-.v35_168 {
-  width: 467px;
-  color: rgba(0,0,0,1);
-  position: absolute;
-  top: 17px;
-  left: 243px;
-  font-family: Inter;
+.titolo{
+
   font-weight: Semi Bold;
   font-size: 36px;
-  opacity: 1;
-  text-align: center;
-}
-.v35_171 {
-  width: 953px;
-  height: 202px;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
-  opacity: 1;
-  position: absolute;
-  top: 457px;
-  left: 244px;
-  overflow: hidden;
+	
 }
 .v35_177 {
   width: 552px;
@@ -56,10 +31,11 @@ body {
   background-position: center center;
   background-size: cover;
   opacity: 1;
-  position: absolute;
-  top: 390px;
-  left: 444px;
-  overflow: hidden;
+   position: relative; /* Utilizza il posizionamento relativo */
+  margin: 0 auto;
+  margin-top:20px;
+  margin-bottom:20px;
+  top: 50%; /* Sposta il div verso il basso del 50% rispetto al suo contenitore */
 }
 .v35_174 {
   width: 552px;

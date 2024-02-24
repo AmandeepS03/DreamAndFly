@@ -9,13 +9,12 @@
 <title>Modifica Prezzo</title>
 </head>
 <body>
-	<div class="v34_80">
-		<div class="v34_81">
-			<%@ include file="../../Footer.jsp" %>	
-		</div>
-		<%@ include file="../../Header.jsp" %>
+<%@ include file="../../Header.jsp" %>
+	
+	
+		
 		<div class="v34_91">
-			<span class="v34_92">Modifica prezzo</span>
+			<p class="titolo">Modifica prezzo</p>
 		</div>
 		<div class="v34_93">
 			<span class="v34_94">Numero:</span>
@@ -26,6 +25,7 @@
 				<span class="v34_99">Salva</span>
 			</div>
 		</div>
-	</div>
+
 </body>
+<%@ include file="../../Footer.jsp" %>	
 </html>

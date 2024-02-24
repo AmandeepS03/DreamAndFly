@@ -10,7 +10,8 @@
 <title>Area Riservata</title>
 </head>
 <body>
-	<div class="v8_228">
+<%@ include file="../../Header.jsp" %>
+	
 		<div class="v8_229">
 			<div class="v8_230">
 			<h1>AREA RISERVATA</h1>
@@ -18,11 +19,8 @@
 			<a href="<%=request.getContextPath() %>/Interface/GestoreGUI/GestorePrenotazioni/VisualizzaPrenotazioniGestore.jsp"><h2>Visualizza prenotazioni</h2> </a>
 			</div>
 		</div>
-		<%@ include file="../../Header.jsp" %>
-		<div class="v8_238">
-
-			<%@ include file="../../Footer.jsp" %>	
-		</div>
-	</div>
+		
+		
 </body>
+<%@ include file="../../Footer.jsp" %>	
 </html>

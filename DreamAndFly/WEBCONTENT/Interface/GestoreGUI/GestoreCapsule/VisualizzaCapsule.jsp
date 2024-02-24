@@ -9,15 +9,14 @@
 <title>Visualizza Capsule</title>
 </head>
 <body>
-	<div class="v34_143">
-		<div class="v34_144">
-			<%@ include file="../../Footer.jsp" %>	
-		</div>
-		<%@ include file="../../Header.jsp" %>
+<%@ include file="../../Header.jsp" %>
+	
+		
 		<div class="v34_152">
-			<span class="v34_153">Visualizza capsule</span>
+			<p class="titolo">Visualizza capsule</p>
 		</div>
-		<div class="v35_157"></div>
-	</div>
+
+	
 </body>
+<%@ include file="../../Footer.jsp" %>	
 </html>

@@ -4,57 +4,38 @@
 body {
   font-size: 14px;
 }
-.v65_3 {
-  width: 100%;
-  height: 1024px;
-  background: rgba(255,255,255,1);
-  opacity: 1;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  overflow: hidden;
-}
-.v65_10 {
-  width: 100%;
-  height: 230px;
-  background: rgba(161,201,230,1);
-  opacity: 1;
-  position: absolute;
-  top: 794px;
-  left: 0px;
-  overflow: hidden;
-}
+
+
 .v65_12 {
   width: 953px;
   height: 77px;
   background: rgba(234,234,234,1);
   opacity: 1;
-  position: absolute;
-  top: 289px;
-  left: 244px;
-  overflow: hidden;
+   position: relative; /* Utilizza il posizionamento relativo */
+  margin: 0 auto;
+  margin-top:20px;
+  margin-bottom:20px;
+  top: 50%; /* Sposta il div verso il basso del 50% rispetto al suo contenitore */
+      align-items: center;
+    justify-content: center;
+    display: flex;
 }
-.v65_13 {
-  width: 377px;
-  color: rgba(0,0,0,1);
-  position: absolute;
-  top: 17px;
-  left: 288px;
-  font-family: Inter;
+.titolo{
+
   font-weight: Semi Bold;
   font-size: 36px;
-  opacity: 1;
-  text-align: center;
+	
 }
 .v65_14 {
   width: 953px;
   height: 245px;
   background: rgba(234,234,234,1);
   opacity: 1;
-  position: absolute;
-  top: 433px;
-  left: 244px;
-  overflow: hidden;
+    position: relative; /* Utilizza il posizionamento relativo */
+  margin: 0 auto;
+  margin-top:20px;
+  margin-bottom:20px;
+  top: 50%; /* Sposta il div verso il basso del 50% rispetto al suo contenitore */
 }
 .v65_15 {
   width: 97px;

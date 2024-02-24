@@ -9,13 +9,12 @@
 <title>Prolunga Disponibilità</title>
 </head>
 <body>
-	<div class="v65_3">
-		<%@ include file="../../Header.jsp" %>
-		<div class="v65_10">
-			<%@ include file="../../Footer.jsp" %>	
-		</div>
+<%@ include file="../../Header.jsp" %>
+	
+		
+		
 		<div class="v65_12">
-			<span class="v65_13">Prolunga disponibilità</span>
+			<p class="titolo">Prolunga disponibilità</p>
 		</div>
 		<div class="v65_14">
 			<span class="v65_15">Numero:</span>
@@ -31,6 +30,7 @@
 				<div class="name"></div>
 			</div>
 		</div>
-	</div>
+	
 </body>
+<%@ include file="../../Footer.jsp" %>	
 </html>
