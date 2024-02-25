@@ -17,13 +17,24 @@
 			<p class="titolo">Modifica prezzo</p>
 		</div>
 		<div class="v34_93">
-			<span class="v34_94">Numero:</span>
-			<div class="v34_95"></div>
-			<span class="v34_96">Prezzo/h:</span>
-			<div class="v34_97"></div>
-			<div class="v34_98">
-				<span class="v34_99">Salva</span>
+			<form action="" method="post">
+			<!-- Form con label e input type su due righe -->
+			<div class="container">
+				<div>
+					<label for="numero">Numero:</label><br> <input type="text"
+						id="numero" name="numero">
+				</div>
+				<div>
+					<label for="prezzo">Prezzo/h:</label><br> <input type="text"
+						id="prezzo" name="prezzo">
+				</div>
+				<div class="buttonContainer">
+				<button type="submit" >Salva</button>
+				</div>
 			</div>
+
+		</form>
+
 		</div>
 
 </body>

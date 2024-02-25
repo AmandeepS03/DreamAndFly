@@ -13,7 +13,7 @@ body {
   opacity: 1;
    position: relative; /* Utilizza il posizionamento relativo */
   margin: 0 auto;
-  margin-top:20px;
+  margin-top:30px;
   margin-bottom:20px;
   top: 50%; /* Sposta il div verso il basso del 50% rispetto al suo contenitore */
       align-items: center;
@@ -34,72 +34,52 @@ body {
    position: relative; /* Utilizza il posizionamento relativo */
   margin: 0 auto;
   margin-top:20px;
-  margin-bottom:20px;
+  margin-bottom:70px;
   top: 50%; /* Sposta il div verso il basso del 50% rispetto al suo contenitore */
+  display:flex;
+      justify-content: center;
 }
-.v34_94 {
+
+
+.container{
+	display: flex; 
+	flex-direction: row;
+	padding:25px;
+}
+
+.container div{
+	margin-right:20px;
+}
+.container label{
   width: 97px;
   color: rgba(0,0,0,1);
-  position: absolute;
-  top: 38px;
-  left: 76px;
-  font-family: Inter;
+  
   font-weight: Regular;
   font-size: 24px;
   opacity: 1;
   text-align: center;
 }
-.v34_95 {
-  width: 127px;
-  height: 42px;
-  background: rgba(255,255,255,1);
-  opacity: 1;
-  position: absolute;
-  top: 81px;
-  left: 76px;
-  overflow: hidden;
+.container input[type="text"]{
+	height: 35px;
+	width:180px;
 }
-.v34_96 {
-  width: 107px;
-  color: rgba(0,0,0,1);
-  position: absolute;
-  top: 38px;
-  left: 292px;
-  font-family: Inter;
-  font-weight: Regular;
-  font-size: 24px;
-  opacity: 1;
-  text-align: center;
+.buttonContainer{
+	display:flex;
+	justify-content: center;
 }
-.v34_97 {
-  width: 127px;
-  height: 42px;
-  background: rgba(255,255,255,1);
-  opacity: 1;
-  position: absolute;
-  top: 81px;
-  left: 292px;
-  overflow: hidden;
+button {
+ height: fit-content;
+ width: 80px;
+  padding: 8px;
+  font-size: 16px;
+   background-color:rgba(161,201,230,1);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  align-self: center;
 }
-.v34_98 {
-  width: 170px;
-  height: 53px;
-  background: rgba(161,201,230,1);
-  opacity: 1;
-  position: absolute;
-  top: 75px;
-  left: 586px;
-  overflow: hidden;
+
+form{
+	align-self: center;
 }
-.v34_99 {
-  width: 62px;
-  color: rgba(255,255,255,1);
-  position: absolute;
-  top: 12px;
-  left: 54px;
-  font-family: Inter;
-  font-weight: Regular;
-  font-size: 24px;
-  opacity: 1;
-  text-align: left;
-}
+
