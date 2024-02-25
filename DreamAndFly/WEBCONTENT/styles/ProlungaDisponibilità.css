@@ -36,6 +36,8 @@ body {
   margin-top:20px;
   margin-bottom:20px;
   top: 50%; /* Sposta il div verso il basso del 50% rispetto al suo contenitore */
+   display:flex;
+      justify-content: center;
 }
 .v65_15 {
   width: 97px;
@@ -129,4 +131,36 @@ body {
 }
 .name {
   color: #fff;
+}
+.container{
+	display: flex; 
+	flex-direction: row;
+	padding:25px;
+}
+
+.container div{
+	margin-right:20px;
+}
+.container label{
+  width: 97px;
+  color: rgba(0,0,0,1);
+  
+  font-weight: Regular;
+  font-size: 24px;
+  opacity: 1;
+  text-align: center;
+}
+.container input[type="text"], select {
+	height: 35px;
+	width:180px;
+}
+button {
+ width: 50%;
+  padding: 8px;
+  margin-left: 25%;
+  font-size: 16px;
+   background-color:rgba(161,201,230,1);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
 }

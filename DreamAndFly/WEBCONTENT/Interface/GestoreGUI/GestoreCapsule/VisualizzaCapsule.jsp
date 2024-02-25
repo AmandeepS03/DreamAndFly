@@ -15,6 +15,25 @@
 		<div class="v34_152">
 			<p class="titolo">Visualizza capsule</p>
 		</div>
+		<table id="capsuleTable" border="1">
+		<caption></caption>
+
+		<tr>
+			<th>Numero</th>
+			<th>Tipologia</th>
+			<th>Prezzo/h</th>
+		
+
+		</tr>
+		<tr>
+
+			<td></td>
+			<td></td>
+			<td></td>
+			
+
+		</tr>
+	</table>
 
 	
 </body>
