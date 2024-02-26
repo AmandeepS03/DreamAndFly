@@ -12,9 +12,7 @@
 </head>
 <body>
 		<%@ include file="../Header.jsp" %>
-		<div class="v8_40">					
-	<%@ include file="../Footer.jsp" %>	
-		</div>
+	
 		<div class="v8_43">
 		   <section class="loginSection">      
 		<section class="login-section">
@@ -42,4 +40,5 @@
 		</div>
 	
 </body>
+<%@ include file="../Footer.jsp" %>
 </html>

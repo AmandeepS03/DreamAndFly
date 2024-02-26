@@ -9,11 +9,9 @@
 <title>Registra Capsula</title>
 </head>
 <body>
-	<div class="v8_240">
-		<div class="v8_241">
-			<%@ include file="../../Footer.jsp" %>	
-		</div>
-		<%@ include file="../../Header.jsp" %>
+<%@ include file="../../Header.jsp" %>
+	
+			<div class="v32_3"><p class="titolo">Registra capsula</p></div>
 		<div class="v8_249">
 			<span class="v8_250">Numero:</span>
 			<div class="v8_251"></div>
@@ -39,8 +37,9 @@
 				<span class="v26_5">Inserisci</span>
 			</div>
 		</div>
-		<div class="v32_3"></div>
-		<span class="v32_4">Registra capsula</span>
-	</div>
+	
+		
+	
 </body>
+<%@ include file="../../Footer.jsp" %>	
 </html>

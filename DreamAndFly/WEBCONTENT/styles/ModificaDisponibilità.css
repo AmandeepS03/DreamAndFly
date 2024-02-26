@@ -5,195 +5,68 @@ body {
   font-size: 14px;
 }
 
-.v32_12 {
-  width: 100%;
-  height: 230px;
-  background: rgba(161,201,230,1);
-  opacity: 1;
-  position: absolute;
-  top: 794px;
-  left: 0px;
-  overflow: hidden;
-}
+
 .v32_14 {
   width: 839px;
   height: 77px;
   background: rgba(234,234,234,1);
   opacity: 1;
-  position: absolute;
-  top: 300px;
-  left: 302px;
-  overflow: hidden;
+   position: relative; /* Utilizza il posizionamento relativo */
+  margin: 0 auto;
+  margin-top:20px;
+  margin-bottom:20px;
+  top: 50%; /* Sposta il div verso il basso del 50% rispetto al suo contenitore */
+      align-items: center;
+    justify-content: center;
+    display: flex;
 }
-.v32_15 {
-  width: 373px;
-  color: rgba(0,0,0,1);
-  position: absolute;
-  top: 317px;
-  left: 533px;
-  font-family: Inter;
+
+.titolo{
+
   font-weight: Semi Bold;
   font-size: 36px;
-  opacity: 1;
-  text-align: center;
+	
 }
 .v32_16 {
   width: 835px;
   height: 229px;
   background: rgba(234,234,234,1);
   opacity: 1;
-  position: absolute;
-  top: 437px;
-  left: 302px;
-  overflow: hidden;
+    position: relative; /* Utilizza il posizionamento relativo */
+  margin: 0 auto;
+  margin-top:20px;
+  margin-bottom:45px;
+  top: 50%; /* Sposta il div verso il basso del 50% rispetto al suo contenitore */
 }
-.v32_17 {
+.containerLabel{
+	display: flex; 
+	flex-direction: row;
+	padding:25px;
+}
+
+.containerLabel div{
+	margin-right:20px;
+}
+.containerLabel label{
   width: 97px;
   color: rgba(0,0,0,1);
-  position: absolute;
-  top: 30px;
-  left: 12px;
-  font-family: Inter;
+  
   font-weight: Regular;
   font-size: 24px;
   opacity: 1;
   text-align: center;
 }
-.v32_18 {
-  width: 87px;
-  height: 42px;
-  background: rgba(255,255,255,1);
-  opacity: 1;
-  position: absolute;
-  top: 76px;
-  left: 12px;
-  overflow: hidden;
+.containerLabel input[type="text"], select {
+	height: 35px;
+	width:180px;
 }
-.v32_19 {
-  width: 60px;
-  color: rgba(0,0,0,1);
-  position: absolute;
-  top: 30px;
-  left: 156px;
-  font-family: Inter;
-  font-weight: Regular;
-  font-size: 24px;
-  opacity: 1;
-  text-align: center;
-}
-.v32_20 {
-  width: 154px;
-  height: 42px;
-  background: rgba(255,255,255,1);
-  opacity: 1;
-  position: absolute;
-  top: 76px;
-  left: 156px;
-  overflow: hidden;
-}
-.v32_21 {
-  width: 152px;
-  color: rgba(0,0,0,1);
-  position: absolute;
-  top: 30px;
-  left: 354px;
-  font-family: Inter;
-  font-weight: Regular;
-  font-size: 24px;
-  opacity: 1;
-  text-align: center;
-}
-.v33_65 {
-  width: 225px;
-  height: 42px;
-  background: rgba(255,255,255,1);
-  opacity: 1;
-  position: absolute;
-  top: 76px;
-  left: 354px;
-  overflow: hidden;
-}
-.name {
-  color: #fff;
-}
-.name {
-  color: #fff;
-}
-.v33_70 {
-  width: 132px;
-  color: rgba(0,0,0,1);
-  position: absolute;
-  top: 30px;
-  left: 617px;
-  font-family: Inter;
-  font-weight: Regular;
-  font-size: 24px;
-  opacity: 1;
-  text-align: center;
-}
-.v33_72 {
-  width: 12px;
-  height: 12px;
-  background: rgba(255,255,255,1);
-  opacity: 1;
-  position: absolute;
-  top: 91px;
-  left: 623px;
-  border-radius: 50%;
-}
-.v33_74 {
-  width: 19px;
-  color: rgba(0,0,0,1);
-  position: absolute;
-  top: 80px;
-  left: 643px;
-  font-family: Inter;
-  font-weight: Regular;
-  font-size: 24px;
-  opacity: 1;
-  text-align: center;
-}
-.v33_75 {
-  width: 12px;
-  height: 12px;
-  background: rgba(255,255,255,1);
-  opacity: 1;
-  position: absolute;
-  top: 91px;
-  left: 683px;
-  border-radius: 50%;
-}
-.v33_77 {
-  width: 29px;
-  color: rgba(0,0,0,1);
-  position: absolute;
-  top: 80px;
-  left: 703px;
-  font-family: Inter;
-  font-weight: Regular;
-  font-size: 24px;
-  opacity: 1;
-  text-align: center;
-}
-.v33_78 {
-  width: 170px;
-  height: 53px;
-  background: rgba(161,201,230,1);
-  opacity: 1;
-  position: absolute;
-  top: 158px;
-  left: 345px;
-  overflow: hidden;
-}
-.v33_79 {
-  width: 62px;
-  color: rgba(255,255,255,1);
-  position: absolute;
-  top: 12px;
-  left: 54px;
-  font-family: Inter;
-  font-weight: Regular;
-  font-size: 24px;
-  opacity: 1;
-  text-align: left;
+button {
+ width: 50%;
+  padding: 8px;
+  margin-left: 25%;
+  font-size: 16px;
+   background-color:rgba(161,201,230,1);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
 }

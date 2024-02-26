@@ -10,7 +10,7 @@
 <title>Footer</title>
 </head>
 <body>
-	<div class="v78_3">
+		<footer class="footer">
 		<h4 id="footerContatti">CONTATTI</h4>
 		<p>
 			<i class="fas fa-phone icon"></i> 3203265329
@@ -26,6 +26,7 @@
 				<i class="fab fa-facebook"></i> Dream &amp; Fly
 			</p>
 		</div>
-	</div>
+</footer>
+
 </body>
 </html>

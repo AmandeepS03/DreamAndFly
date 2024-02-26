@@ -9,28 +9,42 @@
 <title>Prolunga Disponibilità</title>
 </head>
 <body>
-	<div class="v65_3">
-		<%@ include file="../../Header.jsp" %>
-		<div class="v65_10">
-			<%@ include file="../../Footer.jsp" %>	
-		</div>
+<%@ include file="../../Header.jsp" %>
+	
+		
+		
 		<div class="v65_12">
-			<span class="v65_13">Prolunga disponibilità</span>
+			<p class="titolo">Prolunga disponibilità</p>
 		</div>
 		<div class="v65_14">
-			<span class="v65_15">Numero:</span>
-			<div class="v65_16"></div>
-			<span class="v65_17">Data fine:</span><span class="v65_18">Orario
-				fine:</span>
-			<div class="v65_19"></div>
-			<div class="v65_20">
-				<span class="v65_21">Salva</span>
+			<form action="" method="post">
+			<!-- Form con label e input type su due righe -->
+			<div class="container">
+				<div>
+					<label for="numero">Numero:</label><br> <input type="text"
+						id="numero" name="numero">
+				</div>
+				<div>
+					<label for="data">Data fine:</label><br> <input type="text"
+						id="data" name="data">
+				</div>
+				<div>
+
+					<label for="orarioFine">Orario fine:</label><br> <select
+						class="inputField" id="orarioFine" name="orarioFine" required>
+						<option value="all">00:00-01:00</option>
+
+						<option value="example">example</option>
+
+					</select>
+				</div>
+				
 			</div>
-			<div class="v65_22">
-				<div class="name"></div>
-				<div class="name"></div>
-			</div>
+<button type="submit" >Salva</button>
+		</form>
+
 		</div>
-	</div>
+	
 </body>
+<%@ include file="../../Footer.jsp" %>	
 </html>
