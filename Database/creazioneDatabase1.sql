@@ -1,4 +1,5 @@
 create database DreamAndFly;
+use DreamAndFly;
 
 create table user_account (
 		email varchar(150) PRIMARY KEY	not null,
@@ -22,8 +23,9 @@ create table fascia_oraria(
     orario_fine varchar(10) not null
 );
 
+
 create table e_prenotabile(
-	data date not null,
+	data_prenotabile date not null,
 	capsula_id int not null,
     fascia_oraria_numero int not null,
     primary key (capsula_id,fascia_oraria_numero),
@@ -34,7 +36,7 @@ create table e_prenotabile(
 );
 
 create table prenotazione (
-	codice_di_accesso varchar(9) primary key not null,
+	codice_di_accesso INT(9) ZEROFILL AUTO_INCREMENT PRIMARY KEY,
     orario_inizio varchar(10) not null,
     orario_fine varchar(10) not null,
     data_inizio varchar(15) not null,
