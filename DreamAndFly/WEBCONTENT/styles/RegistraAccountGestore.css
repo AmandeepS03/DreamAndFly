@@ -95,8 +95,8 @@ body {
   text-align: left;
 }
 .v31_101 {
-  width: 386px;
-  height: 294px;
+  width: 100%;
+  
   background: url("../images/v31_101.png");
   background-repeat: no-repeat;
   background-position: center center;
@@ -371,3 +371,28 @@ body {
   opacity: 1;
   text-align: center;
 }
+
+.form-group {
+  margin-bottom: 10px;
+}
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+  width: 50%;
+  height: 25px;
+  padding: 10px;
+  border: 1px solid #cccccc;
+}
+
+button {
+ 
+  padding: 8px;
+  margin-left: 25%;
+  font-size: 16px;
+   background-color:rgba(161,201,230,1);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+

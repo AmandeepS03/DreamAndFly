@@ -18,39 +18,58 @@
 			<span class="v31_69">Registra nuovo account gestore</span>
 		</div>
 		<div class="v31_71">
-			<div class="v31_99">
-				<span class="v31_100">Registra</span>
-			</div>
+			
+			
+			
 			<div class="v31_101">
-				<div class="v31_75">
-					<span class="v31_76">Cognome:</span>
-					<div class="v31_77"></div>
-				</div>
-				<div class="v31_84">
-					<span class="v31_85">Cellulare:</span>
-					<div class="v31_86"></div>
-				</div>
-				<div class="v31_89">
-					<span class="v31_90">Email:</span>
-					<div class="v31_91"></div>
-				</div>
-				<div class="v31_92">
-					<span class="v31_93">Password:</span>
-					<div class="v31_94"></div>
-				</div>
-				<div class="v31_96">
-					<span class="v31_97">Ruolo:</span>
-					<div class="v31_98"></div>
-				</div>
-				<div class="v31_72">
-					<span class="v31_73">Nome:</span>
-					<div class="v31_74"></div>
-				</div>
-			</div>
+			<form id="regForm" action="/PackAndTravel/RegistratiServlet" method="post" 
+			onsubmit="event.preventDefault();checkSignup(this)">
+			
+				<div class="form-group">
+                	<label for="nome">*Nome:</label> <br>
+                	<input type="text" id="nome" name="nome" required onChange="return validateNome()"><span id="errorLastname"></span>
+            	</div>
+            	
+            	<div class="form-group">
+                	<label for="cognome">*Cognome:</label> <br>
+                	<input type="text" id="cognome" name="cognome" required onChange="return validateCognome()"><span id="errorLastname"></span>
+            	</div>
+            	
+            	<div class="form-group">
+                <label for="cellulare">*Cellulare:</label> <br>
+                <input type="text" id="cellulare" name="cellulare" required onChange="return validateCellulare()"><span id="errorCellulare"></span>
+            	</div>
+            
+            <div class="form-group">
+                <label for="email">*Email:</label> <br>
+                <input type="email" id="email" name="email" required onBlur="return validateEmail()" onChange="return tryEmail()"><span id="errorEmail"></span><span id="emailCheckDisponibility"></span>
+            </div>
+            <div class="form-group">
+                <label for="password">*Password:</label> <br>
+                <input type="password" id="password" name="password" required onChange="return validatePassword()" onInput="return validatePassword()"><span id="errorpswd"></span>
+            </div>
+            <div class="form-group">
+                <label for="Ruolo">*Ruolo:</label> <br>
+                <select id="dropdown-menu">
+				    <option value="" disabled selected>Scegli un'opzione</option>
+				    <option value="opzione1">Gestore capsule</option>
+				    <option value="opzione2">Gestore account</option>
+				    <option value="opzione3">Gestore prenotazioni</option>
+				</select>
+            </div>
+            	
+				
+           	<a> <button type="submit" onclick="registraAccountGestore()">Registrati</button></a>
+           <p>*I campi sono obbligatori</p>
+        </form>
+            </div>
+            
+            
+		</div>
 		</div>
 		<div class="v31_63">
 			<%@include file="../../Header.jsp" %>
 		</div>
-	</div>
+	
 </body>
 </html>

@@ -18,14 +18,14 @@
 			<%@include file="../Footer.jsp" %>
 		</div>
 		<div class="v9_404">
-			<div class="v9_407"></div>
+			
 			<div class="v9_413">
 				<span class="v9_406">Prenotazione avvenuta con successo!</span>
 			</div>
 			<div class="v9_409">
 				<span class="v9_408">Conferma prenotazione!</span>
 			</div>
-			<span class="v9_412">Codice prenotazione: 4455</span>
+			<span class="v9_412">Codice prenotazione: </span>
 		</div>
 	</div>
 </body>
