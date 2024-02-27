@@ -1,6 +1,7 @@
 package storage;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -62,6 +63,49 @@ private DataSource ds=null;
 		}
 		return accountuser;
 
+	}
+	
+	public synchronized void doUpdateNumber(String email, String cellulare) throws SQLException {
+		String query;
+		PreparedStatement pst=null;
+		Connection con=null;
+		try {
+			con=ds.getConnection();
+			query = "update user_account set telefono = ? where email = ? ";
+			pst = con.prepareStatement(query);
+			pst.setString(1, cellulare);
+			pst.setString(2, email);
+			pst.executeUpdate();
+		}finally {
+			try {
+				if(pst != null)
+					pst.close();
+			}finally{
+				if(con != null)
+					con.close();
+			}
+	}
+	}
+	public synchronized void doUpdatePassword(String email, String password) throws SQLException {
+		String query;
+		PreparedStatement pst=null;
+		Connection con=null;
+		try {
+			con=ds.getConnection();
+			query = "update user_account set passw = ? where email = ? ";
+			pst = con.prepareStatement(query);
+			pst.setString(1, password);
+			pst.setString(2, email);
+			pst.executeUpdate();
+		}finally {
+			try {
+				if(pst != null)
+					pst.close();
+			}finally{
+				if(con != null)
+					con.close();
+			}
+	}
 	}
 
 }

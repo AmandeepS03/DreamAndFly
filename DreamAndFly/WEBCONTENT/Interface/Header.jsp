@@ -33,7 +33,7 @@
           <% if(auth.getRuolo() == 0){%>
           <a href="" >Le mie prenotazioni</a>
          <%}%>  
-         <a href="" title="Area utente"><i class="fas fa-user"></i></a> 
+         <a href="<%=request.getContextPath()%>/Interface/UtenteRegistratoGUI/AreaUtente.jsp" title="Area utente"><i class="fas fa-user"></i></a> 
          <% if(auth.getRuolo() == 1){%>
           <a href="<%=request.getContextPath()%>/Interface/GestoreGUI/GestoreCapsule/AreaRiservataGestoreCapsule.jsp" title="Area riservata"><i class="fas fa-cog"></i></a>
          <%} else if(auth.getRuolo() == 2){%>
@@ -41,7 +41,7 @@
          <%} else if(auth.getRuolo() == 3){%>
           <a href="<%=request.getContextPath()%>/Interface/GestoreGUI/GestorePrenotazioni/AreaRiservataGestorePrenotazioni.jsp" title="Area riservata"><i class="fas fa-cog"></i></a>
          <%} %>
-         <a href="" title="Logout"><i class="fas fa-sign-out-alt"></i></a>
+         <a href="/DreamAndFly/LogoutServlet" title="Logout"><i class="fas fa-sign-out-alt"></i></a>
       <%} %>
       </div>
  

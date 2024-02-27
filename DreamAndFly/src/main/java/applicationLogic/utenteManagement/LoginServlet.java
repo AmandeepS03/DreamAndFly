@@ -53,16 +53,13 @@ public class LoginServlet extends HttpServlet {
 		//controllo tra password inserita nel form e quella nel db
 		boolean controlloPasswd=false;
 		if(user.getEmail()!=null && user.getEmail().equals(email) ) {
+		
 			String passToCompare=user.getPassword();
-			if(passToCompare.equals(password)) {
+			String passwdInserita=HelperClass.toHash(password);
+			
+			if(passToCompare.equals(passwdInserita)) {
 				controlloPasswd=true;
 			}
-//			String passToCompare=user.getPassword();
-//			String passwdInserita=HelperClass.toHash(password);
-//			
-//			if(passToCompare.equals(passwdInserita)) {
-//				controlloPasswd=true;
-//			}
 		}
 
 		if(!controlloPasswd){ 
