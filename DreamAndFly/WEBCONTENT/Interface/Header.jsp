@@ -1,5 +1,12 @@
+<%@page import="storage.*" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	<%
+	AccountUser auth = (AccountUser) request.getSession().getAttribute("auth") ;
+	if(auth!=null){
+		request.setAttribute("auth",auth);
+	}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,41 +25,25 @@
  	
 	</div>
 	 <div class="icons">  
-        
-         
-         	
-         	<a href="" title="I miei dati"><i class="fas fa-user"></i></a>
-         
-         
-         <a href=""><i class="fas fa-shopping-cart" title="Carrello"></i></a> <!-- Icona per il carrello -->
-        
-        
-         <a href="#" onclick="toggleDropdown()" title="Area riservata"><i class="fas fa-cog"></i></a>
-         <div id="dropdownMenu" class="dropdown-content">
-         </div>
-         
+	 <% if(auth == null){ %>
+     <a href="<%=request.getContextPath()%>/Interface/AutenticazioneGUI/Login.jsp" title="Login">Login</a>
+     <a href="<%=request.getContextPath()%>/Interface/AutenticazioneGUI/Registrati.jsp" title="Registrati">Registrati</a>
      
-         	<a href="" title="Logout"><i class="fas fa-sign-out-alt"></i></a> 
-         
-         
-         	<a href="" title="Login"><i class="fas fa-user"></i></a>
-         	
-     
-         	
-         
-         
+      <%} else { %>
+          <% if(auth.getRuolo() == 0){%>
+          <a href="" >Le mie prenotazioni</a>
+         <%}%>  
+         <a href="" title="Area utente"><i class="fas fa-user"></i></a> 
+         <% if(auth.getRuolo() == 1){%>
+          <a href="<%=request.getContextPath()%>/Interface/GestoreGUI/GestoreCapsule/AreaRiservataGestoreCapsule.jsp" title="Area riservata"><i class="fas fa-cog"></i></a>
+         <%} else if(auth.getRuolo() == 2){%>
+          <a href="<%=request.getContextPath()%>/Interface/GestoreGUI/GestoreAccount/AreaRiservataGestoreAccount.jsp" title="Area riservata"><i class="fas fa-cog"></i></a>
+         <%} else if(auth.getRuolo() == 3){%>
+          <a href="<%=request.getContextPath()%>/Interface/GestoreGUI/GestorePrenotazioni/AreaRiservataGestorePrenotazioni.jsp" title="Area riservata"><i class="fas fa-cog"></i></a>
+         <%} %>
+         <a href="" title="Logout"><i class="fas fa-sign-out-alt"></i></a>
+      <%} %>
       </div>
-	  
-	
-	
-   
-     
-   
-		<!-- <div class="v68_27"></div>
-		<span class="v68_28">Logout </span><span class="v68_29">Area
-			utente</span>
-		<div class="v68_30"></div>
-		<span class="v68_31">Area riservata</span> -->
  
 	 </header>
 </body>
