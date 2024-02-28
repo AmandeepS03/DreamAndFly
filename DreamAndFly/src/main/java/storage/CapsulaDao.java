@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -80,5 +82,62 @@ private DataSource ds=null;
 	}
 	}
 	
+	public void doSave(Capsula user) throws SQLException {
+			
+			String query;
+			PreparedStatement pst=null;
+			Connection con=null;
+			try {
+				con=ds.getConnection();
+				query="insert into capsula(id, prezzo_orario, tipologia) values(?,?,?)";
+				con.setAutoCommit(true);
+				pst = con.prepareStatement(query);
+				pst.setInt(1, user.getId());
+				pst.setFloat(2, user.getPrezzo_orario());
+				pst.setString(3, user.getTipologia());
+				
+				pst.executeUpdate();
+			}finally {
+				try {
+					if(pst != null)
+						pst.close();
+				}finally{
+					if(con != null)
+						con.close();
+				}
+		}
+	}
 	
+	public synchronized Collection<Capsula> doRetriveAll() throws SQLException {
+	    Connection con=null;
+	    PreparedStatement pst=null;
+	    Collection<Capsula> capsulalist = new LinkedList<>();
+	    
+	    String query = "select * from capsula";
+	    
+	    try {
+	      con = ds.getConnection();
+	      pst=con.prepareStatement(query);
+	      ResultSet rs=pst.executeQuery();
+	      
+	      while(rs.next()) {
+	        Capsula capsula=new Capsula();
+	        capsula.setId(rs.getInt("id"));
+	       capsula.setPrezzo_orario(rs.getFloat("prezzo_orario"));
+	       capsula.setTipologia(rs.getString("tipologia"));
+	        
+	        capsulalist.add(capsula);
+	        }
+	    }finally {
+	      try {
+	        if(pst != null)
+	          pst.close();
+	      }finally{
+	        if(con != null)
+	          con.close();
+	      }
+	  }
+	    
+	    return capsulalist;
+	  }
 }
