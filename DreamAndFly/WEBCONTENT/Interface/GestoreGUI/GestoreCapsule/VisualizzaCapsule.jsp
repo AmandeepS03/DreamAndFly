@@ -14,6 +14,7 @@
 	
 	/* if(auth.getRuolo()==1){ */
 	List<Capsula> capsule = (List<Capsula>) request.getAttribute("listaCapsule");
+	request.setAttribute("page", 0);
 
 	if(capsule == null){
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/VisualizzaCapsuleServlet");

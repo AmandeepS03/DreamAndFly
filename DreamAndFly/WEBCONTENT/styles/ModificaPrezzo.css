@@ -83,3 +83,10 @@ form{
 	align-self: center;
 }
 
+.inputField {
+	height: 35px;
+	width:180px;
+	padding: 10px 20px;
+	border-radius: 3px;
+}
+

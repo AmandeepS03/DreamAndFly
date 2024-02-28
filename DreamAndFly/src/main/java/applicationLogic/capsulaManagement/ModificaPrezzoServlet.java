@@ -1,7 +1,6 @@
 package applicationLogic.capsulaManagement;
 
 import java.io.IOException;
-
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,48 +12,53 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+
 import storage.CapsulaDao;
+
 /**
- * Servlet implementation class VisualizzaCapsule
+ * Servlet implementation class ModificaPrezzoServlet
  */
-@WebServlet("/VisualizzaCapsuleServlet")
-public class VisualizzaCapsuleServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+@WebServlet("/ModificaPrezzoServlet")
+public class ModificaPrezzoServlet extends HttpServlet {
 	private static Logger logger = Logger.getAnonymousLogger();
+	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public VisualizzaCapsuleServlet() {
+    public ModificaPrezzoServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		doPost(request, response);
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		CapsulaDao tool=new CapsulaDao(ds);
-		Integer page = (Integer) request.getAttribute("page");
+		Integer id = Integer.parseInt(request.getParameter("numero"));
+		Float prezzo = Float.valueOf(request.getParameter("prezzo"));
 		
 		try {
-			request.setAttribute("listaCapsule", tool.doRetriveAll() );
+			tool.doUpdatePrezzoOrario(id, prezzo);
 			
 			
 		}catch (SQLException e){
 			logger.log(Level.WARNING, "Problema Sql!",e);
 		}
 		
-		if(page!=null && page==1) {
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/GestoreGUI/GestoreCapsule/ModificaPrezzo.jsp");
-		    dispatcher.forward(request, response);
-			
-		}else if(page!=null && page==0) {
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/GestoreGUI/GestoreCapsule/VisualizzaCapsule.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/GestoreGUI/GestoreCapsule/ModificaPrezzo.jsp");
 	    dispatcher.forward(request, response);
-		}
-	}
+		
+	}	}
 
-}
+
