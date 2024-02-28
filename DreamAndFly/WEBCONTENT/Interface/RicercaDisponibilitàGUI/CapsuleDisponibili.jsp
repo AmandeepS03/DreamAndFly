@@ -27,7 +27,7 @@
 	
 				<div class="containerLabel">
 					<div>
-						<label for="dal">Dal:</label><br> 
+						<label for="dal">Dal:</label> <br>
 						<input
 							type="text" id="dal" name="dal">
 	
@@ -36,18 +36,25 @@
 						<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 						<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 						<script>
+							
+					        
+						
+						
 							// Inizializza il datepicker con il formato desiderato
-							$(function() {
+							 $(function() {
 								$("#dal").datepicker({
 									dateFormat : 'dd/mm/yy'
+									
 								});
-							});
+							}); 
+							
+							
 						</script>
 					</div>
 				
 				
 					<div>
-						<label for="alOrario"></label> <br>
+						<label for="dalOrario"></label> <br><br>
 						<select
 							id="dalOrario" title="dalOrario">
 							<option value="" disabled selected>Scegli un'opzione</option>
@@ -68,10 +75,13 @@
 						<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 						<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 						<script>
+							
+							
 							// Inizializza il datepicker con il formato desiderato
 							$(function() {
 								$("#al").datepicker({
 									dateFormat : 'dd/mm/yy'
+									
 								});
 							});
 						</script>
@@ -79,7 +89,7 @@
 				
 				
 					<div>
-						<label for="alOrario"></label> <br>
+						<label for="alOrario"></label> <br><br>
 						<select
 							id="alOrario" title="alOrario">
 							<option value="" disabled selected>Scegli un'opzione</option>
@@ -92,12 +102,8 @@
 					
 					</div>
 	
-				
-	
-				
-	
 				<br>
-				<button type="submit" class="btn btn-primary" value="Cerca">Cerca</button>
+				<button type="submit" id="cercaButton" value="Cerca">Cerca</button>
 			</form>
 		</div>
 		
@@ -153,11 +159,8 @@
                     %>  --%>
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
-                            <div class="card-body d-flex flex-column align-items-center">
-                            	<h4>CIAO</h4>
-                            	<h4>CIAO2</h4>
-                            	<h4>CIAO3</h4>
-                            	<h4>CIAO</h4>
+                            <div class="card-body d-flex flex-column">
+                            	
                                 <!-- Link al dettaglio del prodotto -->
                                 <%-- <!-- <a href="<%=request.getContextPath()%>/common/DettaglioProdotto.jsp?code=<%=prodotto.getCodice()%>" class="card-text nome"><%=prodotto.getNome()%> -->
                                 <!-- Immagine del prodotto -->
@@ -167,6 +170,17 @@
                                     <p class="text-center prezzo"><%=prodotto.getPrezzo()%>&euro;</p>
                                     <button type="button" class="btn btn-info btn-block aggiungiAlCarrello" data-id="<%=prodotto.getCodice()%>">Aggiungi al carrello</button>
                                 </div> --> --%>
+                                <div>
+	                                <h4 style="display: inline-block;">Capsula </h4>
+	                                <h4 style="display: inline-block;"><!-- nomero capsula dinamicamente --></h4>
+                                </div>
+                                <ul>
+						            <li><!-- Tipologia --></li>
+						            
+						        </ul>
+						        <h6 class="prezzo"></h6>
+						        <button type="submit" class="prenotaButton" value="Prenota">Prenota</button>
+                                
                             </div>
                         </div>
                     </div>
