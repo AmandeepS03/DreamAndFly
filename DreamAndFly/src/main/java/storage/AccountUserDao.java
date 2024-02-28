@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -133,5 +135,38 @@ public void doSave(AccountUser user) throws SQLException {
 			}
 	}
 }
+
+public synchronized Collection<AccountUser> doRetriveAll() throws SQLException {
+    Connection con=null;
+    PreparedStatement pst=null;
+    Collection<AccountUser> accountlist = new LinkedList<>();
+    
+    String query = "select * from user_account";
+    
+    try {
+      con = ds.getConnection();
+      pst=con.prepareStatement(query);
+      ResultSet rs=pst.executeQuery();
+      
+      while(rs.next()) {
+        AccountUser user=new AccountUser();
+        user.setEmail(rs.getString("email"));
+       user.setName(rs.getString("nome"));
+       user.setSurname(rs.getString("cognome"));
+        user.setNumber(rs.getString("telefono"));
+        accountlist.add(user);
+        }
+    }finally {
+      try {
+        if(pst != null)
+          pst.close();
+      }finally{
+        if(con != null)
+          con.close();
+      }
+  }
+    
+    return accountlist;
+  }
 
 }

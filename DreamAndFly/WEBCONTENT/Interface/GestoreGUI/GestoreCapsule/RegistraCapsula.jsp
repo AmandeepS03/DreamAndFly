@@ -13,7 +13,113 @@
 	
 			<div class="v32_3"><p class="titolo">Registra capsula</p></div>
 		<div class="v8_249">
-			<span class="v8_250">Numero:</span>
+			<form action="" method="post">
+			<!-- Form con label e input type su due righe -->
+			<div class="containerLabel">
+				<div>
+					<label for="numero">Numero:</label><br> <input type="text"
+						id="numero" name="numero">
+				</div>
+				<div>
+					<label for="prezzoOrario">Prezzo/h:</label><br> 
+					<input type="text"
+						id="prezzoOrario" name="prezzoOrario">
+				</div>
+				<div class="containerData">
+		<div>
+					<label for="dal">Dal:</label><br> 
+					<input
+						type="text" id="dal" name="dal">
+
+					<link rel="stylesheet"
+						href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+					<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+					<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+					<script>
+						// Inizializza il datepicker con il formato desiderato
+						$(function() {
+							$("#dal").datepicker({
+								dateFormat : 'dd/mm/yy'
+							});
+						});
+					</script>
+				</div>
+			
+			
+				<div>
+					<label for="alOrario"></label> <br>
+					<select
+						id="dalOrario" title="dalOrario">
+						<option value="" disabled selected>Scegli un'opzione</option>
+						<option value="opzione1">00:00</option>
+						<option value="opzione2">01:00</option>
+						<option value="opzione3">orari disponibili</option>
+						<!-- /*inserisci orari disponibili dinamicamente*/ -->
+					</select>
+				</div>
+				
+				<div>
+					<label for="al">Al:</label><br> 
+					<input
+						type="text" id="al" name="al">
+
+					<link rel="stylesheet"
+						href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+					<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+					<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+					<script>
+						// Inizializza il datepicker con il formato desiderato
+						$(function() {
+							$("#al").datepicker({
+								dateFormat : 'dd/mm/yy'
+							});
+						});
+					</script>
+				</div>
+			
+			
+				<div>
+					<label for="alOrario"></label> <br>
+					<select
+						id="alOrario" title="alOrario">
+						<option value="" disabled selected>Scegli un'opzione</option>
+						<option value="opzione1">00:00</option>
+						<option value="opzione2">01:00</option>
+						<option value="opzione3">orari e giorni disponibili( dopo l orario di arrivo)</option>
+						<!-- /*inserisci orari disponibili dinamicamente*/ -->
+					</select>
+				</div>
+				</div>
+				
+				<!-- <div>
+
+					<label for="fascia_oraria">Fascia oraria:</label><br> <select
+						class="inputField" id="fasciaOraria" name="fasciaOraria" required>
+						<option value="all">00:00-01:00</option>
+
+						<option value="example">example</option>
+
+					</select>
+				</div> -->
+				<div>
+
+
+					<label for="tipologia">Tipologia</label> <br>
+					<select
+						id="tipologia" title="tipologia">
+						<option value="" disabled selected>Scegli un'opzione</option>
+						<option value="standard">Standard</option>
+						<option value="superior">Superior</option>
+						<option value="deluxe">Deluxe</option>
+				
+					</select>
+
+
+				</div>
+			</div>
+			<button type="submit" >Inserisci</button>
+			</form>
+			<!-- <span class="v8_250">Numero:</span>
 			<div class="v8_251"></div>
 			<span class="v8_252">Prezzo/h:</span>
 			<div class="v8_253"></div>
@@ -35,7 +141,7 @@
 			<div class="v26_3"></div>
 			<div class="v26_4">
 				<span class="v26_5">Inserisci</span>
-			</div>
+			</div> -->
 		</div>
 	
 		
