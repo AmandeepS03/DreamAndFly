@@ -7,6 +7,8 @@
 	rel="stylesheet" />
 <link rel="stylesheet"
 	href="<%=request.getContextPath() %>/styles/Registrati.css">
+	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/validate.js"></script>
+	<script src="<%=request.getContextPath() %>/scripts/ajax.js"></script>
 <title>Registrati</title>
 </head>
 <body>
@@ -14,7 +16,7 @@
 
 	<div class="v8_61">
 		<h1>REGISTRATI</h1>
-		<form id="regForm" action="/PackAndTravel/RegistratiServlet"
+		<form id="regForm" action="/DreamAndFly/RegistratiServlet"
 			method="post" onsubmit="event.preventDefault();checkSignup(this)">
 			<div class="form-group">
 				<label for="nome">*Nome:</label> <input type="text" id="nome"
@@ -60,19 +62,6 @@
 			</a>
 			<p>*I campi sono obbligatori</p>
 		</form>
-		<!-- <span class="v8_62">REGISTRATI</span><span class="v8_63">Nome</span>
-			<div class="v8_64"></div>
-			<span class="v8_65">Cognome</span>
-			<div class="v8_66"></div>
-			<div class="v8_69">
-				<span class="v8_70">Login</span>
-			</div>
-			<span class="v8_74">E-mail</span>
-			<div class="v8_75"></div>
-			<span class="v8_76">Password</span>
-			<div class="v8_77"></div>
-			<span class="v8_78">Conferma password</span>
-			<div class="v8_79"></div> -->
 	</div>
 
 </body>

@@ -11,13 +11,19 @@
 <title>Login</title>
 </head>
 <body>
+<% 
+    String error = (String)request.getAttribute("error");
+    if(error == null)
+      error="";
+  
+  %>
 		<%@ include file="../Header.jsp" %>
 	
 		<div class="v8_43">
 		   <section class="loginSection">      
 		<section class="login-section">
 			<h2>LOGIN</h2>
-			<form method="post" action="/PackAndTravel/LoginServlet" id="formLogin">
+			<form method="post" action="/DreamAndFly/LoginServlet" id="formLogin">
 				<div class="form-group">
 					<label for="email">Email:</label> <input type="email" id="email"
 						name="email" required>
@@ -27,7 +33,7 @@
 						id="password" name="password" required>
 				</div>
 				
-			<%-- <p  style="color:red "> <%=error %> </p> --%>
+			<p  style="color:red "> <%=error %> </p> 
 				
 				
 

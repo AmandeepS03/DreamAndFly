@@ -7,6 +7,7 @@
 	rel="stylesheet" />
 <link rel="stylesheet"
 	href="<%=request.getContextPath() %>/styles/AreaUtente.css">
+	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/validate.js"></script>
 <title>Area Utente</title>
 </head>
 <body>
@@ -17,30 +18,32 @@
 		<div class="user-info">
 			<h2>I miei dati</h2>
 			<p>
-				<strong>Nome:</strong> <span id="nome">
-					<%-- <%= nome %> --%>
+				<strong>Nome:</strong> 
+				<span id="nome">
+					<%= auth.getName() %>
 				</span>
 			</p>
 			<p>
-				<strong>Cognome:</strong> <span id="cognome">
-					<%-- <%= cognome %> --%>
+				<strong>Cognome:</strong> 
+				<span id="cognome">
+				<%= auth.getSurname() %> 
 				</span>
 			</p>
 			<p>
-				<strong>E-mail:</strong> <span id="email">
-					<%-- <%= email %> --%>
+				<strong>E-mail:</strong> 
+				<span id="email">
+					<%= auth.getEmail() %>
 				</span>
 			</p>
 
 			<p>
-				<strong>Cellulare:</strong> <span id="cellulare">
-					<%-- <%= cellulare %> --%>
+				<strong>Cellulare:</strong> 
+				<span id="cellulare">
+					<%= auth.getNumber() %> 
 				</span>
 			</p>
 		</div>
-		<form id="regForm" method="post"
-		action="/PackAndTravel/ModificaDatiServlet"
-		onsubmit="event.preventDefault();checkModifica(this)">
+		<form id="regForm" method="post" action="/DreamAndFly/ModificaDatiServlet" ><!-- onsubmit="event.preventDefault();checkModifica(this)" -->
 		<fieldset>
 			<legend>Modifica Dati</legend>
 			<p>Modifica password:</p>
