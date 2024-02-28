@@ -110,44 +110,6 @@
 			</form>
 		</div>
 		
-		<!-- capsule disponibili e prenotabili -->
-		<%-- <main>
-		   <section class="novita-section">
-		   
-			
-		      
-		      
-		    <div class="album py-5">
-		  <div class="container">
-		    <div class="row">
-		      <% if (prodotti != null && prodotti.size() != 0) {
-		        Iterator<?> it = prodotti.iterator();
-		        while (it.hasNext()) {
-		          Prodotto prodotto = (Prodotto) it.next();
-		      %>
-		      <div class="col-md-4">
-		        <div class="card mb-4 box-shadow">
-		          <div class="card-body d-flex flex-column align-items-center">
-		            <a href="<%=request.getContextPath()%>/common/DettaglioProdotto.jsp?code=<%=prodotto.getCodice()%>" class="card-text nome"><%=prodotto.getNome()%>
-		            <img class="card-img-top img" src="<%=request.getContextPath()%>/getPicture?codice=<%=prodotto.getCodice()%>" alt="immagine prodotto"></a>
-		            <div class="d-flex justify-content-center flex-column ">
-		 				 <p class="text-center prezzo"><%=prodotto.getPrezzo()%>&euro;</p>
-		 				<!-- Trasforma il link in un bottone utilizzando un button tag -->
-		<button type="button" class="btn btn-info btn-block aggiungiAlCarrello" data-id="<%=prodotto.getCodice()%>">Aggiungi al carrello</button>
-		
-		
-		
-					</div>
-		          </div>
-		        </div>
-		      </div>
-		      <%}}%>
-		    </div>
-		  </div>
-		</div>
-		
-		   </section>
-		</main> --%>
 		
 		<main>
     <section class="novita-section">
@@ -181,7 +143,11 @@
 						            <li><!-- Tipologia --></li>
 						            
 						        </ul>
-						        <h6 class="prezzo"></h6>
+						        <div>
+	                                <h6 style="display: inline-block;" class="prezzo"></h6> <!-- prezzo dinamicamente -->
+	                                <h6 style="display: inline-block;">&euro;</h6>
+                                </div>
+						        
 						        <button type="submit" class="prenotaButton" value="Prenota">Prenota</button>
                                 
                             </div>
