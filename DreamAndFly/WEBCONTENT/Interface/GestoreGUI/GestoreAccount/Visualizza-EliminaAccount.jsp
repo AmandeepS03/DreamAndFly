@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" import="java.util.*, storage.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +14,16 @@
 </head>
 <body>
 	<%@ include file="../../Header.jsp"%>
+	<%
+	
+	/* if(auth.getRuolo()==2){ */
+	List<AccountUser> listaUtenti = (List<AccountUser>) request.getAttribute("listaUtenti");
+	if(listaUtenti==null){
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/VisualizzaAccountServlet");
+	    dispatcher.forward(request, response);
+	 } 
+%>
+	
 
 
 	<div class="v35_167">
@@ -45,19 +55,24 @@
 			<th>Elimina</th>
 
 		</tr>
+		<%for(AccountUser user: listaUtenti){ %>
 		<tr>
 
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td><%= user.getEmail()%></td>
+			<td><%= user.getName() %></td>
+			<td><%= user.getSurname() %></td>
+			<td><%= user.getNumber() %></td>
 			<td><a href=""> <i class="fas fa-trash-alt trash-icon"></i>
 			</a></td>
-
+ <%}%>
 		</tr>
+		
 	</table>
 
 
 </body>
 <%@ include file="../../Footer.jsp"%>
+<%-- <%}else{ %>
+	<p>Accesso Negato</p>
+<%} %> --%>
 </html>
