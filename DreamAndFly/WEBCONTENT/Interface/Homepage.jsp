@@ -12,11 +12,12 @@
 <title>Homepage</title>
 </head>
 <body>
+<%@include file="Header.jsp" %>
 	<div class="v44_15">
 		<div class="v9_40">
-			<div class="v9_46">
-				<%@include file="Footer.jsp" %>
-				</div>
+			
+				
+				
 			<div class="v9_61">
 				<div class="v9_54">
 					<div class="v9_55">
@@ -82,8 +83,9 @@
 					</div>
 				</div>
 			</div>
-			<%@include file="Header.jsp" %>
+			
 		</div>
 	</div>
 </body>
+<%@include file="Footer.jsp" %>
 </html>
