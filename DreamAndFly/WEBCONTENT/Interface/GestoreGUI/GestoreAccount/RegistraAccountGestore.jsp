@@ -59,7 +59,7 @@
             </div>
             	
 				
-           	<a> <button type="submit" onclick="registraAccountGestore()">Registrati</button></a>
+           	<a> <button type="submit" onclick="registraAccountGestore()">Registra gestore</button></a>
            <p>*I campi sono obbligatori</p>
         </form>
             </div>

@@ -3,41 +3,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="https://fonts.googleapis.com/css?family=Inter&display=swap"
-	rel="stylesheet" />
+
 <link href="<%=request.getContextPath() %>/styles/Pagamento.css" rel="stylesheet" />
-<title>Document</title>
+<title>Pagamento</title>
 </head>
 <body>
-	<div class="v9_194">
-		<div class="v9_195">
-			<%@include file="../Header.jsp" %>
+<%@ include file="../Header.jsp"%>
+
+	<div class="v8_43">
+		<section class="cartaSection">      
+		<section class="carta-section">
+			<h2>Dati carta</h2>
+			<form method="post"  id="formCarta">
+				<div class="form-group">
+					<label for="nome">Nome intestatario:</label> <input type="nome" id="nome"
+						name="nome" required>
+				</div>
+				<div class="form-group">
+					<label for="carta">Numero carta:</label> <input type="carta"
+						id="carta" name="carta" required>
+				</div>
+				
+				<!-- <div class="containerLabel"> -->
+					<div class="form-group">
+						<label for="scadenza">Scadenza:</label> <input type="scadenza" id="scadenza"
+						name="scadenza" required>
+					</div>
+					<div class="form-group">
+						<label for="cvc">CVC:</label> <input type="cvc" id="cvc"
+						name="cvc" required>
+					</div>
+					
+				<!-- </div> -->
+				
+			<%-- <p  style="color:red "> <%=error %> </p> --%>
+				
+				
+
+				<button type="submit" onclick="errorLogin()">Conferma pagamento</button>
+			</form>
+			
+		</section>
+		</section>
 		</div>
-		<div class="v9_201">
-			<%@include file="../Footer.jsp" %>
-		</div>
-		<div class="v9_203">
-			<div class="v9_212">
-				<span class="v9_214">Conferma pagamento</span>
-			</div>
-			<div class="v9_215">
-				<span class="v9_209">CVC:</span>
-				<div class="v9_210"></div>
-			</div>
-			<span class="v9_218">Dati carta</span>
-			<div class="v9_219">
-				<div class="v9_205"></div>
-				<span class="v9_206">Numero carta:</span>
-			</div>
-			<div class="v9_220">
-				<div class="v9_208"></div>
-				<span class="v9_207">Scadenza:</span>
-			</div>
-			<div class="v42_2">
-				<div class="v42_3"></div>
-				<span class="v42_4">Nome intestatario:</span>
-			</div>
-		</div>
-	</div>
 </body>
+<%@ include file="../Footer.jsp"%>
+
 </html>

@@ -1,0 +1,97 @@
+.v35_167 {
+	width: 953px;
+	height: 77px;
+	background: rgba(234, 234, 234, 1);
+	opacity: 1;
+	position: relative; /* Utilizza il posizionamento relativo */
+	margin: 0 auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	top: 50%;
+	/* Sposta il div verso il basso del 50% rispetto al suo contenitore */
+	align-items: center;
+	justify-content: center;
+	display: flex;
+}
+.titolo {
+	font-weight: Semi Bold;
+	font-size: 36px;
+}
+.v35_177 {
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	opacity: 1;
+	position: relative; /* Utilizza il posizionamento relativo */
+	margin: 60px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	top: 50%; /* Sposta il div verso il basso del 50% rispetto al suo contenitore */
+	display: flex;
+    justify-content: center;
+    background: rgba(234, 234, 234, 1);
+    padding: 10px;
+}
+
+
+
+.containerLabel{
+	display: flex; 
+	flex-direction: row;
+	padding:25px;
+}
+
+.containerLabel div{
+	margin-right:20px;
+}
+.containerLabel label{
+  width: 97px;
+  color: rgba(0,0,0,1);
+  
+  font-weight: Regular;
+  font-size: 24px;
+  opacity: 1;
+  text-align: center;
+}
+.containerLabel input[type="text"], select {
+	height: 35px;
+	width:180px;
+}
+
+button {
+ width: 50%;
+  padding: 8px;
+  margin-left: 25%;
+  font-size: 16px;
+   background-color:rgba(161,201,230,1);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+
+
+
+table {
+	width: 935px;
+	position: relative; /* Utilizza il posizionamento relativo */
+	margin: 0 auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	top: 50%; 
+}
+
+th{
+	background-color: #A1C9E6;
+}
+table, th, td {
+	text-align: center;
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+th, td {
+	padding: 5px;
+}
+i.fas.fa-trash-alt.trash-icon {
+    color: black;
+}

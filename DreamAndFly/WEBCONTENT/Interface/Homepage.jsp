@@ -29,8 +29,14 @@
 						<span class="v54_29">Superior</span>
 					</div>
 					<div class="v54_41">
-						<span class="v54_42">Letto matrimoniale Area lavoro Bagno
-							privato</span>
+						<span class="v54_42">  
+							<ul>
+				            <li>Letto matrimoniale</li>
+				            <li>Area lavoro</li>
+				            <li>Bagno privato</li>
+				            
+				        </ul>
+							</span>
 					</div>
 				</div>
 				<div class="v9_51">
@@ -44,22 +50,35 @@
 						<span class="v54_21">Deluxe</span>
 					</div>
 					<div class="v54_70">
-						<span class="v54_71">Letto king-size Mini-frigo TV a
-							schermo piatto</span>
-					</div>
+				    <span class="v54_71">  
+				        <ul>
+				            <li>Letto king-size</li>
+				            <li>Mini-frigo</li>
+				            <li>TV a schermo piatto</li>
+				        </ul>
+				    </span>
+				</div>
 				</div>
 				<div class="v9_48">
 					<div class="v54_35"></div>
-					<span class="v9_49">Ricerca disponibilità</span>
+					<a href="RicercaDisponibilità.jsp"><span class="v9_49">Ricerca disponibilità</span></a>
 				</div>
 				<div class="v54_31">
 					<div class="v54_32">
 						<span class="v54_33">Standard</span>
 					</div>
 					<div class="v54_38">
-						<span class="v54_40">Letto singolo Luce di lettura Prese
-							elettriche Connessione Wi-Fi Ventilazione regolabile Bagno in
-							comune</span>
+						<span class="v54_40">     
+						<ul>
+				            <li>Letto singolo</li>
+				            <li>Luce di lettura</li>
+				            <li>Prese elettriche</li>
+				            <li>Connessione Wi-Fi</li>
+				            <li>Ventilazione regolabile</li>
+				            <li>Bagno in comune</li>
+				        </ul>
+							
+							</span>
 					</div>
 				</div>
 			</div>

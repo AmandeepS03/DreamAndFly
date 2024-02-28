@@ -25,7 +25,8 @@
 						id="numero" name="numero">
 				</div>
 				<div>
-					<label for="data">Data:</label><br> <input type="text"
+					<label for="data">Data:</label><br> 
+					<input type="text"
 						id="data" name="data">
 				</div>
 				<div>
