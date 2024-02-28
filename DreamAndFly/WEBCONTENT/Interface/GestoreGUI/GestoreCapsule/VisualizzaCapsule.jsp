@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" import="java.util.*, storage.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +10,17 @@
 </head>
 <body>
 <%@ include file="../../Header.jsp" %>
+<%
+	
+	/* if(auth.getRuolo()==1){ */
+	List<Capsula> capsule = (List<Capsula>) request.getAttribute("listaCapsule");
+
+	if(capsule == null){
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/VisualizzaCapsuleServlet");
+	    dispatcher.forward(request, response);
+	 } 
+	
+%>
 	
 		
 		<div class="v34_152">
@@ -26,13 +37,16 @@
 
 		</tr>
 		<tr>
+		<%if (capsule != null) {
+		for(Capsula capsula: capsule){ %>
 
-			<td></td>
-			<td></td>
-			<td></td>
+			<td><%= capsula.getId() %></td>
+			<td><%= capsula.getTipologia() %></td>
+			<td><%= capsula.getPrezzo_orario() %> &euro;</td>
 			
 
 		</tr>
+		 <%}}%>
 	</table>
 
 	

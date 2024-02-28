@@ -24,11 +24,45 @@
 					<label for="numero">Numero:</label><br> <input type="text"
 						id="numero" name="numero">
 				</div>
-				<div>
-					<label for="data">Data:</label><br> 
-					<input type="text"
-						id="data" name="data">
-				</div>
+					   <div>
+        <label for="data">Data:</label> <br>
+        <input type="text" id="data" name="data">
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script>
+        $(function() {
+            var today = new Date(); // Ottiene la data odierna
+
+            $("#data").datepicker({
+                dateFormat: 'dd/mm/yy',
+                minDate: today, // Imposta la data minima come odierna
+                onSelect: function(selectedDate) {
+                    // Imposta la data minima per il datepicker #al come la data selezionata nel datepicker #dal
+                    var minDate = $(this).datepicker('getDate'); // Ottiene la data selezionata in #dal
+                    minDate.setDate(minDate.getDate()); // Incrementa la data di un giorno
+                    $("#al").datepicker("option", "minDate", minDate); // Imposta la data minima per #al
+                }
+            });
+
+            $("#al").datepicker({
+                dateFormat: 'dd/mm/yy',
+                minDate: today // Imposta la data minima come odierna
+            });
+        });
+    </script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+            $(function() {
+                $("#dal").datepicker({
+                    dateFormat: 'dd/mm/yy',
+                    onSelect: function(selectedDate) {
+                        // Imposta la data minima per il datepicker #al come la data selezionata nel datepicker #dal
+                        $("#al").datepicker("option", "minDate", selectedDate);
+                    }
+                });
+            });
+        </script>
+    </div>
 				<div>
 
 					<label for="fascia_oraria">Fascia oraria:</label><br> <select
