@@ -168,5 +168,26 @@ public synchronized Collection<AccountUser> doRetriveAll() throws SQLException {
     
     return accountlist;
   }
-
+public void doDelete(String email) throws SQLException {
+	
+	String query;
+	PreparedStatement pst=null;
+	Connection con=null;
+	try {
+		con=ds.getConnection();
+		query="delete from user_account where email=?;";
+		con.setAutoCommit(true);
+		pst = con.prepareStatement(query);
+		pst.setString(1, email);
+		pst.executeUpdate();
+	}finally {
+		try {
+			if(pst != null)
+				pst.close();
+		}finally{
+			if(con != null)
+				con.close();
+		}
+}
+}
 }

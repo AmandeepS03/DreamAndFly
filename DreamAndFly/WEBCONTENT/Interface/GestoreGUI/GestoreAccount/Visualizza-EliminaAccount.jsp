@@ -9,6 +9,7 @@
 	href="<%=request.getContextPath() %>/styles/Visualizza-EliminaAccount.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	
 
 <title>Visualizza/Elimina account</title>
 </head>
@@ -17,11 +18,19 @@
 	<%
 	
 	/* if(auth.getRuolo()==2){ */
-	List<AccountUser> listaUtenti = (List<AccountUser>) request.getAttribute("listaUtenti");
+		List<AccountUser> listaUtenti = (List<AccountUser>) request.getAttribute("listaUtenti");
+		List<AccountUser> listaUtentiPerSelect = (List<AccountUser>) request.getAttribute("listaUtentiPerSelect");
 	if(listaUtenti==null){
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/VisualizzaAccountServlet");
 	    dispatcher.forward(request, response);
 	 } 
+	String type = (String) request.getAttribute("type");
+	if( type!= null && type.equals("elemento") ){
+		AccountUser user = (AccountUser) request.getAttribute("user");
+		listaUtenti.clear();
+		listaUtenti.add(user);
+	}
+	
 %>
 	
 
@@ -32,12 +41,15 @@
 
 	<div class="v35_177">
 
-		<form action="" method="post">
+		<form action="/DreamAndFly/RicercaAccountServlet" method="post">
 
 			<select class="inputField" id="utente" name="utente" required>
 				<option value="all">Tutti gli utenti</option>
 
-				<option value="example">example</option>
+				<%if (listaUtentiPerSelect != null) {
+        		for(AccountUser user: listaUtentiPerSelect) {%>
+        		<option value="<%=user.getEmail()%>"><%=user.getEmail()%></option>
+        	<%}} %>
 
 			</select>
 
@@ -55,16 +67,17 @@
 			<th>Elimina</th>
 
 		</tr>
-		<%for(AccountUser user: listaUtenti){ %>
+		<%if (listaUtenti != null) {
+		for(AccountUser user: listaUtenti){ %>
 		<tr>
 
 			<td><%= user.getEmail()%></td>
 			<td><%= user.getName() %></td>
 			<td><%= user.getSurname() %></td>
 			<td><%= user.getNumber() %></td>
-			<td><a href=""> <i class="fas fa-trash-alt trash-icon"></i>
+			<td><a href="/DreamAndFly/EliminaAccountServlet?email=<%= user.getEmail() %>"> <i class="fas fa-trash-alt trash-icon"></i>
 			</a></td>
- <%}%>
+ <%}}%>
 		</tr>
 		
 	</table>

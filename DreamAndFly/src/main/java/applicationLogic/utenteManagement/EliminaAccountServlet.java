@@ -16,19 +16,24 @@ import javax.sql.DataSource;
 import storage.AccountUserDao;
 
 /**
- * Servlet implementation class VisualizzaAccountServlet
+ * Servlet implementation class EliminaAccountServlet
  */
-@WebServlet("/VisualizzaAccountServlet")
-public class VisualizzaAccountServlet extends HttpServlet {
+@WebServlet("/EliminaAccountServlet")
+public class EliminaAccountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static Logger logger = Logger.getAnonymousLogger();
-    
-    public VisualizzaAccountServlet() {
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public EliminaAccountServlet() {
         super();
-        
+        // TODO Auto-generated constructor stub
     }
 
-	
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		doPost(request, response);
@@ -38,20 +43,16 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		AccountUserDao tool=new AccountUserDao(ds);
+		String email = request.getParameter("email");
 		
 		try {
-			request.setAttribute("listaUtenti", tool.doRetriveAll() );
-			request.setAttribute("listaUtentiPerSelect", tool.doRetriveAll() );
-			
+			tool.doDelete(email);
 		}catch (SQLException e){
 			logger.log(Level.WARNING, "Problema Sql!",e);
 		}
-		
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/GestoreGUI/GestoreAccount/Visualizza-EliminaAccount.jsp");
 	    dispatcher.forward(request, response);
 	}
 
-
-
-	}
+}
