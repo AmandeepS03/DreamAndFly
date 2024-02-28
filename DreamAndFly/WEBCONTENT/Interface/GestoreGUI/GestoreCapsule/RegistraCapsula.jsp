@@ -26,24 +26,45 @@
 						id="prezzoOrario" name="prezzoOrario">
 				</div>
 				<div class="containerData">
-		<div>
-					<label for="dal">Dal:</label><br> 
-					<input
-						type="text" id="dal" name="dal">
+	   <div>
+        <label for="dal">Dal:</label> <br>
+        <input type="text" id="dal" name="dal">
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script>
+        $(function() {
+            var today = new Date(); // Ottiene la data odierna
 
-					<link rel="stylesheet"
-						href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-					<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-					<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-					<script>
-						// Inizializza il datepicker con il formato desiderato
-						$(function() {
-							$("#dal").datepicker({
-								dateFormat : 'dd/mm/yy'
-							});
-						});
-					</script>
-				</div>
+            $("#dal").datepicker({
+                dateFormat: 'dd/mm/yy',
+                minDate: today, // Imposta la data minima come odierna
+                onSelect: function(selectedDate) {
+                    // Imposta la data minima per il datepicker #al come la data selezionata nel datepicker #dal
+                    var minDate = $(this).datepicker('getDate'); // Ottiene la data selezionata in #dal
+                    minDate.setDate(minDate.getDate()); // Incrementa la data di un giorno
+                    $("#al").datepicker("option", "minDate", minDate); // Imposta la data minima per #al
+                }
+            });
+
+            $("#al").datepicker({
+                dateFormat: 'dd/mm/yy',
+                minDate: today // Imposta la data minima come odierna
+            });
+        });
+    </script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+            $(function() {
+                $("#dal").datepicker({
+                    dateFormat: 'dd/mm/yy',
+                    onSelect: function(selectedDate) {
+                        // Imposta la data minima per il datepicker #al come la data selezionata nel datepicker #dal
+                        $("#al").datepicker("option", "minDate", selectedDate);
+                    }
+                });
+            });
+        </script>
+    </div>
 			
 			
 				<div>
