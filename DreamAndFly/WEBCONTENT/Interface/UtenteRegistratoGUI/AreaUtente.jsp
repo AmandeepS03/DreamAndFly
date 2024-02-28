@@ -7,6 +7,7 @@
 	rel="stylesheet" />
 <link rel="stylesheet"
 	href="<%=request.getContextPath() %>/styles/AreaUtente.css">
+	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/validate.js"></script>
 <title>Area Utente</title>
 </head>
 <body>

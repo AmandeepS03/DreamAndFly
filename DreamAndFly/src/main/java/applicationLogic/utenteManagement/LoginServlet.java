@@ -63,7 +63,7 @@ public class LoginServlet extends HttpServlet {
 		}
 
 		if(!controlloPasswd){ 
-			String error="Login errato, riprova.";
+			String error="Password o e-mail non validi";
 			HttpSession session = request.getSession();
 			session.setAttribute("isLogged", "false");
 			request.setAttribute("error", error);
