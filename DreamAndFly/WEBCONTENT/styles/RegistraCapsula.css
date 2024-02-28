@@ -244,3 +244,43 @@ body {
   font-size: 36px;
 	
 }
+.containerLabel{
+	display: flex; 
+	flex-direction: column;
+	padding:25px;
+}
+
+.containerLabel div{
+	margin-bottom:30px;
+	margin-right:20px;
+}
+.containerLabel label{
+  width: 97px;
+  color: rgba(0,0,0,1);
+  
+  font-weight: Regular;
+  font-size: 24px;
+  opacity: 1;
+  text-align: center;
+}
+.containerLabel input[type="text"], select {
+	height: 35px;
+	width:180px;
+}
+button {
+ width: 50%;
+  padding: 8px;
+  margin-left: 25%;
+  font-size: 16px;
+   background-color:rgba(161,201,230,1);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+
+.containerData{
+	display:flex;
+}
+.containerData div{
+	margin-bottom:0px;
+}
