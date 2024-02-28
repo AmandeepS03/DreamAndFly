@@ -1,8 +1,16 @@
+
 * {
   box-sizing: border-box;
 }
 body {
   font-size: 14px;
+  
+}
+
+.image{
+	background-image: url('../images/cielo2.png');
+  background-size: cover;
+  position: relative;
   
 }
 
@@ -18,7 +26,7 @@ body {
 	top: 50%; /* Sposta il div verso il basso del 50% rispetto al suo contenitore */
 	display: flex;
     justify-content: center;
-    background: rgba(234, 234, 234, 1);
+    
     padding: 10px;
 }
 
