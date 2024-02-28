@@ -26,69 +26,72 @@
 	
 	
 				<div class="containerLabel">
-					<div>
-						<label for="dal">Dal:</label> <br>
-						<input
-							type="text" id="dal" name="dal">
-	
-						<link rel="stylesheet"
-							href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-						<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-						<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-						<script>
-							
-					        
-						
-						
-							// Inizializza il datepicker con il formato desiderato
-							 $(function() {
-								$("#dal").datepicker({
-									dateFormat : 'dd/mm/yy'
-									
-								});
-							}); 
-							
-							
-						</script>
-					</div>
-				
-				
-					<div>
-						<label for="dalOrario"></label> <br><br>
-						<select
-							id="dalOrario" title="dalOrario">
-							<option value="" disabled selected>Scegli un'opzione</option>
-							<option value="opzione1">00:00</option>
-							<option value="opzione2">01:00</option>
-							<option value="opzione3">orari disponibili</option>
-							<!-- /*inserisci orari disponibili dinamicamente*/ -->
-						</select>
-					</div>
-					
-					<div>
-						<label for="al">Al:</label><br> 
-						<input
-							type="text" id="al" name="al">
-	
-						<link rel="stylesheet"
-							href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-						<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-						<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-						<script>
-							
-							
-							// Inizializza il datepicker con il formato desiderato
-							$(function() {
-								$("#al").datepicker({
-									dateFormat : 'dd/mm/yy'
-									
-								});
-							});
-						</script>
-					</div>
-				
-				
-					<div>
+    <div>
+        <label for="dal">Dal:</label> <br>
+        <input type="text" id="dal" name="dal">
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script>
+        $(function() {
+            var today = new Date(); // Ottiene la data odierna
+
+            $("#dal").datepicker({
+                dateFormat: 'dd/mm/yy',
+                minDate: today, // Imposta la data minima come odierna
+                onSelect: function(selectedDate) {
+                    // Imposta la data minima per il datepicker #al come la data selezionata nel datepicker #dal
+                    var minDate = $(this).datepicker('getDate'); // Ottiene la data selezionata in #dal
+                    minDate.setDate(minDate.getDate()); // Incrementa la data di un giorno
+                    $("#al").datepicker("option", "minDate", minDate); // Imposta la data minima per #al
+                }
+            });
+
+            $("#al").datepicker({
+                dateFormat: 'dd/mm/yy',
+                minDate: today // Imposta la data minima come odierna
+            });
+        });
+    </script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+            $(function() {
+                $("#dal").datepicker({
+                    dateFormat: 'dd/mm/yy',
+                    onSelect: function(selectedDate) {
+                        // Imposta la data minima per il datepicker #al come la data selezionata nel datepicker #dal
+                        $("#al").datepicker("option", "minDate", selectedDate);
+                    }
+                });
+            });
+        </script>
+    </div>
+
+    <div>
+        <label for="dalOrario"></label> <br><br>
+        <select id="dalOrario" title="dalOrario">
+            <option value="" disabled selected>Scegli un'opzione</option>
+            <option value="opzione1">00:00</option>
+            <option value="opzione2">01:00</option>
+            <option value="opzione3">orari disponibili</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="al">Al:</label><br> 
+        <input type="text" id="al" name="al">
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        
+        <script>
+            $(function() {
+                $("#al").datepicker({
+                    dateFormat: 'dd/mm/yy'
+                });
+            });
+        </script>
+    </div>
+    <div>
 						<label for="alOrario"></label> <br><br>
 						<select
 							id="alOrario" title="alOrario">
@@ -99,8 +102,8 @@
 							<!-- /*inserisci orari disponibili dinamicamente*/ -->
 						</select>
 					</div>
-					
-					</div>
+</div>
+				
 	
 				<br>
 				<button type="submit" id="cercaButton" value="Cerca">Cerca</button>
