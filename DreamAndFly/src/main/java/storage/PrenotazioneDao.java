@@ -463,7 +463,7 @@ public class PrenotazioneDao {
 	  Capsula capsula = new Capsula();
 	  try {
 	  con=ds.getConnection(); 
-	  query = "SELECT p.*, c.tipologia FROM prenotazione p JOIN capsula c ON p.capsula_id = c.id ;"; 
+	  query = "SELECT p.*, c.tipologia FROM prenotazione p JOIN capsula c ON p.capsula_id = c.id where email=?;"; 
 	  pst =con.prepareStatement(query);
 	  pst.setString(1, email);
 	  rs = pst.executeQuery();
@@ -494,6 +494,8 @@ public class PrenotazioneDao {
 	  
 	  }
 	*/
+	
+	
 	
 	
 
