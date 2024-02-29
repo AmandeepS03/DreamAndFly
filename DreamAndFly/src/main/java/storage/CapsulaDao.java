@@ -82,7 +82,7 @@ private DataSource ds=null;
 	}
 	}
 	
-	public void doSave(Capsula user) throws SQLException {
+	public void doSave(Capsula capsula) throws SQLException {
 			
 			String query;
 			PreparedStatement pst=null;
@@ -92,9 +92,9 @@ private DataSource ds=null;
 				query="insert into capsula(id, prezzo_orario, tipologia) values(?,?,?)";
 				con.setAutoCommit(true);
 				pst = con.prepareStatement(query);
-				pst.setInt(1, user.getId());
-				pst.setFloat(2, user.getPrezzo_orario());
-				pst.setString(3, user.getTipologia());
+				pst.setInt(1, capsula.getId());
+				pst.setFloat(2, capsula.getPrezzo_orario());
+				pst.setString(3, capsula.getTipologia());
 				
 				pst.executeUpdate();
 			}finally {
@@ -140,4 +140,6 @@ private DataSource ds=null;
 	    
 	    return capsulalist;
 	  }
+	
+	
 }
