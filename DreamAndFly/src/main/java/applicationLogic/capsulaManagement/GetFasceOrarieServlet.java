@@ -55,6 +55,9 @@ public class GetFasceOrarieServlet extends HttpServlet {
 		if(page!=null && page==2) {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/GestoreGUI/GestoreCapsule/ModificaDisponibilità.jsp");
 		    dispatcher.forward(request, response);
+		}else if(page!=null && page==3) {
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/GestoreGUI/GestoreCapsule/ProlungaDisponibilità.jsp");
+		    dispatcher.forward(request, response);
 		}
 	}
 	

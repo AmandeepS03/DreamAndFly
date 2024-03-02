@@ -50,6 +50,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		if(page!=null && page==0) {
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/GestoreGUI/GestoreCapsule/VisualizzaCapsule.jsp");
 	    dispatcher.forward(request, response);
+	    
 		}else if(page!=null && page==1) {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/GestoreGUI/GestoreCapsule/ModificaPrezzo.jsp");
 		    dispatcher.forward(request, response);
@@ -57,7 +58,10 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		}else if(page!=null && page==2) {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/GestoreGUI/GestoreCapsule/ModificaDisponibilità.jsp");
 		    dispatcher.forward(request, response);
-	}
+		}else if(page!=null && page==3) {
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/GestoreGUI/GestoreCapsule/ProlungaDisponibilità.jsp");
+	    dispatcher.forward(request, response);
+		}
 	}
 
 }
