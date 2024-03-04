@@ -62,7 +62,7 @@
 				</div>
 				<div class="v9_48">
 					<div class="v54_35"></div>
-					<a href="RicercaDisponibilità.jsp"><span class="v9_49">Ricerca disponibilità</span></a>
+					<a href="<%=request.getContextPath() %>/Interface/RicercaDisponibilitàGUI/RicercaDisponibilità.jsp"><span class="v9_49">Ricerca disponibilità</span></a>
 				</div>
 				<div class="v54_31">
 					<div class="v54_32">

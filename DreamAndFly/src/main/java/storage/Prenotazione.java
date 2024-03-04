@@ -12,6 +12,7 @@ public class Prenotazione {
 	float rimborso;
 	String userAccountEmail;
 	int capsulaId;
+	
 	public int getCodiceDiAccesso() {
 		return codiceDiAccesso;
 	}
