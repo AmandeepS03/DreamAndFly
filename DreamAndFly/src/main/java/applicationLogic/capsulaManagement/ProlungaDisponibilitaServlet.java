@@ -1,13 +1,13 @@
 package applicationLogic.capsulaManagement;
 
 import java.io.IOException;
-
-import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.time.LocalDate;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,15 +15,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
-import storage.PrenotabileDao;
 import storage.Prenotabile;
-
+import storage.PrenotabileDao;
 
 /**
- * Servlet implementation class ModificaDisponibilitàServlet
+ * Servlet implementation class ProlungaDisponibilitaServlet
  */
-@WebServlet("/ModificaDisponibilitaServlet")
-public class ModificaDisponibilitaServlet extends HttpServlet {
+@WebServlet("/ProlungaDisponibilitaServlet")
+public class ProlungaDisponibilitaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static Logger logger = Logger.getAnonymousLogger();
 
@@ -31,7 +30,7 @@ public class ModificaDisponibilitaServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ModificaDisponibilitaServlet() {
+    public ProlungaDisponibilitaServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -50,39 +49,52 @@ public class ModificaDisponibilitaServlet extends HttpServlet {
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		PrenotabileDao tool=new PrenotabileDao(ds);
 		Prenotabile prenotabile = new Prenotabile();
-//		Date data = Date.valueOf(request.getParameter("data"));
+		Prenotabile util = new Prenotabile();
 		String data = request.getParameter("data");		
 		Integer id = Integer.valueOf(request.getParameter("numero"));
 		Integer fascia = Integer.valueOf(request.getParameter("fasciaOraria"));
-		String disponibileValue = request.getParameter("disponibile");
-
 		
-		if(disponibileValue.equals("no")) {
+		
 		try {
-			tool.doDelete(data,id,fascia);
+			prenotabile=tool.doRetrieveLastDateById(id);
 			
 			
 		}catch (SQLException e){
 			logger.log(Level.WARNING, "Problema Sql!",e);
-		}
-		}else if(disponibileValue.equals("si")) {
-			try {
-				prenotabile.setDataPrenotabile(data);
-				prenotabile.setCapsulaId(id);
-				prenotabile.setFasciaOrariaNumero(fascia);
-				tool.doSave(prenotabile);
-				
-				
-			}catch (SQLException e){
-				logger.log(Level.WARNING, "Problema Sql!",e);
-			}
-			}
-		
-
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/GestoreGUI/GestoreCapsule/ModificaDisponibilità.jsp");
-		    dispatcher.forward(request, response);
-		
 	}
+		
+		LocalDate dataUltima = LocalDate.parse(prenotabile.getDataPrenotabile());
+		LocalDate dataFinale = LocalDate.parse(data);
+		int fasciaUltima = prenotabile.getFasciaOrariaNumero()+1;
+
+		for(;dataUltima.isBefore(dataFinale)|| dataUltima.isEqual(dataFinale); dataUltima = dataUltima.plusDays(1)) {
+			if(dataUltima.isEqual(dataFinale)) {
+				for(;fasciaUltima<= fascia; fasciaUltima++) {
+					util.setCapsulaId(id);
+					util.setDataPrenotabile(dataUltima.toString());
+					util.setFasciaOrariaNumero(fasciaUltima);
+					try {
+						tool.doSave(util);
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}						
+			}
+			}else {
+			for(;fasciaUltima<= 24; fasciaUltima++) {
+				util.setCapsulaId(id);
+				util.setDataPrenotabile(dataUltima.toString());
+				util.setFasciaOrariaNumero(fasciaUltima);
+				try {
+					tool.doSave(util);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}				
+			}
+			}
+			fasciaUltima=1;
+		}
+		
 	
 
+}
 }

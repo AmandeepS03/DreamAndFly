@@ -32,7 +32,7 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
 			<p class="titolo">Prolunga disponibilità</p>
 		</div>
 		<div class="v65_14">
-			<form action="" method="post">
+			<form action="/DreamAndFly/ProlungaDisponibilitaServlet" method="post">
 			<!-- Form con label e input type su due righe -->
 			<div class="container">
 				<div>
@@ -87,7 +87,7 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
 				</div>
 				<div>
 
-					<label for="fascia_oraria" required>Fascia oraria:</label><br> <select
+					<label for="fasciaOraria" required>Fascia oraria:</label><br> <select
 						class="inputField" id="fasciaOraria" name="fasciaOraria" required>
 						<%if (fasceOrarie != null) {
         		for(FasciaOraria fascia: fasceOrarie) {%>

@@ -175,6 +175,44 @@ public void doDelete(String data, int id, int fasciaOraria) throws SQLException 
 			}
 		}
 	}
+public Prenotabile doRetrieveLastDateById(int id) throws SQLException {
+	ResultSet rs;
+	String query;
+	PreparedStatement pst=null;
+	Connection con=null;
+	Prenotabile prenotabile=new Prenotabile();
+	try {
+		con=ds.getConnection();
+		query = "select * from e_prenotabile where capsula_id = ? order by data_prenotabile desc limit 1";
+		pst = con.prepareStatement(query);
+		pst.setInt(1, id);
+		rs = pst.executeQuery();
+
+		if(rs.next()) {
+			
+			prenotabile.setDataPrenotabile(rs.getString("data_prenotabile"));
+			prenotabile.setCapsulaId(rs.getInt("capsula_id"));
+			prenotabile.setFasciaOrariaNumero(rs.getInt("fascia_oraria_numero"));
+
+		}
+
+	}catch(Exception e) {
+		logger.log(Level.SEVERE, e.getMessage());
+		logger.log(Level.SEVERE , e.getMessage());
+	} finally {
+		try {
+			if(pst != null)
+				pst.close();
+		}finally{
+			if(con != null)
+				con.close();
+		}
+		
+		
+	}
+	return prenotabile;
+
+}
 	
 	
 }
