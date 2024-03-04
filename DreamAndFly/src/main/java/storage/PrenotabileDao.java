@@ -1,6 +1,7 @@
 package storage;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -148,6 +149,70 @@ public class PrenotabileDao {
 			}
 		}
 	}
+	
+public void doDelete(String data, int id, int fasciaOraria) throws SQLException {
+		
+		String query;
+		PreparedStatement pst=null;
+		Connection con=null;
+		try {
+			con=ds.getConnection();
+			query="delete from e_prenotabile where data_prenotabile = ? and capsula_id = ? and fascia_oraria_numero = ?";
+			con.setAutoCommit(true);
+			pst = con.prepareStatement(query);
+			pst.setString(1, data);
+			pst.setInt(2, id);
+			pst.setInt(3, fasciaOraria);
+			
+			pst.executeUpdate();
+		}finally {
+			try {
+				if(pst != null)
+					pst.close();
+			}finally{
+				if(con != null)
+					con.close();
+			}
+		}
+	}
+public Prenotabile doRetrieveLastDateById(int id) throws SQLException {
+	ResultSet rs;
+	String query;
+	PreparedStatement pst=null;
+	Connection con=null;
+	Prenotabile prenotabile=new Prenotabile();
+	try {
+		con=ds.getConnection();
+		query = "select * from e_prenotabile where capsula_id = ? order by data_prenotabile desc limit 1";
+		pst = con.prepareStatement(query);
+		pst.setInt(1, id);
+		rs = pst.executeQuery();
+
+		if(rs.next()) {
+			
+			prenotabile.setDataPrenotabile(rs.getString("data_prenotabile"));
+			prenotabile.setCapsulaId(rs.getInt("capsula_id"));
+			prenotabile.setFasciaOrariaNumero(rs.getInt("fascia_oraria_numero"));
+
+		}
+
+	}catch(Exception e) {
+		logger.log(Level.SEVERE, e.getMessage());
+		logger.log(Level.SEVERE , e.getMessage());
+	} finally {
+		try {
+			if(pst != null)
+				pst.close();
+		}finally{
+			if(con != null)
+				con.close();
+		}
+		
+		
+	}
+	return prenotabile;
+
+}
 	
 	
 }

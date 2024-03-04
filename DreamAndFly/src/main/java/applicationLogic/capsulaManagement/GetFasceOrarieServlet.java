@@ -1,7 +1,6 @@
 package applicationLogic.capsulaManagement;
 
 import java.io.IOException;
-
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,55 +12,54 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
-import storage.CapsulaDao;
+
+import storage.FasciaOrariaDao;
+
 /**
- * Servlet implementation class VisualizzaCapsule
+ * Servlet implementation class GetFasceOrarieServlet
  */
-@WebServlet("/VisualizzaCapsuleServlet")
-public class VisualizzaCapsuleServlet extends HttpServlet {
+@WebServlet("/GetFasceOrarieServlet")
+public class GetFasceOrarieServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static Logger logger = Logger.getAnonymousLogger();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public VisualizzaCapsuleServlet() {
+    public GetFasceOrarieServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doPost(request, response);
 	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
-		CapsulaDao tool=new CapsulaDao(ds);
+		FasciaOrariaDao tool=new FasciaOrariaDao(ds);
 		Integer page = (Integer) request.getAttribute("page");
 		
+		
 		try {
-			request.setAttribute("listaCapsule", tool.doRetriveAll() );
+			request.setAttribute("listaFasceOrarie", tool.doRetriveAll() );
 			
 			
 		}catch (SQLException e){
 			logger.log(Level.WARNING, "Problema Sql!",e);
 		}
 		
-		if(page!=null && page==0) {
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/GestoreGUI/GestoreCapsule/VisualizzaCapsule.jsp");
-	    dispatcher.forward(request, response);
-	    
-		}else if(page!=null && page==1) {
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/GestoreGUI/GestoreCapsule/ModificaPrezzo.jsp");
-		    dispatcher.forward(request, response);
+
 			
-		}else if(page!=null && page==2) {
+		if(page!=null && page==2) {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/GestoreGUI/GestoreCapsule/ModificaDisponibilità.jsp");
 		    dispatcher.forward(request, response);
 		}else if(page!=null && page==3) {
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/GestoreGUI/GestoreCapsule/ProlungaDisponibilità.jsp");
-	    dispatcher.forward(request, response);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/GestoreGUI/GestoreCapsule/ProlungaDisponibilità.jsp");
+		    dispatcher.forward(request, response);
 		}
 	}
+	
 
 }
