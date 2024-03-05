@@ -2,12 +2,11 @@ package applicationLogic.capsulaManagement;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Date;
-import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.time.LocalDate;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -94,7 +93,8 @@ public class ProlungaDisponibilitaServlet extends HttpServlet {
 			fasciaUltima=1;
 		}
 		
-	
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/GestoreGUI/GestoreCapsule/ProlungaDisponibilità.jsp");
+	    dispatcher.forward(request, response);
 
 }
 }

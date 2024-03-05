@@ -263,7 +263,7 @@ body {
   opacity: 1;
   text-align: center;
 }
-.containerLabel input[type="text"], select {
+.containerLabel input[type="text"],input[type="number"], select {
 	height: 35px;
 	width:180px;
 }

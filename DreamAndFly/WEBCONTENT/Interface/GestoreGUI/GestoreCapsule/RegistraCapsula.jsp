@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,25 +10,40 @@
 </head>
 <body>
 <%@ include file="../../Header.jsp" %>
+<%
+/* if(auth.getRuolo()==1){ */
+	request.setAttribute("page", 4);
+
+	List<FasciaOraria> fasceOrarie = (List<FasciaOraria>) request.getAttribute("listaFasceOrarie");
+
+	if(fasceOrarie == null){
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/GetFasceOrarieServlet");
+	    dispatcher.forward(request, response);
+	 } 
+	
+%>	
 	
 			<div class="v32_3"><p class="titolo">Registra capsula</p></div>
 		<div class="v8_249">
-			<form action="" method="post">
+			<form action="/DreamAndFly/RegistraCapsulaServlet" method="post">
 			<!-- Form con label e input type su due righe -->
 			<div class="containerLabel">
 				<div>
-					<label for="numero">Numero:</label><br> <input type="text"
-						id="numero" name="numero">
+					<label for="numero" >Numero:</label> <br>
+					<input type="number" min=0
+						id="numero" name="numero" required>
+					 
+					
 				</div>
 				<div>
-					<label for="prezzoOrario">Prezzo/h:</label><br> 
-					<input type="text"
-						id="prezzoOrario" name="prezzoOrario">
+					<label for="prezzoOrario" >Prezzo/h:</label><br> 
+					<input type="number" min=0
+						id="prezzoOrario" name="prezzoOrario" required>
 				</div>
 				<div class="containerData">
 	   <div>
         <label for="dal">Dal:</label> <br>
-        <input type="text" id="dal" name="dal">
+        <input type="text" id="dal" name="dal" required>
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script>
@@ -36,7 +51,7 @@
             var today = new Date(); // Ottiene la data odierna
 
             $("#dal").datepicker({
-                dateFormat: 'dd/mm/yy',
+                dateFormat: 'yy-mm-dd',
                 minDate: today, // Imposta la data minima come odierna
                 onSelect: function(selectedDate) {
                     // Imposta la data minima per il datepicker #al come la data selezionata nel datepicker #dal
@@ -47,7 +62,7 @@
             });
 
             $("#al").datepicker({
-                dateFormat: 'dd/mm/yy',
+                dateFormat: 'yy-mm-dd',
                 minDate: today // Imposta la data minima come odierna
             });
         });
@@ -56,7 +71,7 @@
         <script>
             $(function() {
                 $("#dal").datepicker({
-                    dateFormat: 'dd/mm/yy',
+                    dateFormat: 'yy-mm-dd',
                     onSelect: function(selectedDate) {
                         // Imposta la data minima per il datepicker #al come la data selezionata nel datepicker #dal
                         $("#al").datepicker("option", "minDate", selectedDate);
@@ -68,21 +83,21 @@
 			
 			
 				<div>
-					<label for="alOrario"></label> <br>
+					<label for="orarioInizio" ></label> <br>
 					<select
-						id="dalOrario" title="dalOrario">
-						<option value="" disabled selected>Scegli un'opzione</option>
-						<option value="opzione1">00:00</option>
-						<option value="opzione2">01:00</option>
-						<option value="opzione3">orari disponibili</option>
-						<!-- /*inserisci orari disponibili dinamicamente*/ -->
-					</select>
-				</div>
+						class="inputField" id="fasciaOraria" name="orarioInizio" required>
+						<%if (fasceOrarie != null) {
+        		for(FasciaOraria fascia: fasceOrarie) {%>
+        		<option value="<%= fascia.getNumero() %>"><%= fascia.getorarioInizio()+"-"+fascia.getorarioFine() %></option>
+        	<%}} %>
+
+					</select>				
+					</div>
 				
 				<div>
 					<label for="al">Al:</label><br> 
 					<input
-						type="text" id="al" name="al">
+						type="text" id="al" name="al" required>
 
 					<link rel="stylesheet"
 						href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -92,7 +107,7 @@
 						// Inizializza il datepicker con il formato desiderato
 						$(function() {
 							$("#al").datepicker({
-								dateFormat : 'dd/mm/yy'
+								dateFormat : 'yy-mm-dd'
 							});
 						});
 					</script>
@@ -100,14 +115,14 @@
 			
 			
 				<div>
-					<label for="alOrario"></label> <br>
+					<label for="orarioFine"></label> <br>
 					<select
-						id="alOrario" title="alOrario">
-						<option value="" disabled selected>Scegli un'opzione</option>
-						<option value="opzione1">00:00</option>
-						<option value="opzione2">01:00</option>
-						<option value="opzione3">orari e giorni disponibili( dopo l orario di arrivo)</option>
-						<!-- /*inserisci orari disponibili dinamicamente*/ -->
+						class="inputField" id="fasciaOraria" name="orarioFine" required>
+						<%if (fasceOrarie != null) {
+        		for(FasciaOraria fascia: fasceOrarie) {%>
+        		<option value="<%= fascia.getNumero() %>"><%= fascia.getorarioInizio()+"-"+fascia.getorarioFine() %></option>
+        	<%}} %>
+
 					</select>
 				</div>
 				</div>
@@ -125,13 +140,12 @@
 				<div>
 
 
-					<label for="tipologia">Tipologia</label> <br>
+					<label for="tipologia" >Tipologia</label> <br>
 					<select
-						id="tipologia" title="tipologia">
-						<option value="" disabled selected>Scegli un'opzione</option>
-						<option value="standard">Standard</option>
-						<option value="superior">Superior</option>
-						<option value="deluxe">Deluxe</option>
+						id="tipologia" title="tipologia" name="tipologia">
+						<option value="Standard">Standard</option>
+						<option value="Superior">Superior</option>
+						<option value="Deluxe">Deluxe</option>
 				
 					</select>
 
@@ -140,29 +154,7 @@
 			</div>
 			<button type="submit" >Inserisci</button>
 			</form>
-			<!-- <span class="v8_250">Numero:</span>
-			<div class="v8_251"></div>
-			<span class="v8_252">Prezzo/h:</span>
-			<div class="v8_253"></div>
-			<div class="v8_254">
-				<span class="v8_255">Dal:</span><span class="v8_256">Al:</span>
-				<div class="v8_257">
-					<div class="v8_258">
-						<span class="v8_259">17/03/2024 18:00</span>
-					</div>
-				</div>
-				<div class="v8_260">
-					<span class="v8_261">17/06/2024 21:00</span>
-				</div>
-				<div class="v8_262">
-					<span class="v8_263">CERCA</span>
-				</div>
-			</div>
-			<span class="v26_2">Tipologia:</span>
-			<div class="v26_3"></div>
-			<div class="v26_4">
-				<span class="v26_5">Inserisci</span>
-			</div> -->
+		
 		</div>
 	
 		
