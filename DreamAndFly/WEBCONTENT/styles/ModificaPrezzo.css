@@ -59,7 +59,7 @@ body {
   opacity: 1;
   text-align: center;
 }
-.container input[type="text"]{
+.container input[type="text"],input[type="number"]{
 	height: 35px;
 	width:180px;
 }

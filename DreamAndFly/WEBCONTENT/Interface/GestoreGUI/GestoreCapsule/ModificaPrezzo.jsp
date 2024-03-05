@@ -41,7 +41,7 @@
 				</select>
 				</div>
 				<div>
-					<label for="prezzo">Prezzo/h:</label><br> <input type="text"
+					<label for="prezzo">Prezzo/h:</label><br> <input type="number"
 						id="prezzo" name="prezzo" required>
 				</div>
 				<div class="buttonContainer">
