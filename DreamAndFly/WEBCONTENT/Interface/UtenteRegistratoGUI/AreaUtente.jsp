@@ -43,7 +43,7 @@
 				</span>
 			</p>
 		</div>
-		<form id="regForm" method="post" action="/DreamAndFly/ModificaDatiServlet" ><!-- onsubmit="event.preventDefault();checkModifica(this)" -->
+		<form id="regForm" method="post" action="/DreamAndFly/ModificaDatiServlet" onsubmit="event.preventDefault();checkModifica(this)" >
 		<fieldset>
 			<legend>Modifica Dati</legend>
 			<p>Modifica password:</p>

@@ -5,7 +5,7 @@
  function tryEmail() {
     let input = document.getElementById('email').value;
     let params = 'email=' + input;
-    loadAjaxDoc('../EmailDisponibility', "GET", params, handleEmail);
+    loadAjaxDoc('../../EmailDisponibility', "GET", params, handleEmail);
 }
 
 function createXMLHttpRequest() {
@@ -96,9 +96,22 @@ function sendPostRequest(url, params, request) {
 
 
 function handleEmail(request){
+	errorString = "email gi\u00E0 registrata";
   let response = request.responseXML.documentElement;
   let result = response.getElementsByTagName("result")[0].firstChild.nodeValue;
+   let submitButton = document.querySelector('button[type="submit"]');
+
+
     document.getElementById("emailCheckDisponibility").innerHTML = result;
     document.getElementById("emailCheckDisponibility").style.color="red";
+    console.log("[", result, "]", "[", errorString, "]");
+
+    if(result === errorString){
+    submitButton.disabled = true; 
+    }else{
+		    submitButton.disabled = false; 
+
+	}
+
     
 }
