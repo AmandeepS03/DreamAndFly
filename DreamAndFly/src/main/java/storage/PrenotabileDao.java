@@ -238,5 +238,41 @@ public Prenotabile doRetrieveLastDateById(int id) throws SQLException {
 		return false;
 	}
 	
+	public boolean doRetrieveByIdAndFasciaOrariaAndDate(Integer capsula_id,Integer fascia_oraria, String data) throws SQLException {
+		ResultSet rs;
+		String query;
+		PreparedStatement pst=null;
+		Connection con=null;
+		try {
+			con=ds.getConnection();
+			query = "select * from e_prenotabile where capsula_id = ? and fascia_oraria_numero = ? and data_prenotabile=?";
+			pst = con.prepareStatement(query);
+			pst.setInt(1, capsula_id);
+			pst.setInt(2, fascia_oraria);
+			pst.setString(3, data);
+			rs = pst.executeQuery();
+
+			if(rs.next()) {
+				return true;
+				
+			}
+			
+
+		}catch(Exception e) {
+			logger.log(Level.SEVERE, e.getMessage());
+			logger.log(Level.SEVERE , e.getMessage());
+		} finally {
+			try {
+				if(pst != null)
+					pst.close();
+			}finally{
+				if(con != null)
+					con.close();
+			}
+			
+		}
+		return false;
+	}
+	
 	
 }	

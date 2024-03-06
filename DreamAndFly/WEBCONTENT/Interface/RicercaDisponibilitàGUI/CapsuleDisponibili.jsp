@@ -99,7 +99,7 @@
 							<option value="opzione1">00:00</option>
 							<option value="opzione2">01:00</option>
 							<option value="opzione3">orari e giorni disponibili( dopo l orario di arrivo)</option>
-							<!-- /*inserisci orari disponibili dinamicamente*/ -->
+							/*inserisci orari disponibili dinamicamente*/
 						</select>
 					</div>
 </div>
@@ -107,7 +107,8 @@
 	
 				<br>
 				<button type="submit" id="cercaButton" value="Cerca">Cerca</button>
-			</form>
+			</form> 
+			
 		</div>
 		
 		
