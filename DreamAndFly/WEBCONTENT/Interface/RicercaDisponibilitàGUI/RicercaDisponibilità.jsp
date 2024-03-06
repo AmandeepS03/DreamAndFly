@@ -75,7 +75,7 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
 						class="inputField" id="fasciaOraria" name="orarioInizio" required>
 						<%if (fasceOrarie != null) {
         		for(FasciaOraria fascia: fasceOrarie) {%>
-        		<option value="<%= fascia.getNumero() %>"><%= fascia.getorarioInizio()+"-"+fascia.getorarioFine() %></option>
+        		<option value="<%= fascia.getNumero() %>"><%= fascia.getorarioInizio() %></option>
         	<%}} %>
 
 					</select>	
@@ -102,7 +102,7 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
 						class="inputField" id="fasciaOraria" name="orarioFine" required>
 						<%if (fasceOrarie != null) {
         		for(FasciaOraria fascia: fasceOrarie) {%>
-        		<option value="<%= fascia.getNumero() %>"><%= fascia.getorarioInizio()+"-"+fascia.getorarioFine() %></option>
+        		<option value="<%= fascia.getNumero() %>"><%= fascia.getorarioFine() %></option>
         	<%}} %>
 
 					</select>

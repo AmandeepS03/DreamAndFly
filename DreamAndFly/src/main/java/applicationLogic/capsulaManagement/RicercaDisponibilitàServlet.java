@@ -26,6 +26,10 @@ public class RicercaDisponibilitàServlet extends HttpServlet {
 	LocalDate dataInizio;
 	LocalDate dataFine;
 	LocalDate data;
+	PrenotabileDao tool;
+	Integer orarioFine;
+	Integer orarioInizio;
+	int orario;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -47,12 +51,12 @@ public class RicercaDisponibilitàServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
-		PrenotabileDao tool= new PrenotabileDao(ds);
+		tool= new PrenotabileDao(ds);
 		Prenotabile prenotabile = new Prenotabile();
 		String dataInizioStringa = request.getParameter("dal");	
 		String dataFineStringa = request.getParameter("al");
-		Integer orarioInizio = Integer.valueOf(request.getParameter("orarioInizio"));
-		Integer orarioFine = Integer.valueOf(request.getParameter("orarioFine"));
+		orarioInizio = Integer.valueOf(request.getParameter("orarioInizio"));
+		orarioFine = Integer.valueOf(request.getParameter("orarioFine"));
 		
 		dataInizio = LocalDate.parse(dataInizioStringa);
 		dataFine = LocalDate.parse(dataFineStringa);
@@ -68,10 +72,30 @@ public class RicercaDisponibilitàServlet extends HttpServlet {
 			idList = tool.doRetrieveByDataInizioDataFine(dataInizioStringa, dataFineStringa);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}	
+		}			
 		
-		for(Integer i:idList) {
-			System.out.println("Capsula id: "+ i);
+		
+		if (!dataInizio.isEqual(dataFine)) {
+		    Collection<Integer> idsToRemove = new ArrayList<>();
+		    for (Integer id : idList) {
+		        if (!checkDate(id))
+		            idsToRemove.add(id);
+		    }
+		    idList.removeAll(idsToRemove);
+		} else {
+		    Collection<Integer> idsToRemove = new ArrayList<>();
+		    for (Integer id : idList) {
+		        if (!checkOrario(id, orarioInizio, orarioFine, dataInizioStringa))
+		            idsToRemove.add(id);
+		    }
+		    idList.removeAll(idsToRemove);
+		}
+
+		
+		for(Integer id:idList) {
+			System.out.println("Capsula id: "+ id);
+				
+			
 		}
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/RicercaDisponibilitàGUI/RicercaDisponibilità.jsp");
@@ -80,10 +104,43 @@ public class RicercaDisponibilitàServlet extends HttpServlet {
 
 	}
 	
-//private boolean checkDate(int id) {
-//	for(data=dataInizio;data.isBefore(dataFine)|| data.isEqual(dataFine);data = data.plusDays(1) ) {
-//		
-//	}
-//}
+private boolean checkDate(int id) {
+	for(data=dataInizio;data.isBefore(dataFine)|| data.isEqual(dataFine);data = data.plusDays(1) ) {
+		try {
+			if(!(tool.doRetrieveByIdAndDate(id, data.toString())))
+				return false;
+			else {
+				if(data.isEqual(dataInizio)) {
+				  if(!checkOrario(id,orarioInizio,24, data.toString()))
+					  return false;
+				}
+				else if (data.isEqual(dataFine)) {
+				  if(!checkOrario(id,1,orarioFine, data.toString()))
+					  return false;
+				}
+				else {
+				  if(!checkOrario(id,1,24, data.toString()))
+					  return false;
+			}
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	return true;
+}
+
+private boolean checkOrario(int id,int orarioInizio, int orarioFine, String data) {
+	for(orario = orarioInizio; orario<= orarioFine ;orario++ ) {
+		try {
+			if(!(tool.doRetrieveByIdAndFasciaOrariaAndDate(id,orario, data.toString())))
+				return false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	return true;
+}
+
 
 }
