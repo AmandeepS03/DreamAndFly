@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,19 +16,31 @@
 <body>
 
 	<%@include file="../Header.jsp" %>
+	 <%
+/* if(auth.getRuolo()==1){ */
+	request.setAttribute("page", 6);
+	List<FasciaOraria> fasceOrarie = (List<FasciaOraria>) request.getAttribute("listaFasceOrarie");
+
+	if(fasceOrarie == null){
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/GetFasceOrarieServlet");
+	    dispatcher.forward(request, response);
+	 } 
+	List<Capsula> capsule = (List<Capsula>) request.getAttribute("listaCapsule");
+	
+%>	
 	<div class="image">
 		
 	
 	
 		<div class="v35_177">
 	
-			<form action="" method="post">
+			<form action="/DreamAndFly/RicercaDisponibilitaServlet" method="post">
 	
 	
 				<div class="containerLabel">
     <div>
         <label for="dal">Dal:</label> <br>
-        <input type="text" id="dal" name="dal">
+        <input type="text" id="dal" name="dal" required>
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script>
@@ -67,18 +79,20 @@
     </div>
 
     <div>
-        <label for="dalOrario"></label> <br><br>
-        <select id="dalOrario" title="dalOrario">
-            <option value="" disabled selected>Scegli un'opzione</option>
-            <option value="opzione1">00:00</option>
-            <option value="opzione2">01:00</option>
-            <option value="opzione3">orari disponibili</option>
-        </select>
+         <label for="orarioInizio" ></label> <br> <br>
+					<select
+						class="inputField" id="fasciaOraria" name="orarioInizio" required>
+						<%if (fasceOrarie != null) {
+        		for(FasciaOraria fascia: fasceOrarie) {%>
+        		<option value="<%= fascia.getNumero() %>"><%= fascia.getorarioInizio() %></option>
+        	<%}} %>
+
+					</select>	
     </div>
 
     <div>
-        <label for="al">Al:</label><br> 
-        <input type="text" id="al" name="al">
+        <label for="al" >Al:</label><br> 
+        <input type="text" id="al" name="al" required>
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -92,22 +106,22 @@
         </script>
     </div>
     <div>
-						<label for="alOrario"></label> <br><br>
-						<select
-							id="alOrario" title="alOrario">
-							<option value="" disabled selected>Scegli un'opzione</option>
-							<option value="opzione1">00:00</option>
-							<option value="opzione2">01:00</option>
-							<option value="opzione3">orari e giorni disponibili( dopo l orario di arrivo)</option>
-							/*inserisci orari disponibili dinamicamente*/
-						</select>
+						<label for="orarioFine"></label> <br> <br>
+					<select
+						class="inputField" id="fasciaOraria" name="orarioFine" required>
+						<%if (fasceOrarie != null) {
+        		for(FasciaOraria fascia: fasceOrarie) {%>
+        		<option value="<%= fascia.getNumero() %>"><%= fascia.getorarioFine() %></option>
+        	<%}} %>
+
+					</select>
 					</div>
 </div>
 				
 	
 				<br>
 				<button type="submit" id="cercaButton" value="Cerca">Cerca</button>
-			</form> 
+			</form>  
 			
 		</div>
 		
@@ -117,36 +131,27 @@
         <div class="album py-5">
             <div class="container">
                 <div class="row">
-                    <!-- Inizio del loop per la visualizzazione dei prodotti -->
-                    <%--  <% if (prodotti != null && prodotti.size() != 0) {
-                        Iterator<?> it = prodotti.iterator();
-                        while (it.hasNext()) {
-                            Prodotto prodotto = (Prodotto) it.next();
-                    %>  --%>
+                    <% if (capsule != null && capsule.size() != 0) {
+        Iterator<?> it = capsule.iterator();
+        while (it.hasNext()) {
+          Capsula capsula = (Capsula) it.next();
+      %>
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
                             <div class="card-body d-flex flex-column">
                             	
-                                <!-- Link al dettaglio del prodotto -->
-                                <%-- <!-- <a href="<%=request.getContextPath()%>/common/DettaglioProdotto.jsp?code=<%=prodotto.getCodice()%>" class="card-text nome"><%=prodotto.getNome()%> -->
-                                <!-- Immagine del prodotto -->
-                                <!-- <img class="card-img-top img" src="<%=request.getContextPath()%>/getPicture?codice=<%=prodotto.getCodice()%>" alt="immagine prodotto"></a> -->
-                                <!-- Prezzo del prodotto -->
-                                <!-- <div class="d-flex justify-content-center flex-column ">
-                                    <p class="text-center prezzo"><%=prodotto.getPrezzo()%>&euro;</p>
-                                    <button type="button" class="btn btn-info btn-block aggiungiAlCarrello" data-id="<%=prodotto.getCodice()%>">Aggiungi al carrello</button>
-                                </div> --> --%>
+                          
                                 <div>
-	                                <h4 style="display: inline-block;">Capsula </h4>
-	                                <h4 style="display: inline-block;"><!-- nomero capsula dinamicamente --></h4>
+	                                <h4 style="display: inline-block;">Capsula <%=capsula.getId() %> </h4>
+	                                
                                 </div>
                                 <ul>
-						            <li><!-- Tipologia --></li>
+						            <li><%= capsula.getTipologia() %></li>
 						            
 						        </ul>
 						        <div>
-	                                <h6 style="display: inline-block;" class="prezzo"></h6> <!-- prezzo dinamicamente -->
-	                                <h6 style="display: inline-block;">&euro;</h6>
+	                                <h6 style="display: inline-block;" class="prezzo"><%= capsula.getPrezzo_orario() %>&euro;</h6> <!-- prezzo dinamicamente -->
+	                               
                                 </div>
 						        
 						        <button type="submit" class="prenotaButton" value="Prenota">Prenota</button>
@@ -159,7 +164,7 @@
                     
                   
                     
-                    <%-- <!-- <%}}%> --> --%>
+                    <%}}%>
                     <!-- Fine del loop -->
                 </div>
             </div>

@@ -1,10 +1,12 @@
 package applicationLogic.capsulaManagement;
 
 import java.io.IOException;
+
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,12 +18,13 @@ import javax.sql.DataSource;
 
 import storage.Prenotabile;
 import storage.PrenotabileDao;
-
+import storage.Capsula;
+import storage.CapsulaDao;
 /**
  * Servlet implementation class RicercaDisponibilitàServlet
  */
-@WebServlet("/RicercaDisponibilitàServlet")
-public class RicercaDisponibilitàServlet extends HttpServlet {
+@WebServlet("/RicercaDisponibilitaServlet")
+public class RicercaDisponibilitaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	LocalDate dataInizio;
 	LocalDate dataFine;
@@ -34,7 +37,7 @@ public class RicercaDisponibilitàServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RicercaDisponibilitàServlet() {
+    public RicercaDisponibilitaServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -53,6 +56,10 @@ public class RicercaDisponibilitàServlet extends HttpServlet {
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		tool= new PrenotabileDao(ds);
 		Prenotabile prenotabile = new Prenotabile();
+		
+		CapsulaDao toolC = new CapsulaDao(ds);
+		List<Capsula> capsule = new ArrayList<Capsula>();
+		
 		String dataInizioStringa = request.getParameter("dal");	
 		String dataFineStringa = request.getParameter("al");
 		orarioInizio = Integer.valueOf(request.getParameter("orarioInizio"));
@@ -93,12 +100,20 @@ public class RicercaDisponibilitàServlet extends HttpServlet {
 
 		
 		for(Integer id:idList) {
-			System.out.println("Capsula id: "+ id);
+			try {
+				capsule.add(toolC.doRetrieveByKey(id));
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}			
 				
 			
 		}
 		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/RicercaDisponibilitàGUI/RicercaDisponibilità.jsp");
+		request.setAttribute("listaCapsule", capsule);
+		
+		
+		
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/RicercaDisponibilitàGUI/CapsuleDisponibili.jsp");
 	    dispatcher.forward(request, response);
 
 

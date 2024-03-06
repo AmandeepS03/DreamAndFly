@@ -25,13 +25,13 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
 	 <div class="image">
 		<div class="v35_177">
 	
-			<form action="/DreamAndFly/RicercaDisponibilitàServlet" method="post">
+			<form action="/DreamAndFly/RicercaDisponibilitaServlet" method="post">
 	
 	
 				<div class="containerLabel">
     <div>
         <label for="dal">Dal:</label> <br>
-        <input type="text" id="dal" name="dal">
+        <input type="text" id="dal" name="dal" required>
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script>
@@ -83,7 +83,7 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
 
     <div>
         <label for="al">Al:</label><br> 
-        <input type="text" id="al" name="al">
+        <input type="text" id="al" name="al" required>
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
