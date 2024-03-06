@@ -20,14 +20,12 @@ body {
 	background-size: cover;
 	opacity: 1;
 	position: relative; /* Utilizza il posizionamento relativo */
-	margin: 60px;
-	margin-top: 20px;
-	margin-bottom: 20px;
+	padding-bottom: 100px;
 	top: 50%; /* Sposta il div verso il basso del 50% rispetto al suo contenitore */
 	display: flex;
     justify-content: center;
     
-    padding: 10px;
+    
 }
 
 

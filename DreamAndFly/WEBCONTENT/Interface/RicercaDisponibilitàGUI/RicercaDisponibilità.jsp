@@ -39,7 +39,7 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
             var today = new Date(); // Ottiene la data odierna
 
             $("#dal").datepicker({
-                dateFormat: 'dd/mm/yy',
+                dateFormat: 'yy-mm-dd',
                 minDate: today, // Imposta la data minima come odierna
                 onSelect: function(selectedDate) {
                     // Imposta la data minima per il datepicker #al come la data selezionata nel datepicker #dal
@@ -50,7 +50,7 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
             });
 
             $("#al").datepicker({
-                dateFormat: 'dd/mm/yy',
+                dateFormat: 'yy-mm-dd',
                 minDate: today // Imposta la data minima come odierna
             });
         });
@@ -59,7 +59,7 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
         <script>
             $(function() {
                 $("#dal").datepicker({
-                    dateFormat: 'dd/mm/yy',
+                    dateFormat: 'yy-mm-dd',
                     onSelect: function(selectedDate) {
                         // Imposta la data minima per il datepicker #al come la data selezionata nel datepicker #dal
                         $("#al").datepicker("option", "minDate", selectedDate);
@@ -91,7 +91,7 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
         <script>
             $(function() {
                 $("#al").datepicker({
-                    dateFormat: 'dd/mm/yy'
+                    dateFormat: 'yy-mm-dd'
                 });
             });
         </script>
