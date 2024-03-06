@@ -213,6 +213,45 @@ public Prenotabile doRetrieveLastDateById(int id) throws SQLException {
 	return prenotabile;
 
 }
+
+	public Collection<Integer> doRetrieveByDataInizioDataFine(String dataInizio,String dataFine) throws SQLException{
+		ResultSet rs;
+		String query;
+		PreparedStatement pst=null;
+		Connection con=null;
+		Collection<Integer> idList = new ArrayList<>() ;
+		try {
+			con=ds.getConnection();
+			query = "select capsula_id from e_prenotabile where data_prenotabile>=? and data_prenotabile<=? group by capsula_id;";
+			pst = con.prepareStatement(query);
+			pst.setString(1, dataInizio);
+			pst.setString(2, dataFine);
+			rs = pst.executeQuery();
+
+			while(rs.next()) {
+				idList.add(rs.getInt("capsula_id"));
+				
+			}
+			
+
+		}catch(Exception e) {
+			logger.log(Level.SEVERE, e.getMessage());
+			logger.log(Level.SEVERE , e.getMessage());
+		} finally {
+			try {
+				if(pst != null)
+					pst.close();
+			}finally{
+				if(con != null)
+					con.close();
+			}
+			
+		}
+				
+		return idList;
+		
+		
+	}
 	
 	
-}
+}	
