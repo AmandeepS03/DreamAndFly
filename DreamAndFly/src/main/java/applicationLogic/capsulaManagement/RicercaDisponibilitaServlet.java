@@ -33,6 +33,7 @@ public class RicercaDisponibilitaServlet extends HttpServlet {
 	Integer orarioFine;
 	Integer orarioInizio;
 	int orario;
+	
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -110,8 +111,9 @@ public class RicercaDisponibilitaServlet extends HttpServlet {
 		}
 		
 		request.setAttribute("listaCapsule", capsule);
+		request.setAttribute("counterOre", contaOre(dataInizio, dataFine, orarioInizio, orarioFine));
 		
-		
+		System.out.println("Counter: " + contaOre(dataInizio, dataFine, orarioInizio, orarioFine));
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/RicercaDisponibilitàGUI/CapsuleDisponibili.jsp");
 	    dispatcher.forward(request, response);
@@ -120,6 +122,7 @@ public class RicercaDisponibilitaServlet extends HttpServlet {
 	}
 	
 private boolean checkDate(int id) {
+	
 	for(data=dataInizio;data.isBefore(dataFine)|| data.isEqual(dataFine);data = data.plusDays(1) ) {
 		try {
 			if(!(tool.doRetrieveByIdAndDate(id, data.toString())))
@@ -146,6 +149,7 @@ private boolean checkDate(int id) {
 }
 
 private boolean checkOrario(int id,int orarioInizio, int orarioFine, String data) {
+
 	for(orario = orarioInizio; orario<= orarioFine ;orario++ ) {
 		try {
 			if(!(tool.doRetrieveByIdAndFasciaOrariaAndDate(id,orario, data.toString())))
@@ -153,9 +157,40 @@ private boolean checkOrario(int id,int orarioInizio, int orarioFine, String data
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
 	}
+	
 	return true;
 }
+
+private int contaOre(LocalDate dataInizio, LocalDate dataFine, int orarioInizio, int orarioFine) {
+	int counterOre =0;
+	if(dataInizio.isEqual(dataFine))
+		return (orarioFine-orarioInizio)+1;
+	else {
+		for(data=dataInizio;data.isBefore(dataFine)|| data.isEqual(dataFine);data = data.plusDays(1) ) {
+		
+			if(data.isEqual(dataInizio)) {
+				for(orario = orarioInizio; orario<= 24 ;orario++ ) {
+						counterOre++;
+					}
+			}else if (data.isEqual(dataFine)) {
+				for(orario = 1; orario<= orarioFine ;orario++ ) {
+					counterOre++;
+				}
+			}else{
+				for(orario = 1; orario<= 24 ;orario++ ) {
+					counterOre++;
+				}	 
+			}
+		}
+	}
+	return counterOre;
+		
+	}
+	
+	
+
 
 
 }

@@ -26,6 +26,7 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
 	    dispatcher.forward(request, response);
 	 } 
 	List<Capsula> capsule = (List<Capsula>) request.getAttribute("listaCapsule");
+	Integer counterOre = (Integer) request.getAttribute("counterOre");
 	
 %>	
 	<div class="image">
@@ -150,7 +151,7 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
 						            
 						        </ul>
 						        <div>
-	                                <h6 style="display: inline-block;" class="prezzo"><%= capsula.getPrezzo_orario() %>&euro;</h6> <!-- prezzo dinamicamente -->
+	                                <h6 style="display: inline-block;" class="prezzo"><%= capsula.getPrezzo_orario()*counterOre %>&euro;</h6> <!-- prezzo dinamicamente -->
 	                               
                                 </div>
 						        
