@@ -18,7 +18,7 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
 	<%@include file="../Header.jsp" %>
 	 <%
 /* if(auth.getRuolo()==1){ */
-	request.setAttribute("page", 6);
+	request.setAttribute("page", 5);
 	List<FasciaOraria> fasceOrarie = (List<FasciaOraria>) request.getAttribute("listaFasceOrarie");
 
 	if(fasceOrarie == null){
