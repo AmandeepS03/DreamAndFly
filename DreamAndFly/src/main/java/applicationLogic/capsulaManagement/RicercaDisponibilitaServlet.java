@@ -20,6 +20,8 @@ import storage.Prenotabile;
 import storage.PrenotabileDao;
 import storage.Capsula;
 import storage.CapsulaDao;
+import storage.FasciaOraria;
+import storage.FasciaOrariaDao;
 /**
  * Servlet implementation class RicercaDisponibilitàServlet
  */
@@ -30,6 +32,7 @@ public class RicercaDisponibilitaServlet extends HttpServlet {
 	LocalDate dataFine;
 	LocalDate data;
 	PrenotabileDao tool;
+	FasciaOrariaDao toolFasciaOraria ;
 	Integer orarioFine;
 	Integer orarioInizio;
 	int orario;
@@ -112,6 +115,25 @@ public class RicercaDisponibilitaServlet extends HttpServlet {
 		
 		request.setAttribute("listaCapsule", capsule);
 		request.setAttribute("counterOre", contaOre(dataInizio, dataFine, orarioInizio, orarioFine));
+		request.setAttribute("dataInizio", dataInizio.toString());
+		request.setAttribute("dataFine", dataFine.toString());
+		
+		try {
+			
+			toolFasciaOraria = new FasciaOrariaDao(ds);
+			FasciaOraria fasciaOrariaInizio = toolFasciaOraria.doRetrieveByKey(orarioInizio);
+			request.setAttribute("orarioInizio", fasciaOrariaInizio.getorarioInizio());
+			
+			FasciaOraria fasciaOrariaFine = toolFasciaOraria.doRetrieveByKey(orarioFine);
+			request.setAttribute("orarioFine", fasciaOrariaFine.getorarioFine());
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		
+		 
 		
 		System.out.println("Counter: " + contaOre(dataInizio, dataFine, orarioInizio, orarioFine));
 		

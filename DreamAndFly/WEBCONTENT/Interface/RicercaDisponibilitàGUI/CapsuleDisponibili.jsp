@@ -27,7 +27,7 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
 	 } 
 	List<Capsula> capsule = (List<Capsula>) request.getAttribute("listaCapsule");
 	Integer counterOre = (Integer) request.getAttribute("counterOre");
-	
+	String dataInizio = (String) request.getAttribute("dataInizio");
 %>	
 	<div class="image">
 		
@@ -133,10 +133,10 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
             <div class="container">
                 <div class="row">
                     <% if (capsule != null && capsule.size() != 0) {
-        Iterator<?> it = capsule.iterator();
-        while (it.hasNext()) {
-          Capsula capsula = (Capsula) it.next();
-      %>
+				        Iterator<?> it = capsule.iterator();
+				        while (it.hasNext()) {
+				          Capsula capsula = (Capsula) it.next();
+				      %>
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
                             <div class="card-body d-flex flex-column">
@@ -150,6 +150,9 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
 						            <li><%= capsula.getTipologia() %></li>
 						            
 						        </ul>
+						        <h6>Dal <%=dataInizio %> alle <%=request.getAttribute("orarioInizio") %> </h6>
+						        <h6>Al <%=request.getAttribute("dataFine") %> alle <%=request.getAttribute("orarioFine") %></h6>
+						        
 						        <div>
 	                                <h6 style="display: inline-block;" class="prezzo"><%= capsula.getPrezzo_orario()*counterOre %>&euro;</h6> <!-- prezzo dinamicamente -->
 	                               
@@ -166,7 +169,7 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
                   
                     
                     <%}}%>
-                    <!-- Fine del loop -->
+                    
                 </div>
             </div>
         </div>
