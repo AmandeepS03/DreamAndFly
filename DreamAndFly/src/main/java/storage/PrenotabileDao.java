@@ -222,7 +222,7 @@ public Prenotabile doRetrieveLastDateById(int id) throws SQLException {
 		Collection<Integer> idList = new ArrayList<>() ;
 		try {
 			con=ds.getConnection();
-			query = "select capsula_id from e_prenotabile where data_prenotabile>=? and data_prenotabile<=? group by capsula_id;";
+			query = "SELECT capsula_id FROM e_prenotabile WHERE data_prenotabile = ? AND capsula_id IN (SELECT capsula_id FROM e_prenotabile WHERE data_prenotabile = ?) GROUP BY capsula_id";
 			pst = con.prepareStatement(query);
 			pst.setString(1, dataInizio);
 			pst.setString(2, dataFine);

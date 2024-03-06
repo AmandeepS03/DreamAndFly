@@ -1,7 +1,10 @@
 package applicationLogic.capsulaManagement;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,6 +23,9 @@ import storage.PrenotabileDao;
 @WebServlet("/RicercaDisponibilitàServlet")
 public class RicercaDisponibilitàServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	LocalDate dataInizio;
+	LocalDate dataFine;
+	LocalDate data;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -48,20 +54,36 @@ public class RicercaDisponibilitàServlet extends HttpServlet {
 		Integer orarioInizio = Integer.valueOf(request.getParameter("orarioInizio"));
 		Integer orarioFine = Integer.valueOf(request.getParameter("orarioFine"));
 		
-		LocalDate dataInizio = LocalDate.parse(dataInizioStringa);
-		LocalDate dataFine = LocalDate.parse(dataFineStringa);
+		dataInizio = LocalDate.parse(dataInizioStringa);
+		dataFine = LocalDate.parse(dataFineStringa);
 		
 		System.out.println("DataInizio: "+ dataInizioStringa);
 		System.out.println("DataFine: "+ dataFineStringa);
 		System.out.println("OrarioInizio: "+ orarioInizio);
 		System.out.println("OrarioFine: "+ orarioFine);
 		
+		Collection<Integer> idList = new ArrayList<>() ;
 		
+		try {
+			idList = tool.doRetrieveByDataInizioDataFine(dataInizioStringa, dataFineStringa);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+		
+		for(Integer i:idList) {
+			System.out.println("Capsula id: "+ i);
+		}
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/RicercaDisponibilitàGUI/RicercaDisponibilità.jsp");
 	    dispatcher.forward(request, response);
 
 
 	}
+	
+//private boolean checkDate(int id) {
+//	for(data=dataInizio;data.isBefore(dataFine)|| data.isEqual(dataFine);data = data.plusDays(1) ) {
+//		
+//	}
+//}
 
 }
