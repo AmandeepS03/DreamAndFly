@@ -125,7 +125,7 @@ public void doDelete(String data, int id, int fasciaOraria) throws SQLException 
 			}
 		}
 	}
-public Prenotabile doRetrieveLastDateById(int id) throws SQLException {
+public synchronized Prenotabile doRetrieveLastDateById(int id) throws SQLException {
 	ResultSet rs;
 	String query;
 	PreparedStatement pst=null;
@@ -164,7 +164,7 @@ public Prenotabile doRetrieveLastDateById(int id) throws SQLException {
 
 }
 
-	public Collection<Integer> doRetrieveByDataInizioDataFine(String dataInizio,String dataFine) throws SQLException{
+	public synchronized Collection<Integer> doRetrieveByDataInizioDataFine(String dataInizio,String dataFine) throws SQLException{
 		ResultSet rs;
 		String query;
 		PreparedStatement pst=null;
@@ -203,7 +203,7 @@ public Prenotabile doRetrieveLastDateById(int id) throws SQLException {
 		
 	}
 	
-	public boolean doRetrieveByIdAndDate(Integer capsula_id, String data) throws SQLException {
+	public synchronized boolean doRetrieveByIdAndDate(Integer capsula_id, String data) throws SQLException {
 		ResultSet rs;
 		String query;
 		PreparedStatement pst=null;
@@ -238,7 +238,7 @@ public Prenotabile doRetrieveLastDateById(int id) throws SQLException {
 		return false;
 	}
 	
-	public boolean doRetrieveByIdAndFasciaOrariaAndDate(Integer capsula_id,Integer fascia_oraria, String data) throws SQLException {
+	public synchronized boolean doRetrieveByIdAndFasciaOrariaAndDate(Integer capsula_id,Integer fascia_oraria, String data) throws SQLException {
 		ResultSet rs;
 		String query;
 		PreparedStatement pst=null;
