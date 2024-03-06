@@ -61,6 +61,9 @@ public class GetFasceOrarieServlet extends HttpServlet {
 		}else if(page!=null && page==4) {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/GestoreGUI/GestoreCapsule/RegistraCapsula.jsp");
 		    dispatcher.forward(request, response);
+		}else if(page!=null && page==5) {
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/RicercaDisponibilitàGUI/RicercaDisponibilità.jsp");
+		    dispatcher.forward(request, response);
 		}
 	}
 	

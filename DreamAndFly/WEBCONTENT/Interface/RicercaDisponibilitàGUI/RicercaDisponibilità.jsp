@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,10 +11,21 @@
 <body>
 	
 	 <%@include file="../Header.jsp" %>
+	 <%
+/* if(auth.getRuolo()==1){ */
+	request.setAttribute("page", 5);
+	List<FasciaOraria> fasceOrarie = (List<FasciaOraria>) request.getAttribute("listaFasceOrarie");
+
+	if(fasceOrarie == null){
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/GetFasceOrarieServlet");
+	    dispatcher.forward(request, response);
+	 } 
+	
+%>	
 	 <div class="image">
 		<div class="v35_177">
 	
-			<form action="" method="post">
+			<form action="/DreamAndFly/RicercaDisponibilitàServlet" method="post">
 	
 	
 				<div class="containerLabel">
@@ -59,13 +70,15 @@
     </div>
 
     <div>
-        <label for="dalOrario"></label> <br>
-        <select id="dalOrario" title="dalOrario">
-            <option value="" disabled selected>Scegli un'opzione</option>
-            <option value="opzione1">00:00</option>
-            <option value="opzione2">01:00</option>
-            <option value="opzione3">orari disponibili</option>
-        </select>
+        <label for="orarioInizio" ></label> <br>
+					<select
+						class="inputField" id="fasciaOraria" name="orarioInizio" required>
+						<%if (fasceOrarie != null) {
+        		for(FasciaOraria fascia: fasceOrarie) {%>
+        		<option value="<%= fascia.getNumero() %>"><%= fascia.getorarioInizio()+"-"+fascia.getorarioFine() %></option>
+        	<%}} %>
+
+					</select>	
     </div>
 
     <div>
@@ -84,15 +97,15 @@
         </script>
     </div>
     <div>
-						<label for="alOrario"></label> <br>
-						<select
-							id="alOrario" title="alOrario">
-							<option value="" disabled selected>Scegli un'opzione</option>
-							<option value="opzione1">00:00</option>
-							<option value="opzione2">01:00</option>
-							<option value="opzione3">orari e giorni disponibili( dopo l orario di arrivo)</option>
-							<!-- /*inserisci orari disponibili dinamicamente*/ -->
-						</select>
+						<label for="orarioFine"></label> <br>
+					<select
+						class="inputField" id="fasciaOraria" name="orarioFine" required>
+						<%if (fasceOrarie != null) {
+        		for(FasciaOraria fascia: fasceOrarie) {%>
+        		<option value="<%= fascia.getNumero() %>"><%= fascia.getorarioInizio()+"-"+fascia.getorarioFine() %></option>
+        	<%}} %>
+
+					</select>
 					</div>
 </div>
 				
