@@ -42,7 +42,7 @@ body {
 	margin-right:20px;
 }
 .containerLabel label{
-  width: 97px;
+  
   color: rgba(0,0,0,1);
   
   font-weight: Regular;
@@ -59,6 +59,11 @@ body {
 	height: 35px;
 	width:100px;
 	/* font-size: 0px; */
+}
+
+label {
+    display: inline-block;
+    margin-bottom: .0rem; 
 }
 
 
