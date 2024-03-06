@@ -34,97 +34,91 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
 	
 	
 		<div class="v35_177">
-	
-			<form action="/DreamAndFly/RicercaDisponibilitaServlet" method="post">
-	
-	
-				<div class="containerLabel">
-    <div>
-        <label for="dal">Dal:</label> <br>
-        <input type="text" id="dal" name="dal" required>
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-        <script>
-        $(function() {
-            var today = new Date(); // Ottiene la data odierna
+    <form action="/DreamAndFly/RicercaDisponibilitaServlet" method="post">
 
-            $("#dal").datepicker({
-                dateFormat: 'yy-mm-dd',
-                minDate: today, // Imposta la data minima come odierna
-                onSelect: function(selectedDate) {
-                    // Imposta la data minima per il datepicker #al come la data selezionata nel datepicker #dal
-                    var minDate = $(this).datepicker('getDate'); // Ottiene la data selezionata in #dal
-                    minDate.setDate(minDate.getDate()); // Incrementa la data di un giorno
-                    $("#al").datepicker("option", "minDate", minDate); // Imposta la data minima per #al
-                }
-            });
+        <div class="containerLabel">
+            <div>
+                <label for="dal">Dal:</label> <br>
+                <input type="text" id="dal" name="dal" required>
+            </div>
 
-            $("#al").datepicker({
-                dateFormat: 'yy-mm-dd',
-                minDate: today // Imposta la data minima come odierna
-            });
-        });
-    </script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script>
-            $(function() {
-                $("#dal").datepicker({
-                    dateFormat: 'yy-mm-dd',
-                    onSelect: function(selectedDate) {
-                        // Imposta la data minima per il datepicker #al come la data selezionata nel datepicker #dal
-                        $("#al").datepicker("option", "minDate", selectedDate);
-                    }
-                });
-            });
-        </script>
-    </div>
+            <div>
+                <label for="orarioInizio"></label> <br> <br>
+                <select class="inputField" id="fasciaOrariaInizio" name="orarioInizio" required>
+                    <% if (fasceOrarie != null) {
+                        for (FasciaOraria fascia : fasceOrarie) { %>
+                            <option value="<%= fascia.getNumero() %>"><%= fascia.getorarioInizio() %></option>
+                    <% }} %>
+                </select>
+            </div>
 
-    <div>
-         <label for="orarioInizio" ></label> <br> <br>
-					<select
-						class="inputField" id="fasciaOraria" name="orarioInizio" required>
-						<%if (fasceOrarie != null) {
-        		for(FasciaOraria fascia: fasceOrarie) {%>
-        		<option value="<%= fascia.getNumero() %>"><%= fascia.getorarioInizio() %></option>
-        	<%}} %>
+            <div>
+                <label for="al">Al:</label><br>
+                <input type="text" id="al" name="al" required>
+            </div>
 
-					</select>	
-    </div>
+            <div>
+                <label for="orarioFine"></label> <br> <br>
+                <select class="inputField" id="fasciaOrariaFine" name="orarioFine" required>
+                    <% if (fasceOrarie != null) {
+                        for (FasciaOraria fascia : fasceOrarie) { %>
+                            <option value="<%= fascia.getNumero() %>"><%= fascia.getorarioFine() %></option>
+                    <% }} %>
+                </select>
+            </div>
+        </div>
 
-    <div>
-        <label for="al" >Al:</label><br> 
-        <input type="text" id="al" name="al" required>
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        
-        <script>
-            $(function() {
-                $("#al").datepicker({
-                    dateFormat: 'yy-mm-dd'
-                });
-            });
-        </script>
-    </div>
-    <div>
-						<label for="orarioFine"></label> <br> <br>
-					<select
-						class="inputField" id="fasciaOraria" name="orarioFine" required>
-						<%if (fasceOrarie != null) {
-        		for(FasciaOraria fascia: fasceOrarie) {%>
-        		<option value="<%= fascia.getNumero() %>"><%= fascia.getorarioFine() %></option>
-        	<%}} %>
-
-					</select>
-					</div>
+        <br>
+        <button type="submit" id="cercaButton" value="Cerca">Cerca</button>
+    </form>
 </div>
-				
-	
-				<br>
-				<button type="submit" id="cercaButton" value="Cerca">Cerca</button>
-			</form>  
-			
-		</div>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(function() {
+        var today = new Date(); // Ottiene la data odierna
+
+        $("#dal, #al").datepicker({
+            dateFormat: 'yy-mm-dd',
+            minDate: today, // Imposta la data minima come odierna
+            onSelect: function(selectedDate) {
+                // Imposta la data minima per il datepicker #al come la data selezionata nel datepicker #dal
+                if ($(this).attr('id') === 'dal') {
+                    $("#al").datepicker("option", "minDate", selectedDate);
+                }
+
+                // Abilita/disabilita le fasce orarie di fine in base alla data di inizio e fine
+                checkOrarioFine();
+            }
+        });
+
+        // Gestisci la modifica delle fasce orarie di inizio
+        $("#fasciaOrariaInizio").change(function() {
+            // Abilita/disabilita le fasce orarie di fine in base alla data di inizio e fine
+            checkOrarioFine();
+        });
+
+        // Funzione per abilitare/disabilitare le fasce orarie di fine in base alla data di inizio e fine
+        function checkOrarioFine() {
+            var startDate = $("#dal").datepicker("getDate");
+            var endDate = $("#al").datepicker("getDate");
+            if (startDate && endDate && startDate.getTime() === endDate.getTime()) {
+                // Se le date di inizio e fine sono uguali, abilita solo le fasce orarie di fine successive alla fascia oraria di inizio
+                var selectedStart = parseInt($("#fasciaOrariaInizio").val());
+                $("#fasciaOrariaFine option").prop("disabled", function() {
+                    return parseInt($(this).val()) <= selectedStart-1;
+                });
+            } else {
+                // Altrimenti, abilita tutte le fasce orarie di fine
+                $("#fasciaOrariaFine option").prop("disabled", false);
+            }
+        }
+    });
+</script>
+
+
 		
 		
 		<main>
