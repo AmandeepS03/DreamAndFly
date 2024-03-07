@@ -44,7 +44,7 @@ body {
 .containerLabel label{
   
   color: rgba(0,0,0,1);
-  
+  font-family: none;
   font-weight: Regular;
   font-size: 24px;
   opacity: 1;

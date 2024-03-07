@@ -10,6 +10,18 @@
 
 
 </head>
+
+<%
+	    
+	//TODO
+		Collection<?> prenotazioni = (Collection<?>) request.getAttribute("prenotazioni");
+		if (prenotazioni == null){
+		  RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/");
+		  dispatcher.forward(request, response);  
+		  return;
+		}
+      	
+	%>
 <body>
 	<div class="v76_3">
 	
@@ -32,16 +44,19 @@
 				</tr>
 			</thead>
 			<tbody>
-			
+				<%if (prenotazioni != null && prenotazioni.size() != 0) {
+		        Iterator<?> it = prenotazioni.iterator();
+		        while (it.hasNext()) {
+		          PrenotazioneWrapper prenotazione = (PrenotazioneWrapper) it.next();%>
 				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-                	<td></td>
-                	<td></td>
-					<td></td>
-                	<td></td> 
-                	<td></td>
+					<td><%=prenotazione.getCodiceDiAccesso() %></td>
+					<td><%=prenotazione.getCapsulaId() %></td>
+					<td><%=prenotazione.getDataInizio()%> <%=prenotazione.getOrarioInizio() %></td>
+                	<td><%=prenotazione.getDataFine()%> <%=prenotazione.getOrarioFine() %></td>
+                	<td><%=prenotazione.getDataEffettuazione() %></td>
+					<td><%=prenotazione.getTipologia()%></td> <!-- //TODO -->
+                	<td><%=request.getAttribute("prezzoTotale") %></td> <!-- //TODO -->
+                	<td><!-- icona del cestino e chiamata alla servlet che chiama il metodo doDeletePrenotzione nel db --></td>
 				</tr>
 			
 			</tbody>
