@@ -1,6 +1,6 @@
 .v8_43 {
   width: 481px;
-  height: 487px;
+  
   background: rgba(234,234,234,1);
   opacity: 1;
  
@@ -54,7 +54,7 @@ button {
 }
 .carta-section {
    color: black;
-   padding: 40px;
+   padding:20px;
    margin: 0px auto;
    width: 300px;
    border-radius: 5px;

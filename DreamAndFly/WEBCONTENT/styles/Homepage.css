@@ -8,7 +8,7 @@ body {
 ul{
 	font-family: italic;
     font-style: italic;
-    color: rgba(161, 201, 230, 1);
+    color: black;
 }
 .v44_15 {
   width: 100%;
@@ -29,7 +29,7 @@ ul{
   background: rgba(255,255,255,1);
   opacity: 1;
   position: relative;
-  top: -100px;
+  top: -220px;
   left: 0px;
   overflow: hidden;
 }

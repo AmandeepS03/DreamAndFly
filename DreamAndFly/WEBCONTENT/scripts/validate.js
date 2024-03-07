@@ -3,6 +3,8 @@
  */
 
 const nameOrLastnamePattern = /^[A-Za-z]+$/;
+const nameCartaPattern = /^[A-Za-z ]*$/;
+
 const emailPattern = /^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
 const pswdPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()])[0-9a-zA-Z!@#$%^&*()]{8,}$/;
@@ -12,6 +14,7 @@ const cardNumberPattern = /^\d{16}$/; //pattern semplicificato (non è così in 
 const cvvPattern = /^\d{3}$/;
 const dataRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
 
+
 const nameErrorMessage = "Un nome valido deve contenere solo lettere";
 const lastnameErrorMessage = "Un cognome valido deve contenere solo lettere";
 const emailErrorMessage = "Una email valida deve essere nella forma username@domain.ext";
@@ -20,7 +23,7 @@ const pswdMessage = "La password deve avere almeno 8 caratteri, almeno una lette
 const celMessage="Numero di telefono non valido";
 
 const cardErrorMessage = "Numero di carta non valido!";
-const cardCvvMessage = "Il cvv non &egrave; corretto"
+const cardCvvMessage = "Il cvc non &egrave; corretto"
 const expiryError = "Data scadenza non valida";
 
 function validateFormElem(formElem, pattern, span, message) {
@@ -53,7 +56,7 @@ function validateNomeCarta() {
   let form = document.getElementById("formCarta");
 
   let spanName = document.getElementById("errorName");
-  if (!validateFormElem(form.cardName, nameOrLastnamePattern, spanName, nameErrorMessage))
+  if (!validateFormElem(form.cardName, nameCartaPattern, spanName, nameErrorMessage))
     valid = false;
 
 
