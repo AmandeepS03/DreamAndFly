@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
     
 <!DOCTYPE html>
 <html>
@@ -11,6 +11,7 @@
 <body>
 <%@ include file="../Header.jsp"%>
 
+<h1><%=request.getAttribute("prezzo") %></h1>
 	<div class="v8_43">
 		<section class="cartaSection">      
 		<section class="carta-section">

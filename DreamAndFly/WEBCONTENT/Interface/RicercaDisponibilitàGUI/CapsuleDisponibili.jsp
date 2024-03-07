@@ -145,7 +145,7 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
                         <div class="card mb-4 box-shadow">
                             <div class="card-body d-flex flex-column">
                             	
-                          
+                          <form action="/DreamAndFly/CapsuleDisponibiliServlet?prezzo=<%=capsula.getPrezzo_orario()*counterOre%>" method="post" >
                                 <div>
 	                                <h4 style="display: inline-block;">Capsula <%=capsula.getId() %> </h4>
 	                                
@@ -160,12 +160,10 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
 						        <div>
 	                                <h6 style="display: inline-block;" class="prezzo"><%= capsula.getPrezzo_orario()*counterOre %>&euro;</h6> <!-- prezzo dinamicamente -->
 	                               
-                                </div>
-						        <% request.setAttribute("prezzoTotale",  (capsula.getPrezzo_orario()*counterOre) ); %>
- 								<!-- //form e ridireziona a pagamento.jsp salvando la capusla che si intende prenotare -->
- 								<form action="/DreamAndFly/CapsuleDisponibili" method="post">
-						        	<button type="submit" class="prenotaButton" value="Prenota" >Prenota</button>
-						        </form>              
+                                </div>     
+						        
+						        	<button type="submit" class="prenotaButton" value="<%=capsula.getPrezzo_orario()*counterOre%>"  >Prenota</button>
+						        </form>         
                             </div>
                         </div>
                     </div>
