@@ -43,6 +43,8 @@ public class PagamentoServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//impedire di far anadare avanti se il form del pagamento non è completo o non come volevo
+		
 		//Registrare la prenotazione:
 			//a) scrivere in prenotazione (query = "doSave()")
 			
