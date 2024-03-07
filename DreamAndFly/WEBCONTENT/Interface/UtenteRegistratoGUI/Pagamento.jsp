@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<script src="<%=request.getContextPath()%>/scripts/validate.js"></script>
 <link href="<%=request.getContextPath() %>/styles/Pagamento.css" rel="stylesheet" />
 <title>Pagamento</title>
 </head>
@@ -16,25 +16,29 @@
 			<h2>Dati carta</h2>
 			<form method="post"  id="formCarta">
 				<div class="form-group">
-					<label for="nome">Nome intestatario:</label> <input type="nome" id="nome"
-						name="nome" required>
+					<label for="nome">Nome intestatario:</label> 
+					<!-- da controllare TODO  -->
+					<input class="inputField" type="text" id="cardName" name="cardName" required onChange="return validateNome()"  onInput="return validateNome()"> <span id="errorName" ></span>
+					
 				</div>
 				<div class="form-group">
-					<label for="carta">Numero carta:</label> <input type="carta"
-						id="carta" name="carta" required>
+					<label for="carta">Numero carta:</label> 
+					<input class="inputField" type="text" id="cardNumber" name="cardNumber" required onChange="return validateNumCarta()"  onInput="return validateNumCarta()"> <span id="cardNumberError" ></span>
+					
 				</div>
 				
-				<!-- <div class="containerLabel"> -->
+				
 					<div class="form-group">
-						<label for="scadenza">Scadenza:</label> <input type="scadenza" id="scadenza"
-						name="scadenza" required>
+						<label for="scadenza">Scadenza:</label> 
+						<input class="js-iframe-input date-field input-field" id="expirationDate" name="expirationDate" type="tel" placeholder="MM/YY"   maxlength="5" onChange="return validateScadenzaCarta()" onInput="return validateScadenzaCarta()" > <span id="expiryError"></span>
 					</div>
 					<div class="form-group">
-						<label for="cvc">CVC:</label> <input type="cvc" id="cvc"
-						name="cvc" required>
+						<label for="cvc">CVC:</label> 
+						<input id="cvc" class="inputField" type="text" maxlength="3" name="cvc" required onChange="return validateCVV()" onInput="return validateCVV()"> <span id="CVVError"></span>
+						
 					</div>
 					
-				<!-- </div> -->
+				
 				
 			<%-- <p  style="color:red "> <%=error %> </p> --%>
 				

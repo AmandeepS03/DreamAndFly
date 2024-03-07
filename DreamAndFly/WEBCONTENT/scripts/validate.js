@@ -38,7 +38,7 @@ function validateFormElem(formElem, pattern, span, message) {
 
 function validateNome() {
   let valid = true;
-  let form = document.getElementById("regForm");
+  let form = document.getElementById("formCarta");
 
   let spanName = document.getElementById("errorName");
   if (!validateFormElem(form.nome, nameOrLastnamePattern, spanName, nameErrorMessage))
@@ -50,7 +50,7 @@ function validateNome() {
 
 function validateCognome() {
   let valid = true;
-  let form = document.getElementById("regForm");
+  let form = document.getElementById("formCarta");
 
   let spanName = document.getElementById("errorLastname");
   if (!validateFormElem(form.cognome, nameOrLastnamePattern, spanName, lastnameErrorMessage))
@@ -176,9 +176,12 @@ function checkModificaProdotto(form) {
 
 }
 
+
+
+
 function validateNumCarta() {
 
-	let form = document.getElementById("checkoutForm");
+	let form = document.getElementById("formCarta");
 
 	let span = document.getElementById("cardNumberError");
 
@@ -199,32 +202,30 @@ function validateNumCarta() {
 		return false;
 	}
 }
+
+
 function validateCVV() {
-
-	let form = document.getElementById("checkoutForm");
-
-	let span = document.getElementById("CVVError");
-
-	let cvv = form.cvv.value;
-
-	if (cvv.match(cvvPattern)) {
-		span.classList.remove("error");
-		span.style.color = "black";
-		span.innerHTML = "";
-		return true;
+        let form = document.getElementById("formCarta");
+        let span = document.getElementById("CVVError");
+        let cvv = form.cvc.value;
+        
+        if (cvv.match(cvvPattern)) {
+            span.classList.remove("error");
+            span.style.color = "black";
+            span.innerHTML = "";
+            return true;
+        } else {
+            span.classList.add("error");
+            span.innerHTML = cardCvvMessage;
+            span.style.color = "red";
+            return false;
+        }
 	}
-	else {
-		span.classList.add("error");
-		span.innerHTML = cardCvvMessage;
-		span.style.color = "red";
-		return false;
-	}
-
-}
-
+    
+    
 function validateScadenzaCarta() {
 
-	let form = document.getElementById("checkoutForm");
+	let form = document.getElementById("formCarta");
 
 	let span = document.getElementById("expiryError");
 

@@ -60,10 +60,10 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
             <div>
                 <label for="orarioFine"></label> <br> <br>
                 <select class="inputField" id="fasciaOrariaFine" name="orarioFine" required>
-                    <% if (fasceOrarie != null) {
+ 					<% if (fasceOrarie != null) {
                         for (FasciaOraria fascia : fasceOrarie) { %>
                             <option value="<%= fascia.getNumero() %>"><%= fascia.getorarioFine() %></option>
-                    <% }} %>
+                    <% } } %>
                 </select>
             </div>
         </div>
@@ -110,6 +110,14 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
                 $("#fasciaOrariaFine option").prop("disabled", function() {
                     return parseInt($(this).val()) <= selectedStart-1;
                 });
+
+                /* // Se l'orario di fine inserito è minore dell'orario di inizio, impostiamo l'orario di fine sulla prima fascia oraria maggiore
+                var startTime = parseInt($("#fasciaOrariaInizio").val());
+                var endTime = parseInt($("#fasciaOrariaFine").val());
+                if (endTime && startTime > endTime) {
+                    $("#fasciaOrariaFine").val('');
+                } */
+                
             } else {
                 // Altrimenti, abilita tutte le fasce orarie di fine
                 $("#fasciaOrariaFine option").prop("disabled", false);
@@ -117,6 +125,8 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
         }
     });
 </script>
+
+
 
 
 		
@@ -152,8 +162,9 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
 	                               
                                 </div>
 						        
+ 								//form e ridireziona a pagamento.jsp
 						        <button type="submit" class="prenotaButton" value="Prenota">Prenota</button>
-                                
+						                                 
                             </div>
                         </div>
                     </div>
