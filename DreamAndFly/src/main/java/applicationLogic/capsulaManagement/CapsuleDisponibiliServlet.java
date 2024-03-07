@@ -37,10 +37,17 @@ public class CapsuleDisponibiliServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String dataInizioStringa = (String) request.getAttribute("dataInizio") ;	
 		String dataFineStringa = (String) request.getAttribute("dataFine") ;	
-		 String prezzo = (String) request.getParameter("prezzo") ;
-		 request.setAttribute("prezzo", prezzo);
+
+		 request.setAttribute("prezzo", request.getParameter("prezzo"));
+		 request.setAttribute("dataInizio", request.getParameter("dataInizio"));
+		 request.setAttribute("dataFine", request.getParameter("dataFine"));
+		 request.setAttribute("orarioInizio", request.getParameter("orarioInizio"));
+		 request.setAttribute("orarioFine", request.getParameter("orarioFine"));
+		 request.setAttribute("capsulaId", request.getParameter("capsulaId"));
+
+
 		 
-		 System.out.println("Prezzo: "+prezzo);
+		 
 		 System.out.println("dataInizio: "+dataInizioStringa);
 		 
 		 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/UtenteRegistratoGUI/Pagamento.jsp");

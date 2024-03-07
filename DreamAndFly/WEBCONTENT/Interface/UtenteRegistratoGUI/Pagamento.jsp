@@ -11,7 +11,13 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
 <body>
 <%@ include file="../Header.jsp"%>
 
-<h1><%=request.getAttribute("prezzo") %></h1>
+<h1>
+<%=request.getAttribute("prezzo")%>
+<%=request.getAttribute("dataInizio")%>
+<%=request.getAttribute("dataFine")%>
+<%= request.getAttribute("orarioInizio")%>
+<%=request.getAttribute("orarioFine")%>
+<%=request.getAttribute("capsulaId")%></h1>
 	<div class="v8_43">
 		<section class="cartaSection">      
 		<section class="carta-section">

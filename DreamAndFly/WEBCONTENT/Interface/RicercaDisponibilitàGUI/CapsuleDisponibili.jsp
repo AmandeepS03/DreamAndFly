@@ -145,7 +145,7 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
                         <div class="card mb-4 box-shadow">
                             <div class="card-body d-flex flex-column">
                             	
-                          <form action="/DreamAndFly/CapsuleDisponibiliServlet?prezzo=<%=capsula.getPrezzo_orario()*counterOre%>" method="post" >
+                          <form action="/DreamAndFly/CapsuleDisponibiliServlet?prezzo=<%=capsula.getPrezzo_orario()*counterOre%>&dataInizio=<%=request.getAttribute("dataInizio")%>&dataFine=<%=request.getAttribute("dataFine") %>&orarioInizio=<%=request.getAttribute("orarioInizio") %>&orarioFine=<%=request.getAttribute("orarioFine") %>&capsulaId=<%=capsula.getId() %>" method="post" >
                                 <div>
 	                                <h4 style="display: inline-block;">Capsula <%=capsula.getId() %> </h4>
 	                                
