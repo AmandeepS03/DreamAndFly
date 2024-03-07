@@ -15,11 +15,11 @@
 		<section class="cartaSection">      
 		<section class="carta-section">
 			<h2>Dati carta</h2>
-			<form action="/DreamAndFly/PagamentoServlet" method="post"  id="formCarta">
+			<form action="/DreamAndFly/PagamentoServlet" method="post"  id="formCarta" onsubmit="event.preventDefault();checkCheckout(this)">
 				<div class="form-group">
 					<label for="nome">Nome intestatario:</label> 
 					<!-- da controllare TODO  -->
-					<input class="inputField" type="text" id="cardName" name="cardName" required onChange="return validateNome()"  onInput="return validateNome()"> <span id="errorName" ></span>
+					<input class="inputField" type="text" id="cardName" name="cardName" required onChange="return validateNomeCarta()"  onInput="return validateNomeCarta()"> <span id="errorName" ></span>
 					
 				</div>
 				<div class="form-group">

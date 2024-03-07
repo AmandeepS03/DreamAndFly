@@ -38,7 +38,7 @@ function validateFormElem(formElem, pattern, span, message) {
 
 function validateNome() {
   let valid = true;
-  let form = document.getElementById("formCarta");
+  let form = document.getElementById("regForm");
 
   let spanName = document.getElementById("errorName");
   if (!validateFormElem(form.nome, nameOrLastnamePattern, spanName, nameErrorMessage))
@@ -48,9 +48,21 @@ function validateNome() {
   return valid;
 }
 
-function validateCognome() {
+function validateNomeCarta() {
   let valid = true;
   let form = document.getElementById("formCarta");
+
+  let spanName = document.getElementById("errorName");
+  if (!validateFormElem(form.cardName, nameOrLastnamePattern, spanName, nameErrorMessage))
+    valid = false;
+
+
+  return valid;
+}
+
+function validateCognome() {
+  let valid = true;
+  let form = document.getElementById("regForm");
 
   let spanName = document.getElementById("errorLastname");
   if (!validateFormElem(form.cognome, nameOrLastnamePattern, spanName, lastnameErrorMessage))
@@ -176,9 +188,6 @@ function checkModificaProdotto(form) {
 
 }
 
-
-
-
 function validateNumCarta() {
 
 	let form = document.getElementById("formCarta");
@@ -202,27 +211,29 @@ function validateNumCarta() {
 		return false;
 	}
 }
-
-
 function validateCVV() {
-        let form = document.getElementById("formCarta");
-        let span = document.getElementById("CVVError");
-        let cvv = form.cvc.value;
-        
-        if (cvv.match(cvvPattern)) {
-            span.classList.remove("error");
-            span.style.color = "black";
-            span.innerHTML = "";
-            return true;
-        } else {
-            span.classList.add("error");
-            span.innerHTML = cardCvvMessage;
-            span.style.color = "red";
-            return false;
-        }
+
+	let form = document.getElementById("formCarta");
+
+	let span = document.getElementById("CVVError");
+
+	let cvv = form.cvc.value;
+
+	if (cvv.match(cvvPattern)) {
+		span.classList.remove("error");
+		span.style.color = "black";
+		span.innerHTML = "";
+		return true;
 	}
-    
-    
+	else {
+		span.classList.add("error");
+		span.innerHTML = cardCvvMessage;
+		span.style.color = "red";
+		return false;
+	}
+
+}
+
 function validateScadenzaCarta() {
 
 	let form = document.getElementById("formCarta");
@@ -266,6 +277,7 @@ function validateScadenzaCarta() {
 
 function checkCheckout(obj) {
 	let check = true;
+	if (!validateNomeCarta()) check = false;
 	if (!validateNumCarta()) check = false;
 	if (!validateScadenzaCarta()) check = false;
 	if (!validateCVV()) check = false;
@@ -283,4 +295,3 @@ function checkCheckout(obj) {
         }
       });
     });
-
