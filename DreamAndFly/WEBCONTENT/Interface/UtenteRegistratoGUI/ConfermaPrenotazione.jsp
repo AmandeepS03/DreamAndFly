@@ -25,7 +25,7 @@
 			<div class="v9_409">
 				<span class="v9_408">Conferma prenotazione!</span>
 			</div>
-			<span class="v9_412">Codice prenotazione: </span>
+			<span class="v9_412">Codice prenotazione: <%=request.getAttribute("codiceDiAccesso") %> </span>
 		</div>
 	</div>
 </body>

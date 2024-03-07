@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +15,7 @@
 		<section class="cartaSection">      
 		<section class="carta-section">
 			<h2>Dati carta</h2>
-			<form method="post"  id="formCarta">
+			<form action="/DreamAndFly/PagamentoServlet" method="post"  id="formCarta">
 				<div class="form-group">
 					<label for="nome">Nome intestatario:</label> 
 					<!-- da controllare TODO  -->

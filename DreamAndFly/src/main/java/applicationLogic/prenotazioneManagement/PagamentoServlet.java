@@ -1,11 +1,17 @@
 package applicationLogic.prenotazioneManagement;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import storage.AccountUser;
+import storage.Capsula;
 
 /**
  * Servlet implementation class PagamentoServlet
@@ -33,7 +39,33 @@ public class PagamentoServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Registrare la prenotazione:
+			//a) scrivere in prenotazione (query = "doSave()")
+			int codiceDiAccesso = 0;
+			String orario_inizio = (String) request.getAttribute("orarioInizio");
+			String orario_fine = (String) request.getAttribute("orarioFine");
+			String dataInizio = (String) request.getAttribute("dataInizio");
+			String dataFine = (String) request.getAttribute("dataFine");
+			Float prezzoTotale = (float) request.getAttribute("prezzoTotale");
+			
+			//dataEffettuazione è la data odierna
+			LocalDate dataCorrente = LocalDate.now();
+	        // Definire un formato per la data
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
+	        // Trasformare la data in stringa
+	        String dataEffettuazione = dataCorrente.format(formatter);
+	        
+	        AccountUser user = (AccountUser) request.getSession().getAttribute("auth");	//TODO
+	        String account_user_email = user.getEmail();
+	        
+	        Capsula capsula = (Capsula) request.getAttribute("capsulaPrenotata");	//TODO
+	        int capsula_id = capsula.getId();
+	        		
+			//b) eliminare da 'e_prenotabile' le date e fasce orarie non piu prenotabili (query=doDelete da chiamare tante quante sono le cose da eliminare. 
+								//Per ogni giorno prenotato e per ogni fascia oraria prenotata)
+			
 		
+		//ridirezionare a confermaPagamento.jsp: salva il codice generato(request.setAttribute()) e scrivilo in conferma pagamento.
 	}
 
 }

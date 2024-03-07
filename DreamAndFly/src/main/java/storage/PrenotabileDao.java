@@ -100,31 +100,31 @@ public class PrenotabileDao {
 		}
 	}
 	
-public void doDelete(String data, int id, int fasciaOraria) throws SQLException {
-		
-		String query;
-		PreparedStatement pst=null;
-		Connection con=null;
-		try {
-			con=ds.getConnection();
-			query="delete from e_prenotabile where data_prenotabile = ? and capsula_id = ? and fascia_oraria_numero = ?";
-			con.setAutoCommit(true);
-			pst = con.prepareStatement(query);
-			pst.setString(1, data);
-			pst.setInt(2, id);
-			pst.setInt(3, fasciaOraria);
+	public void doDelete(String data, int capsula_id, int fasciaOraria) throws SQLException {
 			
-			pst.executeUpdate();
-		}finally {
+			String query;
+			PreparedStatement pst=null;
+			Connection con=null;
 			try {
-				if(pst != null)
-					pst.close();
-			}finally{
-				if(con != null)
-					con.close();
+				con=ds.getConnection();
+				query="delete from e_prenotabile where data_prenotabile = ? and capsula_id = ? and fascia_oraria_numero = ?";
+				con.setAutoCommit(true);
+				pst = con.prepareStatement(query);
+				pst.setString(1, data);
+				pst.setInt(2, capsula_id);
+				pst.setInt(3, fasciaOraria);
+				
+				pst.executeUpdate();
+			}finally {
+				try {
+					if(pst != null)
+						pst.close();
+				}finally{
+					if(con != null)
+						con.close();
+				}
 			}
 		}
-	}
 public synchronized Prenotabile doRetrieveLastDateById(int id) throws SQLException {
 	ResultSet rs;
 	String query;

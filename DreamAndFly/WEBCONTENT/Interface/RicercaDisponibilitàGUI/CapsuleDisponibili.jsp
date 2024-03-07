@@ -128,7 +128,7 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
 
 
 
-
+	
 		
 		
 		<main>
@@ -161,8 +161,8 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
 	                                <h6 style="display: inline-block;" class="prezzo"><%= capsula.getPrezzo_orario()*counterOre %>&euro;</h6> <!-- prezzo dinamicamente -->
 	                               
                                 </div>
-						        
- 								//form e ridireziona a pagamento.jsp
+						        <%= request.setAttribute("prezzoTotale",  (capsula.getPrezzo_orario()*counterOre) ) %>
+ 								<!-- //form e ridireziona a pagamento.jsp salvando la capusla che si intende prenotare -->
 						        <button type="submit" class="prenotaButton" value="Prenota">Prenota</button>
 						                                 
                             </div>
