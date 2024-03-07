@@ -44,8 +44,8 @@
 			<%-- <p  style="color:red "> <%=error %> </p> --%>
 				
 				
-
-				<button type="submit" onclick="errorLogin()">Conferma pagamento</button>
+				<!-- dopo aver premuto button reindirizza alla conferma prenotazione-->
+				<button type="submit" >Conferma pagamento</button>
 			</form>
 			
 		</section>

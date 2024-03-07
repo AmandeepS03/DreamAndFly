@@ -95,9 +95,23 @@ public class Prenotazione {
 		this.userAccountEmail = userAccountEmail;
 		this.capsulaId = capsulaId;
 	}
+	
+	
 	public Prenotazione() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public Prenotazione(String orarioInizio, String orarioFine, String dataInizio, String dataFine, float prezzoTotale,
+			String dataEffettuazione, String userAccountEmail, int capsulaId) {
+		super();
+		this.orarioInizio = orarioInizio;
+		this.orarioFine = orarioFine;
+		this.dataInizio = dataInizio;
+		this.dataFine = dataFine;
+		this.prezzoTotale = prezzoTotale;
+		this.dataEffettuazione = dataEffettuazione;
+		this.userAccountEmail = userAccountEmail;
+		this.capsulaId = capsulaId;
 	}
 	
 	

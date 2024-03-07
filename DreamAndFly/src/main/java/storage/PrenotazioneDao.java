@@ -69,11 +69,12 @@ public class PrenotazioneDao {
 
 	}
 
-	public synchronized void doSave(Prenotazione prenotazione) throws SQLException {
-
+	public synchronized int doSave(Prenotazione prenotazione) throws SQLException {
+		int codice_di_accesso = 0;
 		String query;
 		PreparedStatement pst = null;
 		Connection con = null;
+		ResultSet rs = null; // ResultSet per ottenere i valori generati automaticamente
 		try {
 			con = ds.getConnection();
 			query = "insert into prenotazione(orario_inizio, orario_fine, data_inizio, data_fine, prezzo_totale, data_effettuazione, user_account_email, capsula_id) values(?,?,?,?,?,?,?,?)";
@@ -88,6 +89,11 @@ public class PrenotazioneDao {
 			pst.setString(7, prenotazione.getUserAccountEmail());
 			pst.setInt(8, prenotazione.getCapsulaId());
 			pst.executeUpdate();
+			// Ottieni i valori generati automaticamente
+	        rs = pst.getGeneratedKeys();
+	        if (rs.next()) {
+	            codice_di_accesso = rs.getInt(1); // Ottieni il valore del codice di accesso
+	        }
 		} finally {
 			try {
 				if (pst != null)
@@ -97,6 +103,7 @@ public class PrenotazioneDao {
 					con.close();
 			}
 		}
+		return codice_di_accesso;
 	}
 
 
