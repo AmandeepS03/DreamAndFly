@@ -82,6 +82,8 @@ button {
 
 .prezzo{
 	text-align: right;
+	margin-left: 80%;
+	margin-right: 10%;
 }
 
 .prenotaButton{

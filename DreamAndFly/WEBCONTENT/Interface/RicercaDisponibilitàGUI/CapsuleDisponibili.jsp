@@ -45,6 +45,7 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
             <div>
                 <label for="orarioInizio"></label> <br> <br>
                 <select class="inputField" id="fasciaOrariaInizio" name="orarioInizio" required>
+                	<option disabled selected></option>
                     <% if (fasceOrarie != null) {
                         for (FasciaOraria fascia : fasceOrarie) { %>
                             <option value="<%= fascia.getNumero() %>"><%= fascia.getorarioInizio() %></option>
@@ -60,11 +61,39 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
             <div>
                 <label for="orarioFine"></label> <br> <br>
                 <select class="inputField" id="fasciaOrariaFine" name="orarioFine" required>
+                <option disabled id="disabledOption" selected></option>
  					<% if (fasceOrarie != null) {
                         for (FasciaOraria fascia : fasceOrarie) { %>
                             <option value="<%= fascia.getNumero() %>"><%= fascia.getorarioFine() %></option>
                     <% } } %>
                 </select>
+                <script>
+					// Recupera l'elemento select e l'opzione disabilitata
+					const select = document.getElementById('fasciaOrariaFine');
+					const disabledOption = document.getElementById('disabledOption');
+					
+					// Recupera l'elemento specifico
+					const specificButton = document.getElementById('fasciaOrariaInizio');
+					
+					// Recupera gli input
+					const input1 = document.getElementById('dal');
+					const input2 = document.getElementById('al');
+					
+					// Associa un gestore di eventi al pulsante specifico
+					specificButton.addEventListener('click', function() {
+					  // Imposta l'opzione disabilitata come selezionata ogni volta che viene cliccato il pulsante specifico
+					  if (input1.value === input2.value) {
+					  	select.value = disabledOption.value;
+					  }
+					});
+					
+					input2.addEventListener('click', function() {
+						  // Imposta l'opzione disabilitata come selezionata ogni volta che viene cliccato il pulsante specifico
+						  
+						  	select.value = disabledOption.value;
+						  
+						});
+				</script>
             </div>
         </div>
 
@@ -154,11 +183,11 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
 						            <li><%= capsula.getTipologia() %></li>
 						            
 						        </ul>
-						        <h6>Dal <%=dataInizio %> alle <%=request.getAttribute("orarioInizio") %> </h6>
-						        <h6>Al <%=request.getAttribute("dataFine") %> alle <%=request.getAttribute("orarioFine") %></h6>
+						        <p>Dal <%=dataInizio %> alle <%=request.getAttribute("orarioInizio") %> </p>
+						        <p>Al <%=request.getAttribute("dataFine") %> alle <%=request.getAttribute("orarioFine") %></p>
 						        
 						        <div>
-	                                <h6 style="display: inline-block;" class="prezzo"><%= capsula.getPrezzo_orario()*counterOre %>&euro;</h6> <!-- prezzo dinamicamente -->
+	                                <h4 style="display: inline-block;" class="prezzo"><%= capsula.getPrezzo_orario()*counterOre %>&euro;</h4> <!-- prezzo dinamicamente -->
 	                               
                                 </div>
 						        <% request.setAttribute("prezzoTotale",  (capsula.getPrezzo_orario()*counterOre) ); %>

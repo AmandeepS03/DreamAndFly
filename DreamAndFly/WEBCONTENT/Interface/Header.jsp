@@ -31,7 +31,7 @@
      
       <%} else { %>
           <% if(auth.getRuolo() == 0){%>
-          <a href="" >Le mie prenotazioni</a>
+          <a href="<%=request.getContextPath()%>/Interface/UtenteRegistratoGUI/LeMiePrenotazioni.jsp" >Le mie prenotazioni</a>
          <%}%>  
          <a href="<%=request.getContextPath()%>/Interface/UtenteRegistratoGUI/AreaUtente.jsp" title="Area utente"><i class="fas fa-user"></i></a> 
          <% if(auth.getRuolo() == 1){%>
