@@ -43,16 +43,22 @@ public class PagamentoServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//impedire di far anadare avanti se il form del pagamento non è completo o non come volevo
 		
 		//Registrare la prenotazione:
 			//a) scrivere in prenotazione (query = "doSave()")
 			
-			String orario_inizio = (String) request.getAttribute("orarioInizio");
-			String orario_fine = (String) request.getAttribute("orarioFine");
-			String dataInizio = (String) request.getAttribute("dataInizio");
-			String dataFine = (String) request.getAttribute("dataFine");
-			Float prezzoTotale = (float) request.getAttribute("prezzoTotale");
+			String orario_inizio = (String) request.getSession().getAttribute("orarioInizio");
+			String orario_fine = (String) request.getSession().getAttribute("orarioFine");
+			String dataInizio = (String) request.getSession().getAttribute("dataInizio");
+			String dataFine = (String) request.getSession().getAttribute("dataFine");
+			Float prezzoTotale = Float.valueOf((String) request.getSession().getAttribute("prezzo"));
+			Integer capsula_id = Integer.valueOf((String) request.getSession().getAttribute("capsulaId"));
+			
+			System.out.println("orario inizio: "+ orario_inizio);
+			System.out.println("orario Fine: "+ orario_fine);
+			System.out.println("data Inizio: "+ dataInizio);
+			System.out.println("data fine: "+ dataFine);
+			System.out.println("id: "+ capsula_id);
 			
 			//dataEffettuazione è la data odierna
 			LocalDate dataCorrente = LocalDate.now();
@@ -63,10 +69,7 @@ public class PagamentoServlet extends HttpServlet {
 	        
 	        AccountUser user = (AccountUser) request.getSession().getAttribute("auth");	//TODO
 	        String account_user_email = user.getEmail();
-	        
-	        Capsula capsula = (Capsula) request.getAttribute("capsulaPrenotata");	//TODO
-	        int capsula_id = capsula.getId();
-	        
+	              
 	        
 	        Prenotazione savePrenotazione = new Prenotazione(orario_inizio,orario_fine, dataInizio, dataFine, prezzoTotale, dataEffettuazione, account_user_email, capsula_id);
 	        DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");

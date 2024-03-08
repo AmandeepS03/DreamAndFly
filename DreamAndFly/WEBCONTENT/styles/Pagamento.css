@@ -38,12 +38,13 @@ containerLabel{
 }
 button {
  width: 100%;
-  padding: 8px;
+  padding: 10px 20px;
   margin-left: 0%;
   font-size: 16px;
    background-color:rgba(161,201,230,1);
   color: #ffffff;
-  border: none;
+   border-radius: 3px;
+   border:none;
   cursor: pointer;
 }
 

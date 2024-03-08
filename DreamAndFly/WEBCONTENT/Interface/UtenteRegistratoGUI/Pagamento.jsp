@@ -11,13 +11,24 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
 <body>
 <%@ include file="../Header.jsp"%>
 
-<h1>
+<%
+request.getSession().setAttribute("prezzo", request.getAttribute("prezzo"));
+request.getSession().setAttribute("dataInizio", request.getAttribute("dataInizio"));
+request.getSession().setAttribute("dataFine",request.getAttribute("dataFine"));
+request.getSession().setAttribute("orarioInizio", request.getAttribute("orarioInizio"));
+request.getSession().setAttribute("orarioFine",request.getAttribute("orarioFine"));
+request.getSession().setAttribute("capsulaId",request.getAttribute("capsulaId"));
+
+
+%>
+
+<%-- <h1>
 <%=request.getAttribute("prezzo")%>
 <%=request.getAttribute("dataInizio")%>
 <%=request.getAttribute("dataFine")%>
 <%= request.getAttribute("orarioInizio")%>
 <%=request.getAttribute("orarioFine")%>
-<%=request.getAttribute("capsulaId")%></h1>
+<%=request.getAttribute("capsulaId")%></h1> --%>
 	<div class="v8_43">
 		<section class="cartaSection">      
 		<section class="carta-section">
