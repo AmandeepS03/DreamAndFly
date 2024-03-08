@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" import="java.util.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +13,15 @@
 
 
 	<%@ include file="../../Header.jsp"%>
+	<%
+	
+		if(auth.getRuolo()==3){
+		List<AccountUser> listaUtenti = (List<AccountUser>) request.getAttribute("listaUtenti");
+		if(listaUtenti==null){
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/GetUsersListServlet");
+		    dispatcher.forward(request, response);
+		}}
+	%>
 
 	<div class="v35_167">
 		<p class="titolo">Visualizza prenotazioni</p>

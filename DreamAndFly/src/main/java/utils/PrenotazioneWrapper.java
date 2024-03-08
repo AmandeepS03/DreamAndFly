@@ -3,7 +3,12 @@ package utils;
 import storage.Prenotazione;
 
 public class PrenotazioneWrapper {
-    private Prenotazione prenotazione;
+    @Override
+	public String toString() {
+		return "PrenotazioneWrapper [prenotazione=" + prenotazione + ", tipologiaCapsula=" + tipologiaCapsula + "]";
+	}
+
+	private Prenotazione prenotazione;
     private String tipologiaCapsula;
 
     public PrenotazioneWrapper(Prenotazione prenotazione, String tipologiaCapsula) {

@@ -461,18 +461,36 @@ public class PrenotazioneDao {
 		  prenotazioneWrapper.setTipologiaCapsula(rs.getString("tipologia"));
 		  prenotazioneWrapper.setPrenotazione(prenotazione);
 		  prenotazioneWrapperlist.add(prenotazioneWrapper);
-	  
+		  
+		  System.out.println("codice di accesso: "+prenotazioneWrapper.getPrenotazione().getCodiceDiAccesso());
+		  
 	  }
 	  
-	  }catch(Exception e) { logger.log(Level.SEVERE, e.getMessage());
-	  logger.log(Level.SEVERE , e.getMessage()); } finally { try { if(pst != null)
-	  pst.close(); }finally{ if(con != null) con.close(); }
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, e.getMessage());
+			logger.log(Level.SEVERE, e.getMessage());
+		} finally {
+			try {
+				if (pst != null)
+					pst.close();
+			} finally {
+				if (con != null)
+					con.close();
+			}
 	  
 	  
-	  } return prenotazioneWrapperlist;
+	  } 
+	  //TODO
+	  for(PrenotazioneWrapper pw: prenotazioneWrapperlist) {
+		  
+		  System.out.print(" codice prenotazione: " +  pw.getPrenotazione().getCodiceDiAccesso());
+	  }
+	  
+	  return prenotazioneWrapperlist;
 	  
 	  }
-	
+
+		
 	
 	
 	
