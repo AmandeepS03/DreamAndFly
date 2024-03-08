@@ -92,4 +92,76 @@ private DataSource ds=null;
 	    
 	    return fasciaOrarialist;
 	  }
+	
+	public int doRetrieveByOrarioInizio(String orario) throws SQLException {
+			int numero=0;
+		 	Connection con=null;
+		    PreparedStatement pst=null;
+		    ResultSet rs;
+		    String query = "select numero from fascia_oraria where orario_inizio = ?";
+		    
+		    try {
+		      con = ds.getConnection();
+		      pst = con.prepareStatement(query);
+			  pst.setString(1, orario);
+			  rs = pst.executeQuery();
+
+				if(rs.next()) {
+					numero = rs.getInt("numero");
+
+				}
+
+			}catch(Exception e) {
+				logger.log(Level.SEVERE, e.getMessage());
+				logger.log(Level.SEVERE , e.getMessage());
+			} finally {
+				try {
+					if(pst != null)
+						pst.close();
+				}finally{
+					if(con != null)
+						con.close();
+				}
+				
+				
+			}
+			return numero;
+
+		}
+	
+	public int doRetrieveByOrarioFine(String orario) throws SQLException {
+		int numero=0;
+	 	Connection con=null;
+	    PreparedStatement pst=null;
+	    ResultSet rs;
+	    String query = "select numero from fascia_oraria where orario_fine = ?";
+	    
+	    try {
+	      con = ds.getConnection();
+	      pst = con.prepareStatement(query);
+		  pst.setString(1, orario);
+		  rs = pst.executeQuery();
+
+			if(rs.next()) {
+				numero = rs.getInt("numero");
+
+			}
+
+		}catch(Exception e) {
+			logger.log(Level.SEVERE, e.getMessage());
+			logger.log(Level.SEVERE , e.getMessage());
+		} finally {
+			try {
+				if(pst != null)
+					pst.close();
+			}finally{
+				if(con != null)
+					con.close();
+			}
+			
+			
+		}
+		return numero;
+
+	}
 }
