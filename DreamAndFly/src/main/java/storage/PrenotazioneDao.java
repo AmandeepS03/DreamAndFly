@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -79,7 +80,7 @@ public class PrenotazioneDao {
 			con = ds.getConnection();
 			query = "insert into prenotazione(orario_inizio, orario_fine, data_inizio, data_fine, prezzo_totale, data_effettuazione, user_account_email, capsula_id) values(?,?,?,?,?,?,?,?)";
 			con.setAutoCommit(true);
-			pst = con.prepareStatement(query);
+			pst = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			pst.setString(1, prenotazione.getOrarioInizio());
 			pst.setString(2, prenotazione.getOrarioFine());
 			pst.setString(3, prenotazione.getDataInizio());
