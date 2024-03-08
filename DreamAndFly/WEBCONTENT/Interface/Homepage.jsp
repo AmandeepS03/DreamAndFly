@@ -15,9 +15,7 @@
 <%@include file="Header.jsp" %>
 	<div class="v44_15">
 		<div class="v9_40">
-			
-				
-				
+		
 			<div class="v9_61">
 				<div class="v9_54">
 					<div class="v9_55">

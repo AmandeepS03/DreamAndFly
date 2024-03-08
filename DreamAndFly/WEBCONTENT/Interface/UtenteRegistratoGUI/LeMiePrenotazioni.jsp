@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="java.util.*, utils.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,11 +12,10 @@
 </head>
 
 <%
-	    
-	//TODO
-		Collection<?> prenotazioni = (Collection<?>) request.getAttribute("prenotazioni");
+	    Collection<?> prenotazioni = (Collection<?>) request.getAttribute("prenotazioni");
+
 		if (prenotazioni == null){
-		  RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/");
+		  RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/LeMiePrenotazioniServlet");
 		  dispatcher.forward(request, response);  
 		  return;
 		}
@@ -47,18 +46,21 @@
 				<%if (prenotazioni != null && prenotazioni.size() != 0) {
 		        Iterator<?> it = prenotazioni.iterator();
 		        while (it.hasNext()) {
-		          PrenotazioneWrapper prenotazione = (PrenotazioneWrapper) it.next();%>
+		          PrenotazioneWrapper prenotazioneWrapper = (PrenotazioneWrapper) it.next();
+		          Prenotazione prenotazione = prenotazioneWrapper.getPrenotazione();
+		          String tipologia = prenotazioneWrapper.getTipologiaCapsula();
+		          %>
 				<tr>
 					<td><%=prenotazione.getCodiceDiAccesso() %></td>
 					<td><%=prenotazione.getCapsulaId() %></td>
 					<td><%=prenotazione.getDataInizio()%> <%=prenotazione.getOrarioInizio() %></td>
                 	<td><%=prenotazione.getDataFine()%> <%=prenotazione.getOrarioFine() %></td>
                 	<td><%=prenotazione.getDataEffettuazione() %></td>
-					<td><%=prenotazione.getTipologia()%></td> <!-- //TODO -->
-                	<td><%=request.getAttribute("prezzoTotale") %></td> <!-- //TODO -->
-                	<td><!-- icona del cestino e chiamata alla servlet che chiama il metodo doDeletePrenotzione nel db --></td>
+					<td><%=tipologia%></td>
+                	<td><%=prenotazione.getPrezzoTotale() %>&euro;</td> 
+                	<td><a href="/DreamAndFly/EliminaPrenotazioneServlet?codicePrenotazione=<%= prenotazione.getCodiceDiAccesso() %>"><i class="fas fa-trash-alt trash-icon"></a></td>
 				</tr>
-			
+				<%} }%>
 			</tbody>
 		</table>
 		</div>

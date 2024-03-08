@@ -1,7 +1,7 @@
 package storage;
 
 public class Prenotazione {
-	int codiceDiAccesso;
+	Integer codiceDiAccesso;
 	String orarioInizio;
 	String orarioFine;
 	String dataInizio;
@@ -13,10 +13,10 @@ public class Prenotazione {
 	String userAccountEmail;
 	int capsulaId;
 	
-	public int getCodiceDiAccesso() {
+	public Integer getCodiceDiAccesso() {
 		return codiceDiAccesso;
 	}
-	public void setCodiceDiAccesso(int codiceDiAccesso) {
+	public void setCodiceDiAccesso(Integer codiceDiAccesso) {
 		this.codiceDiAccesso = codiceDiAccesso;
 	}
 	public String getOrarioInizio() {
@@ -79,7 +79,7 @@ public class Prenotazione {
 	public void setCapsulaId(int capsulaId) {
 		this.capsulaId = capsulaId;
 	}
-	public Prenotazione(int codiceDiAccesso, String orarioInizio, String orarioFine, String dataInizio, String dataFine,
+	public Prenotazione(Integer codiceDiAccesso, String orarioInizio, String orarioFine, String dataInizio, String dataFine,
 			float prezzoTotale, String dataEffettuazione, boolean validita, float rimborso, String userAccountEmail,
 			int capsulaId) {
 		super();
