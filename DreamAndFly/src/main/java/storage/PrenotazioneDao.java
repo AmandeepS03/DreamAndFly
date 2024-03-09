@@ -427,8 +427,6 @@ public class PrenotazioneDao {
 		  String query; 
 		  PreparedStatement pst=null;
 	  Connection con=null;
-	  Prenotazione prenotazione=new Prenotazione(); 
-	  PrenotazioneWrapper prenotazioneWrapper = new PrenotazioneWrapper();
 	  Collection<PrenotazioneWrapper> prenotazioneWrapperlist = new LinkedList<>();
 	  try {
 	  con=ds.getConnection(); 
@@ -437,36 +435,36 @@ public class PrenotazioneDao {
 	  pst.setString(1, email);
 	  rs = pst.executeQuery();
 	  
-	  while(rs.next()) {
-	  
-		  prenotazione.setCodiceDiAccesso(rs.getInt("codice_di_accesso"));
-		  prenotazione.setOrarioInizio(rs.getString("orario_inizio"));
-		  prenotazione.setOrarioFine(rs.getString("orario_fine"));
-		  prenotazione.setDataInizio(rs.getString("data_inizio"));
-		  prenotazione.setDataFine(rs.getString("data_fine"));
-		  prenotazione.setPrezzoTotale(rs.getFloat("prezzo_totale"));
-		  prenotazione.setDataEffettuazione(rs.getString("data_effettuazione"));
-		  
-		  
-		  prenotazione.setRimborso(rs.getFloat("rimborso"));
-		  
-		  prenotazione.setCapsulaId(rs.getInt("capsula_id")); 
-		  
-		  if(chiamante==1){//1=gestore
-			prenotazione.setValidita(rs.getBoolean("validita"));
-			prenotazione.setUserAccountEmail(rs.getString("user_account_email"));
-		  }
-		  
-		  
-		  
-		  prenotazioneWrapper.setTipologiaCapsula(rs.getString("tipologia"));
-		  prenotazioneWrapper.setPrenotazione(prenotazione);
-		  prenotazioneWrapperlist.add(prenotazioneWrapper);
-		  
-		  System.out.println("codice di accesso: "+prenotazioneWrapper.getPrenotazione().getCodiceDiAccesso());
-		  
-	  }
-	  
+	  while (rs.next()) {
+		    Prenotazione prenotazione = new Prenotazione(); // Creare un nuovo oggetto Prenotazione ad ogni iterazione
+		    PrenotazioneWrapper prenotazioneWrapper = new PrenotazioneWrapper(); // Creare un nuovo oggetto PrenotazioneWrapper ad ogni iterazione
+
+		    // Impostare i valori della prenotazione
+		    prenotazione.setCodiceDiAccesso(rs.getInt("codice_di_accesso"));
+		    prenotazione.setOrarioInizio(rs.getString("orario_inizio"));
+		    prenotazione.setOrarioFine(rs.getString("orario_fine"));
+		    prenotazione.setDataInizio(rs.getString("data_inizio"));
+		    prenotazione.setDataFine(rs.getString("data_fine"));
+		    prenotazione.setPrezzoTotale(rs.getFloat("prezzo_totale"));
+		    prenotazione.setDataEffettuazione(rs.getString("data_effettuazione"));
+		    prenotazione.setRimborso(rs.getFloat("rimborso"));
+		    prenotazione.setCapsulaId(rs.getInt("capsula_id"));
+
+		    if (chiamante == 1) { // 1=gestore
+		        prenotazione.setValidita(rs.getBoolean("validita"));
+		        prenotazione.setUserAccountEmail(rs.getString("user_account_email"));
+		    }
+
+		    // Impostare i valori del wrapper
+		    prenotazioneWrapper.setTipologiaCapsula(rs.getString("tipologia"));
+		    prenotazioneWrapper.setPrenotazione(prenotazione);
+
+		    // Aggiungere il wrapper alla lista
+		    prenotazioneWrapperlist.add(prenotazioneWrapper);
+
+		    System.out.println("codice di accesso: " + prenotazione.getCodiceDiAccesso());
+		}
+
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, e.getMessage());
 			logger.log(Level.SEVERE, e.getMessage());

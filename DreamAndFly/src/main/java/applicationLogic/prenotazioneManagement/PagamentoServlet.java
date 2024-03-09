@@ -1,10 +1,14 @@
 package applicationLogic.prenotazioneManagement;
 
 import java.io.IOException;
+
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +20,9 @@ import storage.AccountUser;
 import storage.Capsula;
 import storage.Prenotazione;
 import storage.PrenotazioneDao;
+import storage.FasciaOrariaDao;
+import storage.Prenotabile;
+import storage.PrenotabileDao;
 
 /**
  * Servlet implementation class PagamentoServlet
@@ -23,6 +30,8 @@ import storage.PrenotazioneDao;
 @WebServlet("/PagamentoServlet")
 public class PagamentoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static Logger logger = Logger.getAnonymousLogger();
+
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -69,6 +78,7 @@ public class PagamentoServlet extends HttpServlet {
 	        
 	        AccountUser user = (AccountUser) request.getSession().getAttribute("auth");	//TODO
 	        String account_user_email = user.getEmail();
+	 
 	              
 	        
 	        Prenotazione savePrenotazione = new Prenotazione(orario_inizio,orario_fine, dataInizio, dataFine, prezzoTotale, dataEffettuazione, account_user_email, capsula_id);
@@ -80,12 +90,66 @@ public class PagamentoServlet extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-	        		
-			//b) eliminare da 'e_prenotabile' le date e fasce orarie non piu prenotabili (query=doDelete da chiamare tante quante sono le cose da eliminare. 
-								//Per ogni giorno prenotato e per ogni fascia oraria prenotata)
+	        
+	       	//b) eliminare da 'e_prenotabile' le date e fasce orarie non piu prenotabili (query=doDelete da chiamare tante quante sono le cose da eliminare. 
+			//Per ogni giorno prenotato e per ogni fascia oraria prenotata)
+	        LocalDate dataInizioDate = LocalDate.parse(dataInizio);
+			LocalDate dataFineDate = LocalDate.parse(dataFine);
+	        FasciaOrariaDao toolFasciaOraria = new FasciaOrariaDao(ds);
+	        int orarioInizioInt=0;
+	        int orarioFineInt=0;
+	        PrenotabileDao toolPrenotabile=new PrenotabileDao(ds);
+				        
+	        try {
+				orarioInizioInt = toolFasciaOraria.doRetrieveByOrarioInizio(orario_inizio);
+				orarioFineInt = toolFasciaOraria.doRetrieveByOrarioFine(orario_fine);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			
+			if(dataInizioDate.equals(dataFineDate)) {
+				for(int fascia = orarioInizioInt; fascia<= orarioFineInt; fascia ++) {
+					try {
+						toolPrenotabile.doDelete(dataInizio,capsula_id,fascia);						
+					}catch (SQLException e){
+						logger.log(Level.WARNING, "Problema Sql!",e);
+					}
+				}		
+			}else {
+				for(;dataInizioDate.isBefore(dataFineDate)|| dataInizioDate.equals(dataFineDate); dataInizioDate = dataInizioDate.plusDays(1)) {
+					if(dataInizioDate.equals(dataFineDate)) {
+						for(; orarioInizioInt<= orarioFineInt; orarioInizioInt ++) {
+							try {
+								toolPrenotabile.doDelete(dataInizioDate.toString(),capsula_id,orarioInizioInt);						
+							}catch (SQLException e){
+								logger.log(Level.WARNING, "Problema Sql!",e);
+							}
+						}		
+					}else {
+					for(;orarioInizioInt<= 24; orarioInizioInt++) {
+						try {
+							toolPrenotabile.doDelete(dataInizio.toString(),capsula_id,orarioInizioInt);						
+						}catch (SQLException e){
+							logger.log(Level.WARNING, "Problema Sql!",e);
+						}
+					}
+					orarioInizioInt=1;
+				}
+				}
+				
+				
+				
+				
+				
+			}
+	        
+	        
 			
 		
 		//ridirezionare a confermaPagamento.jsp: salva il codice generato(request.setAttribute()) e scrivilo in conferma pagamento.
+	        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/UtenteRegistratoGUI/ConfermaPrenotazione.jsp");
+		    dispatcher.forward(request, response);	
 	}
 
 }

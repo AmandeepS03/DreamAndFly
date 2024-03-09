@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import storage.AccountUser;
+
 /**
  * Servlet implementation class CapsuleDisponibiliServlet
  */
@@ -45,10 +47,16 @@ public class CapsuleDisponibiliServlet extends HttpServlet {
 		 request.setAttribute("orarioFine", request.getParameter("orarioFine"));
 		 request.setAttribute("capsulaId", request.getParameter("capsulaId"));
 
+		  AccountUser user = (AccountUser) request.getSession().getAttribute("auth");	
+	        
+	        if(user==null) {
+	        	RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/AutenticazioneGUI/Login.jsp");
+	        	dispatcher.forward(request, response);	
+	        }
 
 		 
 		 
-		 System.out.println("dataInizio: "+dataInizioStringa);
+		
 		 
 		 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/UtenteRegistratoGUI/Pagamento.jsp");
 		    dispatcher.forward(request, response);
