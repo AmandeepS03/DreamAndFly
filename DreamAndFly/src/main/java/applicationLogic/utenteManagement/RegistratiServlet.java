@@ -29,6 +29,7 @@ public class RegistratiServlet extends HttpServlet {
         
     }
 
+		@Override
 		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			String email = request.getParameter("email");
 		    String nome = HelperClass.filter(request.getParameter("nome"));

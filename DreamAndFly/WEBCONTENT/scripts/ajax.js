@@ -8,6 +8,12 @@
     loadAjaxDoc('../../EmailDisponibility', "GET", params, handleEmail);
 }
 
+function tryEmail2() {
+    let input = document.getElementById('email').value;
+    let params = 'email=' + input;
+    loadAjaxDoc('../../../EmailDisponibility', "GET", params, handleEmail);
+}
+
 function createXMLHttpRequest() {
   let request;
   try {
