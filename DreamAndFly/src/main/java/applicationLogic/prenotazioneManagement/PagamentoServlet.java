@@ -72,7 +72,7 @@ public class PagamentoServlet extends HttpServlet {
 			//dataEffettuazione è la data odierna
 			LocalDate dataCorrente = LocalDate.now();
 	        // Definire un formato per la data
-	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
 	        // Trasformare la data in stringa
 	        String dataEffettuazione = dataCorrente.format(formatter);
 	        

@@ -1,6 +1,13 @@
 package storage;
 
 public class Prenotazione {
+	@Override
+	public String toString() {
+		return "Prenotazione [codiceDiAccesso=" + codiceDiAccesso + ", orarioInizio=" + orarioInizio + ", orarioFine="
+				+ orarioFine + ", dataInizio=" + dataInizio + ", dataFine=" + dataFine + ", prezzoTotale="
+				+ prezzoTotale + ", dataEffettuazione=" + dataEffettuazione + ", validita=" + validita + ", rimborso="
+				+ rimborso + ", userAccountEmail=" + userAccountEmail + ", capsulaId=" + capsulaId + "]";
+	}
 	Integer codiceDiAccesso;
 	String orarioInizio;
 	String orarioFine;

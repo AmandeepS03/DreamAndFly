@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -422,7 +424,7 @@ public class PrenotazioneDao {
 			
 	
 
-	  public Collection<PrenotazioneWrapper> doRetriveByEmail(String email,int chiamante) throws SQLException { 
+	  public synchronized Collection<PrenotazioneWrapper> doRetriveByEmail(String email,int chiamante) throws SQLException { 
 		  ResultSet rs; 
 		  String query; 
 		  PreparedStatement pst=null;
@@ -462,7 +464,6 @@ public class PrenotazioneDao {
 		    // Aggiungere il wrapper alla lista
 		    prenotazioneWrapperlist.add(prenotazioneWrapper);
 
-		    System.out.println("codice di accesso: " + prenotazione.getCodiceDiAccesso());
 		}
 
 		} catch (Exception e) {
@@ -479,19 +480,393 @@ public class PrenotazioneDao {
 	  
 	  
 	  } 
-	  //TODO
-	  for(PrenotazioneWrapper pw: prenotazioneWrapperlist) {
-		  
-		  System.out.print(" codice prenotazione: " +  pw.getPrenotazione().getCodiceDiAccesso());
-	  }
 	  
 	  return prenotazioneWrapperlist;
 	  
 	  }
 
 		
-	
-	
+	  public synchronized Collection<Prenotazione> doRetriveEmailWithPrenotazione() throws SQLException { 
+		  ResultSet rs; 
+		  String query; 
+		  PreparedStatement pst=null;
+	  Connection con=null;
+	  Collection<Prenotazione> prenotazionelist = new LinkedList<>();
+	  try {
+	  con=ds.getConnection(); 
+	  query = "SELECT user_account_email FROM prenotazione group by user_account_email "; 
+	  pst =con.prepareStatement(query);
+	  
+	  rs = pst.executeQuery();
+	  
+	  while (rs.next()) {
+		    Prenotazione prenotazione = new Prenotazione(); // Creare un nuovo oggetto Prenotazione ad ogni iterazione
+
+		    prenotazione.setUserAccountEmail(rs.getString("user_account_email"));
+		    
+		    prenotazionelist.add(prenotazione);
+
+		    
+		}
+
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, e.getMessage());
+			logger.log(Level.SEVERE, e.getMessage());
+		} finally {
+			try {
+				if (pst != null)
+					pst.close();
+			} finally {
+				if (con != null)
+					con.close();
+			}
+	  
+	  
+	  } 
+	  
+	  return prenotazionelist;
+	  
+	  }
+	  
+	  
+	  public synchronized Collection<Prenotazione> doRetrivePrenotazioniByNumeroCapsulaAll(Integer numeroCapsula) throws SQLException { 
+		  ResultSet rs; 
+		  String query; 
+		  PreparedStatement pst=null;
+	  Connection con=null;
+	  Collection<Prenotazione> prenotazionelist = new LinkedList<>();
+	  try {
+	  con=ds.getConnection(); 
+	  query = "SELECT * FROM prenotazione where capsula_id=?"; 
+	  pst =con.prepareStatement(query);
+	  pst.setInt(1, numeroCapsula);
+	  rs = pst.executeQuery();
+	  
+	  while (rs.next()) {
+		    Prenotazione prenotazione = new Prenotazione(); // Creare un nuovo oggetto Prenotazione ad ogni iterazione
+
+		    // Impostare i valori della prenotazione
+		    prenotazione.setCodiceDiAccesso(rs.getInt("codice_di_accesso"));
+		    prenotazione.setOrarioInizio(rs.getString("orario_inizio"));
+		    prenotazione.setOrarioFine(rs.getString("orario_fine"));
+		    prenotazione.setDataInizio(rs.getString("data_inizio"));
+		    prenotazione.setDataFine(rs.getString("data_fine"));
+		    prenotazione.setPrezzoTotale(rs.getFloat("prezzo_totale"));
+		    prenotazione.setDataEffettuazione(rs.getString("data_effettuazione"));
+		    prenotazione.setRimborso(rs.getFloat("rimborso"));
+		    prenotazione.setCapsulaId(rs.getInt("capsula_id"));
+
+		    
+		    prenotazione.setValidita(rs.getBoolean("validita"));
+		    prenotazione.setUserAccountEmail(rs.getString("user_account_email"));
+		
+		    prenotazionelist.add(prenotazione);
+
+		}
+
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, e.getMessage());
+			logger.log(Level.SEVERE, e.getMessage());
+		} finally {
+			try {
+				if (pst != null)
+					pst.close();
+			} finally {
+				if (con != null)
+					con.close();
+			}
+	  
+	  
+	  } 
+	  
+	  return prenotazionelist;
+	  
+	  }
+	  
+	  
+	  
+	  
+	  public synchronized Collection<Prenotazione> doRetrivePrenotazioniByAccount(String email) throws SQLException { 
+		  ResultSet rs; 
+		  String query; 
+		  PreparedStatement pst=null;
+	  Connection con=null;
+	  Collection<Prenotazione> prenotazionelist = new LinkedList<>();
+	  try {
+	  con=ds.getConnection(); 
+	  query = "SELECT * FROM prenotazione where user_account_email=?"; 
+	  pst =con.prepareStatement(query);
+	  pst.setString(1, email);
+	  rs = pst.executeQuery();
+	  
+	  while (rs.next()) {
+		    Prenotazione prenotazione = new Prenotazione(); // Creare un nuovo oggetto Prenotazione ad ogni iterazione
+
+		    // Impostare i valori della prenotazione
+		    prenotazione.setCodiceDiAccesso(rs.getInt("codice_di_accesso"));
+		    prenotazione.setOrarioInizio(rs.getString("orario_inizio"));
+		    prenotazione.setOrarioFine(rs.getString("orario_fine"));
+		    prenotazione.setDataInizio(rs.getString("data_inizio"));
+		    prenotazione.setDataFine(rs.getString("data_fine"));
+		    prenotazione.setPrezzoTotale(rs.getFloat("prezzo_totale"));
+		    prenotazione.setDataEffettuazione(rs.getString("data_effettuazione"));
+		    prenotazione.setRimborso(rs.getFloat("rimborso"));
+		    prenotazione.setCapsulaId(rs.getInt("capsula_id"));
+
+		    
+		    prenotazione.setValidita(rs.getBoolean("validita"));
+		    prenotazione.setUserAccountEmail(rs.getString("user_account_email"));
+		
+		    prenotazionelist.add(prenotazione);
+
+		}
+
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, e.getMessage());
+			logger.log(Level.SEVERE, e.getMessage());
+		} finally {
+			try {
+				if (pst != null)
+					pst.close();
+			} finally {
+				if (con != null)
+					con.close();
+			}
+	  
+	  
+	  } 
+	  
+	  return prenotazionelist;
+	  
+	  }
+	  
+	  public synchronized Collection<Prenotazione> doRetrivePrenotazioniByDataInizio(String dataInizio) throws SQLException { 
+		  ResultSet rs; 
+		  String query; 
+		  PreparedStatement pst=null;
+	  Connection con=null;
+	  Collection<Prenotazione> prenotazionelist = new LinkedList<>();
+	  try {
+	  con=ds.getConnection(); 
+	  query = "SELECT * FROM prenotazione where data_inizio>=?"; 
+	  pst =con.prepareStatement(query);
+	  pst.setString(1, dataInizio);
+	  rs = pst.executeQuery();
+	  
+	  while (rs.next()) {
+		    Prenotazione prenotazione = new Prenotazione(); // Creare un nuovo oggetto Prenotazione ad ogni iterazione
+
+		    // Impostare i valori della prenotazione
+		    prenotazione.setCodiceDiAccesso(rs.getInt("codice_di_accesso"));
+		    prenotazione.setOrarioInizio(rs.getString("orario_inizio"));
+		    prenotazione.setOrarioFine(rs.getString("orario_fine"));
+		    prenotazione.setDataInizio(rs.getString("data_inizio"));
+		    prenotazione.setDataFine(rs.getString("data_fine"));
+		    prenotazione.setPrezzoTotale(rs.getFloat("prezzo_totale"));
+		    prenotazione.setDataEffettuazione(rs.getString("data_effettuazione"));
+		    prenotazione.setRimborso(rs.getFloat("rimborso"));
+		    prenotazione.setCapsulaId(rs.getInt("capsula_id"));
+
+		    
+		    prenotazione.setValidita(rs.getBoolean("validita"));
+		    prenotazione.setUserAccountEmail(rs.getString("user_account_email"));
+		
+		    prenotazionelist.add(prenotazione);
+
+		}
+
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, e.getMessage());
+			logger.log(Level.SEVERE, e.getMessage());
+		} finally {
+			try {
+				if (pst != null)
+					pst.close();
+			} finally {
+				if (con != null)
+					con.close();
+			}
+	  
+	  
+	  } 
+	  
+	  System.out.println("Prenotazioni: ");
+	  for(Prenotazione p: prenotazionelist) {
+		  System.out.println(p.getDataInizio());
+	  }
+	  
+	  return prenotazionelist;
+	  
+	  }
+	  
+	  public synchronized Collection<Prenotazione> doRetrivePrenotazioniByDataFine(String dataFine) throws SQLException { 
+		  ResultSet rs; 
+		  String query; 
+		  PreparedStatement pst=null;
+	  Connection con=null;
+	  Collection<Prenotazione> prenotazionelist = new LinkedList<>();
+	  try {
+	  con=ds.getConnection(); 
+	  query = "SELECT * FROM prenotazione where data_fine<=? order by data_fine DESC"; 
+	  pst =con.prepareStatement(query);
+	  pst.setString(1, dataFine);
+	  rs = pst.executeQuery();
+	  
+	  while (rs.next()) {
+		    Prenotazione prenotazione = new Prenotazione(); // Creare un nuovo oggetto Prenotazione ad ogni iterazione
+
+		    // Impostare i valori della prenotazione
+		    prenotazione.setCodiceDiAccesso(rs.getInt("codice_di_accesso"));
+		    prenotazione.setOrarioInizio(rs.getString("orario_inizio"));
+		    prenotazione.setOrarioFine(rs.getString("orario_fine"));
+		    prenotazione.setDataInizio(rs.getString("data_inizio"));
+		    prenotazione.setDataFine(rs.getString("data_fine"));
+		    prenotazione.setPrezzoTotale(rs.getFloat("prezzo_totale"));
+		    prenotazione.setDataEffettuazione(rs.getString("data_effettuazione"));
+		    prenotazione.setRimborso(rs.getFloat("rimborso"));
+		    prenotazione.setCapsulaId(rs.getInt("capsula_id"));
+
+		    
+		    prenotazione.setValidita(rs.getBoolean("validita"));
+		    prenotazione.setUserAccountEmail(rs.getString("user_account_email"));
+		
+		    prenotazionelist.add(prenotazione);
+
+		}
+
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, e.getMessage());
+			logger.log(Level.SEVERE, e.getMessage());
+		} finally {
+			try {
+				if (pst != null)
+					pst.close();
+			} finally {
+				if (con != null)
+					con.close();
+			}
+	  
+	  
+	  } 
+	  
+	  
+	  return prenotazionelist;
+	  
+	  }
+	  
+	  //TODO da rivedere. Sembra fatto tutto bene pero non va bene l intevallo
+	  public synchronized Collection<Prenotazione> doRetrivePrenotazioniByDataInizioAndFine(String dataInizio, String dataFine) throws SQLException { 
+		  ResultSet rs; 
+		  String query; 
+		  PreparedStatement pst=null;
+	  Connection con=null;
+	  Collection<Prenotazione> prenotazionelist = new LinkedList<>();
+	  try {
+	  con=ds.getConnection(); 
+	  query = "SELECT * FROM prenotazione where data_inizio>= ? AND data_fine<=?"; 
+	  pst =con.prepareStatement(query);
+	  pst.setString(1, dataInizio);
+	  pst.setString(2, dataFine);
+	  rs = pst.executeQuery();
+	  
+	  while (rs.next()) {
+		    Prenotazione prenotazione = new Prenotazione(); // Creare un nuovo oggetto Prenotazione ad ogni iterazione
+
+		    // Impostare i valori della prenotazione
+		    prenotazione.setCodiceDiAccesso(rs.getInt("codice_di_accesso"));
+		    prenotazione.setOrarioInizio(rs.getString("orario_inizio"));
+		    prenotazione.setOrarioFine(rs.getString("orario_fine"));
+		    prenotazione.setDataInizio(rs.getString("data_inizio"));
+		    prenotazione.setDataFine(rs.getString("data_fine"));
+		    prenotazione.setPrezzoTotale(rs.getFloat("prezzo_totale"));
+		    prenotazione.setDataEffettuazione(rs.getString("data_effettuazione"));
+		    prenotazione.setRimborso(rs.getFloat("rimborso"));
+		    prenotazione.setCapsulaId(rs.getInt("capsula_id"));
+
+		    
+		    prenotazione.setValidita(rs.getBoolean("validita"));
+		    prenotazione.setUserAccountEmail(rs.getString("user_account_email"));
+		
+		    prenotazionelist.add(prenotazione);
+
+		}
+
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, e.getMessage());
+			logger.log(Level.SEVERE, e.getMessage());
+		} finally {
+			try {
+				if (pst != null)
+					pst.close();
+			} finally {
+				if (con != null)
+					con.close();
+			}
+	  
+	  
+	  } 
+	  
+	  
+	  return prenotazionelist;
+	  
+	  }
+	  
+	  //TODO rivedi perche non è che proprio funziona 
+	  public synchronized Collection<Prenotazione> doRetrivePrenotazioniByDataInizioAndAccount(String dataInizio, String userAccountEmail) throws SQLException { 
+		  ResultSet rs; 
+		  String query; 
+		  PreparedStatement pst=null;
+	  Connection con=null;
+	  Collection<Prenotazione> prenotazionelist = new LinkedList<>();
+	  try {
+	  con=ds.getConnection(); 
+	  query = "SELECT * FROM prenotazione where data_inizio>= ? AND user_account_email=?"; 
+	  pst =con.prepareStatement(query);
+	  pst.setString(1, dataInizio);
+	  pst.setString(2, userAccountEmail);
+	  rs = pst.executeQuery();
+	  
+	  while (rs.next()) {
+		    Prenotazione prenotazione = new Prenotazione(); // Creare un nuovo oggetto Prenotazione ad ogni iterazione
+
+		    // Impostare i valori della prenotazione
+		    prenotazione.setCodiceDiAccesso(rs.getInt("codice_di_accesso"));
+		    prenotazione.setOrarioInizio(rs.getString("orario_inizio"));
+		    prenotazione.setOrarioFine(rs.getString("orario_fine"));
+		    prenotazione.setDataInizio(rs.getString("data_inizio"));
+		    prenotazione.setDataFine(rs.getString("data_fine"));
+		    prenotazione.setPrezzoTotale(rs.getFloat("prezzo_totale"));
+		    prenotazione.setDataEffettuazione(rs.getString("data_effettuazione"));
+		    prenotazione.setRimborso(rs.getFloat("rimborso"));
+		    prenotazione.setCapsulaId(rs.getInt("capsula_id"));
+
+		    
+		    prenotazione.setValidita(rs.getBoolean("validita"));
+		    prenotazione.setUserAccountEmail(rs.getString("user_account_email"));
+		
+		    prenotazionelist.add(prenotazione);
+
+		}
+
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, e.getMessage());
+			logger.log(Level.SEVERE, e.getMessage());
+		} finally {
+			try {
+				if (pst != null)
+					pst.close();
+			} finally {
+				if (con != null)
+					con.close();
+			}
+	  
+	  
+	  } 
+	  
+	  
+	  return prenotazionelist;
+	  
+	  }
 	
 	
 

@@ -1,32 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
-<link href="https://fonts.googleapis.com/css?family=Inter&display=swap"
-	rel="stylesheet" />
-<link href="<%=request.getContextPath() %>/styles/ConfermaPrenotazione.css" rel="stylesheet" />
+
+<meta charset="ISO-8859-1">
 <title>Conferma prenotazione</title>
+<link href="<%=request.getContextPath() %>/styles/ConfermaPrenotazione.css" rel="stylesheet" />
 </head>
 <body>
-	<div class="v9_221">
-		<div class="v9_222">
-			
-			<%@include file="../Header.jsp" %>
-		</div>
-		<div class="v9_228">
-			<%@include file="../Footer.jsp" %>
-		</div>
-		<div class="v9_404">
-			
-			<div class="v9_413">
-				<span class="v9_406">Prenotazione avvenuta con successo!</span>
-			</div>
-			<div class="v9_409">
-				<span class="v9_408">Conferma prenotazione!</span>
-			</div>
-			<span class="v9_412">Codice prenotazione: <%=request.getAttribute("codiceDiAccesso") %> </span>
-		</div>
+<%@include file="../Header.jsp" %>
+	<div class="confermaPrenotazione">
+		<h1>Conferma prenotazione</h1>
+		<p>Codice prenotazione: <%=request.getAttribute("codiceDiAccesso") %> </p>
+		<p>Dal <%=request.getSession().getAttribute("dataInizio")%> alle <%=request.getSession().getAttribute("orarioInizio")%> </p>
+		<p>Al <%=request.getSession().getAttribute("dataFine")%> alle <%=request.getSession().getAttribute("orarioFine")%></p>
+		
+		<h3>Prenotazione avvenuta con successo!</h3>
+		
 	</div>
+<%@include file="../Footer.jsp" %>
 </body>
 </html>

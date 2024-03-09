@@ -36,7 +36,7 @@ request.getSession().setAttribute("capsulaId",request.getAttribute("capsulaId"))
 			<form action="/DreamAndFly/PagamentoServlet" method="post"  id="formCarta" onsubmit="event.preventDefault();checkCheckout(this)">
 				<div class="form-group">
 					<label for="nome">Nome intestatario:</label> 
-					<!-- da controllare TODO  -->
+					
 					<input class="inputField" type="text" id="cardName" name="cardName" required onChange="return validateNomeCarta()"  onInput="return validateNomeCarta()"> <span id="errorName" ></span>
 					
 				</div>

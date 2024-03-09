@@ -14,14 +14,27 @@
 
 	<%@ include file="../../Header.jsp"%>
 	<%
+		/* if(auth.getRuolo()==1){ */
+			List<Prenotazione> listaUtentiPrenotati = (List<Prenotazione>) request.getAttribute("listaUtentiPrenotati");
+			if(listaUtentiPrenotati == null){
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/VisualizzaPrenotazioniGestoreServlet");
+			    dispatcher.forward(request, response);
+			 }  
+			
+			
+		List<Capsula> capsule = (List<Capsula>) request.getAttribute("listaCapsule");
+		request.setAttribute("page", 5);
 	
-		if(auth.getRuolo()==3){
-		List<AccountUser> listaUtenti = (List<AccountUser>) request.getAttribute("listaUtenti");
-		if(listaUtenti==null){
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/GetUsersListServlet");
+		 if(capsule == null){
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/VisualizzaCapsuleServlet");
 		    dispatcher.forward(request, response);
-		}}
-	%>
+		 }  
+		
+		 
+		 
+	
+%>
+	
 
 	<div class="v35_167">
 		<p class="titolo">Visualizza prenotazioni</p>
@@ -29,18 +42,20 @@
 
 	<div class="v35_177">
 
-		<form action="" method="post">
+		<form action="/DreamAndFly/VisualizzaPrenotazioniGestoreFiltri" method="post">
 
 
 			<div class="containerLabel">
 				<div>
-					<label for="NumeroCapsula">Numero caspula:</label> <br> <select
-						id="NumeroCapsula" title="numeroCapsula">
-						<option value="" disabled selected>Scegli un'opzione</option>
-						<option value="opzione1">1</option>
-						<option value="opzione2">2</option>
-						<option value="opzione3">example</option>
-						<!-- /*inserisci numero capsule dinamicamente*/ -->
+					<label for="NumeroCapsula">Numero caspula:</label> <br> 
+					<select
+						id="NumeroCapsula" name="numeroCapsula" title="numeroCapsula">
+						<option value="numeroCapsula1" disabled selected>Seleziona capsula</option>
+						<%if (capsule != null) {
+        		          for(Capsula capsula: capsule) {%>
+        		           <option value="<%= capsula.getId() %>"><%= capsula.getId() %></option>
+        	  		   <%}} %>
+						
 					</select>
 				</div>
 				<div>
@@ -56,7 +71,7 @@
 						// Inizializza il datepicker con il formato desiderato
 						$(function() {
 							$("#dataInizio").datepicker({
-								dateFormat : 'dd/mm/yy'
+								dateFormat : 'yy-mm-dd'
 							});
 						});
 					</script>
@@ -78,7 +93,7 @@
 						// Inizializza il datepicker con il formato desiderato
 						$(function() {
 							$("#dataFine").datepicker({
-								dateFormat : 'dd/mm/yy'
+								dateFormat : 'yy-mm-dd'
 							});
 						});
 					</script>
@@ -88,14 +103,17 @@
 				</div>
 
 				<div>
-					<label for="Account">Account:</label> <br> <select
-						id="Account" title="Account">
-						<option value="" disabled selected>Scegli un'opzione</option>
-						<option value="opzione1">Account1</option>
-						<option value="opzione2">Account2</option>
-						<option value="opzione3">example</option>
-						<!-- /*inserisci account dinamicamente*/ -->
+					<label for="Account">Account:</label> <br> 
+					<select id="Account" title="Account" name="account">
+					    <option value="" disabled selected>Tutti gli account</option>
+					    <% if (listaUtentiPrenotati != null) {
+					        for (Prenotazione prenotazione : listaUtentiPrenotati) { %>
+					            <option value="<%=prenotazione.getUserAccountEmail() %>"><%= prenotazione.getUserAccountEmail() %></option>
+					    <% }
+					    } %>
+					    
 					</select>
+
 
 				</div>
 
@@ -104,17 +122,17 @@
 				<div>
 
 
-					<label for="Filtri_prenotabilita">Filtri prenotabilita:</label><br>
+					<label for="Filtri_prenotabilita">Fasce orarie:</label><br>
 
 					<input type="radio" id="prenotabili" name="Filtri_prenotabilita"
-						value="prenotabili"> <label for="prenotabili">Prenotabili</label>
+						value="prenotabili" required> <label for="prenotabili">Prenotabili</label>
 
 					<input type="radio" id="prenotate" name="Filtri_prenotabilita"
-						value="prenotate"> <label for="prenotate">Prenotate</label>
+						value="prenotate" required > <label for="prenotate">Prenotate</label>
 
 
 					<input type="radio" id="tutte" name="Filtri_prenotabilita"
-						value="tutte"> <label for="tutte">Tutte</label>
+						value="tutte" required> <label for="tutte">Tutte</label>
 
 
 				</div>
@@ -127,6 +145,14 @@
 		</form>
 	</div>
 	
+	<%List<Prenotazione> prenotazioneByAccount = (List<Prenotazione>) request.getAttribute("listaPrenotazioneByAccount");
+	List<Prenotazione> prenotazioneByCapsula = (List<Prenotazione>) request.getAttribute("listaPrenotazioneByCapsula");
+	List<Prenotazione> prenotazioneByDate = (List<Prenotazione>) request.getAttribute("listaPrenotazioneByDate");
+	List<Prenotazione> prenotazioneByDateFine = (List <Prenotazione>)request.getAttribute("listaPrenotazioneByDateFine");
+	List<Prenotazione> prenotazioneByDateInizioAndFine = (List<Prenotazione>) request.getAttribute("listaPrenotazioneByDateInizioAndFine");
+	List<Prenotazione> prenotazioneByDateInizioAndAccount = (List<Prenotazione>) request.getAttribute("prenotazioneByDateInizioAndAccount");
+	%>
+	
 	<table id="accountTable" border="1">
 				
 
@@ -136,18 +162,119 @@
 					<th>Account</th>
 					<th>Data e ora inizio</th>
 					<th>Data e ora fine</th>
-					<th>Prenotabile</th>
+					<th>Prezzo totale</th>
+					<th>Data effettuazione</th>
+					<th>Validità</th>
+					<th>Rimborso</th>
+					
 
 				</tr>
 				<tr>
-
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-
+				
+				
+				<%if (prenotazioneByAccount != null) {
+					for(Prenotazione prenotazione: prenotazioneByAccount){ %>
+				<tr>
+		
+					<td><%= prenotazione.getCodiceDiAccesso()%></td>
+					<td><%= prenotazione.getCapsulaId() %></td>
+					<td><%= prenotazione.getUserAccountEmail() %></td>
+					<td><%= prenotazione.getDataInizio()  %> <%=prenotazione.getOrarioInizio() %></td>
+					<td><%= prenotazione.getDataFine()  %> <%=prenotazione.getOrarioFine() %></td>
+					<td><%=prenotazione.getPrezzoTotale() %></td>
+					<td><%=prenotazione.getDataEffettuazione() %></td>
+					<td><%=prenotazione.isValidita() %></td>
+					<td><%=prenotazione.getRimborso() %></td>
+		 			<%} }%>
 				</tr>
+				
+				
+				<%if (prenotazioneByCapsula != null) {
+					for(Prenotazione prenotazione: prenotazioneByCapsula){ %>
+				<tr>
+		
+					<td><%= prenotazione.getCodiceDiAccesso()%></td>
+					<td><%= prenotazione.getCapsulaId() %></td>
+					<td><%= prenotazione.getUserAccountEmail() %></td>
+					<td><%= prenotazione.getDataInizio()  %> <%=prenotazione.getOrarioInizio() %></td>
+					<td><%= prenotazione.getDataFine()  %> <%=prenotazione.getOrarioFine() %></td>
+					<td><%=prenotazione.getPrezzoTotale() %></td>
+					<td><%=prenotazione.getDataEffettuazione() %></td>
+					<td><%=prenotazione.isValidita() %></td>
+					<td><%=prenotazione.getRimborso() %></td>
+		 			<%} }%>
+				</tr>
+				
+				<%if (prenotazioneByDate != null) {
+					
+					for(Prenotazione prenotazione: prenotazioneByDate){ %>
+				<tr>
+		
+					<td><%= prenotazione.getCodiceDiAccesso()%></td>
+					<td><%= prenotazione.getCapsulaId() %></td>
+					<td><%= prenotazione.getUserAccountEmail() %></td>
+					<td><%= prenotazione.getDataInizio()  %> <%=prenotazione.getOrarioInizio() %></td>
+					<td><%= prenotazione.getDataFine()  %> <%=prenotazione.getOrarioFine() %></td>
+					<td><%=prenotazione.getPrezzoTotale() %></td>
+					<td><%=prenotazione.getDataEffettuazione() %></td>
+					<td><%=prenotazione.isValidita() %></td>
+					<td><%=prenotazione.getRimborso() %></td>
+		 			<%} }%>
+				</tr>
+				
+				<%if (prenotazioneByDateFine != null) {
+					
+				
+					for(Prenotazione prenotazione: prenotazioneByDateFine){ %>
+				<tr>
+		
+					<td><%= prenotazione.getCodiceDiAccesso()%></td>
+					<td><%= prenotazione.getCapsulaId() %></td>
+					<td><%= prenotazione.getUserAccountEmail() %></td>
+					<td><%= prenotazione.getDataInizio()  %> <%=prenotazione.getOrarioInizio() %></td>
+					<td><%= prenotazione.getDataFine()  %> <%=prenotazione.getOrarioFine() %></td>
+					<td><%=prenotazione.getPrezzoTotale() %></td>
+					<td><%=prenotazione.getDataEffettuazione() %></td>
+					<td><%=prenotazione.isValidita() %></td>
+					<td><%=prenotazione.getRimborso() %></td>
+		 			<%} }%>
+				</tr>
+				
+				<%if (prenotazioneByDateInizioAndFine != null) {
+					
+					System.out.println("ole "+prenotazioneByDateInizioAndFine.size());	//perche stampa 3 volte ole 1? TODO
+					for(Prenotazione prenotazione: prenotazioneByDateInizioAndFine){ %>
+				<tr>
+		
+					<td><%= prenotazione.getCodiceDiAccesso()%></td>
+					<td><%= prenotazione.getCapsulaId() %></td>
+					<td><%= prenotazione.getUserAccountEmail() %></td>
+					<td><%= prenotazione.getDataInizio()  %> <%=prenotazione.getOrarioInizio() %></td>
+					<td><%= prenotazione.getDataFine()  %> <%=prenotazione.getOrarioFine() %></td>
+					<td><%=prenotazione.getPrezzoTotale() %></td>
+					<td><%=prenotazione.getDataEffettuazione() %></td>
+					<td><%=prenotazione.isValidita() %></td>
+					<td><%=prenotazione.getRimborso() %></td>
+		 			<%} }%>
+				</tr>
+				
+				<%if (prenotazioneByDateInizioAndAccount != null) {
+					
+					for(Prenotazione prenotazione: prenotazioneByDateInizioAndAccount){ %>
+				<tr>
+		
+					<td><%= prenotazione.getCodiceDiAccesso()%></td>
+					<td><%= prenotazione.getCapsulaId() %></td>
+					<td><%= prenotazione.getUserAccountEmail() %></td>
+					<td><%= prenotazione.getDataInizio()  %> <%=prenotazione.getOrarioInizio() %></td>
+					<td><%= prenotazione.getDataFine()  %> <%=prenotazione.getOrarioFine() %></td>
+					<td><%=prenotazione.getPrezzoTotale() %></td>
+					<td><%=prenotazione.getDataEffettuazione() %></td>
+					<td><%=prenotazione.isValidita() %></td>
+					<td><%=prenotazione.getRimborso() %></td>
+		 			<%} }%>
+				</tr>
+				
 			</table>
 
 

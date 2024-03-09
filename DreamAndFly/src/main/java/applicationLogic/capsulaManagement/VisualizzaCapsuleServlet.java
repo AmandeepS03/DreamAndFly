@@ -64,6 +64,9 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		}else if(page!=null && page==4) {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/GestoreGUI/GestoreCapsule/RegistraCapsula.jsp");
 		    dispatcher.forward(request, response);
+		}else if (page!=null && page==5) {
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/GestoreGUI/GestorePrenotazioni/VisualizzaPrenotazioniGestore.jsp");
+		    dispatcher.forward(request, response);
 		}
 	}
 
