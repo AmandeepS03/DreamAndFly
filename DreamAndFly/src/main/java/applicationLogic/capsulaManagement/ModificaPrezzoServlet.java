@@ -56,6 +56,7 @@ public class ModificaPrezzoServlet extends HttpServlet {
 			logger.log(Level.WARNING, "Problema Sql!",e);
 		}
 		
+		request.setAttribute("showPopup", true);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/GestoreGUI/GestoreCapsule/ModificaPrezzo.jsp");
 	    dispatcher.forward(request, response);
 		

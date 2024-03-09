@@ -34,7 +34,7 @@ public class PrenotazioneDao {
 		Prenotazione prenotazione = new Prenotazione();
 		try {
 			con = ds.getConnection();
-			query = "select * from prenotazione where codice_di_acceso = ? ";
+			query = "select * from prenotazione where codice_di_accesso = ? ";
 			pst = con.prepareStatement(query);
 			pst.setInt(1, codiceDiAccesso);
 			rs = pst.executeQuery();
@@ -451,9 +451,10 @@ public class PrenotazioneDao {
 		    prenotazione.setDataEffettuazione(rs.getString("data_effettuazione"));
 		    prenotazione.setRimborso(rs.getFloat("rimborso"));
 		    prenotazione.setCapsulaId(rs.getInt("capsula_id"));
+		    prenotazione.setValidita(rs.getBoolean("validita"));
 
 		    if (chiamante == 1) { // 1=gestore
-		        prenotazione.setValidita(rs.getBoolean("validita"));
+		       // prenotazione.setValidita(rs.getBoolean("validita"));
 		        prenotazione.setUserAccountEmail(rs.getString("user_account_email"));
 		    }
 

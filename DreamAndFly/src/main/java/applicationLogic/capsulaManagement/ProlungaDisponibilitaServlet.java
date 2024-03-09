@@ -92,7 +92,7 @@ public class ProlungaDisponibilitaServlet extends HttpServlet {
 			}
 			fasciaUltima=1;
 		}
-		
+		request.setAttribute("showPopup", true);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/GestoreGUI/GestoreCapsule/ProlungaDisponibilità.jsp");
 	    dispatcher.forward(request, response);
 

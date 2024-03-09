@@ -148,3 +148,6 @@ th {
 	opacity: 1;
 	text-align: center;
 }
+i.fas.fa-trash-alt.trash-icon {
+    color: black;
+}

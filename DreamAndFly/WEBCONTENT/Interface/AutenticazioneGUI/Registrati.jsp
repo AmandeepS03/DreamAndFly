@@ -7,8 +7,11 @@
 	rel="stylesheet" />
 <link rel="stylesheet"
 	href="<%=request.getContextPath() %>/styles/Registrati.css">
+	<link rel="stylesheet"
+	href="<%=request.getContextPath() %>/styles/Popup.css">
 	<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/validate.js"></script>
 	<script src="<%=request.getContextPath() %>/scripts/ajax.js"></script>
+ 
 <title>Registrati</title>
 </head>
 <body>
@@ -64,6 +67,24 @@
 		</form>
 	</div>
 
+ <script>
+        <% if (request.getAttribute("showPopup") != null && (Boolean)request.getAttribute("showPopup")) { %>
+            setTimeout(function() {
+                var popupDiv = document.createElement('div');
+                popupDiv.className = 'popup';
+                popupDiv.innerHTML = "<p>Il tuo account è stato registrato con successo!</p>";
+                var okButton = document.createElement('button');
+                okButton.textContent = 'OK';
+                okButton.onclick = function() {
+                    window.location.href = '<%=request.getContextPath() %>/Interface/AutenticazioneGUI/Login.jsp'; // Reindirizzamento alla pagina di login
+                };
+                popupDiv.appendChild(okButton);
+                document.body.appendChild(popupDiv);
+            }, 100); // Aggiungi un ritardo di 100 millisecondi prima di mostrare l'alert
+        <% } %>
+    </script>
+
 </body>
 <%@ include file="../Footer.jsp"%>
+
 </html>

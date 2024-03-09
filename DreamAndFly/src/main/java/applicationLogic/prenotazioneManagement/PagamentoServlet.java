@@ -20,6 +20,7 @@ import storage.AccountUser;
 import storage.Capsula;
 import storage.Prenotazione;
 import storage.PrenotazioneDao;
+import utils.HelperClass;
 import storage.FasciaOrariaDao;
 import storage.Prenotabile;
 import storage.PrenotabileDao;
@@ -55,13 +56,51 @@ public class PagamentoServlet extends HttpServlet {
 		
 		//Registrare la prenotazione:
 			//a) scrivere in prenotazione (query = "doSave()")
+		Integer codicePrenotazione = Integer.valueOf((String) request.getSession().getAttribute("codicePrenotazione"));
+	
+		if(codicePrenotazione!=null) {
+			System.out.println("codice: "+ codicePrenotazione);
+			DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
+	        PrenotazioneDao toolPrenotazione = new PrenotazioneDao(ds);
+	        Prenotazione prenotazione = new Prenotazione();
+		
+	        try {
+				prenotazione= toolPrenotazione.doRetrieveByKey(codicePrenotazione);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+	        Float prezzoTotale = prenotazione.getPrezzoTotale();
+			String dataInizioStringa = prenotazione.getDataInizio();
+			float rimborso;
+			//controllo della data inizio con data corrente;
+			LocalDate dataCorrente = LocalDate.now();
+			LocalDate dataInizio = LocalDate.parse(dataInizioStringa);
+			LocalDate dataLimite = dataInizio.minusDays(3);
+			if(dataCorrente.isBefore(dataLimite))
+				rimborso = prezzoTotale;
+			else 
+				rimborso = prezzoTotale/2;
+			try {
+				toolPrenotazione.doUpdateValidita(codicePrenotazione, false);
+				toolPrenotazione.doUpdateRimborso(codicePrenotazione, rimborso);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			
+			
+			  RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/UtenteRegistratoGUI/LeMiePrenotazioni.jsp");
+			    dispatcher.forward(request, response);
+		}else {
+		
 			String orario_inizio = (String) request.getSession().getAttribute("orarioInizio");
 			String orario_fine = (String) request.getSession().getAttribute("orarioFine");
 			String dataInizio = (String) request.getSession().getAttribute("dataInizio");
 			String dataFine = (String) request.getSession().getAttribute("dataFine");
 			Float prezzoTotale = Float.valueOf((String) request.getSession().getAttribute("prezzo"));
 			Integer capsula_id = Integer.valueOf((String) request.getSession().getAttribute("capsulaId"));
+			
 			
 			System.out.println("orario inizio: "+ orario_inizio);
 			System.out.println("orario Fine: "+ orario_fine);
@@ -150,6 +189,6 @@ public class PagamentoServlet extends HttpServlet {
 		//ridirezionare a confermaPagamento.jsp: salva il codice generato(request.setAttribute()) e scrivilo in conferma pagamento.
 	        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/UtenteRegistratoGUI/ConfermaPrenotazione.jsp");
 		    dispatcher.forward(request, response);	
-	}
+	}}
 
 }

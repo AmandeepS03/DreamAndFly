@@ -6,6 +6,8 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
 <link href="https://fonts.googleapis.com/css?family=Inter&display=swap"
 	rel="stylesheet" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/styles/RegistraCapsula.css">
+	<script src="<%=request.getContextPath() %>/scripts/checkCapsulaNumber.js"></script>
+
 <title>Registra Capsula</title>
 </head>
 <body>
@@ -31,9 +33,10 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
 				<div>
 					<label for="numero" >Numero:</label> <br>
 					<input type="number" min=0
-						id="numero" name="numero" required>
-					 
-					
+						id="numero" name="numero" required onChange="return tryNumber()" onInput="return tryNumber()">
+					<br> 
+					<span id="errorNumber"></span><span
+						id="numberCheckDisponibility"></span>
 				</div>
 				<div>
 					<label for="prezzoOrario" >Prezzo/h:</label><br> 
@@ -152,7 +155,7 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
 
 				</div>
 			</div>
-			<button type="submit" >Inserisci</button>
+			<button type="submit" onclick="tryNumber()" >Inserisci</button>
 			</form>
 		
 		</div>
