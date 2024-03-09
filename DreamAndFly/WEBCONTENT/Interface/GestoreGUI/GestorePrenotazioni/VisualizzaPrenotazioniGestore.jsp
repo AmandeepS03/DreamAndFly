@@ -81,6 +81,7 @@
 
 
 				</div>
+<!--  TODO impedisci che la data fine possa essere prima della data inizio-->
 				<div>
 					<label for="dataFine">Data fine:</label><br> <input type="text"
 						id="dataFine" name="dataFine">
@@ -151,6 +152,7 @@
 	List<Prenotazione> prenotazioneByDateFine = (List <Prenotazione>)request.getAttribute("listaPrenotazioneByDateFine");
 	List<Prenotazione> prenotazioneByDateInizioAndFine = (List<Prenotazione>) request.getAttribute("listaPrenotazioneByDateInizioAndFine");
 	List<Prenotazione> prenotazioneByDateInizioAndAccount = (List<Prenotazione>) request.getAttribute("prenotazioneByDateInizioAndAccount");
+	List<Prenotazione> prenotazioneByNumeroCapsulaAndAccount = (List<Prenotazione>) request.getAttribute("prenotazioneByNumeroCapsulaAndAccount");
 	%>
 	
 	<table id="accountTable" border="1">
@@ -261,6 +263,23 @@
 				<%if (prenotazioneByDateInizioAndAccount != null) {
 					
 					for(Prenotazione prenotazione: prenotazioneByDateInizioAndAccount){ %>
+				<tr>
+		
+					<td><%= prenotazione.getCodiceDiAccesso()%></td>
+					<td><%= prenotazione.getCapsulaId() %></td>
+					<td><%= prenotazione.getUserAccountEmail() %></td>
+					<td><%= prenotazione.getDataInizio()  %> <%=prenotazione.getOrarioInizio() %></td>
+					<td><%= prenotazione.getDataFine()  %> <%=prenotazione.getOrarioFine() %></td>
+					<td><%=prenotazione.getPrezzoTotale() %></td>
+					<td><%=prenotazione.getDataEffettuazione() %></td>
+					<td><%=prenotazione.isValidita() %></td>
+					<td><%=prenotazione.getRimborso() %></td>
+		 			<%} }%>
+				</tr>
+				
+				<%if (prenotazioneByNumeroCapsulaAndAccount != null) {
+					
+					for(Prenotazione prenotazione: prenotazioneByNumeroCapsulaAndAccount){ %>
 				<tr>
 		
 					<td><%= prenotazione.getCodiceDiAccesso()%></td>
