@@ -164,6 +164,18 @@ function checkSignup(obj) {
   if (check) obj.submit();
 }
 
+function checkSignup2(obj) {
+  let check = true;
+  if (!validateNome()) check = false;
+  if (!validateCognome()) check = false;
+  if (!validateEmail()) check = false;
+ 
+  if (!validatePassword()) check = false;
+  if (!validateCellulare()) check = false;
+
+  if (check) obj.submit();
+}
+
 function checkModifica(obj){
 	let check=true;
 	let form = document.getElementById("regForm");
