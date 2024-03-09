@@ -66,8 +66,8 @@ public class RegistratiServlet extends HttpServlet {
 		      }
 		      
 		      
-		      
-		        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/Homepage.jsp");
+		      request.setAttribute("showPopup", true); // Aggiungi questo attributo alla richiesta
+		      RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/AutenticazioneGUI/Registrati.jsp");
 		      dispatcher.forward(request, response);
 		    }	}
 

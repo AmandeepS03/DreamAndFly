@@ -78,7 +78,7 @@ public class ModificaDisponibilitaServlet extends HttpServlet {
 			}
 			}
 		
-
+			request.setAttribute("showPopup", true);
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/GestoreGUI/GestoreCapsule/ModificaDisponibilità.jsp");
 		    dispatcher.forward(request, response);
 		

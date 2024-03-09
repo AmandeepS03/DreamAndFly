@@ -6,6 +6,8 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
 <link href="https://fonts.googleapis.com/css?family=Inter&display=swap"
 	rel="stylesheet" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/styles/ProlungaDisponibilità.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath() %>/styles/Popup.css">
 <title>Prolunga Disponibilità</title>
 </head>
 <body>
@@ -102,6 +104,22 @@ pageEncoding="ISO-8859-1" import="java.util.*, storage.*"%>
 		</form>
 
 		</div>
+		 <script>
+        <% if (request.getAttribute("showPopup") != null && (Boolean)request.getAttribute("showPopup")) { %>
+            setTimeout(function() {
+                var popupDiv = document.createElement('div');
+                popupDiv.className = 'popup';
+                popupDiv.innerHTML = "<p>Modifica avvenuta con successo!</p>";
+                var closeButton = document.createElement('button');
+                closeButton.textContent = 'OK';
+                closeButton.onclick = function() {
+                    popupDiv.style.display = 'none';
+                };
+                popupDiv.appendChild(closeButton);
+                document.body.appendChild(popupDiv);
+            }, 100); // Aggiungi un ritardo di 100 millisecondi prima di mostrare l'alert
+        <% } %>
+    </script>
 	
 </body>
 <%@ include file="../../Footer.jsp" %>	
