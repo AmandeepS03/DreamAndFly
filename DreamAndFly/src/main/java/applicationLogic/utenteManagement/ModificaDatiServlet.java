@@ -28,14 +28,24 @@ public class ModificaDatiServlet extends HttpServlet {
        
    
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		AccountUser auth = (AccountUser) request.getSession().getAttribute("auth");
+		AccountUser auth= new AccountUser();
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		AccountUserDao user = new AccountUserDao(ds);
-		String email = auth.getEmail();
+		String email = "";
+		//se sto reimpostando da password dimenticata
+		String pageModifica = (String) request.getSession().getAttribute("pageModifica");
+		System.out.println("PageModifica:" + pageModifica);
+		if(pageModifica!= null && pageModifica.equals("1")) {
+			email = (String) request.getSession().getAttribute("email");
+		}else {
+			auth = (AccountUser) request.getSession().getAttribute("auth");
+			email = auth.getEmail();
+		}
 		String passwordNuova=null;
 		String confermaPassword=null;
-		String cellulare = null;	
+		String cellulare = null;
 		
+
 		
 		
 	 	   if(request.getParameter("password")!= "") {
@@ -55,6 +65,10 @@ public class ModificaDatiServlet extends HttpServlet {
 			logger.log(Level.WARNING, ERROR,e);
 		}
 	 	   }
+	 	  if(pageModifica!= null && pageModifica.equals("1")) {
+			  RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/AutenticazioneGUI/Login.jsp");
+			  dispatcher.forward(request, response); 
+		  }
 		
 		  if(request.getParameter("cellulare")!="") {
 			  cellulare=request.getParameter("cellulare");
@@ -65,6 +79,9 @@ public class ModificaDatiServlet extends HttpServlet {
 			}
 			  auth.setNumber(cellulare);
 		  }
+		  
+		 
+		  
 	      RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/UtenteRegistratoGUI/AreaUtente.jsp");
 		  dispatcher.forward(request, response); 
 		

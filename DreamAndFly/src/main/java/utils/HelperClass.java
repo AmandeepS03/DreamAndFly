@@ -73,33 +73,16 @@ public class HelperClass {
 
 		    return filtered.toString();
 	  }
-//	  public class MyClass {
-//		    private static final SecureRandom rand = new SecureRandom();
-//		    private MyClass() {
-//		        // Costruttore privato
-//		    }
-//
-//		    public static List<Prodotto> estraiElementiCasuali(List<Prodotto> lista, int n) {
-//		        List<Prodotto> risultato = new ArrayList<>();
-//
-//		        // Se la lista non contiene abbastanza elementi, imposta n uguale alla dimensione della lista
-//		        if (n > lista.size()) {
-//		            n = lista.size();
-//		        }
-//
-//		        for (int i = 0; i < n; i++) {
-//		        	  if (!lista.isEmpty()) {
-//		                  int index = rand.nextInt(lista.size());
-//		                  risultato.add(lista.get(index));
-//		                  lista.remove(index);
-//		              } else {
-//		                  // La lista è vuota, non ci sono più elementi da estrarre
-//		                  break;
-//		              }
-//		        }
-//
-//		        return risultato;
-//		    }
-//
-//	}
+
+		    public static String generateRandomString(int length) {
+		    	String ALPHANUMERIC = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+			    SecureRandom secureRandom = new SecureRandom();		    
+		        StringBuilder sb = new StringBuilder(length);
+		        for (int i = 0; i < length; i++) {
+		            int randomIndex = secureRandom.nextInt(ALPHANUMERIC.length());
+		            sb.append(ALPHANUMERIC.charAt(randomIndex));
+		        }
+		        return sb.toString();
+		    }
+
 	}

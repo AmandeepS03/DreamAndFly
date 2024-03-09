@@ -40,7 +40,7 @@
 				<button type="submit" onclick="errorLogin()">Login</button>
 			</form>
 			<br> Non hai un account? <a href="<%=request.getContextPath() %>/Interface/AutenticazioneGUI/Registrati.jsp">Registrati!</a>
-			<br> <br><a href="">Password dimenticata?</a>
+			<br> <br><a href="<%=request.getContextPath() %>/Interface/AutenticazioneGUI/InserisciEmail.jsp">Password dimenticata?</a>
 		</section>
 		</section>
 		</div>

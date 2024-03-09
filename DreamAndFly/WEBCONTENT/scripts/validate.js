@@ -187,7 +187,15 @@ function checkModifica(obj){
 	if (check) obj.submit();
 	
 }
-
+function checkModificaPassword(obj){
+	let check=true;
+	let form = document.getElementById("regForm");
+	if (form.password.value!="" && !pswMatching()) check = false;
+	if (form.password.value!="" && !validatePassword()) check = false;
+	
+	if (check) obj.submit();
+	
+}
 
 function checkModificaProdotto(form) {
   // Ottenere i valori dei campi del modulo
