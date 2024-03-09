@@ -18,6 +18,7 @@ request.getSession().setAttribute("dataFine",request.getAttribute("dataFine"));
 request.getSession().setAttribute("orarioInizio", request.getAttribute("orarioInizio"));
 request.getSession().setAttribute("orarioFine",request.getAttribute("orarioFine"));
 request.getSession().setAttribute("capsulaId",request.getAttribute("capsulaId"));
+request.getSession().setAttribute("codicePrenotazione",request.getParameter("codicePrenotazione"));
 
 
 %>
@@ -63,7 +64,7 @@ request.getSession().setAttribute("capsulaId",request.getAttribute("capsulaId"))
 				
 				
 				<!-- dopo aver premuto button reindirizza alla conferma prenotazione-->
-				<button type="submit" >Conferma pagamento</button>
+				<button type="submit" >Conferma</button>
 			</form>
 			
 		</section>

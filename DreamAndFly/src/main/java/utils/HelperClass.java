@@ -84,5 +84,22 @@ public class HelperClass {
 		        }
 		        return sb.toString();
 		    }
+		    
+		    public static String aggiungiZeri(int numero) {
+		        // Converti il numero in una stringa
+		        String numeroStringa = String.valueOf(numero);
+		        
+		        // Calcola il numero di zeri da aggiungere
+		        int zeriDaAggiungere = 9 - numeroStringa.length();
+		        
+		        // Aggiungi gli zeri necessari all'inizio della stringa
+		        StringBuilder numeroFormattato = new StringBuilder();
+		        for (int i = 0; i < zeriDaAggiungere; i++) {
+		            numeroFormattato.append("0");
+		        }
+		        numeroFormattato.append(numeroStringa);
+		        
+		        return numeroFormattato.toString();
+		    }
 
 	}
