@@ -357,8 +357,8 @@ public class PrenotazioneDao {
 			query = "delete from prenotazione where codice_di_accesso = ? "; /**/
 			pst = con.prepareStatement(query);
 			pst.setInt(1, codicediAccesso);
-			rs = pst.executeQuery();
-
+			int numeroRighe = pst.executeUpdate();
+			
 			
 
 		} catch (Exception e) {
