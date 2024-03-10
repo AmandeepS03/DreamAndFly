@@ -50,7 +50,7 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 		
 		//inserisce solo il numero capsula 
 		
-		  if(request.getParameter("numeroCapsula")!=null && request.getParameter("numeroCapsula")!="" && !checked(request, account) && !checked(request, dataInizio) && !checked(request, dataFine) ) {
+		  if(!vuota(numeroCapsula) && vuota( account) && vuota( dataInizio) && vuota( dataFine) ) {
 			  
 			  Integer numeroCapsulaSelect = Integer.parseInt(request.getParameter("numeroCapsula")); 
 			  System.out.println("numeroCapsulaSelect: "+numeroCapsulaSelect);
@@ -64,7 +64,7 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 		 
 		
 		//insersce solo l'account
-		if(request.getParameter("account")!=null && request.getParameter("account")!="" && !checked(request, dataInizio) && !checked(request, dataFine) && !checked(request, numeroCapsula)) {
+		if(!vuota( account) && vuota( dataInizio) && vuota( dataFine) && vuota( numeroCapsula)) {
 			try {
 				request.setAttribute("listaPrenotazioneByAccount", pDao.doRetrivePrenotazioniByAccount(request.getParameter("account")));
 			} catch (SQLException e) {
@@ -74,7 +74,7 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 		
 		
 		//inserisce solo la data di inizio
-		if(request.getParameter("dataInizio")!=null && request.getParameter("dataInizio")!="" && request.getParameter("dataFine")=="" &&  request.getParameter("dataFine")==null && !checked(request, account) && !checked(request, numeroCapsula)) {
+		if(!vuota(dataInizio) && vuota( dataFine) && vuota( account) && vuota( numeroCapsula)) {
 			try {
 				System.out.println("dataInizio: "+request.getParameter("dataInizio"));
 				request.setAttribute("listaPrenotazioneByDate", pDao.doRetrivePrenotazioniByDataInizio(request.getParameter("dataInizio")));
@@ -85,7 +85,7 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 		
 		
 		//inserisce solo la data di fine
-		if(request.getParameter("dataFine")!=null && request.getParameter("dataFine")!="" && request.getParameter("dataInizio")==null && request.getParameter("dataInizio")=="" && !checked(request, account) && !checked(request, numeroCapsula)) {
+		if(!vuota( dataFine) &&  vuota( dataInizio) && vuota( account) && vuota( numeroCapsula)) {
 			try {
 				request.setAttribute("listaPrenotazioneByDateFine", pDao.doRetrivePrenotazioniByDataFine(request.getParameter("dataFine")));
 			} catch (SQLException e) {
@@ -93,34 +93,34 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 			}
 		}
 		
-		//inserisce la data di inizio e la data di fine, ma non il numero capsula e l account TODO
-		if(request.getParameter("dataInizio")!= null && request.getParameter("dataInizio")!="" && request.getParameter("dataFine")!=null && request.getParameter("dataFine")!="" && !checked(request, account) && !checked(request, numeroCapsula)) {
+		//inserisce la data di inizio e la data di fine, ma non il numero capsula e l account 
+		if(!vuota(dataInizio) && !vuota(dataFine) && vuota( account) && vuota( numeroCapsula)) {
 			try {
 				System.out.println("Date: "+request.getParameter("dataInizio")+ "  " + request.getParameter("dataFine"));
-				request.setAttribute("listaPrenotazioneByDateInizioAndFine", pDao.doRetrieveByDataInizioAndDataFine(request.getParameter("dataInizio"), request.getParameter("dataFine") ));
+				request.setAttribute("listaPrenotazioneByDateInizioAndFine", pDao.doRetrivePrenotazioniByDataInizioAndFine(request.getParameter("dataInizio"), request.getParameter("dataFine") ));
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
 		
-		//inserisce la data di inizio e l account, ma non la data di fine e il numero capsula TODO
-		if(request.getParameter("dataInizio")!= null && request.getParameter("dataInizio")!="" && request.getParameter("account")!=null && request.getParameter("account")!="" && !checked(request, dataFine) && !checked(request, numeroCapsula)) {
+		//inserisce la data di inizio e l account, ma non la data di fine e il numero capsula
+		if(!vuota(dataInizio) && !vuota(account) && vuota( dataFine) && vuota( numeroCapsula)) {
 			try {
-				request.setAttribute("prenotazioneByDateInizioAndAccount", pDao.doRetrivePrenotazioniByDataInizioAndAccount(request.getParameter("dataInizio"),request.getParameter("account") ));
+				request.setAttribute("prenotazioneByDateInizioAndAccount", pDao.doRetrivePrenotazioniByDataInizioAndAccount(dataInizio,account ));
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		
 		//inserisce l account e il numero capsula, ma  non la data di fine e la data di inizio
-		if(request.getParameter("account")!=null && request.getParameter("account")!="" && request.getParameter("numeroCapsula")!=null && request.getParameter("numeroCapsula")!="" && !checked(request, dataFine) && !checked(request, dataInizio)) {
+		if( !vuota( account) && !vuota( numeroCapsula) && vuota( dataFine) && vuota( dataInizio)) {
+			
 			Integer numeroCapsulaSelected = Integer.parseInt(request.getParameter("numeroCapsula")); 
 			try {
-				String account2 = (String) request.getAttribute("account");
-				request.setAttribute("prenotazioneByNumeroCapsulaAndAccount", pDao.doRetrivePrenotazioniByNumeroCapsulaAndAccount(numeroCapsulaSelected, account2  ));
+				System.out.println("numerocapsula selected:" + numeroCapsulaSelected);
+				System.out.println("account: " + account);
+				request.setAttribute("prenotazioneByNumeroCapsulaAndAccount", pDao.doRetrivePrenotazioniByNumeroCapsulaAndAccount(numeroCapsulaSelected, account  ));
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -139,15 +139,19 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 		
 	}
 	
-	private boolean checked(HttpServletRequest request,String checkString) {
+	private boolean vuota(String checkString) {
 		
+		System.out.println(checkString + " :entrato");
 		//Se c'è scritto qualcosa
-		if(request.getParameter(checkString)!=null && request.getParameter(checkString)!="" ) {
-			return true;
+		if(checkString!=null && checkString!="" && !checkString.isEmpty()) {
+			System.out.println(checkString + " :falso(parola inserita)");
+
+			return false;
 		}
 		
-		//se non c'è nulla falso
-		return false;
+		//se è vuota vero
+		System.out.println(checkString + " :true(parola vuota)");
+		return true;
 	}
 
 }

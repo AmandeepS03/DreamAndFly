@@ -754,7 +754,7 @@ public class PrenotazioneDao {
 	  
 	  }
 	  
-	  //TODO da rivedere. Sembra fatto tutto bene pero non va bene l intevallo
+	  
 	  public synchronized Collection<Prenotazione> doRetrivePrenotazioniByDataInizioAndFine(String dataInizio, String dataFine) throws SQLException { 
 		  ResultSet rs; 
 		  String query; 
@@ -805,13 +805,13 @@ public class PrenotazioneDao {
 	  
 	  
 	  } 
-	  
+		  	  
 	  
 	  return prenotazionelist;
 	  
 	  }
 	  
-	  //TODO rivedi perche non è che proprio funziona 
+	   
 	  public synchronized Collection<Prenotazione> doRetrivePrenotazioniByDataInizioAndAccount(String dataInizio, String userAccountEmail) throws SQLException { 
 		  ResultSet rs; 
 		  String query; 

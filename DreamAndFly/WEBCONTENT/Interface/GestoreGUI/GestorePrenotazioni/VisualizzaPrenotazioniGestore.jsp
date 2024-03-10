@@ -50,7 +50,7 @@
 					<label for="NumeroCapsula">Numero caspula:</label> <br> 
 					<select
 						id="NumeroCapsula" name="numeroCapsula" title="numeroCapsula">
-						<option value="numeroCapsula1" disabled selected>Seleziona capsula</option>
+						<option value="" disabled selected>Seleziona capsula</option>
 						<%if (capsule != null) {
         		          for(Capsula capsula: capsule) {%>
         		           <option value="<%= capsula.getId() %>"><%= capsula.getId() %></option>
@@ -244,7 +244,6 @@
 				
 				<%if (prenotazioneByDateInizioAndFine != null) {
 					
-					System.out.println("ole "+prenotazioneByDateInizioAndFine.size());	//perche stampa 3 volte ole 1? TODO
 					for(Prenotazione prenotazione: prenotazioneByDateInizioAndFine){ %>
 				<tr>
 		
