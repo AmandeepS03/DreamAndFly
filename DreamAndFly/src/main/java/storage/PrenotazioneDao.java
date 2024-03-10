@@ -451,9 +451,10 @@ public class PrenotazioneDao {
 		    prenotazione.setDataEffettuazione(rs.getString("data_effettuazione"));
 		    prenotazione.setRimborso(rs.getFloat("rimborso"));
 		    prenotazione.setCapsulaId(rs.getInt("capsula_id"));
+		    prenotazione.setValidita(rs.getBoolean("validita"));
 
 		    if (chiamante == 1) { // 1=gestore
-		        prenotazione.setValidita(rs.getBoolean("validita"));
+		       
 		        prenotazione.setUserAccountEmail(rs.getString("user_account_email"));
 		    }
 
