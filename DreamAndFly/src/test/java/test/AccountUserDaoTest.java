@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -38,6 +39,7 @@ public class AccountUserDaoTest {
 	
 	//utente trovato
 	@Test
+	@DisplayName("E1_P1 email corretta, password corretta")
 	public void doRetrieveByKeyTest() throws Exception{
 		//Mock del preparedStatement
 		PreparedStatement preparedStatement = Mockito.mock(PreparedStatement.class);
@@ -57,13 +59,9 @@ public class AccountUserDaoTest {
 		//Chiama il metodo da testare
 		AccountUser user = userDao.doRetrieveByKey("peppeverdi@gmail.com");
 		
-		boolean verifiedPassword = false;
 		
-		if("password".equals(user.getPassword())) {
-			verifiedPassword = true;
-		}
 		
-		assertEquals(true, verifiedPassword);
+		assertEquals("password", user.getPassword());
 		
 		assertEquals("peppeverdi@gmail.com", user.getEmail());
 		assertEquals("Giuseppe", user.getName());
@@ -77,6 +75,7 @@ public class AccountUserDaoTest {
 	
 	//utente non trovato
 	@Test
+	@DisplayName("E2_P2 email errata")
 	public void doRetrieveByKeyNonTrovatoTest() throws SQLException{
 		PreparedStatement preparedStatement = Mockito.mock(PreparedStatement.class);
 		ResultSet resultSet = Mockito.mock(ResultSet.class);
@@ -94,6 +93,43 @@ public class AccountUserDaoTest {
 		resultSet.close();
 	}
 	
+	//email trovata password errata
+	
+	@Test
+	@DisplayName("E1_P2 email corretta password errata")
+	public void doRetrieveByKeyNonTrovatoPasswordErrataTest() throws SQLException {
+		PreparedStatement preparedStatement = Mockito.mock(PreparedStatement.class);
+        ResultSet resultSet = Mockito.mock(ResultSet.class);
+
+        
+        Mockito.when(connection.prepareStatement(anyString())).thenReturn(preparedStatement);
+		Mockito.when(preparedStatement.executeQuery()).thenReturn(resultSet);
+		
+		 /* Utente da trovare, dati inseriti dall utente */
+        Mockito.when(resultSet.next()).thenReturn(true); // Ci sono risultati
+        Mockito.when(resultSet.getString("email")).thenReturn("peppeverdi@gmail.com");
+		Mockito.when(resultSet.getString("passw")).thenReturn("password1");
+		Mockito.when(resultSet.getString("nome")).thenReturn("Giuseppe");
+		Mockito.when(resultSet.getString("cognome")).thenReturn("Verdi");
+		Mockito.when(resultSet.getString("telefono")).thenReturn("1234578962");
+		Mockito.when(resultSet.getInt("ruolo")).thenReturn(0);
+
+        AccountUser user = userDao.doRetrieveByKey("peppeverdi@gmail.com");
+        
+        boolean verifiedPassword = false;
+        if("password".equals(user.getPassword())) {
+        	verifiedPassword = true;
+        }
+        
+        assertEquals(verifiedPassword, false);
+		
+		assertEquals("peppeverdi@gmail.com", user.getEmail());
+		assertEquals("Giuseppe", user.getName());
+		assertEquals("Verdi", user.getSurname());
+		assertEquals("1234578962", user.getNumber());
+		assertEquals(0, user.getRuolo());
+        
+	}
 	
 	
 	
