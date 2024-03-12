@@ -1,0 +1,1 @@
+INSERT INTO user_account(email,nome,cognome, passw, telefono) values("email","vale","singh", "password", "3456971456");

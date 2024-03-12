@@ -84,6 +84,13 @@ public void setRuolo(int ruolo) {
 }
 
 
+@Override
+public String toString() {
+	return "AccountUser [name=" + name + ", surname=" + surname + ", email=" + email + ", password=" + password
+			+ ", number=" + number + ", ruolo=" + ruolo + "]";
+}
+
+
  
   
   
