@@ -187,6 +187,7 @@ public class AccountUserDaoTest {
 	public void doUpdateNumberTest() throws SQLException {
 	    PreparedStatement preparedStatement = Mockito.mock(PreparedStatement.class);
 
+	    
 	    Mockito.when(connection.prepareStatement(anyString())).thenReturn(preparedStatement);
 	    Mockito.when(preparedStatement.executeUpdate()).thenReturn(1);
 	    
