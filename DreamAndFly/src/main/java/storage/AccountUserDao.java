@@ -17,12 +17,18 @@ import storage.AccountUserDao;
 
 public class AccountUserDao {
 private DataSource ds=null;
-	
+private Connection connection=null;
 	private static final Logger logger = Logger.getLogger(AccountUserDao.class.getName());
 
 	public AccountUserDao(DataSource ds) {
 		super();
 		this.ds=ds;
+		
+		try {
+			connection = ds.getConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public AccountUser doRetrieveByKey(String email) throws SQLException {
@@ -30,7 +36,7 @@ private DataSource ds=null;
 		String query;
 		PreparedStatement pst=null;
 		Connection con=null;
-		AccountUser accountuser=new AccountUser();
+		AccountUser accountuser=null;
 		try {
 			con=ds.getConnection();
 			query = "select * from user_account where email = ? ";
@@ -39,14 +45,13 @@ private DataSource ds=null;
 			rs = pst.executeQuery();
 
 			if(rs.next()) {
-				
+				accountuser= new AccountUser();
 				accountuser.setEmail(rs.getString("email"));
 				accountuser.setPassword(rs.getString("passw"));
 				accountuser.setName(rs.getString("nome"));
 				accountuser.setSurname(rs.getString("cognome"));
 				accountuser.setNumber(rs.getString("telefono"));
 				accountuser.setRuolo(rs.getInt("ruolo"));
-
 			}
 
 		}catch(Exception e) {
