@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-<<<<<<< HEAD
-            
-=======
                 
     
     
@@ -27,32 +24,10 @@
         
         <property name="java-output-path" value="/DreamAndFly/build/classes"/>
                             
->>>>>>> branch 'main' of https://github.com/AmandeepS03/DreamAndFly.git
     
-<<<<<<< HEAD
-    <wb-module deploy-name="DreamAndFly-0.0.1-SNAPSHOT">
-        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
-                        
-        
-        <wb-resource deploy-path="/" source-path="/WEBCONTENT" tag="defaultRootSource"/>
-                        
-        
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-                        
-        
-        <property name="context-root" value="DreamAndFly"/>
-                        
-        
-        <property name="java-output-path" value="/DreamAndFly/build/classes"/>
-                    
-    
-    </wb-module>
-        
-=======
     
     </wb-module>
             
 
->>>>>>> branch 'main' of https://github.com/AmandeepS03/DreamAndFly.git
 
 </project-modules>
