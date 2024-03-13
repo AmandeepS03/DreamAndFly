@@ -72,17 +72,21 @@ private Connection connection=null;
 
 	}
 	
-	public synchronized void doUpdateNumber(String email, String cellulare) throws SQLException {
+	public synchronized boolean doUpdateNumber(String email, String cellulare) throws SQLException {
 		String query;
 		PreparedStatement pst=null;
 		Connection con=null;
+		boolean aggiornato= false;
 		try {
 			con=ds.getConnection();
 			query = "update user_account set telefono = ? where email = ? ";
 			pst = con.prepareStatement(query);
 			pst.setString(1, cellulare);
 			pst.setString(2, email);
-			pst.executeUpdate();
+			if(pst.executeUpdate()==1) {		//se lo trova, aggiorna
+				aggiornato=true;
+			}
+			
 		}finally {
 			try {
 				if(pst != null)
@@ -91,9 +95,11 @@ private Connection connection=null;
 				if(con != null)
 					con.close();
 			}
+		}
+		return aggiornato;
 	}
-	}
-	public synchronized void doUpdatePassword(String email, String password) throws SQLException {
+	public synchronized boolean doUpdatePassword(String email, String password) throws SQLException {
+		boolean aggiornato = false;
 		String query;
 		PreparedStatement pst=null;
 		Connection con=null;
@@ -103,7 +109,9 @@ private Connection connection=null;
 			pst = con.prepareStatement(query);
 			pst.setString(1, password);
 			pst.setString(2, email);
-			pst.executeUpdate();
+			if(pst.executeUpdate()==1) {
+				aggiornato = true;
+			}
 		}finally {
 			try {
 				if(pst != null)
@@ -113,13 +121,15 @@ private Connection connection=null;
 					con.close();
 			}
 	}
+		return aggiornato;
 	}
-public void doSave(AccountUser user) throws SQLException {
-		
+public boolean doSave(AccountUser user) throws SQLException {
+		boolean salvato = false;
 		String query;
 		PreparedStatement pst=null;
 		Connection con=null;
 		try {
+			
 			con=ds.getConnection();
 			query="insert into user_account(email,passw,nome,cognome,telefono) values(?,?,?,?,?)";
 			con.setAutoCommit(true);
@@ -130,6 +140,7 @@ public void doSave(AccountUser user) throws SQLException {
 			pst.setString(4, user.getSurname());
 			pst.setString(5,user.getNumber());
 			pst.executeUpdate();
+			salvato=true;
 		}finally {
 			try {
 				if(pst != null)
@@ -139,6 +150,7 @@ public void doSave(AccountUser user) throws SQLException {
 					con.close();
 			}
 	}
+		return salvato;
 }
 
 	public synchronized Collection<AccountUser> doRetriveAll() throws SQLException {
