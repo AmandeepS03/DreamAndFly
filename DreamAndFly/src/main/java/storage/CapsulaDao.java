@@ -32,7 +32,8 @@ public class CapsulaDao {
 		String query;
 		PreparedStatement pst=null;
 		Connection con=null;
-		Capsula capsula=null;
+		Capsula capsula=new Capsula();
+		
 		try {
 			con=ds.getConnection();
 			query = "select * from capsula where id = ? ";

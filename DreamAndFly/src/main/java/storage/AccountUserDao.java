@@ -36,7 +36,7 @@ public class AccountUserDao {
 		String query;
 		PreparedStatement pst=null;
 		Connection con=null;
-		AccountUser accountuser=null;
+		AccountUser accountuser=new AccountUser();
 		try {
 			con=ds.getConnection();
 			query = "select * from user_account where email = ? ";
