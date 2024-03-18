@@ -16,8 +16,8 @@ import storage.AccountUser;
 import storage.AccountUserDao;
 
 public class AccountUserDao {
-private DataSource ds=null;
-private Connection connection=null;
+	private DataSource ds=null;
+	private Connection connection=null;
 	private static final Logger logger = Logger.getLogger(AccountUserDao.class.getName());
 
 	public AccountUserDao(DataSource ds) {
@@ -139,8 +139,8 @@ public boolean doSave(AccountUser user) throws SQLException {
 			pst.setString(3, user.getName());
 			pst.setString(4, user.getSurname());
 			pst.setString(5,user.getNumber());
-			pst.executeUpdate();
-			salvato=true;
+			if(pst.executeUpdate()==1)
+				salvato=true;
 		}finally {
 			try {
 				if(pst != null)

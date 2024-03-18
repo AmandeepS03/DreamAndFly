@@ -22,12 +22,18 @@ public class PrenotabileDao {
 	 */
 
 	private DataSource ds=null;
-	
+	private Connection connection=null;
 	private static final Logger logger = Logger.getLogger(PrenotabileDao.class.getName());
 
 	public PrenotabileDao(DataSource ds) {
 		super();
 		this.ds=ds;
+		
+		try {
+			connection = ds.getConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public Collection<Prenotabile> doRetrieveDataPrenotabile(String dataPrenotabile) throws SQLException {

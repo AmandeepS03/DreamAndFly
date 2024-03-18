@@ -12,13 +12,19 @@ import java.util.logging.Logger;
 import javax.sql.DataSource;
 
 public class CapsulaDao {
-private DataSource ds=null;
-	
+	private DataSource ds=null;
+	private Connection connection=null;
 	private static final Logger logger = Logger.getLogger(CapsulaDao.class.getName());
 
 	public CapsulaDao(DataSource ds) {
 		super();
 		this.ds=ds;
+		
+		try {
+			connection = ds.getConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public Capsula doRetrieveByKey(Integer id) throws SQLException {
@@ -26,7 +32,7 @@ private DataSource ds=null;
 		String query;
 		PreparedStatement pst=null;
 		Connection con=null;
-		Capsula capsula=new Capsula();
+		Capsula capsula=null;
 		try {
 			con=ds.getConnection();
 			query = "select * from capsula where id = ? ";
@@ -35,7 +41,7 @@ private DataSource ds=null;
 			rs = pst.executeQuery();
 
 			if(rs.next()) {
-				
+				capsula=new Capsula();
 				capsula.setId(rs.getInt("id"));
 				capsula.setPrezzo_orario(rs.getFloat("prezzo_orario"));
 				capsula.setTipologia(rs.getString("tipologia"));
@@ -60,17 +66,19 @@ private DataSource ds=null;
 
 	}
 	
-	public synchronized void doUpdatePrezzoOrario(Integer id, float prezzo_orario) throws SQLException {
+	public synchronized boolean doUpdatePrezzoOrario(Integer id, float prezzo_orario) throws SQLException {
 		String query;
 		PreparedStatement pst=null;
 		Connection con=null;
+		boolean modificato= false;
 		try {
 			con=ds.getConnection();
 			query = "update capsula set prezzo_orario = ? where id = ? ";
 			pst = con.prepareStatement(query);
 			pst.setFloat(1, prezzo_orario);
 			pst.setInt(2, id);
-			pst.executeUpdate();
+			if(pst.executeUpdate()==1) 
+				modificato = true;
 		}finally {
 			try {
 				if(pst != null)
@@ -80,6 +88,7 @@ private DataSource ds=null;
 					con.close();
 			}
 	}
+		return modificato;
 	}
 	
 	public void doSave(Capsula capsula) throws SQLException {

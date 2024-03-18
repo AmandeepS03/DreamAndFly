@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="java.util.*"%>
+	pageEncoding="ISO-8859-1" import="java.util.*,java.io.IOException"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -120,23 +120,7 @@
 
 
 
-				<div>
-
-
-					<label for="Filtri_prenotabilita">Fasce orarie:</label><br>
-
-					<input type="radio" id="prenotabili" name="Filtri_prenotabilita"
-						value="prenotabili" > <label for="prenotabili">Prenotabili</label>
-
-					<input type="radio" id="prenotate" name="Filtri_prenotabilita"
-						value="prenotate"  > <label for="prenotate">Prenotate</label>
-
-
-					<input type="radio" id="tutte" name="Filtri_prenotabilita"
-						value="tutte" > <label for="tutte">Tutte</label>
-
-
-				</div>
+				
 			</div>
 
 			

@@ -12,13 +12,19 @@ import java.util.logging.Logger;
 import javax.sql.DataSource;
 
 public class FasciaOrariaDao {
-private DataSource ds=null;
-	
+	private DataSource ds=null;
+	private Connection connection=null;
 	private static final Logger logger = Logger.getLogger(CapsulaDao.class.getName());
 
 	public FasciaOrariaDao(DataSource ds) {
 		super();
 		this.ds=ds;
+		
+		try {
+			connection = ds.getConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public FasciaOraria doRetrieveByKey(int numero) throws SQLException {
