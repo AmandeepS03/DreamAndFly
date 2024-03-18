@@ -18,12 +18,18 @@ import utils.PrenotazioneWrapper;
 
 public class PrenotazioneDao {
 	private DataSource ds = null;
-
+	private Connection connection=null;
 	private static final Logger logger = Logger.getLogger(PrenotazioneDao.class.getName());
 
 	public PrenotazioneDao(DataSource ds) {
 		super();
 		this.ds = ds;
+		
+		try {
+			connection = ds.getConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public Prenotazione doRetrieveByKey(Integer codiceDiAccesso) throws SQLException {

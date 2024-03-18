@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -137,7 +138,7 @@ public class AccountUserDaoTest {
 	
 	
 	@Test
-	@DisplayName("E1_P1_N1_C1_CEL1 regisreazione effettuata")
+	@DisplayName("E1_P1_N1_C1_CEL1 registrazione effettuata")
 	public void doSaveTest() throws SQLException {
 		PreparedStatement preparedStatement = Mockito.mock(PreparedStatement.class);
         ResultSet resultSet = Mockito.mock(ResultSet.class);
@@ -173,9 +174,9 @@ public class AccountUserDaoTest {
 	    Mockito.when(preparedStatement.executeUpdate()).thenReturn(0); // Simula l'inserimento fallito
 
 	    // Crea un oggetto AccountUser con tutti i campi vuoti o nulli
-	    AccountUser user = new AccountUser("", "", "", "", "", 0);
+	    AccountUser user = new AccountUser("", "", "", "", "", 0); 
 
-	    assertFalse(userDao.doSave(user));
+	    assertFalse(userDao.doSave(user)); //ERROR questa query funziona lo stesso anche se password non è nel formato corretto o anche se è null o stringa vuota
 
 	    // Verifica che il metodo executeUpdate sia stato chiamato
 	    Mockito.verify(preparedStatement, times(1)).executeUpdate();
@@ -245,7 +246,7 @@ public class AccountUserDaoTest {
 	    AccountUser user = new AccountUser("mario", "rossi", "mariorossi@gmail.com", "Capsula2024", "3495422687", 0);
 
 	    // Chiama il metodo doUpdateNumber() che si sta testando e verifica che restituisca true (aggiornamento riuscito)
-	    assertTrue(userDao.doUpdateNumber(user.getEmail(), "1257845967"));
+	    assertTrue(userDao.doUpdatePassword(user.getEmail(), "1257845967")); //ERROR questa query funziona lo stesso anche se password non è nel formato corretto o anche se è null o stringa vuota
 	    
 	    // Verifica che i parametri siano impostati correttamente sul PreparedStatement
 	    Mockito.verify(preparedStatement, times(1)).setString(1, "1257845967");
@@ -270,8 +271,6 @@ public class AccountUserDaoTest {
 	    
 	    AccountUser user = new AccountUser("mario", "rossi", "mariorossi@gmail.com", "NuovaPassword123", "1257845967", 0);
 	    
-	    
-
 	    assertFalse(userDao.doUpdatePassword(user.getEmail(), user.getPassword()) );
 	    
 	    // Verifica che i parametri siano impostati correttamente
