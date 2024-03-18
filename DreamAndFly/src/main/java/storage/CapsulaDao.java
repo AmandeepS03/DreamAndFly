@@ -32,7 +32,13 @@ public class CapsulaDao {
 		String query;
 		PreparedStatement pst=null;
 		Connection con=null;
-		Capsula capsula=new Capsula();
+		Capsula capsula=null; //questo dara problemi nel moento in cui 
+			//si chiama questo metodo e nella servlet non è gestito il caso in cui 
+			//il valore restituito, cioe la capsula è null
+			//allora tu nella servlet vai a mettere un if(capsula==null) allinizio di tutto 
+			//e gestisci il reindirizzamento e gli errori
+			//VEDI LoginServlet e cerca il commento --> #NULL, per la soluzione
+		
 		
 		try {
 			con=ds.getConnection();

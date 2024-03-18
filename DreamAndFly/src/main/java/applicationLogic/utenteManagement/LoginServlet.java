@@ -43,6 +43,19 @@ public class LoginServlet extends HttpServlet {
 		}
 		// controllo tra password inserita nel form e quella nel db
 		boolean controlloPasswd = false;
+		//#NULL
+		if(user==null) {
+			String error = "Password o e-mail non validi";
+			HttpSession session = request.getSession();
+			session.setAttribute("isLogged", "false");
+			request.setAttribute("error", error);
+			RequestDispatcher dispatcher = getServletContext()
+					.getRequestDispatcher("/Interface/AutenticazioneGUI/Login.jsp");
+			dispatcher.forward(request, response);
+			return;
+		}
+		
+		
 		if (user.getEmail() != null && user.getEmail().equals(email)) {
 			String passToCompare = user.getPassword();
 			String passwdInserita = HelperClass.toHash(password);
@@ -50,7 +63,8 @@ public class LoginServlet extends HttpServlet {
 				controlloPasswd = true;
 			}
 		}
-		if (!controlloPasswd) {
+		
+		if (!controlloPasswd ) {
 			String error = "Password o e-mail non validi";
 			HttpSession session = request.getSession();
 			session.setAttribute("isLogged", "false");
