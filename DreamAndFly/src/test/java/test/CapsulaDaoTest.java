@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 
 import javax.sql.DataSource;
 
@@ -73,6 +74,7 @@ public class CapsulaDaoTest {
 		}	
 	
 
+	//#NULL
 @Test
 @DisplayName("doRetrieveByKeyTest capsula non trovata")
 public void doRetrieveByKeyFallitoTest() throws SQLException {
@@ -127,6 +129,70 @@ public void doRetrieveByKeyFallitoTest() throws SQLException {
 	    
 	    // Verifica che il metodo close sia stato chiamato sul PreparedStatement
 	    Mockito.verify(preparedStatement, times(1)).close();
+	}
+	
+	@Test
+	@DisplayName("inserimento capsula")
+	public void doSaveTest() throws SQLException{
+		PreparedStatement preparedStatement = Mockito.mock(PreparedStatement.class);
+        
+
+        
+        Mockito.when(connection.prepareStatement(anyString())).thenReturn(preparedStatement);
+        Mockito.when(preparedStatement.executeUpdate()).thenReturn(1);
+        
+        Capsula capsula = new Capsula(1,8.0f,"deluxe");
+
+        assertTrue(capsulaDao.doSave(capsula));
+        // Verifica che il metodo setString sia stato chiamato con i valori corretti
+        Mockito.verify(preparedStatement, times(1)).setInt(1, capsula.getId());
+        Mockito.verify(preparedStatement, times(1)).setFloat(2, capsula.getPrezzo_orario());
+        Mockito.verify(preparedStatement, times(1)).setString(3, capsula.getTipologia());
+        
+
+        // Verifica che il metodo executeUpdate sia stato chiamato
+        Mockito.verify(preparedStatement, times(1)).executeUpdate();
+	}
+	
+	/*
+	@Test
+	@DisplayName("inserimento capsula fallito")
+	public void doSaveTestFallito() {
+		
+	}
+	* non si deve fare, giusto?
+	*/
+	
+	@Test
+	@DisplayName("doRetieveAll")
+	public void doRetrieveAllTest() throws SQLException {
+		PreparedStatement preparedStatement = Mockito.mock(PreparedStatement.class);
+	    ResultSet resultSet = Mockito.mock(ResultSet.class);
+	    
+
+	    
+	    Mockito.when(connection.prepareStatement(anyString())).thenReturn(preparedStatement);
+
+	    Mockito.when(preparedStatement.executeQuery()).thenReturn(resultSet);
+
+	    Mockito.when(resultSet.next()).thenReturn(true, true, false);
+	    Mockito.when(resultSet.getInt("id")).thenReturn(1, 2);
+	    Mockito.when(resultSet.getFloat("prezzo_orario")).thenReturn(2.0f, 3.0f);
+	    Mockito.when(resultSet.getString("tipologia")).thenReturn("deluxe", "super");
+
+	    Collection<Capsula> result = capsulaDao.doRetriveAll();
+
+	    assertEquals(2, result.size());
+
+	    
+	    Mockito.verify(preparedStatement, times(1)).close();
+	    
+	    Mockito.verify(resultSet, times(3)).next();
+        
+        Mockito.verify(resultSet, times(2)).getInt("id");
+        
+        Mockito.verify(resultSet, times(2)).getFloat("prezzo_orario");
+        Mockito.verify(resultSet, times(2)).getString("tipologia");
 	}
 }
 

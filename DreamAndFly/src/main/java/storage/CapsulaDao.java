@@ -98,8 +98,8 @@ public class CapsulaDao {
 		return modificato;
 	}
 	
-	public void doSave(Capsula capsula) throws SQLException {
-			
+	public boolean doSave(Capsula capsula) throws SQLException {
+			boolean salvato=false;
 			String query;
 			PreparedStatement pst=null;
 			Connection con=null;
@@ -112,7 +112,8 @@ public class CapsulaDao {
 				pst.setFloat(2, capsula.getPrezzo_orario());
 				pst.setString(3, capsula.getTipologia());
 				
-				pst.executeUpdate();
+				if(pst.executeUpdate()==1)
+					salvato=true;
 			}finally {
 				try {
 					if(pst != null)
@@ -122,6 +123,7 @@ public class CapsulaDao {
 						con.close();
 				}
 		}
+			return salvato;
 	}
 	
 	public synchronized Collection<Capsula> doRetriveAll() throws SQLException {

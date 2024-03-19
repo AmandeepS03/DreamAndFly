@@ -30,7 +30,6 @@ public class NumberDisponibilityServlet extends HttpServlet {
      */
     public NumberDisponibilityServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

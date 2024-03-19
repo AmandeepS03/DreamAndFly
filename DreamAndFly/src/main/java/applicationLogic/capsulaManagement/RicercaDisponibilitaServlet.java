@@ -43,7 +43,6 @@ public class RicercaDisponibilitaServlet extends HttpServlet {
      */
     public RicercaDisponibilitaServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
