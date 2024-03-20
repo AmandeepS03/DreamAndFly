@@ -98,7 +98,7 @@ public void doRetrieveByKeyFallitoTest() throws SQLException {
 	//Chiama il metodo da testare
 	Capsula capsula = capsulaDao.doRetrieveByKey(1);
 			
-			
+	
 	assertNull(capsula);
 	
 	resultSet.close();
@@ -107,7 +107,7 @@ public void doRetrieveByKeyFallitoTest() throws SQLException {
 	}	
 
 	@Test
-	@DisplayName("doRetrieveByKeyTest updatePrezzo fatto")
+	@DisplayName("doUpdatePrezzoOrarioTest updatePrezzo fatto")
 	public void doUpdatePrezzoOrarioTest() throws SQLException{
 		PreparedStatement preparedStatement = Mockito.mock(PreparedStatement.class);
 
