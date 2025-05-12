@@ -50,16 +50,41 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 		String dataInizio = request.getParameter("dataInizio");
 		String dataFine = request.getParameter("dataFine");
 		
+		//non inserisce nessun filtro: mostra tutto
+		if(vuota(numeroCapsula) && vuota( account) && vuota( dataInizio) && vuota( dataFine) ) {
+			try {
+				request.setAttribute("listaPrenotazioni", pDao.doRetriveAll());
+				request.setAttribute("listaPrenotabili", prenotabileDao.doRetriveAll() );
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} 
+		}
+
 		
 		//inserisce solo il numero capsula 
 		
 		  if(!vuota(numeroCapsula) && vuota( account) && vuota( dataInizio) && vuota( dataFine) ) {
 			  
 			  Integer numeroCapsulaSelect = Integer.parseInt(request.getParameter("numeroCapsula")); 
-			  System.out.println("numeroCapsulaSelect: "+numeroCapsulaSelect);
+			  
 				  try {
 					request.setAttribute("listaPrenotazioneByCapsula", pDao.doRetrivePrenotazioniByNumeroCapsulaAll(numeroCapsulaSelect));
 					request.setAttribute("listaPrenotabiliByCapsula", prenotabileDao.doRetrieveById(numeroCapsulaSelect));
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} 
+			  
+		  }
+		  
+		//inserisce il numero capsula e la data di inizio
+			
+		  if(!vuota(numeroCapsula) && vuota( account) && !vuota( dataInizio) && vuota( dataFine) ) {
+			  
+			  Integer numeroCapsulaSelect = Integer.parseInt(request.getParameter("numeroCapsula"));   
+				  try {
+					request.setAttribute("listaPrenotazioneByCapsulaAndDataInizio", pDao.doRetrivePrenotazioneByCapsulaAndDataInizio(numeroCapsulaSelect,dataInizio));
+					request.setAttribute("listaPrenotabiliByCapsulaAndDataInizio", prenotabileDao.doRetrivePrenotabiliByCapsulaAndDataInizio(numeroCapsulaSelect,dataInizio));
 					
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -81,7 +106,7 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 		//inserisce solo la data di inizio
 		if(!vuota(dataInizio) && vuota( dataFine) && vuota( account) && vuota( numeroCapsula)) {
 			try {
-				System.out.println("dataInizio: "+request.getParameter("dataInizio"));
+				
 				request.setAttribute("listaPrenotazioneByDate", pDao.doRetrivePrenotazioniByDataInizio(request.getParameter("dataInizio")));
 				request.setAttribute("listaPrenotabileByDateInizio", prenotabileDao.doRetrieveByDataInizio(request.getParameter("dataInizio")));
 			} catch (SQLException e) {

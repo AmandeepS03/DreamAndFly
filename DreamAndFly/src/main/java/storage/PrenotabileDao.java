@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,6 +30,41 @@ public class PrenotabileDao {
 		super();
 		this.ds=ds;
 	}
+	
+	public Collection<Prenotabile> doRetriveAll() throws SQLException {
+		Connection con = null;
+		PreparedStatement pst = null;
+		Collection<Prenotabile> prenotabilelist = new LinkedList<>();
+
+		String query = "select * from e_prenotabile";
+
+		try {
+			con = ds.getConnection();
+			pst = con.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+
+			while (rs.next()) {
+				Prenotabile prenotabile = new Prenotabile();
+				prenotabile.setDataPrenotabile(rs.getString("data_prenotabile"));
+				prenotabile.setCapsulaId(rs.getInt("capsula_id"));
+				prenotabile.setFasciaOrariaNumero(rs.getInt("fascia_oraria_numero"));
+				
+				prenotabilelist.add(prenotabile);
+			}
+		} finally {
+			try {
+				if (pst != null)
+					pst.close();
+			} finally {
+				if (con != null)
+					con.close();
+			}
+		}
+
+		return prenotabilelist;
+		
+	}
+
 	
 	public Collection<Prenotabile> doRetrieveDataPrenotabile(String dataPrenotabile) throws SQLException {
 		ResultSet rs;
@@ -362,6 +398,57 @@ public synchronized Prenotabile doRetrieveLastDateById(int id) throws SQLExcepti
 		}
 		return prenotabileList;
 
+	}
+
+	public Collection<Prenotabile> doRetrivePrenotabiliByCapsulaAndDataInizio(Integer numeroCapsulaSelect, String dataInizio) throws SQLException {
+		ResultSet rs;
+		String query;
+		PreparedStatement pst=null;
+		Connection con=null;
+		
+		Collection<Prenotabile> prenotabileList = new ArrayList<>();
+		try {
+			con=ds.getConnection();
+			query = "SELECT * FROM e_prenotabile WHERE capsula_id= ? AND data_prenotabile >= ?";
+			pst = con.prepareStatement(query);
+			pst.setInt(1, numeroCapsulaSelect);
+			pst.setString(2, dataInizio);
+			rs = pst.executeQuery();
+
+			while(rs.next()) {
+			
+				Prenotabile prenotabile=new Prenotabile();
+				
+				prenotabile.setDataPrenotabile(rs.getString("data_prenotabile"));
+				prenotabile.setCapsulaId(rs.getInt("capsula_id"));
+				prenotabile.setFasciaOrariaNumero(rs.getInt("fascia_oraria_numero"));
+				
+				prenotabileList.add(prenotabile);
+
+			}
+			
+			
+
+		}catch(Exception e) {
+			logger.log(Level.SEVERE, e.getMessage());
+			logger.log(Level.SEVERE , e.getMessage());
+		} finally {
+			try {
+				if(pst != null)
+					pst.close();
+			}finally{
+				if(con != null)
+					con.close();
+			}
+			
+			
+		}
+		return prenotabileList;
+	}
+	
+	public void vuotoEliminaProva() {
+		System.out.println("vuoto elimina");
+		
 	}
 	
 	
