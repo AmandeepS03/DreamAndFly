@@ -446,10 +446,7 @@ public synchronized Prenotabile doRetrieveLastDateById(int id) throws SQLExcepti
 		return prenotabileList;
 	}
 	
-	public void vuotoEliminaProva() {
-		System.out.println("vuoto elimina");
-		
-	}
+
 	
 	public synchronized Collection<Prenotabile> doRetrieveByDataFine(String data) throws SQLException {
 		ResultSet rs;

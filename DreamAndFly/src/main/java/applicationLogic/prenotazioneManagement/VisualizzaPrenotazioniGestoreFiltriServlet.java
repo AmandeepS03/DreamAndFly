@@ -79,6 +79,7 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 		  
 		//inserisce il numero capsula e la data di inizio
 			
+		  
 		  if(!vuota(numeroCapsula) && vuota( account) && !vuota( dataInizio) && vuota( dataFine) ) {
 			  
 			  Integer numeroCapsulaSelect = Integer.parseInt(request.getParameter("numeroCapsula"));   
