@@ -76,6 +76,7 @@
 				            <li>Ventilazione regolabile</li>
 				            <li>Bagno in comune</li>
 				        </ul>
+				        
 							
 							</span>
 					</div>
