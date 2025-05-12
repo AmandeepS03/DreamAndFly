@@ -1209,6 +1209,120 @@ public class PrenotazioneDao {
 		return prenotazionelist;
 		
 	}
+	
+	//visualizza le capsule prenotate fino a quella data 
+	public Collection<Prenotazione> doRetrivePrenotazioneByCapsulaAndDataFine(Integer numeroCapsulaSelect, String dataFine) throws SQLException {
+		ResultSet rs; 
+		  String query; 
+		  PreparedStatement pst=null;
+	  Connection con=null;
+	  Collection<Prenotazione> prenotazionelist = new LinkedList<>();
+	  try {
+	  con=ds.getConnection(); 
+	  query = "SELECT * FROM prenotazione where capsula_id= ? AND data_fine<= ?"; 
+	  pst =con.prepareStatement(query);
+	  pst.setInt(1, numeroCapsulaSelect);
+	  pst.setString(2, dataFine);
+	  rs = pst.executeQuery();
+	  
+	  while (rs.next()) {
+		    Prenotazione prenotazione = new Prenotazione(); // Creare un nuovo oggetto Prenotazione ad ogni iterazione
+		    
+		    
+
+		    // Impostare i valori della prenotazione
+		    prenotazione.setCodiceDiAccesso(rs.getInt("codice_di_accesso"));
+		    prenotazione.setOrarioInizio(rs.getString("orario_inizio"));
+		    prenotazione.setOrarioFine(rs.getString("orario_fine"));
+		    prenotazione.setDataInizio(rs.getString("data_inizio"));
+		    prenotazione.setDataFine(rs.getString("data_fine"));
+		    prenotazione.setPrezzoTotale(rs.getFloat("prezzo_totale"));
+		    prenotazione.setDataEffettuazione(rs.getString("data_effettuazione"));
+		    prenotazione.setRimborso(rs.getFloat("rimborso"));
+		    prenotazione.setCapsulaId(rs.getInt("capsula_id"));
+
+		    
+		    prenotazione.setValidita(rs.getBoolean("validita"));
+		    prenotazione.setUserAccountEmail(rs.getString("user_account_email"));
+		
+		    prenotazionelist.add(prenotazione);
+
+		}
+
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, e.getMessage());
+			logger.log(Level.SEVERE, e.getMessage());
+		} finally {
+			try {
+				if (pst != null)
+					pst.close();
+			} finally {
+				if (con != null)
+					con.close();
+			}
+	  
+	  
+	  } 
+		return prenotazionelist;
+		
+	}
+
+	public Collection<Prenotazione> doRetrivePrenotazioneByCapsulaAndDataInizioAndDataFine(Integer numeroCapsulaSelect, String dataInizio,
+			String dataFine) throws SQLException {
+		ResultSet rs; 
+		  String query; 
+		  PreparedStatement pst=null;
+	  Connection con=null;
+	  Collection<Prenotazione> prenotazionelist = new LinkedList<>();
+	  try {
+	  con=ds.getConnection(); 
+	  query = "SELECT * FROM prenotazione where capsula_id= ? AND data_inizio>=? and data_fine<= ?"; 
+	  pst =con.prepareStatement(query);
+	  pst.setInt(1, numeroCapsulaSelect);
+	  pst.setString(2, dataInizio);
+	  pst.setString(3, dataFine);
+	  rs = pst.executeQuery();
+	  
+	  while (rs.next()) {
+		    Prenotazione prenotazione = new Prenotazione(); // Creare un nuovo oggetto Prenotazione ad ogni iterazione
+		    
+		    
+
+		    // Impostare i valori della prenotazione
+		    prenotazione.setCodiceDiAccesso(rs.getInt("codice_di_accesso"));
+		    prenotazione.setOrarioInizio(rs.getString("orario_inizio"));
+		    prenotazione.setOrarioFine(rs.getString("orario_fine"));
+		    prenotazione.setDataInizio(rs.getString("data_inizio"));
+		    prenotazione.setDataFine(rs.getString("data_fine"));
+		    prenotazione.setPrezzoTotale(rs.getFloat("prezzo_totale"));
+		    prenotazione.setDataEffettuazione(rs.getString("data_effettuazione"));
+		    prenotazione.setRimborso(rs.getFloat("rimborso"));
+		    prenotazione.setCapsulaId(rs.getInt("capsula_id"));
+
+		    
+		    prenotazione.setValidita(rs.getBoolean("validita"));
+		    prenotazione.setUserAccountEmail(rs.getString("user_account_email"));
+		
+		    prenotazionelist.add(prenotazione);
+
+		}
+
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, e.getMessage());
+			logger.log(Level.SEVERE, e.getMessage());
+		} finally {
+			try {
+				if (pst != null)
+					pst.close();
+			} finally {
+				if (con != null)
+					con.close();
+			}
+	  
+	  
+	  } 
+		return prenotazionelist;
+	}
 
 
 	

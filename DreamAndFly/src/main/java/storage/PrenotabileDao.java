@@ -446,6 +446,54 @@ public synchronized Prenotabile doRetrieveLastDateById(int id) throws SQLExcepti
 		return prenotabileList;
 	}
 	
+	
+	//visualizza le capsule prenotabili fino a quella data
+	public Collection<Prenotabile> doRetrivePrenotabiliByCapsulaAndDataFine(Integer numeroCapsulaSelect, String dataFine) throws SQLException {
+		ResultSet rs;
+		String query;
+		PreparedStatement pst=null;
+		Connection con=null;
+		
+		Collection<Prenotabile> prenotabileList = new ArrayList<>();
+		try {
+			con=ds.getConnection();
+			query = "SELECT * FROM e_prenotabile WHERE capsula_id= ? AND data_prenotabile <= ?";
+			pst = con.prepareStatement(query);
+			pst.setInt(1, numeroCapsulaSelect);
+			pst.setString(2, dataFine);
+			rs = pst.executeQuery();
+
+			while(rs.next()) {
+			
+				Prenotabile prenotabile=new Prenotabile();
+				
+				prenotabile.setDataPrenotabile(rs.getString("data_prenotabile"));
+				prenotabile.setCapsulaId(rs.getInt("capsula_id"));
+				prenotabile.setFasciaOrariaNumero(rs.getInt("fascia_oraria_numero"));
+				
+				prenotabileList.add(prenotabile);
+
+			}
+			
+			
+
+		}catch(Exception e) {
+			logger.log(Level.SEVERE, e.getMessage());
+			logger.log(Level.SEVERE , e.getMessage());
+		} finally {
+			try {
+				if(pst != null)
+					pst.close();
+			}finally{
+				if(con != null)
+					con.close();
+			}
+			
+			
+		}
+		return prenotabileList;
+	}
+	
 
 	
 	public synchronized Collection<Prenotabile> doRetrieveByDataFine(String data) throws SQLException {
@@ -535,6 +583,52 @@ public synchronized Prenotabile doRetrieveLastDateById(int id) throws SQLExcepti
 		}
 		return prenotabileList;
 
+	}
+
+	public Collection<Prenotabile> doRetrivePrenotabileByCapsulaAndDataInizioAndDataFine(Integer numeroCapsulaSelect, String dataInizio,
+			String dataFine) throws SQLException {
+		ResultSet rs;
+		String query;
+		PreparedStatement pst=null;
+		Connection con=null;
+		
+		Collection<Prenotabile> prenotabileList = new ArrayList<>();
+		try {
+			con=ds.getConnection();
+			query = "SELECT * FROM e_prenotabile WHERE capsula_id=? and data_prenotabile >= ? AND data_prenotabile <= ?";
+			pst = con.prepareStatement(query);
+			pst.setInt(1, numeroCapsulaSelect);
+			pst.setString(2, dataInizio);
+			pst.setString(3, dataFine);
+			rs = pst.executeQuery();
+
+			while(rs.next()) {
+				
+				Prenotabile prenotabile=new Prenotabile();
+				
+				prenotabile.setDataPrenotabile(rs.getString("data_prenotabile"));
+				prenotabile.setCapsulaId(rs.getInt("capsula_id"));
+				prenotabile.setFasciaOrariaNumero(rs.getInt("fascia_oraria_numero"));
+				
+				prenotabileList.add(prenotabile);
+
+			}
+
+		}catch(Exception e) {
+			logger.log(Level.SEVERE, e.getMessage());
+			logger.log(Level.SEVERE , e.getMessage());
+		} finally {
+			try {
+				if(pst != null)
+					pst.close();
+			}finally{
+				if(con != null)
+					con.close();
+			}
+			
+			
+		}
+		return prenotabileList;
 	}
 	
 	

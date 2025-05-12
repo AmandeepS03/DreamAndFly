@@ -170,7 +170,12 @@
 	List<Prenotazione> listaPrenotazioneByCapsulaAndDataInizio = (List<Prenotazione>) request.getAttribute("listaPrenotazioneByCapsulaAndDataInizio");
 	List<Prenotabile> listaPrenotabileByCapsulaAndDataInizio = (List<Prenotabile>) request.getAttribute("listaPrenotabiliByCapsulaAndDataInizio");
 
-
+	List<Prenotazione> listaPrenotazioneByCapsulaAndDataFine = (List<Prenotazione>) request.getAttribute("listaPrenotazioneByCapsulaAndDataFine");
+	List<Prenotabile> listaPrenotabiliByCapsulaAndDataFine = (List<Prenotabile>) request.getAttribute("listaPrenotabiliByCapsulaAndDataFine");
+	
+	List<Prenotazione> listaPrenotazioneByCapsulaAndDataInizioAndDataFine = (List<Prenotazione>) request.getAttribute("listaPrenotazioneByCapsulaAndDataInizioAndDataFine");
+	List<Prenotabile> listaPrenotabiliByCapsulaAndDataInizioAndDataFine = (List<Prenotabile>) request.getAttribute("listaPrenotabiliByCapsulaAndDataInizioAndDataFine");
+	
 	%>
 	
 	<table id="accountTable" border="1">
@@ -209,6 +214,22 @@
 				
 				<%if (listaPrenotazioneByCapsulaAndDataInizio != null) {
 					for(Prenotazione prenotazione: listaPrenotazioneByCapsulaAndDataInizio){ %>
+				<tr>
+		
+					<td><%= prenotazione.getCodiceDiAccesso()%></td>
+					<td><%= prenotazione.getCapsulaId() %></td>
+					<td><%= prenotazione.getUserAccountEmail() %></td>
+					<td><%= prenotazione.getDataInizio()  %> <%=prenotazione.getOrarioInizio() %></td>
+					<td><%= prenotazione.getDataFine()  %> <%=prenotazione.getOrarioFine() %></td>
+					<td><%=prenotazione.getPrezzoTotale() %></td>
+					<td><%=prenotazione.getDataEffettuazione() %></td>
+					<td><%=prenotazione.isValidita() %></td>
+					<td><%=prenotazione.getRimborso() %></td>
+		 			<%} }%>
+				</tr>
+				
+				<%if (listaPrenotazioneByCapsulaAndDataInizioAndDataFine != null) {
+					for(Prenotazione prenotazione: listaPrenotazioneByCapsulaAndDataInizioAndDataFine){ %>
 				<tr>
 		
 					<td><%= prenotazione.getCodiceDiAccesso()%></td>
@@ -396,9 +417,25 @@
 				
 				<%if (prenotazioneByAccountAndIdAndDataFine != null) {
 					
-					for(Prenotazione prenotazione: prenotazioneByAccountAndIdAndDataFine){ %>
+					for(Prenotazione prenotazione: prenotazioneByAccountAndIdAndDataInizio){ %>
 				<tr>
 		
+					<td><%= prenotazione.getCodiceDiAccesso()%></td>
+					<td><%= prenotazione.getCapsulaId() %></td>
+					<td><%= prenotazione.getUserAccountEmail() %></td>
+					<td><%= prenotazione.getDataInizio()  %> <%=prenotazione.getOrarioInizio() %></td>
+					<td><%= prenotazione.getDataFine()  %> <%=prenotazione.getOrarioFine() %></td>
+					<td><%=prenotazione.getPrezzoTotale() %></td>
+					<td><%=prenotazione.getDataEffettuazione() %></td>
+					<td><%=prenotazione.isValidita() %></td>
+					<td><%=prenotazione.getRimborso() %></td>
+		 			<%} }%>
+				</tr>
+				
+				<%if (listaPrenotazioneByCapsulaAndDataFine != null) {
+					for(Prenotazione prenotazione: listaPrenotazioneByCapsulaAndDataFine){ %>
+				<tr>
+					
 					<td><%= prenotazione.getCodiceDiAccesso()%></td>
 					<td><%= prenotazione.getCapsulaId() %></td>
 					<td><%= prenotazione.getUserAccountEmail() %></td>
@@ -437,6 +474,19 @@
 		 			<%} }%>
 				</tr>
 				
+				
+				<%if (listaPrenotabiliByCapsulaAndDataInizioAndDataFine != null) {
+					for(Prenotabile prenotabile: listaPrenotabiliByCapsulaAndDataInizioAndDataFine){ %>
+				<tr>
+		
+					
+					<td><%= prenotabile.getCapsulaId() %></td>
+					<td><%= prenotabile.getDataPrenotabile() %>  <%=prenotabile.getFasciaOrariaNumero() %></td>
+					<td><%= prenotabile.getDataPrenotabile() %> <%=prenotabile.getFasciaOrariaNumero() %></td>
+		 			<%} }%>
+				</tr>
+				
+				
 				<%if (listaPrenotabileByCapsulaAndDataInizio != null) {
 					
 					for(Prenotabile prenotabile: listaPrenotabileByCapsulaAndDataInizio){ %>
@@ -449,7 +499,17 @@
 		 			<%} }%>
 				</tr>
 
-				
+				<%if (listaPrenotabiliByCapsulaAndDataFine != null) {
+					
+					for(Prenotabile prenotabile: listaPrenotabiliByCapsulaAndDataFine){ %>
+				<tr>
+					
+					
+					<td><%= prenotabile.getCapsulaId() %></td>
+					<td><%= prenotabile.getDataPrenotabile() %>  <%=prenotabile.getFasciaOrariaNumero() %></td>
+					<td><%= prenotabile.getDataPrenotabile() %> <%=prenotabile.getFasciaOrariaNumero() %></td>
+		 			<%} }%>
+				</tr>
 			
 				
 				
@@ -494,6 +554,8 @@
 						<td><%= prenotabile.getDataPrenotabile() %> <%=prenotabile.getFasciaOrariaNumero() %></td>
 			 			<%} }%>
 				</tr>
+				
+				
 				
 				
 			</table>

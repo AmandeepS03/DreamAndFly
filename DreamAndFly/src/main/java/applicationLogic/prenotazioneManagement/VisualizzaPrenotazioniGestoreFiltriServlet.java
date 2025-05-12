@@ -59,6 +59,17 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 				e.printStackTrace();
 			} 
 		}
+		
+		// inserisce numero capsula e data fine
+		if(!vuota(numeroCapsula) && vuota( account) && vuota( dataInizio) && !vuota( dataFine) ) {
+			try {
+				Integer numeroCapsulaSelect = Integer.parseInt(request.getParameter("numeroCapsula")); 
+				request.setAttribute("listaPrenotazioneByCapsulaAndDataFine", pDao.doRetrivePrenotazioneByCapsulaAndDataFine(numeroCapsulaSelect,dataFine));
+				request.setAttribute("listaPrenotabiliByCapsulaAndDataFine", prenotabileDao.doRetrivePrenotabiliByCapsulaAndDataFine(numeroCapsulaSelect,dataFine));
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} 
+		}
 
 		
 		//inserisce solo il numero capsula 
@@ -86,6 +97,22 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 				  try {
 					request.setAttribute("listaPrenotazioneByCapsulaAndDataInizio", pDao.doRetrivePrenotazioneByCapsulaAndDataInizio(numeroCapsulaSelect,dataInizio));
 					request.setAttribute("listaPrenotabiliByCapsulaAndDataInizio", prenotabileDao.doRetrivePrenotabiliByCapsulaAndDataInizio(numeroCapsulaSelect,dataInizio));
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} 
+			  
+		  }
+		  
+		  //inserisce il numero capsula ,la data di inizio e la data di fine
+			
+		  
+		  if(!vuota(numeroCapsula) && vuota( account) && !vuota( dataInizio) && !vuota( dataFine) ) {
+			  
+			  Integer numeroCapsulaSelect = Integer.parseInt(request.getParameter("numeroCapsula"));   
+				  try {
+					request.setAttribute("listaPrenotazioneByCapsulaAndDataInizioAndDataFine", pDao.doRetrivePrenotazioneByCapsulaAndDataInizioAndDataFine(numeroCapsulaSelect,dataInizio,dataFine));
+					request.setAttribute("listaPrenotabiliByCapsulaAndDataInizioAndDataFine", prenotabileDao.doRetrivePrenotabileByCapsulaAndDataInizioAndDataFine(numeroCapsulaSelect,dataInizio,dataFine));
 					
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -129,7 +156,6 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 		//inserisce la data di inizio e la data di fine, ma non il numero capsula e l account 
 		if(!vuota(dataInizio) && !vuota(dataFine) && vuota( account) && vuota( numeroCapsula)) {
 			try {
-				System.out.println("Date: "+request.getParameter("dataInizio")+ "  " + request.getParameter("dataFine"));
 				request.setAttribute("listaPrenotazioneByDateInizioAndFine", pDao.doRetrivePrenotazioniByDataInizioAndFine(request.getParameter("dataInizio"), request.getParameter("dataFine") ));
 				request.setAttribute("listaPrenotabileByDateInizioAndFine", prenotabileDao.doRetrieveByDataInizioAndDataFine(request.getParameter("dataInizio"), request.getParameter("dataFine") ));
 
@@ -161,8 +187,6 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 			
 			Integer numeroCapsulaSelected = Integer.parseInt(request.getParameter("numeroCapsula")); 
 			try {
-				System.out.println("numerocapsula selected:" + numeroCapsulaSelected);
-				System.out.println("account: " + account);
 				request.setAttribute("prenotazioneByNumeroCapsulaAndAccount", pDao.doRetrivePrenotazioniByNumeroCapsulaAndAccount(numeroCapsulaSelected, account  ));
 			} catch (SQLException e) {
 				e.printStackTrace();
