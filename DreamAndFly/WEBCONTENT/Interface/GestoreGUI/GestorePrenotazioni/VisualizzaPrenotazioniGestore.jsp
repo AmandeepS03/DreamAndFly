@@ -176,6 +176,8 @@
 	List<Prenotazione> listaPrenotazioneByCapsulaAndDataInizioAndDataFine = (List<Prenotazione>) request.getAttribute("listaPrenotazioneByCapsulaAndDataInizioAndDataFine");
 	List<Prenotabile> listaPrenotabiliByCapsulaAndDataInizioAndDataFine = (List<Prenotabile>) request.getAttribute("listaPrenotabiliByCapsulaAndDataInizioAndDataFine");
 	
+	List<Prenotazione> listaPrenotazioneByAccountAndDataInizioAndDataFine = (List<Prenotazione>) request.getAttribute("listaPrenotazioneByAccountAndDataInizioAndDataFine");
+	
 	%>
 	
 	<table id="accountTable" border="1">
@@ -198,6 +200,22 @@
 				
 				<%if (listaPrenotazioni != null) {
 					for(Prenotazione prenotazione: listaPrenotazioni){ %>
+				<tr>
+		
+					<td><%= prenotazione.getCodiceDiAccesso()%></td>
+					<td><%= prenotazione.getCapsulaId() %></td>
+					<td><%= prenotazione.getUserAccountEmail() %></td>
+					<td><%= prenotazione.getDataInizio()  %> <%=prenotazione.getOrarioInizio() %></td>
+					<td><%= prenotazione.getDataFine()  %> <%=prenotazione.getOrarioFine() %></td>
+					<td><%=prenotazione.getPrezzoTotale() %></td>
+					<td><%=prenotazione.getDataEffettuazione() %></td>
+					<td><%=prenotazione.isValidita() %></td>
+					<td><%=prenotazione.getRimborso() %></td>
+		 			<%} }%>
+				</tr>
+				
+				<%if (listaPrenotazioneByAccountAndDataInizioAndDataFine != null) {
+					for(Prenotazione prenotazione: listaPrenotazioneByAccountAndDataInizioAndDataFine){ %>
 				<tr>
 		
 					<td><%= prenotazione.getCodiceDiAccesso()%></td>
