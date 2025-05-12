@@ -157,6 +157,30 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 
 		}
 		
+		//inserisce capsula,data inizio e account
+		if( !vuota( account) && !vuota( numeroCapsula) && vuota(dataFine) && !vuota( dataInizio)) {
+			
+			Integer numeroCapsulaSelected = Integer.parseInt(request.getParameter("numeroCapsula")); 
+			try {
+				request.setAttribute("prenotazioneByAccountAndIdAndDataInizio", pDao.doRetrivePrenotazioniByAccountAndIdAndDataInizio(numeroCapsulaSelected, account, dataInizio));
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+		
+		//inserisce capsula,data fine e account
+		if( !vuota( account) && !vuota( numeroCapsula) && !vuota(dataFine) && vuota( dataInizio)) {
+			
+			Integer numeroCapsulaSelected = Integer.parseInt(request.getParameter("numeroCapsula")); 
+			try {
+				request.setAttribute("prenotazioneByAccountAndIdAndDataFine", pDao.doRetrivePrenotazioniByAccountAndIdAndDataFine(numeroCapsulaSelected, account, dataFine));
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+		
 		
 		
 		
