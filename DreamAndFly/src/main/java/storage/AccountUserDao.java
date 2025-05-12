@@ -16,19 +16,13 @@ import storage.AccountUser;
 import storage.AccountUserDao;
 
 public class AccountUserDao {
-	private DataSource ds=null;
-	private Connection connection=null;
+private DataSource ds=null;
+	
 	private static final Logger logger = Logger.getLogger(AccountUserDao.class.getName());
 
 	public AccountUserDao(DataSource ds) {
 		super();
 		this.ds=ds;
-		
-		try {
-			connection = ds.getConnection();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public AccountUser doRetrieveByKey(String email) throws SQLException {
@@ -36,7 +30,7 @@ public class AccountUserDao {
 		String query;
 		PreparedStatement pst=null;
 		Connection con=null;
-		AccountUser accountuser=null;
+		AccountUser accountuser=new AccountUser();
 		try {
 			con=ds.getConnection();
 			query = "select * from user_account where email = ? ";
@@ -45,13 +39,14 @@ public class AccountUserDao {
 			rs = pst.executeQuery();
 
 			if(rs.next()) {
-				accountuser= new AccountUser();
+				
 				accountuser.setEmail(rs.getString("email"));
 				accountuser.setPassword(rs.getString("passw"));
 				accountuser.setName(rs.getString("nome"));
 				accountuser.setSurname(rs.getString("cognome"));
 				accountuser.setNumber(rs.getString("telefono"));
 				accountuser.setRuolo(rs.getInt("ruolo"));
+
 			}
 
 		}catch(Exception e) {
@@ -72,21 +67,17 @@ public class AccountUserDao {
 
 	}
 	
-	public synchronized boolean doUpdateNumber(String email, String cellulare) throws SQLException {
+	public synchronized void doUpdateNumber(String email, String cellulare) throws SQLException {
 		String query;
 		PreparedStatement pst=null;
 		Connection con=null;
-		boolean aggiornato= false;
 		try {
 			con=ds.getConnection();
 			query = "update user_account set telefono = ? where email = ? ";
 			pst = con.prepareStatement(query);
 			pst.setString(1, cellulare);
 			pst.setString(2, email);
-			if(pst.executeUpdate()==1) {		//se lo trova, aggiorna
-				aggiornato=true;
-			}
-			
+			pst.executeUpdate();
 		}finally {
 			try {
 				if(pst != null)
@@ -95,11 +86,9 @@ public class AccountUserDao {
 				if(con != null)
 					con.close();
 			}
-		}
-		return aggiornato;
 	}
-	public synchronized boolean doUpdatePassword(String email, String password) throws SQLException {
-		boolean aggiornato = false;
+	}
+	public synchronized void doUpdatePassword(String email, String password) throws SQLException {
 		String query;
 		PreparedStatement pst=null;
 		Connection con=null;
@@ -109,9 +98,7 @@ public class AccountUserDao {
 			pst = con.prepareStatement(query);
 			pst.setString(1, password);
 			pst.setString(2, email);
-			if(pst.executeUpdate()==1) {
-				aggiornato = true;
-			}
+			pst.executeUpdate();
 		}finally {
 			try {
 				if(pst != null)
@@ -121,15 +108,13 @@ public class AccountUserDao {
 					con.close();
 			}
 	}
-		return aggiornato;
 	}
-public boolean doSave(AccountUser user) throws SQLException {
-		boolean salvato = false;
+public void doSave(AccountUser user) throws SQLException {
+		
 		String query;
 		PreparedStatement pst=null;
 		Connection con=null;
 		try {
-			
 			con=ds.getConnection();
 			query="insert into user_account(email,passw,nome,cognome,telefono) values(?,?,?,?,?)";
 			con.setAutoCommit(true);
@@ -139,8 +124,7 @@ public boolean doSave(AccountUser user) throws SQLException {
 			pst.setString(3, user.getName());
 			pst.setString(4, user.getSurname());
 			pst.setString(5,user.getNumber());
-			if(pst.executeUpdate()==1)
-				salvato=true;
+			pst.executeUpdate();
 		}finally {
 			try {
 				if(pst != null)
@@ -150,7 +134,6 @@ public boolean doSave(AccountUser user) throws SQLException {
 					con.close();
 			}
 	}
-		return salvato;
 }
 
 	public synchronized Collection<AccountUser> doRetriveAll() throws SQLException {

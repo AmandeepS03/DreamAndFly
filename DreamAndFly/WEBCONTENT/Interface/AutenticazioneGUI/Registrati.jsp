@@ -42,7 +42,7 @@
 				<div class="form-group">
 					<label for="email">*Email:</label> <input type="email" id="email"
 						name="email" required onBlur="return validateEmail()"
-						><span id="errorEmail"></span><br><span
+						onChange="return tryEmail()" onInput="return tryEmail()"><span id="errorEmail"></span><span
 						id="emailCheckDisponibility"></span>
 				</div>
 				<div class="form-group">

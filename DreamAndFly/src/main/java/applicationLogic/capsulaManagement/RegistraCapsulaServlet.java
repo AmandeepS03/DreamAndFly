@@ -83,7 +83,9 @@ public class RegistraCapsulaServlet extends HttpServlet {
 					prenotabile.setDataPrenotabile(dataInizio.toString());
 					prenotabile.setFasciaOrariaNumero(orarioInizio);
 					try {
+						
 						toolP.doSave(prenotabile);
+						
 					} catch (SQLException e) {
 						e.printStackTrace();
 				}						
@@ -94,7 +96,9 @@ public class RegistraCapsulaServlet extends HttpServlet {
 				prenotabile.setDataPrenotabile(dataInizio.toString());
 				prenotabile.setFasciaOrariaNumero(orarioInizio);
 				try {
+					
 					toolP.doSave(prenotabile);
+				
 				} catch (SQLException e) {
 					e.printStackTrace();
 			}

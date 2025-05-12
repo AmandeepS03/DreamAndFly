@@ -12,34 +12,21 @@ import java.util.logging.Logger;
 import javax.sql.DataSource;
 
 public class FasciaOrariaDao {
-	private DataSource ds=null;
-	private Connection connection=null;
+private DataSource ds=null;
+	
 	private static final Logger logger = Logger.getLogger(CapsulaDao.class.getName());
 
 	public FasciaOrariaDao(DataSource ds) {
 		super();
 		this.ds=ds;
-		
-		try {
-			connection = ds.getConnection();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 	
-	//#NULL
 	public FasciaOraria doRetrieveByKey(int numero) throws SQLException {
 		ResultSet rs;
 		String query;
 		PreparedStatement pst=null;
 		Connection con=null;
-		FasciaOraria fasciaOraria=null; //questo dara problemi nel moento in cui 
-		//si chiama questo metodo e nella servlet non è gestito il caso in cui 
-		//il valore restituito, cioe la capsula è null
-		//allora tu nella servlet vai a mettere un if(faciaOraria==null) allinizio di tutto 
-		//e gestisci il reindirizzamento e gli errori
-		//VEDI LoginServlet e cerca il commento --> #NULL, per la soluzione
-	
+		FasciaOraria fasciaOraria=new FasciaOraria();
 		try {
 			con=ds.getConnection();
 			query = "select * from fascia_oraria where numero = ? ";
@@ -48,7 +35,7 @@ public class FasciaOrariaDao {
 			rs = pst.executeQuery();
 
 			if(rs.next()) {
-				fasciaOraria = new FasciaOraria();
+				
 				fasciaOraria.setNumero(rs.getInt("numero"));
 				fasciaOraria.setorarioInizio(rs.getString("orario_inizio"));
 				fasciaOraria.setorarioFine(rs.getString("orario_fine"));
@@ -110,7 +97,7 @@ public class FasciaOrariaDao {
 			int numero=0;
 		 	Connection con=null;
 		    PreparedStatement pst=null;
-		    ResultSet rs=null;
+		    ResultSet rs;
 		    String query = "select numero from fascia_oraria where orario_inizio = ?";
 		    
 		    try {
@@ -141,8 +128,6 @@ public class FasciaOrariaDao {
 			return numero;
 
 		}
-	
-	
 	
 	public int doRetrieveByOrarioFine(String orario) throws SQLException {
 		int numero=0;

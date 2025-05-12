@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="java.util.*,java.io.IOException"%>
+	pageEncoding="ISO-8859-1" import="java.util.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -120,7 +120,23 @@
 
 
 
-				
+			<!-- 	 <div>
+
+
+					<label for="Filtri_prenotabilita">Fasce orarie:</label><br>
+
+					<input type="radio" id="prenotabili" name="Filtri_prenotabilita"
+						value="prenotabili" required> <label for="prenotabili">Prenotabili</label>
+
+					<input type="radio" id="prenotate" name="Filtri_prenotabilita"
+						value="prenotate" required > <label for="prenotate">Prenotate</label>
+
+
+					<input type="radio" id="tutte" name="Filtri_prenotabilita"
+						value="tutte" required> <label for="tutte">Tutte</label>
+
+
+				</div> -->
 			</div>
 
 			
@@ -137,15 +153,9 @@
 	List<Prenotazione> prenotazioneByDateInizioAndFine = (List<Prenotazione>) request.getAttribute("listaPrenotazioneByDateInizioAndFine");
 	List<Prenotazione> prenotazioneByDateInizioAndAccount = (List<Prenotazione>) request.getAttribute("prenotazioneByDateInizioAndAccount");
 	List<Prenotazione> prenotazioneByNumeroCapsulaAndAccount = (List<Prenotazione>) request.getAttribute("prenotazioneByNumeroCapsulaAndAccount");
-	List<Prenotazione> prenotazioneByDateInizioAndNumeroCapsula = (List<Prenotazione>) request.getAttribute("prenotazioneByDateInizioAndNumeroCapsula");
-	List<Prenotazione> prenotazioneByNumeroCapsulaAndDataFine = (List<Prenotazione>) request.getAttribute("prenotazioneByNumeroCapsulaAndDataFine");
-	List<Prenotazione> prenotazioneByNumeroCapsulaAndDataInizioAndDataFine = (List<Prenotazione>) request.getAttribute("prenotazioneByNumeroCapsulaAndDataInizioAndDataFine");
-	List<Prenotazione> prenotazioneByNumeroCapsulaAndDataInizioAndAccount = (List<Prenotazione>)request.getAttribute("prenotazioneByNumeroCapsulaAndDataInizioAndAccount");
-	List<Prenotazione> prenotazioneByNumeroCapsulaAndDataFineAndAccount = (List<Prenotazione>) request.getAttribute("prenotazioneByNumeroCapsulaAndDataFineAndAccount");	
-	List<Prenotazione> prenotazioneByAll = (List<Prenotazione>) request.getAttribute("prenotazioneByAll");
-	List<Prenotazione> prenotazioneByDataInizioAndDataFineAndAccount = (List<Prenotazione>) request.getAttribute("prenotazioneByDataInizioAndDataFineAndAccount");
-	List<Prenotazione> prenotazioneByDataFineAndAccount = (List<Prenotazione>) request.getAttribute("prenotazioneByDataFineAndAccount");
-	List<Prenotazione> tutteLePrenotazioni = (List<Prenotazione>) request.getAttribute("tutteLePrenotazioni");
+	List<Prenotabile> prenotabileByCapsula = (List<Prenotabile>) request.getAttribute("listaPrenotabiliByCapsula");
+	List<Prenotabile> prenotabileByDataInizio = (List<Prenotabile>) request.getAttribute("listaPrenotabileByDateInizio");
+
 	%>
 	
 	<table id="accountTable" border="1">
@@ -286,147 +296,65 @@
 		 			<%} }%>
 				</tr>
 				
-				<%if (prenotazioneByDateInizioAndNumeroCapsula != null) {
-					for(Prenotazione prenotazione: prenotazioneByDateInizioAndNumeroCapsula){ %>
+			</table>
+			
+			
+			<table id="accountTable2" border="1">
+				
+
+				<tr>
+					<th>Numero capsula</th>
+					<th>Data e ora inizio</th>
+					<th>Data e ora fine</th>
+					
+					
+
+				</tr>
+			
+				
+				
+				<%if (prenotabileByCapsula != null) {
+					for(Prenotabile prenotabile: prenotabileByCapsula){ %>
 				<tr>
 		
-					<td><%= prenotazione.getCodiceDiAccesso()%></td>
-					<td><%= prenotazione.getCapsulaId() %></td>
-					<td><%= prenotazione.getUserAccountEmail() %></td>
-					<td><%= prenotazione.getDataInizio()  %> <%=prenotazione.getOrarioInizio() %></td>
-					<td><%= prenotazione.getDataFine()  %> <%=prenotazione.getOrarioFine() %></td>
-					<td><%=prenotazione.getPrezzoTotale() %></td>
-					<td><%=prenotazione.getDataEffettuazione() %></td>
-					<td><%=prenotazione.isValidita() %></td>
-					<td><%=prenotazione.getRimborso() %></td>
+					
+					<td><%= prenotabile.getCapsulaId() %></td>
+					<td><%= prenotabile.getDataPrenotabile() %>  <%=prenotabile.getFasciaOrariaNumero() %></td>
+					<td><%= prenotabile.getDataPrenotabile() %> <%=prenotabile.getFasciaOrariaNumero() %></td>
 		 			<%} }%>
 				</tr>
 				
-				<%if (prenotazioneByNumeroCapsulaAndDataFine != null) {
-					for(Prenotazione prenotazione: prenotazioneByNumeroCapsulaAndDataFine){ %>
+				<%if (prenotabileByDataInizio != null) {
+					
+					for(Prenotabile prenotabile: prenotabileByDataInizio){ %>
 				<tr>
 		
-					<td><%= prenotazione.getCodiceDiAccesso()%></td>
-					<td><%= prenotazione.getCapsulaId() %></td>
-					<td><%= prenotazione.getUserAccountEmail() %></td>
-					<td><%= prenotazione.getDataInizio()  %> <%=prenotazione.getOrarioInizio() %></td>
-					<td><%= prenotazione.getDataFine()  %> <%=prenotazione.getOrarioFine() %></td>
-					<td><%=prenotazione.getPrezzoTotale() %></td>
-					<td><%=prenotazione.getDataEffettuazione() %></td>
-					<td><%=prenotazione.isValidita() %></td>
-					<td><%=prenotazione.getRimborso() %></td>
+					<td><%= prenotabile.getCapsulaId() %></td>
+					<td><%= prenotabile.getDataPrenotabile() %>  <%=prenotabile.getFasciaOrariaNumero() %></td>
+					<td><%= prenotabile.getDataPrenotabile() %> <%=prenotabile.getFasciaOrariaNumero() %></td>
 		 			<%} }%>
 				</tr>
 				
-				<%if (prenotazioneByNumeroCapsulaAndDataInizioAndDataFine != null) {
-					for(Prenotazione prenotazione: prenotazioneByNumeroCapsulaAndDataInizioAndDataFine){ %>
+				<%if (prenotazioneByDateFine != null) {
+					
+				
+					for(Prenotazione prenotazione: prenotazioneByDateFine){ %>
 				<tr>
 		
-					<td><%= prenotazione.getCodiceDiAccesso()%></td>
 					<td><%= prenotazione.getCapsulaId() %></td>
-					<td><%= prenotazione.getUserAccountEmail() %></td>
 					<td><%= prenotazione.getDataInizio()  %> <%=prenotazione.getOrarioInizio() %></td>
 					<td><%= prenotazione.getDataFine()  %> <%=prenotazione.getOrarioFine() %></td>
-					<td><%=prenotazione.getPrezzoTotale() %></td>
-					<td><%=prenotazione.getDataEffettuazione() %></td>
-					<td><%=prenotazione.isValidita() %></td>
-					<td><%=prenotazione.getRimborso() %></td>
 		 			<%} }%>
 				</tr>
 				
-				<%if (prenotazioneByNumeroCapsulaAndDataInizioAndAccount != null) {
-					for(Prenotazione prenotazione: prenotazioneByNumeroCapsulaAndDataInizioAndAccount){ %>
+				<%if (prenotazioneByDateInizioAndFine != null) {
+					
+					for(Prenotazione prenotazione: prenotazioneByDateInizioAndFine){ %>
 				<tr>
 		
-					<td><%= prenotazione.getCodiceDiAccesso()%></td>
 					<td><%= prenotazione.getCapsulaId() %></td>
-					<td><%= prenotazione.getUserAccountEmail() %></td>
 					<td><%= prenotazione.getDataInizio()  %> <%=prenotazione.getOrarioInizio() %></td>
 					<td><%= prenotazione.getDataFine()  %> <%=prenotazione.getOrarioFine() %></td>
-					<td><%=prenotazione.getPrezzoTotale() %></td>
-					<td><%=prenotazione.getDataEffettuazione() %></td>
-					<td><%=prenotazione.isValidita() %></td>
-					<td><%=prenotazione.getRimborso() %></td>
-		 			<%} }%>
-				</tr>
-				
-				<%if (prenotazioneByNumeroCapsulaAndDataFineAndAccount != null) {
-					for(Prenotazione prenotazione: prenotazioneByNumeroCapsulaAndDataFineAndAccount){ %>
-				<tr>
-		
-					<td><%= prenotazione.getCodiceDiAccesso()%></td>
-					<td><%= prenotazione.getCapsulaId() %></td>
-					<td><%= prenotazione.getUserAccountEmail() %></td>
-					<td><%= prenotazione.getDataInizio()  %> <%=prenotazione.getOrarioInizio() %></td>
-					<td><%= prenotazione.getDataFine()  %> <%=prenotazione.getOrarioFine() %></td>
-					<td><%=prenotazione.getPrezzoTotale() %></td>
-					<td><%=prenotazione.getDataEffettuazione() %></td>
-					<td><%=prenotazione.isValidita() %></td>
-					<td><%=prenotazione.getRimborso() %></td>
-		 			<%} }%>
-				</tr>
-				
-				<%if (prenotazioneByAll != null) {
-					for(Prenotazione prenotazione: prenotazioneByAll){ %>
-				<tr>
-		
-					<td><%= prenotazione.getCodiceDiAccesso()%></td>
-					<td><%= prenotazione.getCapsulaId() %></td>
-					<td><%= prenotazione.getUserAccountEmail() %></td>
-					<td><%= prenotazione.getDataInizio()  %> <%=prenotazione.getOrarioInizio() %></td>
-					<td><%= prenotazione.getDataFine()  %> <%=prenotazione.getOrarioFine() %></td>
-					<td><%=prenotazione.getPrezzoTotale() %></td>
-					<td><%=prenotazione.getDataEffettuazione() %></td>
-					<td><%=prenotazione.isValidita() %></td>
-					<td><%=prenotazione.getRimborso() %></td>
-		 			<%} }%>
-				</tr>
-				
-				<%if (prenotazioneByDataInizioAndDataFineAndAccount != null) {
-					for(Prenotazione prenotazione: prenotazioneByDataInizioAndDataFineAndAccount){ %>
-				<tr>
-		
-					<td><%= prenotazione.getCodiceDiAccesso()%></td>
-					<td><%= prenotazione.getCapsulaId() %></td>
-					<td><%= prenotazione.getUserAccountEmail() %></td>
-					<td><%= prenotazione.getDataInizio()  %> <%=prenotazione.getOrarioInizio() %></td>
-					<td><%= prenotazione.getDataFine()  %> <%=prenotazione.getOrarioFine() %></td>
-					<td><%=prenotazione.getPrezzoTotale() %></td>
-					<td><%=prenotazione.getDataEffettuazione() %></td>
-					<td><%=prenotazione.isValidita() %></td>
-					<td><%=prenotazione.getRimborso() %></td>
-		 			<%} }%>
-				</tr>
-				
-				<%if (prenotazioneByDataFineAndAccount != null) {
-					for(Prenotazione prenotazione: prenotazioneByDataFineAndAccount){ %>
-				<tr>
-		
-					<td><%= prenotazione.getCodiceDiAccesso()%></td>
-					<td><%= prenotazione.getCapsulaId() %></td>
-					<td><%= prenotazione.getUserAccountEmail() %></td>
-					<td><%= prenotazione.getDataInizio()  %> <%=prenotazione.getOrarioInizio() %></td>
-					<td><%= prenotazione.getDataFine()  %> <%=prenotazione.getOrarioFine() %></td>
-					<td><%=prenotazione.getPrezzoTotale() %></td>
-					<td><%=prenotazione.getDataEffettuazione() %></td>
-					<td><%=prenotazione.isValidita() %></td>
-					<td><%=prenotazione.getRimborso() %></td>
-		 			<%} }%>
-				</tr>
-				
-				<%if (tutteLePrenotazioni != null) {
-					for(Prenotazione prenotazione: tutteLePrenotazioni){ %>
-				<tr>
-		
-					<td><%= prenotazione.getCodiceDiAccesso()%></td>
-					<td><%= prenotazione.getCapsulaId() %></td>
-					<td><%= prenotazione.getUserAccountEmail() %></td>
-					<td><%= prenotazione.getDataInizio()  %> <%=prenotazione.getOrarioInizio() %></td>
-					<td><%= prenotazione.getDataFine()  %> <%=prenotazione.getOrarioFine() %></td>
-					<td><%=prenotazione.getPrezzoTotale() %></td>
-					<td><%=prenotazione.getDataEffettuazione() %></td>
-					<td><%=prenotazione.isValidita() %></td>
-					<td><%=prenotazione.getRimborso() %></td>
 		 			<%} }%>
 				</tr>
 				

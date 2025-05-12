@@ -12,19 +12,13 @@ import java.util.logging.Logger;
 import javax.sql.DataSource;
 
 public class CapsulaDao {
-	private DataSource ds=null;
-	private Connection connection=null;
+private DataSource ds=null;
+	
 	private static final Logger logger = Logger.getLogger(CapsulaDao.class.getName());
 
 	public CapsulaDao(DataSource ds) {
 		super();
 		this.ds=ds;
-		
-		try {
-			connection = ds.getConnection();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	public Capsula doRetrieveByKey(Integer id) throws SQLException {
@@ -32,14 +26,7 @@ public class CapsulaDao {
 		String query;
 		PreparedStatement pst=null;
 		Connection con=null;
-		Capsula capsula=null; //questo dara problemi nel moento in cui 
-			//si chiama questo metodo e nella servlet non è gestito il caso in cui 
-			//il valore restituito, cioe la capsula è null
-			//allora tu nella servlet vai a mettere un if(capsula==null) allinizio di tutto 
-			//e gestisci il reindirizzamento e gli errori
-			//VEDI LoginServlet e cerca il commento --> #NULL, per la soluzione
-		
-		
+		Capsula capsula=new Capsula();
 		try {
 			con=ds.getConnection();
 			query = "select * from capsula where id = ? ";
@@ -48,7 +35,7 @@ public class CapsulaDao {
 			rs = pst.executeQuery();
 
 			if(rs.next()) {
-				capsula=new Capsula();
+				
 				capsula.setId(rs.getInt("id"));
 				capsula.setPrezzo_orario(rs.getFloat("prezzo_orario"));
 				capsula.setTipologia(rs.getString("tipologia"));
@@ -73,19 +60,17 @@ public class CapsulaDao {
 
 	}
 	
-	public synchronized boolean doUpdatePrezzoOrario(Integer id, float prezzo_orario) throws SQLException {
+	public synchronized void doUpdatePrezzoOrario(Integer id, float prezzo_orario) throws SQLException {
 		String query;
 		PreparedStatement pst=null;
 		Connection con=null;
-		boolean modificato= false;
 		try {
 			con=ds.getConnection();
 			query = "update capsula set prezzo_orario = ? where id = ? ";
 			pst = con.prepareStatement(query);
 			pst.setFloat(1, prezzo_orario);
 			pst.setInt(2, id);
-			if(pst.executeUpdate()==1) 
-				modificato = true;
+			pst.executeUpdate();
 		}finally {
 			try {
 				if(pst != null)
@@ -95,11 +80,10 @@ public class CapsulaDao {
 					con.close();
 			}
 	}
-		return modificato;
 	}
 	
-	public boolean doSave(Capsula capsula) throws SQLException {
-			boolean salvato=false;
+	public void doSave(Capsula capsula) throws SQLException {
+			
 			String query;
 			PreparedStatement pst=null;
 			Connection con=null;
@@ -112,8 +96,7 @@ public class CapsulaDao {
 				pst.setFloat(2, capsula.getPrezzo_orario());
 				pst.setString(3, capsula.getTipologia());
 				
-				if(pst.executeUpdate()==1)
-					salvato=true;
+				pst.executeUpdate();
 			}finally {
 				try {
 					if(pst != null)
@@ -123,7 +106,6 @@ public class CapsulaDao {
 						con.close();
 				}
 		}
-			return salvato;
 	}
 	
 	public synchronized Collection<Capsula> doRetriveAll() throws SQLException {

@@ -1,6 +1,7 @@
 package applicationLogic.prenotazioneManagement;
 
 import java.io.IOException;
+
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import storage.PrenotazioneDao;
+import storage.PrenotabileDao;
 
 /**
  * Servlet implementation class VisualizzaPrenotazioniGestoreFiltri
@@ -41,6 +43,7 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		
 		PrenotazioneDao pDao = new PrenotazioneDao(ds);
+		PrenotabileDao prenotabileDao = new PrenotabileDao(ds);
 		
 		String numeroCapsula = request.getParameter("numeroCapsula");
 		String account = request.getParameter("account");
@@ -53,8 +56,11 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 		  if(!vuota(numeroCapsula) && vuota( account) && vuota( dataInizio) && vuota( dataFine) ) {
 			  
 			  Integer numeroCapsulaSelect = Integer.parseInt(request.getParameter("numeroCapsula")); 
+			  System.out.println("numeroCapsulaSelect: "+numeroCapsulaSelect);
 				  try {
-					request.setAttribute("listaPrenotazioneByCapsula", pDao.doRetrievePrenotazioniByNumeroCapsulaAll(numeroCapsulaSelect));
+					request.setAttribute("listaPrenotazioneByCapsula", pDao.doRetrivePrenotazioniByNumeroCapsulaAll(numeroCapsulaSelect));
+					request.setAttribute("listaPrenotabiliByCapsula", prenotabileDao.doRetrieveById(numeroCapsulaSelect));
+					
 				} catch (SQLException e) {
 					e.printStackTrace();
 				} 
@@ -65,7 +71,7 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 		//insersce solo l'account
 		if(!vuota( account) && vuota( dataInizio) && vuota( dataFine) && vuota( numeroCapsula)) {
 			try {
-				request.setAttribute("listaPrenotazioneByAccount", pDao.doRetrievePrenotazioniByAccount(request.getParameter("account")));
+				request.setAttribute("listaPrenotazioneByAccount", pDao.doRetrivePrenotazioniByAccount(request.getParameter("account")));
 			} catch (SQLException e) {
 					e.printStackTrace();
 			}
@@ -76,7 +82,8 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 		if(!vuota(dataInizio) && vuota( dataFine) && vuota( account) && vuota( numeroCapsula)) {
 			try {
 				System.out.println("dataInizio: "+request.getParameter("dataInizio"));
-				request.setAttribute("listaPrenotazioneByDate", pDao.doRetrievePrenotazioniByDataInizio(request.getParameter("dataInizio")));
+				request.setAttribute("listaPrenotazioneByDate", pDao.doRetrivePrenotazioniByDataInizio(request.getParameter("dataInizio")));
+				request.setAttribute("listaPrenotabileByDateInizio", prenotabileDao.doRetrieveByDataInizio(request.getParameter("dataInizio")));
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -86,7 +93,7 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 		//inserisce solo la data di fine
 		if(!vuota( dataFine) &&  vuota( dataInizio) && vuota( account) && vuota( numeroCapsula)) {
 			try {
-				request.setAttribute("listaPrenotazioneByDateFine", pDao.doRetrievePrenotazioniByDataFine(request.getParameter("dataFine")));
+				request.setAttribute("listaPrenotazioneByDateFine", pDao.doRetrivePrenotazioniByDataFine(request.getParameter("dataFine")));
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -96,7 +103,7 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 		if(!vuota(dataInizio) && !vuota(dataFine) && vuota( account) && vuota( numeroCapsula)) {
 			try {
 				System.out.println("Date: "+request.getParameter("dataInizio")+ "  " + request.getParameter("dataFine"));
-				request.setAttribute("listaPrenotazioneByDateInizioAndFine", pDao.doRetrievePrenotazioniByDataInizioAndFine(request.getParameter("dataInizio"), request.getParameter("dataFine") ));
+				request.setAttribute("listaPrenotazioneByDateInizioAndFine", pDao.doRetrivePrenotazioniByDataInizioAndFine(request.getParameter("dataInizio"), request.getParameter("dataFine") ));
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -105,17 +112,7 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 		//inserisce la data di inizio e l account, ma non la data di fine e il numero capsula
 		if(!vuota(dataInizio) && !vuota(account) && vuota( dataFine) && vuota( numeroCapsula)) {
 			try {
-				request.setAttribute("prenotazioneByDateInizioAndAccount", pDao.doRetrievePrenotazioniByDataInizioAndAccount(dataInizio,account ));
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		//inserisce la data di inizio e il numero capsula, ma non la data di fine e l account
-		if(!vuota(dataInizio) && vuota(account) && vuota( dataFine) && !vuota( numeroCapsula)) {
-			Integer numeroCapsulaSelect = Integer.parseInt(request.getParameter("numeroCapsula")); 
-			try {
-				request.setAttribute("prenotazioneByDateInizioAndNumeroCapsula", pDao.doRetrieveByPrenotazioneByDateInizioAndNumeroCapsula(dataInizio,numeroCapsulaSelect ));
+				request.setAttribute("prenotazioneByDateInizioAndAccount", pDao.doRetrivePrenotazioniByDataInizioAndAccount(dataInizio,account ));
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -126,8 +123,9 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 			
 			Integer numeroCapsulaSelected = Integer.parseInt(request.getParameter("numeroCapsula")); 
 			try {
-				
-				request.setAttribute("prenotazioneByNumeroCapsulaAndAccount", pDao.doRetrievePrenotazioniByNumeroCapsulaAndAccount(numeroCapsulaSelected, account  ));
+				System.out.println("numerocapsula selected:" + numeroCapsulaSelected);
+				System.out.println("account: " + account);
+				request.setAttribute("prenotazioneByNumeroCapsulaAndAccount", pDao.doRetrivePrenotazioniByNumeroCapsulaAndAccount(numeroCapsulaSelected, account  ));
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -135,107 +133,9 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 		}
 		
 		
-		//inserisce numero capsula e data fine, ma non l account e la data inizio
-		if( vuota( account) && !vuota( numeroCapsula) && !vuota( dataFine) && vuota( dataInizio)) {
-			
-			Integer numeroCapsulaSelected = Integer.parseInt(request.getParameter("numeroCapsula")); 
-			try {
-				
-				request.setAttribute("prenotazioneByNumeroCapsulaAndDataFine", pDao.doRetrievePrenotazioniByNumeroCapsulaAndDataFine(numeroCapsulaSelected, dataFine  ));
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-		}
 		
-		//inserisce numero capsula, data inizio e data fine, ma non account.
-		if( vuota( account) && !vuota( numeroCapsula) && !vuota( dataFine) && !vuota( dataInizio)) {
-			
-			Integer numeroCapsulaSelected = Integer.parseInt(request.getParameter("numeroCapsula")); 
-			try {
-				
-				request.setAttribute("prenotazioneByNumeroCapsulaAndDataInizioAndDataFine", pDao.doRetrievePrenotazioneByNumeroCapsulaAndDataInizioAndDataFine(numeroCapsulaSelected,dataInizio, dataFine  ));
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-		}
 		
-		//inserisce numero capsula,account e data inizio ma non data fine
-		if( !vuota( account) && !vuota( numeroCapsula) && vuota( dataFine) && !vuota( dataInizio)) {
-			
-			Integer numeroCapsulaSelected = Integer.parseInt(request.getParameter("numeroCapsula")); 
-			try {
-				
-				request.setAttribute("prenotazioneByNumeroCapsulaAndDataInizioAndAccount", pDao.doRetrievePrenotazioneByNumeroCapsulaAndDataInizioAndAccount(numeroCapsulaSelected,dataInizio, account  ));
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-		}
 		
-		//inserisce numero capsula, data fine e account, ma non data inizio
-		if( !vuota( account) && !vuota( numeroCapsula) && !vuota( dataFine) && vuota( dataInizio)) {
-			
-			Integer numeroCapsulaSelected = Integer.parseInt(request.getParameter("numeroCapsula")); 
-			try {
-				
-				request.setAttribute("prenotazioneByNumeroCapsulaAndDataFineAndAccount", pDao.doRetrievePrenotazioneByNumeroCapsulaAndDataFineAndAccount(numeroCapsulaSelected,dataFine, account  ));
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-		}
-		
-		//inserisce tutto
-		if( !vuota( account) && !vuota( numeroCapsula) && !vuota( dataFine) && !vuota( dataInizio)) {
-			
-			Integer numeroCapsulaSelected = Integer.parseInt(request.getParameter("numeroCapsula")); 
-			try {
-				
-				request.setAttribute("prenotazioneByAll", pDao.doRetrievePrenotazioneByAll(numeroCapsulaSelected,dataInizio,dataFine, account  ));
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-		}
-		
-		//inserisce data inizio, data fine e account, ma non il numero capsula
-		if( !vuota( account) && vuota( numeroCapsula) && !vuota( dataFine) && !vuota( dataInizio)) {
-					
-			
-			try {
-						
-				request.setAttribute("prenotazioneByDataInizioAndDataFineAndAccount", pDao.doRetrievePrenotazioniByDataInizioAndDataFineAndAccount(dataInizio,dataFine, account ));
-			} catch (SQLException e) {
-				e.printStackTrace();
-				}
-
-		}
-		
-		//inserisce  data fine e account, ma non il numero capsula e la data inizio
-		if( !vuota( account) && vuota( numeroCapsula) && !vuota( dataFine) && vuota( dataInizio)) {
-
-			try {
-
-				request.setAttribute("prenotazioneByDataFineAndAccount", pDao.doRetrievePrenotazioneByDataFineAndAccount(dataFine, account));
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-		}
-		
-		//inserisce  data fine e account, ma non il numero capsula e la data inizio
-		if (vuota(account) && vuota(numeroCapsula) && vuota(dataFine) && vuota(dataInizio)) {
-			try {
-
-				request.setAttribute("tutteLePrenotazioni",
-						pDao.doRetriveAll());
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-		}
 		
 		
 		
@@ -247,14 +147,16 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 	
 	private boolean vuota(String checkString) {
 		
-		
+		System.out.println(checkString + " :entrato");
 		//Se c'è scritto qualcosa
 		if(checkString!=null && checkString!="" && !checkString.isEmpty()) {
+			System.out.println(checkString + " :falso(parola inserita)");
+
 			return false;
 		}
 		
 		//se è vuota vero
-		
+		System.out.println(checkString + " :true(parola vuota)");
 		return true;
 	}
 

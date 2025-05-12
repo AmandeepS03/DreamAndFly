@@ -53,10 +53,14 @@ public class PagamentoServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		//modifica fatta qui
+		Integer codicePrenotazione = null;
 		//Registrare la prenotazione:
 			//a) scrivere in prenotazione (query = "doSave()")
-		Integer codicePrenotazione = Integer.valueOf((String) request.getSession().getAttribute("codicePrenotazione"));
+		if( request.getSession().getAttribute("codicePrenotazione") != null) {
+		codicePrenotazione = Integer.valueOf((String) request.getSession().getAttribute("codicePrenotazione"));
+		}
+
 	
 		if(codicePrenotazione!=null) {
 			System.out.println("codice: "+ codicePrenotazione);
@@ -99,7 +103,16 @@ public class PagamentoServlet extends HttpServlet {
 			String dataInizio = (String) request.getSession().getAttribute("dataInizio");
 			String dataFine = (String) request.getSession().getAttribute("dataFine");
 			Float prezzoTotale = Float.valueOf((String) request.getSession().getAttribute("prezzo"));
-			Integer capsula_id = Integer.valueOf((String) request.getSession().getAttribute("capsulaId"));
+			String capsulaIdParam = (String) request.getSession().getAttribute("capsulaId");
+			//String capsulaIdParam = request.getParameter("capsulaId");
+			if (capsulaIdParam == null || capsulaIdParam.isBlank()) {
+			    logger.log(Level.SEVERE, "Parametro 'capsulaId' mancante o vuoto");
+			    response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Errore: ID capsula mancante");
+			    return;
+			}
+			Integer capsula_id = Integer.valueOf(capsulaIdParam);
+
+			//Integer capsula_id = Integer.valueOf((String) request.getSession().getAttribute("capsulaId"));
 			
 			
 			System.out.println("orario inizio: "+ orario_inizio);
@@ -115,6 +128,7 @@ public class PagamentoServlet extends HttpServlet {
 	        // Trasformare la data in stringa
 	        String dataEffettuazione = dataCorrente.format(formatter);
 	        
+	        System.out.println("sono a 131");
 	        AccountUser user = (AccountUser) request.getSession().getAttribute("auth");	//TODO
 	        String account_user_email = user.getEmail();
 	 
@@ -124,6 +138,7 @@ public class PagamentoServlet extends HttpServlet {
 	        DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 	        PrenotazioneDao toolPrenotazione = new PrenotazioneDao(ds);
 	        try {
+	        	System.out.println("sono a 141");
 				int codiceDiAccesso = toolPrenotazione.doSave(savePrenotazione);
 				request.setAttribute("codiceDiAccesso", codiceDiAccesso);
 			} catch (SQLException e) {
@@ -132,14 +147,18 @@ public class PagamentoServlet extends HttpServlet {
 	        
 	       	//b) eliminare da 'e_prenotabile' le date e fasce orarie non piu prenotabili (query=doDelete da chiamare tante quante sono le cose da eliminare. 
 			//Per ogni giorno prenotato e per ogni fascia oraria prenotata)
+	        System.out.println("sono a 150");
 	        LocalDate dataInizioDate = LocalDate.parse(dataInizio);
 			LocalDate dataFineDate = LocalDate.parse(dataFine);
 	        FasciaOrariaDao toolFasciaOraria = new FasciaOrariaDao(ds);
+	        System.out.println("sono a 154");
 	        int orarioInizioInt=0;
 	        int orarioFineInt=0;
 	        PrenotabileDao toolPrenotabile=new PrenotabileDao(ds);
+	        System.out.println("sono a 157");
 				        
 	        try {
+	        	System.out.println("sono a 158");
 				orarioInizioInt = toolFasciaOraria.doRetrieveByOrarioInizio(orario_inizio);
 				orarioFineInt = toolFasciaOraria.doRetrieveByOrarioFine(orario_fine);
 			} catch (SQLException e) {
@@ -150,6 +169,7 @@ public class PagamentoServlet extends HttpServlet {
 			if(dataInizioDate.equals(dataFineDate)) {
 				for(int fascia = orarioInizioInt; fascia<= orarioFineInt; fascia ++) {
 					try {
+						System.out.println("sono a 169");
 						toolPrenotabile.doDelete(dataInizio,capsula_id,fascia);						
 					}catch (SQLException e){
 						logger.log(Level.WARNING, "Problema Sql!",e);
@@ -185,7 +205,7 @@ public class PagamentoServlet extends HttpServlet {
 	        
 	        
 			
-		
+			System.out.println("sono a 203");
 		//ridirezionare a confermaPagamento.jsp: salva il codice generato(request.setAttribute()) e scrivilo in conferma pagamento.
 	        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/UtenteRegistratoGUI/ConfermaPrenotazione.jsp");
 		    dispatcher.forward(request, response);	

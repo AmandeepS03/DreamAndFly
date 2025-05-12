@@ -22,18 +22,12 @@ public class PrenotabileDao {
 	 */
 
 	private DataSource ds=null;
-	private Connection connection=null;
+	
 	private static final Logger logger = Logger.getLogger(PrenotabileDao.class.getName());
 
 	public PrenotabileDao(DataSource ds) {
 		super();
 		this.ds=ds;
-		
-		try {
-			connection = ds.getConnection();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	public Collection<Prenotabile> doRetrieveDataPrenotabile(String dataPrenotabile) throws SQLException {
@@ -95,6 +89,7 @@ public class PrenotabileDao {
 			pst.setInt(3, prenotabile.getFasciaOrariaNumero());
 			
 			pst.executeUpdate();
+		
 		}finally {
 			try {
 				if(pst != null)
@@ -278,6 +273,95 @@ public synchronized Prenotabile doRetrieveLastDateById(int id) throws SQLExcepti
 			
 		}
 		return false;
+	}
+	
+	
+	public synchronized Collection<Prenotabile> doRetrieveById(int id) throws SQLException {
+		ResultSet rs;
+		String query;
+		PreparedStatement pst=null;
+		Connection con=null;
+		
+		Collection<Prenotabile> prenotabileList = new ArrayList<>();
+		try {
+			con=ds.getConnection();
+			query = "select * from e_prenotabile where capsula_id = ? ";
+			pst = con.prepareStatement(query);
+			pst.setInt(1, id);
+			rs = pst.executeQuery();
+
+			while(rs.next()) {
+				
+				Prenotabile prenotabile=new Prenotabile();
+				
+				prenotabile.setDataPrenotabile(rs.getString("data_prenotabile"));
+				prenotabile.setCapsulaId(rs.getInt("capsula_id"));
+				prenotabile.setFasciaOrariaNumero(rs.getInt("fascia_oraria_numero"));
+				
+				prenotabileList.add(prenotabile);
+
+			}
+
+		}catch(Exception e) {
+			logger.log(Level.SEVERE, e.getMessage());
+			logger.log(Level.SEVERE , e.getMessage());
+		} finally {
+			try {
+				if(pst != null)
+					pst.close();
+			}finally{
+				if(con != null)
+					con.close();
+			}
+			
+			
+		}
+		return prenotabileList;
+
+	}
+	
+	public synchronized Collection<Prenotabile> doRetrieveByDataInizio(String data) throws SQLException {
+		ResultSet rs;
+		String query;
+		PreparedStatement pst=null;
+		Connection con=null;
+		
+		Collection<Prenotabile> prenotabileList = new ArrayList<>();
+		try {
+			con=ds.getConnection();
+			query = "SELECT * FROM e_prenotabile WHERE data_prenotabile >= ?";
+			pst = con.prepareStatement(query);
+			pst.setString(1, data);
+			rs = pst.executeQuery();
+
+			while(rs.next()) {
+				
+				Prenotabile prenotabile=new Prenotabile();
+				
+				prenotabile.setDataPrenotabile(rs.getString("data_prenotabile"));
+				prenotabile.setCapsulaId(rs.getInt("capsula_id"));
+				prenotabile.setFasciaOrariaNumero(rs.getInt("fascia_oraria_numero"));
+				
+				prenotabileList.add(prenotabile);
+
+			}
+
+		}catch(Exception e) {
+			logger.log(Level.SEVERE, e.getMessage());
+			logger.log(Level.SEVERE , e.getMessage());
+		} finally {
+			try {
+				if(pst != null)
+					pst.close();
+			}finally{
+				if(con != null)
+					con.close();
+			}
+			
+			
+		}
+		return prenotabileList;
+
 	}
 	
 	

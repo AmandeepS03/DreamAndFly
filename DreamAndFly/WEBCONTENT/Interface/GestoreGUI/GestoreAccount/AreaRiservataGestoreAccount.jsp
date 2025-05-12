@@ -19,7 +19,7 @@
 		<div class="v8_226">
 			<h1>AREA RISERVATA</h1>
 			<br> <a
-				href="<%=request.getContextPath() %>/Interface/GestoreGUI/GestoreAccount/RegistraAccountGestore.jsp"><h2>Registra
+				href="<%=request.getContextPath() %>/Interface/GestoreGUI/GestoreAccount/RegistraNuovoAccountGestore.jsp"><h2>Registra
 					nuovo account gestore</h2> </a> <a
 				href="<%=request.getContextPath() %>/Interface/GestoreGUI/GestoreAccount/Visualizza-EliminaAccount.jsp"><h2>Visualizza/elimina
 					account</h2></a>

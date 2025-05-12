@@ -60,25 +60,39 @@ public class EmailDisponibility extends HttpServlet {
         out.println("</response>");
     }
     
+   
+
+   
+    
+
+    
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-       
-      try {
-        processRequest(request, response);
-      } catch (SQLException | IOException | ParseException e) {
-        logger.log(Level.WARNING, "Problema accesso DB!");
-      }
-    
-    
-    }
-    
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         try {
-      processRequest(request, response);
-    } catch (IOException | SQLException | ParseException e) {
-      logger.log(Level.WARNING, "Problema accesso DB!");
+            processRequest(request, response);
+        } catch (SQLException | IOException | ParseException e) {
+            logger.log(Level.WARNING, "Problema accesso DB!", e);
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 500
+            response.setContentType("text/plain");
+            response.getWriter().write("Errore durante l'accesso al database.");
+        }
     }
+    
+    
+    
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            processRequest(request, response);
+        } catch (SQLException | IOException | ParseException e) {
+            logger.log(Level.WARNING, "Problema accesso DB!", e);
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 500
+            response.setContentType("text/plain");
+            response.getWriter().write("Errore durante l'accesso al database.");
+        }
     }
     
 
