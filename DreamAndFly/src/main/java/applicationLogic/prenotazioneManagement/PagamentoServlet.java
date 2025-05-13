@@ -2,6 +2,7 @@ package applicationLogic.prenotazioneManagement;
 
 import java.io.IOException;
 
+
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -22,6 +23,7 @@ import storage.Prenotazione;
 import storage.PrenotazioneDao;
 import utils.HelperClass;
 import storage.FasciaOrariaDao;
+import storage.FasciaOraria;
 import storage.Prenotabile;
 import storage.PrenotabileDao;
 
@@ -67,25 +69,73 @@ public class PagamentoServlet extends HttpServlet {
 			DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 	        PrenotazioneDao toolPrenotazione = new PrenotazioneDao(ds);
 	        Prenotazione prenotazione = new Prenotazione();
+	        Prenotabile prenotabile = new Prenotabile();
+	        PrenotabileDao prenotabileTool = new PrenotabileDao(ds);
+	        FasciaOrariaDao fasciaTool = new FasciaOrariaDao(ds);
+	        Integer orarioInizio = null;
+	        Integer orarioFine = null;
 		
 	        try {
 				prenotazione= toolPrenotazione.doRetrieveByKey(codicePrenotazione);
+				orarioInizio = fasciaTool.doRetrieveByOrarioInizio(prenotazione.getOrarioInizio());
+				orarioFine = fasciaTool.doRetrieveByOrarioFine(prenotazione.getOrarioFine());
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+	        
+	        String dataInizioStringa = prenotazione.getDataInizio();
+			String dataFineStringa = prenotazione.getDataFine();
+			Integer id = prenotazione.getCapsulaId();
+			LocalDate dataInizio = LocalDate.parse(dataInizioStringa);
+			LocalDate dataFine = LocalDate.parse(dataFineStringa);
+	        
+	        
 	        Float prezzoTotale = prenotazione.getPrezzoTotale();
-			String dataInizioStringa = prenotazione.getDataInizio();
+			//String dataInizioStringa = prenotazione.getDataInizio();
 			float rimborso;
 			//controllo della data inizio con data corrente;
 			LocalDate dataCorrente = LocalDate.now();
-			LocalDate dataInizio = LocalDate.parse(dataInizioStringa);
+			//LocalDate dataInizio = LocalDate.parse(dataInizioStringa);
 			LocalDate dataLimite = dataInizio.minusDays(3);
 			if(dataCorrente.isBefore(dataLimite))
 				rimborso = prezzoTotale;
 			else 
 				rimborso = prezzoTotale/2;
 			try {
+				
+				for(;dataInizio.isBefore(dataFine)|| dataInizio.isEqual(dataFine); dataInizio = dataInizio.plusDays(1)) {
+					
+					if(dataInizio.isEqual(dataFine)) {
+						for(;orarioInizio<= orarioFine; orarioInizio++) {
+							
+							prenotabile.setCapsulaId(id);
+							prenotabile.setDataPrenotabile(dataInizio.toString());
+							prenotabile.setFasciaOrariaNumero(orarioInizio);
+							try {
+								
+								prenotabileTool.doSave(prenotabile);
+								
+							} catch (SQLException e) {
+								e.printStackTrace();
+						}						
+					}
+					}else {
+					for(;orarioInizio<= 24; orarioInizio++) {
+						prenotabile.setCapsulaId(id);
+						prenotabile.setDataPrenotabile(dataInizio.toString());
+						prenotabile.setFasciaOrariaNumero(orarioInizio);
+						try {
+							prenotabileTool.doSave(prenotabile);
+						
+						} catch (SQLException e) {
+							e.printStackTrace();
+					}
+					}
+					orarioInizio=1;
+				}
+				}
+			
 				toolPrenotazione.doUpdateValidita(codicePrenotazione, false);
 				toolPrenotazione.doUpdateRimborso(codicePrenotazione, rimborso);
 				

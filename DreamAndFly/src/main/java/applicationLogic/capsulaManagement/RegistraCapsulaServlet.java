@@ -108,7 +108,7 @@ public class RegistraCapsulaServlet extends HttpServlet {
 		}
 
 
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/GestoreGUI/GestoreCapsule/RegistraCapsula.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/GestoreGUI/GestoreCapsule/VisualizzaCapsule.jsp");
 	    dispatcher.forward(request, response);
 }
 	}
