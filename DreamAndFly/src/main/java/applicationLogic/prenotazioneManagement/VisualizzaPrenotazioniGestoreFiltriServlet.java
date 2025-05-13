@@ -219,6 +219,16 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 
 		}
 		
+		//inserisce data inizio, data fine, account
+		if( !vuota( account) && vuota( numeroCapsula) && !vuota(dataFine) && !vuota( dataInizio)) {
+			try {
+				request.setAttribute("listaPrenotazioneByAccountAndDataInizioAndDataFine", pDao.doRetrivePrenotazioniByAccountAndDataInizioAndDataFine(dataInizio, account, dataFine));
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+		
 		//inserisce capsula,data fine e account
 		if( !vuota( account) && !vuota( numeroCapsula) && !vuota(dataFine) && vuota( dataInizio)) {
 			

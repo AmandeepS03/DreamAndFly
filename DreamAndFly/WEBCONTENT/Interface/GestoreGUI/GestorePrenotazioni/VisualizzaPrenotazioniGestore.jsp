@@ -176,6 +176,33 @@
 	List<Prenotazione> listaPrenotazioneByCapsulaAndDataInizioAndDataFine = (List<Prenotazione>) request.getAttribute("listaPrenotazioneByCapsulaAndDataInizioAndDataFine");
 	List<Prenotabile> listaPrenotabiliByCapsulaAndDataInizioAndDataFine = (List<Prenotabile>) request.getAttribute("listaPrenotabiliByCapsulaAndDataInizioAndDataFine");
 	
+	List<Prenotazione> listaPrenotazioneByAccountAndDataInizioAndDataFine = (List<Prenotazione>) request.getAttribute("listaPrenotazioneByAccountAndDataInizioAndDataFine");
+	
+	ArrayList<String> orariInizioList = new ArrayList<>();
+    orariInizioList.add("00:00");
+    orariInizioList.add("01:00");
+    orariInizioList.add("02:00");
+    orariInizioList.add("03:00");
+    orariInizioList.add("04:00");
+    orariInizioList.add("05:00");
+    orariInizioList.add("06:00");
+    orariInizioList.add("07:00");
+    orariInizioList.add("08:00");
+    orariInizioList.add("09:00");
+    orariInizioList.add("10:00");
+    orariInizioList.add("11:00");
+    orariInizioList.add("12:00");
+    orariInizioList.add("13:00");
+    orariInizioList.add("14:00");
+    orariInizioList.add("15:00");
+    orariInizioList.add("16:00");
+    orariInizioList.add("17:00");
+    orariInizioList.add("18:00");
+    orariInizioList.add("19:00");
+    orariInizioList.add("20:00");
+    orariInizioList.add("21:00");
+    orariInizioList.add("22:00");
+    orariInizioList.add("23:00");
 	%>
 	
 	<table id="accountTable" border="1">
@@ -198,6 +225,22 @@
 				
 				<%if (listaPrenotazioni != null) {
 					for(Prenotazione prenotazione: listaPrenotazioni){ %>
+				<tr>
+		
+					<td><%= prenotazione.getCodiceDiAccesso()%></td>
+					<td><%= prenotazione.getCapsulaId() %></td>
+					<td><%= prenotazione.getUserAccountEmail() %></td>
+					<td><%= prenotazione.getDataInizio()  %> <%=prenotazione.getOrarioInizio() %></td>
+					<td><%= prenotazione.getDataFine()  %> <%=prenotazione.getOrarioFine() %></td>
+					<td><%=prenotazione.getPrezzoTotale() %></td>
+					<td><%=prenotazione.getDataEffettuazione() %></td>
+					<td><%=prenotazione.isValidita() %></td>
+					<td><%=prenotazione.getRimborso() %></td>
+		 			<%} }%>
+				</tr>
+				
+				<%if (listaPrenotazioneByAccountAndDataInizioAndDataFine != null) {
+					for(Prenotazione prenotazione: listaPrenotazioneByAccountAndDataInizioAndDataFine){ %>
 				<tr>
 		
 					<td><%= prenotazione.getCodiceDiAccesso()%></td>
@@ -469,8 +512,8 @@
 		
 					
 					<td><%= prenotabile.getCapsulaId() %></td>
-					<td><%= prenotabile.getDataPrenotabile() %>  <%=prenotabile.getFasciaOrariaNumero() %></td>
-					<td><%= prenotabile.getDataPrenotabile() %> <%=prenotabile.getFasciaOrariaNumero() %></td>
+					<td><%= prenotabile.getDataPrenotabile() %>  <%=orariInizioList.get((prenotabile.getFasciaOrariaNumero())-1) %></td>
+					<td><%= prenotabile.getDataPrenotabile() %> <%=orariInizioList.get((prenotabile.getFasciaOrariaNumero())) %></td>
 		 			<%} }%>
 				</tr>
 				
@@ -481,8 +524,8 @@
 		
 					
 					<td><%= prenotabile.getCapsulaId() %></td>
-					<td><%= prenotabile.getDataPrenotabile() %>  <%=prenotabile.getFasciaOrariaNumero() %></td>
-					<td><%= prenotabile.getDataPrenotabile() %> <%=prenotabile.getFasciaOrariaNumero() %></td>
+					<td><%= prenotabile.getDataPrenotabile() %>  <%=orariInizioList.get((prenotabile.getFasciaOrariaNumero())-1) %></td>
+					<td><%= prenotabile.getDataPrenotabile() %> <%=orariInizioList.get((prenotabile.getFasciaOrariaNumero())) %></td>
 		 			<%} }%>
 				</tr>
 				
@@ -494,8 +537,8 @@
 					
 					
 					<td><%= prenotabile.getCapsulaId() %></td>
-					<td><%= prenotabile.getDataPrenotabile() %>  <%=prenotabile.getFasciaOrariaNumero() %></td>
-					<td><%= prenotabile.getDataPrenotabile() %> <%=prenotabile.getFasciaOrariaNumero() %></td>
+					<td><%= prenotabile.getDataPrenotabile() %>  <%=orariInizioList.get((prenotabile.getFasciaOrariaNumero())-1) %></td>
+					<td><%= prenotabile.getDataPrenotabile() %> <%=orariInizioList.get((prenotabile.getFasciaOrariaNumero())) %></td>
 		 			<%} }%>
 				</tr>
 
@@ -506,8 +549,8 @@
 					
 					
 					<td><%= prenotabile.getCapsulaId() %></td>
-					<td><%= prenotabile.getDataPrenotabile() %>  <%=prenotabile.getFasciaOrariaNumero() %></td>
-					<td><%= prenotabile.getDataPrenotabile() %> <%=prenotabile.getFasciaOrariaNumero() %></td>
+					<td><%= prenotabile.getDataPrenotabile() %>  <%=orariInizioList.get((prenotabile.getFasciaOrariaNumero())-1) %></td>
+					<td><%= prenotabile.getDataPrenotabile() %> <%=orariInizioList.get((prenotabile.getFasciaOrariaNumero())) %></td>
 		 			<%} }%>
 				</tr>
 			
@@ -519,8 +562,8 @@
 		
 					
 					<td><%= prenotabile.getCapsulaId() %></td>
-					<td><%= prenotabile.getDataPrenotabile() %>  <%=prenotabile.getFasciaOrariaNumero() %></td>
-					<td><%= prenotabile.getDataPrenotabile() %> <%=prenotabile.getFasciaOrariaNumero() %></td>
+					<td><%= prenotabile.getDataPrenotabile() %>  <%=orariInizioList.get((prenotabile.getFasciaOrariaNumero())-1) %></td>
+					<td><%= prenotabile.getDataPrenotabile() %> <%=orariInizioList.get((prenotabile.getFasciaOrariaNumero())) %></td>
 		 			<%} }%>
 				</tr>
 				
@@ -529,8 +572,8 @@
 				<tr>
 		
 					<td><%= prenotabile.getCapsulaId() %></td>
-					<td><%= prenotabile.getDataPrenotabile() %>  <%=prenotabile.getFasciaOrariaNumero() %></td>
-					<td><%= prenotabile.getDataPrenotabile() %> <%=prenotabile.getFasciaOrariaNumero() %></td>
+					<td><%= prenotabile.getDataPrenotabile() %>  <%=orariInizioList.get((prenotabile.getFasciaOrariaNumero())-1)%></td>
+					<td><%= prenotabile.getDataPrenotabile() %> <%=orariInizioList.get((prenotabile.getFasciaOrariaNumero())) %></td>
 		 			<%} }%>
 				</tr>
 				
@@ -539,8 +582,8 @@
 					<tr>
 			
 						<td><%= prenotabile.getCapsulaId() %></td>
-						<td><%= prenotabile.getDataPrenotabile() %>  <%=prenotabile.getFasciaOrariaNumero() %></td>
-						<td><%= prenotabile.getDataPrenotabile() %> <%=prenotabile.getFasciaOrariaNumero() %></td>
+						<td><%= prenotabile.getDataPrenotabile() %>  <%=orariInizioList.get((prenotabile.getFasciaOrariaNumero())-1) %></td>
+						<td><%= prenotabile.getDataPrenotabile() %> <%=orariInizioList.get((prenotabile.getFasciaOrariaNumero())) %></td>
 			 			<%} }%>
 				</tr>
 				
@@ -550,8 +593,8 @@
 				<tr>
 		
 					<td><%= prenotabile.getCapsulaId() %></td>
-						<td><%= prenotabile.getDataPrenotabile() %>  <%=prenotabile.getFasciaOrariaNumero() %></td>
-						<td><%= prenotabile.getDataPrenotabile() %> <%=prenotabile.getFasciaOrariaNumero() %></td>
+						<td><%= prenotabile.getDataPrenotabile() %>  <%=orariInizioList.get((prenotabile.getFasciaOrariaNumero())-1) %></td>
+						<td><%= prenotabile.getDataPrenotabile() %> <%=orariInizioList.get((prenotabile.getFasciaOrariaNumero()))%></td>
 			 			<%} }%>
 				</tr>
 				
