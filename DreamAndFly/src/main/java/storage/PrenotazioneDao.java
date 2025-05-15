@@ -691,10 +691,6 @@ public class PrenotazioneDao {
 	  
 	  } 
 	  
-	  System.out.println("Prenotazioni: ");
-	  for(Prenotazione p: prenotazionelist) {
-		  System.out.println(p.getDataInizio());
-	  }
 	  
 	  return prenotazionelist;
 	  

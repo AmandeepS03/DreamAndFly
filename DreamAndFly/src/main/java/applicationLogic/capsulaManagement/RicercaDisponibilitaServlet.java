@@ -72,10 +72,7 @@ public class RicercaDisponibilitaServlet extends HttpServlet {
 		dataInizio = LocalDate.parse(dataInizioStringa);
 		dataFine = LocalDate.parse(dataFineStringa);
 		
-		System.out.println("DataInizio: "+ dataInizioStringa);
-		System.out.println("DataFine: "+ dataFineStringa);
-		System.out.println("OrarioInizio: "+ orarioInizio);
-		System.out.println("OrarioFine: "+ orarioFine);
+		
 		
 		Collection<Integer> idList = new ArrayList<>() ;
 		
@@ -135,7 +132,6 @@ public class RicercaDisponibilitaServlet extends HttpServlet {
 		
 		 
 		
-		System.out.println("Counter: " + contaOre(dataInizio, dataFine, orarioInizio, orarioFine));
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/RicercaDisponibilitàGUI/CapsuleDisponibili.jsp");
 	    dispatcher.forward(request, response);
