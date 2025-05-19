@@ -77,7 +77,6 @@ public class InserisciEmailServlet extends HttpServlet {
 		request.getSession().setAttribute("codicePassword", codice);
 		request.getSession().setAttribute("email", email);
 		
-		System.out.println("CodicePassword: "+codice);
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/AutenticazioneGUI/InserisciCodice.jsp");
 		  dispatcher.forward(request, response);
