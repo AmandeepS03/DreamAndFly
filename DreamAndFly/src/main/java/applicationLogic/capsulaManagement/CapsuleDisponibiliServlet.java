@@ -37,10 +37,7 @@ public class CapsuleDisponibiliServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String dataInizioStringa = (String) request.getAttribute("dataInizio") ;	
-		String dataFineStringa = (String) request.getAttribute("dataFine") ;	
-
-		 request.setAttribute("prezzo", request.getParameter("prezzo"));
+		request.setAttribute("prezzo", request.getParameter("prezzo"));
 		 request.setAttribute("dataInizio", request.getParameter("dataInizio"));
 		 request.setAttribute("dataFine", request.getParameter("dataFine"));
 		 request.setAttribute("orarioInizio", request.getParameter("orarioInizio"));

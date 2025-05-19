@@ -23,7 +23,6 @@ import storage.Prenotazione;
 import storage.PrenotazioneDao;
 import utils.HelperClass;
 import storage.FasciaOrariaDao;
-import storage.FasciaOraria;
 import storage.Prenotabile;
 import storage.PrenotabileDao;
 

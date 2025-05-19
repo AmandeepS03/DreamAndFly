@@ -1,7 +1,6 @@
 package storage;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -66,6 +65,7 @@ public class PrenotabileDao {
 	}
 
 	
+	//TODO cambiare nome in doRetrieveByDataPrenotabile
 	public Collection<Prenotabile> doRetrieveDataPrenotabile(String dataPrenotabile) throws SQLException {
 		ResultSet rs;
 		String query;
@@ -162,7 +162,8 @@ public class PrenotabileDao {
 				}
 			}
 		}
-public synchronized Prenotabile doRetrieveLastDateById(int id) throws SQLException {
+//ritorna l'ultima data disponibile
+	public synchronized Prenotabile doRetrieveLastDateById(int id) throws SQLException {
 	ResultSet rs;
 	String query;
 	PreparedStatement pst=null;
@@ -201,6 +202,7 @@ public synchronized Prenotabile doRetrieveLastDateById(int id) throws SQLExcepti
 
 }
 
+	//TODO cambia nome in doRetrieveByDataInizioAndDataFine
 	public synchronized Collection<Integer> doRetrieveByDataInizioDataFine(String dataInizio,String dataFine) throws SQLException{
 		ResultSet rs;
 		String query;
@@ -400,7 +402,8 @@ public synchronized Prenotabile doRetrieveLastDateById(int id) throws SQLExcepti
 
 	}
 
-	public Collection<Prenotabile> doRetrivePrenotabiliByCapsulaAndDataInizio(Integer numeroCapsulaSelect, String dataInizio) throws SQLException {
+	//TODO retrieve, capsulaId
+	public Collection<Prenotabile> doRetrivePrenotabiliByCapsulaAndDataInizio(Integer capsula_id, String dataInizio) throws SQLException {
 		ResultSet rs;
 		String query;
 		PreparedStatement pst=null;
@@ -411,7 +414,7 @@ public synchronized Prenotabile doRetrieveLastDateById(int id) throws SQLExcepti
 			con=ds.getConnection();
 			query = "SELECT * FROM e_prenotabile WHERE capsula_id= ? AND data_prenotabile >= ?";
 			pst = con.prepareStatement(query);
-			pst.setInt(1, numeroCapsulaSelect);
+			pst.setInt(1, capsula_id);
 			pst.setString(2, dataInizio);
 			rs = pst.executeQuery();
 
@@ -446,9 +449,9 @@ public synchronized Prenotabile doRetrieveLastDateById(int id) throws SQLExcepti
 		return prenotabileList;
 	}
 	
-	
+	//TODO retrieve, capsulaId nel nome
 	//visualizza le capsule prenotabili fino a quella data
-	public Collection<Prenotabile> doRetrivePrenotabiliByCapsulaAndDataFine(Integer numeroCapsulaSelect, String dataFine) throws SQLException {
+	public Collection<Prenotabile> doRetrivePrenotabiliByCapsulaAndDataFine(Integer capsula_id, String dataFine) throws SQLException {
 		ResultSet rs;
 		String query;
 		PreparedStatement pst=null;
@@ -459,7 +462,7 @@ public synchronized Prenotabile doRetrieveLastDateById(int id) throws SQLExcepti
 			con=ds.getConnection();
 			query = "SELECT * FROM e_prenotabile WHERE capsula_id= ? AND data_prenotabile <= ?";
 			pst = con.prepareStatement(query);
-			pst.setInt(1, numeroCapsulaSelect);
+			pst.setInt(1, capsula_id);
 			pst.setString(2, dataFine);
 			rs = pst.executeQuery();
 
@@ -585,8 +588,8 @@ public synchronized Prenotabile doRetrieveLastDateById(int id) throws SQLExcepti
 
 	}
 
-	public Collection<Prenotabile> doRetrivePrenotabileByCapsulaAndDataInizioAndDataFine(Integer numeroCapsulaSelect, String dataInizio,
-			String dataFine) throws SQLException {
+	//TODO retrieve, CapsulaId nel nome
+	public Collection<Prenotabile> doRetrivePrenotabileByCapsulaAndDataInizioAndDataFine(Integer capsula_id, String dataInizio,String dataFine) throws SQLException {
 		ResultSet rs;
 		String query;
 		PreparedStatement pst=null;
@@ -597,7 +600,7 @@ public synchronized Prenotabile doRetrieveLastDateById(int id) throws SQLExcepti
 			con=ds.getConnection();
 			query = "SELECT * FROM e_prenotabile WHERE capsula_id=? and data_prenotabile >= ? AND data_prenotabile <= ?";
 			pst = con.prepareStatement(query);
-			pst.setInt(1, numeroCapsulaSelect);
+			pst.setInt(1, capsula_id);
 			pst.setString(2, dataInizio);
 			pst.setString(3, dataFine);
 			rs = pst.executeQuery();
