@@ -13,13 +13,7 @@ import java.util.logging.Logger;
 import javax.sql.DataSource;
 
 public class PrenotabileDao {
-	/*non serve,elimina
-	 * private Collection<Prenotabile> prenotabilelist = null; public
-	 * Collection<Prenotabile> getPrenotabilelist() { return prenotabilelist; }
-	 * 
-	 * public void setPrenotabilelist(Collection<Prenotabile> prenotabilelist) {
-	 * this.prenotabilelist = prenotabilelist; }
-	 */
+	
 
 	private DataSource ds=null;
 	
