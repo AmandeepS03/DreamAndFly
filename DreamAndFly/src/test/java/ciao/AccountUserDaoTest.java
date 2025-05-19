@@ -39,6 +39,25 @@ class AccountUserDaoTest {
         dao = new AccountUserDao(mockDataSource);
     }
 
+ // TC1_1_1: nessun campo compilato → chiamano doRetrieveByKey("") → la query non trova nulla
+    @Test
+    void testTC1_1_1_noFieldsFilled() throws Exception {
+        when(mockResultSet.next()).thenReturn(false);
+
+        AccountUser user = dao.doRetrieveByKey("");
+
+        // non esiste un record, quindi tutti i campi restano null/0
+        assertNull(user.getEmail());
+        assertNull(user.getPassword());
+        assertNull(user.getName());
+        assertNull(user.getSurname());
+        assertNull(user.getNumber());
+        assertEquals(0, user.getRuolo());
+
+        verify(mockConnection).prepareStatement("select * from user_account where email = ? ");
+        verify(mockPreparedStatement).setString(1, "");
+        verify(mockPreparedStatement).executeQuery();
+    }
     
     @Test
     void testTC1_1_2_emailPresentePasswordValida() throws Exception {
@@ -68,25 +87,7 @@ class AccountUserDaoTest {
         verify(mockConnection).close();
     }
     
- // TC1_1_1: nessun campo compilato → chiamano doRetrieveByKey("") → la query non trova nulla
-    @Test
-    void testTC1_1_1_noFieldsFilled() throws Exception {
-        when(mockResultSet.next()).thenReturn(false);
-
-        AccountUser user = dao.doRetrieveByKey("");
-
-        // non esiste un record, quindi tutti i campi restano null/0
-        assertNull(user.getEmail());
-        assertNull(user.getPassword());
-        assertNull(user.getName());
-        assertNull(user.getSurname());
-        assertNull(user.getNumber());
-        assertEquals(0, user.getRuolo());
-
-        verify(mockConnection).prepareStatement("select * from user_account where email = ? ");
-        verify(mockPreparedStatement).setString(1, "");
-        verify(mockPreparedStatement).executeQuery();
-    }
+ 
 
     // TC1_1_3: email presente ma password non corrisponde → DAO restituisce l’utente con la password salvata
     @Test
@@ -126,22 +127,9 @@ class AccountUserDaoTest {
         verify(mockPreparedStatement).executeQuery();
     }
 
-    @Test
-    void testTC1_1_2_emailNonPresentePasswordValida() throws Exception {
-        when(mockResultSet.next()).thenReturn(false);
-
-        AccountUser user = dao.doRetrieveByKey("notfound@example.com");
-
-        // tutti i campi restano null/0
-        assertNull(user.getEmail());
-        assertNull(user.getPassword());
-        assertNull(user.getName());
-        assertNull(user.getSurname());
-        assertNull(user.getNumber());
-        assertEquals(0, user.getRuolo());
-
-        verify(mockPreparedStatement).executeQuery();
-    }
+    
+    
+    //registrazione
 
     @Test
     void testDoSave() throws Exception {
