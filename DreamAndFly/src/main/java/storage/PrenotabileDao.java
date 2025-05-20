@@ -66,50 +66,6 @@ public class PrenotabileDao {
 	}
 
 	
-	//TODO cambiare nome in doRetrieveByDataPrenotabile
-	public Collection<Prenotabile> doRetrieveDataPrenotabile(String dataPrenotabile) throws SQLException {
-		ResultSet rs;
-		String query;
-		PreparedStatement pst=null;
-		Connection con=null;
-		Prenotabile prenotabile=new Prenotabile();
-		Collection<Prenotabile> prenotabilelist = new ArrayList<>();
-		try {
-			con=ds.getConnection();
-			query = "select * from prenotabile where data_prenotabile = ? ";
-			pst = con.prepareStatement(query);
-			pst.setString(1, dataPrenotabile);
-			rs = pst.executeQuery();
-
-			while(rs.next()) {
-				
-				prenotabile.setDataPrenotabile(rs.getString("data_prenotabile"));
-				prenotabile.setCapsulaId(rs.getInt("caspula_id"));
-				prenotabile.setFasciaOrariaNumero(rs.getInt("fascia_oraria_numero"));
-				prenotabilelist.add(prenotabile);
-			}
-
-		}catch(Exception e) {
-			logger.log(Level.SEVERE, e.getMessage());
-			logger.log(Level.SEVERE , e.getMessage());
-		} finally {
-			try {
-				if(pst != null)
-					pst.close();
-			}finally{
-				if(con != null)
-					con.close();
-			}
-			
-			
-		}
-		return prenotabilelist;
-
-	}
-	
-	
-	
-	
 	//aggiunge una nuova data con i corrispondenti orari prenotabili	
 	public void doSave(Prenotabile prenotabile) throws SQLException {
 		

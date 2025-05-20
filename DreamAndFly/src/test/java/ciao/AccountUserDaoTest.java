@@ -241,4 +241,6 @@ class AccountUserDaoTest {
         verify(mockPreparedStatement).setString(1, "test@example.com");
         verify(mockPreparedStatement).executeUpdate();
     }
+    
+
 }
