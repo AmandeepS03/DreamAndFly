@@ -59,8 +59,6 @@ public class RicercaDisponibilitaServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 		tool= new PrenotabileDao(ds);
-		Prenotabile prenotabile = new Prenotabile();
-		
 		CapsulaDao toolC = new CapsulaDao(ds);
 		List<Capsula> capsule = new ArrayList<Capsula>();
 		

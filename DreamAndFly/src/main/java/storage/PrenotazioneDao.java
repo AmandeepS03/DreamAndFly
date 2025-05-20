@@ -5,9 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.Collection;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -253,132 +251,11 @@ public class PrenotazioneDao {
 
 	}
 
-	public synchronized Prenotazione doRetrieveByDataFine(String dataFine) throws SQLException {
-		ResultSet rs;
-		String query;
-		PreparedStatement pst = null;
-		Connection con = null;
-		Prenotazione prenotazione = new Prenotazione();
-		Collection<Prenotazione> prenotazionelist = new LinkedList<>();
-		try {
-			con = ds.getConnection();
-			query = "select * from prenotazione where data_fine <= ? order by data_fine DESC"; /*mostra le prenotazioni dalla data di fine fino alla prima prenotazione*/
-			pst = con.prepareStatement(query);
-			pst.setString(1, dataFine);
-			rs = pst.executeQuery();
-			
-			if (rs.next()) {
-
-				prenotazione.setCodiceDiAccesso(rs.getInt("codice_di_accesso"));
-				prenotazione.setOrarioInizio(rs.getString("orario_inizio"));
-				prenotazione.setOrarioFine(rs.getString("orario_fine"));
-				prenotazione.setDataInizio(rs.getString("data_inizio"));
-				prenotazione.setDataFine(rs.getString("data_fine"));
-				prenotazione.setPrezzoTotale(rs.getFloat("prezzo_totale"));
-				prenotazione.setDataEffettuazione(rs.getString("data_effettuazione"));
-				prenotazione.setValidita(rs.getBoolean("validita"));
-				prenotazione.setRimborso(rs.getFloat("rimborso"));
-				prenotazione.setUserAccountEmail(rs.getString("user_account_email"));
-				prenotazione.setCapsulaId(rs.getInt("capsula_id"));
-				prenotazionelist.add(prenotazione);
-			}
-
-		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage());
-			logger.log(Level.SEVERE, e.getMessage());
-		} finally {
-			try {
-				if (pst != null)
-					pst.close();
-			} finally {
-				if (con != null)
-					con.close();
-			}
-
-		}
-		return prenotazione;
-
-	}
+	
 
 	
 
-	public synchronized Prenotazione doRetrieveByNumeroCapsula(Integer numeroCapsula) throws SQLException {
-		ResultSet rs;
-		String query;
-		PreparedStatement pst = null;
-		Connection con = null;
-		Prenotazione prenotazione = new Prenotazione();
-		try {
-			con = ds.getConnection();
-			query = "select * from prenotazione where numeroCapsula = ? "; /**/
-			pst = con.prepareStatement(query);
-			pst.setInt(1, numeroCapsula);
-			rs = pst.executeQuery();
-
-			if (rs.next()) {
-
-				prenotazione.setCodiceDiAccesso(rs.getInt("codice_di_accesso"));
-				prenotazione.setOrarioInizio(rs.getString("orario_inizio"));
-				prenotazione.setOrarioFine(rs.getString("orario_fine"));
-				prenotazione.setDataInizio(rs.getString("data_inizio"));
-				prenotazione.setDataFine(rs.getString("data_fine"));
-				prenotazione.setPrezzoTotale(rs.getFloat("prezzo_totale"));
-				prenotazione.setDataEffettuazione(rs.getString("data_effettuazione"));
-				prenotazione.setValidita(rs.getBoolean("validita"));
-				prenotazione.setRimborso(rs.getFloat("rimborso"));
-				prenotazione.setUserAccountEmail(rs.getString("user_account_email"));
-				prenotazione.setCapsulaId(rs.getInt("capsula_id"));
-
-			}
-
-		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage());
-			logger.log(Level.SEVERE, e.getMessage());
-		} finally {
-			try {
-				if (pst != null)
-					pst.close();
-			} finally {
-				if (con != null)
-					con.close();
-			}
-
-		}
-		return prenotazione;
-
-	}
 	
-	public synchronized Prenotazione deletePrenotazione(Integer codicediAccesso) throws SQLException {
-		ResultSet rs;
-		String query;
-		PreparedStatement pst = null;
-		Connection con = null;
-		Prenotazione prenotazione = new Prenotazione();
-		try {
-			con = ds.getConnection();
-			query = "delete from prenotazione where codice_di_accesso = ? "; /**/
-			pst = con.prepareStatement(query);
-			pst.setInt(1, codicediAccesso);
-			int numeroRighe = pst.executeUpdate();
-			
-			
-
-		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage());
-			logger.log(Level.SEVERE, e.getMessage());
-		} finally {
-			try {
-				if (pst != null)
-					pst.close();
-			} finally {
-				if (con != null)
-					con.close();
-			}
-
-		}
-		return prenotazione;
-
-	}
 	//gestore 
 		public synchronized Collection<Prenotazione> doRetriveAll() throws SQLException {
 			Connection con = null;
