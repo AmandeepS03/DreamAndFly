@@ -53,7 +53,8 @@ class PrenotazioneDaoTest {
         Prenotazione result = dao.doRetrieveByKey(1234);
         assertEquals(1234, result.getCodiceDiAccesso());
     }
-
+    
+    //nn funz
     // TC8_2_1 - prenotazione non presente non va, settare parametri in prenotazione
     @Test
     void TC8_2_1_doSave_PrenotazioneNonPresente() throws Exception {
@@ -61,7 +62,8 @@ class PrenotazioneDaoTest {
         when(mockPreparedStatement.executeUpdate()).thenReturn(1);
         assertDoesNotThrow(() -> dao.doSave(p));
     }
-
+    
+    //nn funz
     // TC8_2_2 - prenotazione già presente non va, settare parametri in prenotazione
     @Test
     void TC8_2_2_doSave_PrenotazioneGiaPresente() throws Exception {
@@ -179,6 +181,8 @@ class PrenotazioneDaoTest {
         when(mockResultSet.next()).thenReturn(true, false);
         assertEquals(1, dao.doRetrivePrenotazioniByNumeroCapsulaAll(1).size());
     }
+    
+    //nn funz
 
     // TC8_9_1 - Email non presente, non va
     @Test
