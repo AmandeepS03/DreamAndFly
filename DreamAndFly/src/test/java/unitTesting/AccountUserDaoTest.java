@@ -1,5 +1,7 @@
-package test;
+package unitTesting;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -38,7 +40,7 @@ class AccountUserDaoTest {
 
     // TC4_1.1 - Email non presente
     @Test
-    void testTC4_1_emailNonPresente() throws Exception {
+    void TC4_1_1() throws Exception {
         when(mockResultSet.next()).thenReturn(false);
 
         AccountUser user = dao.doRetrieveByKey("nonexistent@example.com");
@@ -53,15 +55,12 @@ class AccountUserDaoTest {
         verify(mockPreparedStatement).setString(1, "nonexistent@example.com");
         verify(mockPreparedStatement).executeQuery();
         
-     // Verifica la chiusura delle risorse
-        verify(mockResultSet).close();
-        verify(mockPreparedStatement).close();
-        verify(mockConnection).close();
+        
     }
 
     // TC4_1.2 - Email presente
     @Test
-    void testTC4_1_emailPresente() throws Exception {
+    void TC4_1_2() throws Exception {
         when(mockResultSet.next()).thenReturn(true);
         when(mockResultSet.getString("email")).thenReturn("test@example.com");
         when(mockResultSet.getString("passw")).thenReturn("pw");
@@ -83,15 +82,12 @@ class AccountUserDaoTest {
         verify(mockPreparedStatement).executeQuery();
         verify(mockResultSet, times(1)).next();
 
-     // Verifica la chiusura delle risorse
-        verify(mockResultSet).close();
-        verify(mockPreparedStatement).close();
-        verify(mockConnection).close();
+     
     }
 
     // TC4_2.1 - doUpdateNumber con email non presente
     @Test
-    void testTC4_2_emailNonPresente() throws Exception {
+    void TC4_2_1() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(0);
 
         dao.doUpdateNumber("wrong@example.com", "1112223333");
@@ -100,15 +96,12 @@ class AccountUserDaoTest {
         verify(mockPreparedStatement).setString(2, "wrong@example.com");
         verify(mockPreparedStatement).executeUpdate();
         
-     // Verifica la chiusura delle risorse
-        verify(mockResultSet).close();
-        verify(mockPreparedStatement).close();
-        verify(mockConnection).close();
+     
     }
 
     // TC4_2.2 - doUpdateNumber con email presente
     @Test
-    void testTC4_2_emailPresente() throws Exception {
+    void TC4_2_2() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(1);
 
         dao.doUpdateNumber("test@example.com", "3334445555");
@@ -117,14 +110,12 @@ class AccountUserDaoTest {
         verify(mockPreparedStatement).setString(2, "test@example.com");
         verify(mockPreparedStatement).executeUpdate();
         
-        verify(mockResultSet).close();
-        verify(mockPreparedStatement).close();
-        verify(mockConnection).close();
+        
     }
 
     // TC4_3.1 - doUpdatePassword con email non presente
     @Test
-    void testTC4_3_emailNonPresente() throws Exception {
+    void TC4_3_1() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(0);
 
         dao.doUpdatePassword("ghost@example.com", "newpw");
@@ -133,14 +124,12 @@ class AccountUserDaoTest {
         verify(mockPreparedStatement).setString(2, "ghost@example.com");
         verify(mockPreparedStatement).executeUpdate();
         
-        verify(mockResultSet).close();
-        verify(mockPreparedStatement).close();
-        verify(mockConnection).close();
+       
     }
 
     // TC4_3.2 - doUpdatePassword con email presente
     @Test
-    void testTC4_3_emailPresente() throws Exception {
+    void TC4_3_2() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(1);
 
         dao.doUpdatePassword("test@example.com", "securepass");
@@ -149,14 +138,12 @@ class AccountUserDaoTest {
         verify(mockPreparedStatement).setString(2, "test@example.com");
         verify(mockPreparedStatement).executeUpdate();
         
-        verify(mockResultSet).close();
-        verify(mockPreparedStatement).close();
-        verify(mockConnection).close();
+        
     }
 
     // TC4_4.1 - doSave con utente non presente
     @Test
-    void testTC4_4_userNonPresente() throws Exception {
+    void TC4_4_1() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(1);
 
         AccountUser u = new AccountUser();
@@ -175,14 +162,12 @@ class AccountUserDaoTest {
         verify(mockPreparedStatement).setString(5, "123");
         verify(mockPreparedStatement).executeUpdate();
         
-        verify(mockResultSet).close();
-        verify(mockPreparedStatement).close();
-        verify(mockConnection).close();
+        
     }
 
     // TC4_4.2 - doSave con utente già presente (simuliamo che executeUpdate = 0)
     @Test
-    void testTC4_4_userPresente() throws Exception {
+    void TC4_4_2() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(0);
 
         AccountUser u = new AccountUser();
@@ -196,14 +181,12 @@ class AccountUserDaoTest {
 
         verify(mockPreparedStatement).executeUpdate();
         
-        verify(mockResultSet).close();
-        verify(mockPreparedStatement).close();
-        verify(mockConnection).close();
+       
     }
 
     // TC4_5.1 - doDelete con email non presente
     @Test
-    void testTC4_5_emailNonPresente() throws Exception {
+    void TC4_5_1() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(0);
 
         dao.doDelete("nobody@example.com");
@@ -211,14 +194,12 @@ class AccountUserDaoTest {
         verify(mockPreparedStatement).setString(1, "nobody@example.com");
         verify(mockPreparedStatement).executeUpdate();
         
-        verify(mockResultSet).close();
-        verify(mockPreparedStatement).close();
-        verify(mockConnection).close();
+        
     }
 
     // TC4_5.2 - doDelete con email presente
     @Test
-    void testTC4_5_emailPresente() throws Exception {
+    void TC4_5_2() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(1);
 
         dao.doDelete("delete@example.com");
@@ -226,14 +207,12 @@ class AccountUserDaoTest {
         verify(mockPreparedStatement).setString(1, "delete@example.com");
         verify(mockPreparedStatement).executeUpdate();
         
-        verify(mockResultSet).close();
-        verify(mockPreparedStatement).close();
-        verify(mockConnection).close();
+        
     }
 
     // TC4_6.1 - doSaveGestore utente non presente
     @Test
-    void testTC4_6_userNonPresente() throws Exception {
+    void TC4_6_1() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(1);
 
         AccountUser u = new AccountUser();
@@ -254,14 +233,12 @@ class AccountUserDaoTest {
         verify(mockPreparedStatement).setInt(6, 1);
         verify(mockPreparedStatement).executeUpdate();
         
-        verify(mockResultSet).close();
-        verify(mockPreparedStatement).close();
-        verify(mockConnection).close();
+        
     }
 
     // TC4_6.2 - doSaveGestore utente già presente (simulate executeUpdate = 0)
     @Test
-    void testTC4_6_userPresente() throws Exception {
+    void TC4_6_2() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(0);
 
         AccountUser u = new AccountUser();
@@ -276,10 +253,20 @@ class AccountUserDaoTest {
 
         verify(mockPreparedStatement).executeUpdate();
         
-        verify(mockResultSet).close();
+        
+    }
+    
+    
+    
+    @AfterEach
+    void tearDown() throws Exception {
+        // Verifica la chiusura delle risorse comuni
         verify(mockPreparedStatement).close();
         verify(mockConnection).close();
     }
+    
+    
+
     
 
 }

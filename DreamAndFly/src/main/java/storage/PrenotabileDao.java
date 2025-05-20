@@ -112,6 +112,7 @@ public class PrenotabileDao {
 				}
 			}
 		}
+	
 //ritorna l'ultima data disponibile
 	public synchronized Prenotabile doRetrieveLastDateById(int id) throws SQLException {
 	ResultSet rs;

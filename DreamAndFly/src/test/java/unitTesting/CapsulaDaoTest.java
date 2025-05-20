@@ -1,6 +1,7 @@
-package test;
+package unitTesting;
 
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -40,7 +41,7 @@ class CapsulaDaoTest {
     
     // TC5_1.1 - doRetrieveByKey: ID non presente
     @Test
-    void testTC5_1_idNonPresente() throws Exception {
+    void TC5_1_1() throws Exception {
         when(mockResultSet.next()).thenReturn(false);
 
         Capsula result = dao.doRetrieveByKey(999);
@@ -54,7 +55,7 @@ class CapsulaDaoTest {
 
     // TC5_1.2 - doRetrieveByKey: ID presente
     @Test
-    void testTC5_1_idPresente() throws Exception {
+    void TC5_1_2() throws Exception {
         when(mockResultSet.next()).thenReturn(true);
         when(mockResultSet.getInt("id")).thenReturn(1);
         when(mockResultSet.getFloat("prezzo_orario")).thenReturn(19.99f);
@@ -72,7 +73,7 @@ class CapsulaDaoTest {
 
     // TC5_2.1 - doUpdatePrezzoOrario: ID non presente
     @Test
-    void testTC5_2_idNonPresente() throws Exception {
+    void TC5_2_1() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(0); // nessuna riga modificata
 
         dao.doUpdatePrezzoOrario(999, 25.0f);
@@ -84,7 +85,7 @@ class CapsulaDaoTest {
 
     // TC5_2.2 - doUpdatePrezzoOrario: ID presente
     @Test
-    void testTC5_2_idPresente() throws Exception {
+    void TC5_2_2() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(1); // una riga modificata
 
         dao.doUpdatePrezzoOrario(2, 22.5f);
@@ -94,9 +95,10 @@ class CapsulaDaoTest {
         verify(mockPreparedStatement).executeUpdate();
     }
 
+    //TODO
     // TC5_3.1 - doSave: capsula non presente (simulazione: insert riuscito)
     @Test
-    void testTC5_3_capsulaNonPresente() throws Exception {
+    void TC5_3_1() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(1); // inserimento riuscito
 
         Capsula capsula = new Capsula();
@@ -114,7 +116,7 @@ class CapsulaDaoTest {
 
     // TC5_3.2 - doSave: capsula già presente (simulazione: insert fallito)
     @Test
-    void testTC5_3_capsulaGiaPresente() throws Exception {
+    void TC5_3_2() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(0); // simuliamo che non venga inserita
 
         Capsula capsula = new Capsula();
@@ -126,4 +128,13 @@ class CapsulaDaoTest {
 
         verify(mockPreparedStatement).executeUpdate();
     }
+    
+    @AfterEach
+    void tearDown() throws Exception {
+        // Verifica la chiusura delle risorse comuni
+        verify(mockPreparedStatement).close();
+        verify(mockConnection).close();
+    }
+
+    
 }

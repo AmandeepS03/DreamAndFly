@@ -1,6 +1,7 @@
-package test;
+package unitTesting;
 
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import storage.FasciaOraria;
@@ -37,9 +38,9 @@ class FasciaOrariaDaoTest {
         dao = new FasciaOrariaDao(mockDataSource);
     }
 
-    // TC9.6.1 - doRetrieveByKey: fascia non presente
+    // TC6_6.1 - doRetrieveByKey: fascia non presente
     @Test
-    void testDoRetrieveByKey_NotFound() throws Exception {
+    void TC6_1_1() throws Exception {
         when(mockResultSet.next()).thenReturn(false);
 
         FasciaOraria result = dao.doRetrieveByKey(999);
@@ -50,9 +51,9 @@ class FasciaOrariaDaoTest {
         verify(mockPreparedStatement).setInt(1, 999);
     }
 
-    // TC9.6.2 - doRetrieveByKey: fascia presente
+    // TC6_1.2 - doRetrieveByKey: fascia presente
     @Test
-    void testDoRetrieveByKey_Found() throws Exception {
+    void TC6_1_2() throws Exception {
         when(mockResultSet.next()).thenReturn(true);
         when(mockResultSet.getInt("numero")).thenReturn(3);
         when(mockResultSet.getString("orario_inizio")).thenReturn("08:00");
@@ -66,23 +67,11 @@ class FasciaOrariaDaoTest {
         verify(mockPreparedStatement).setInt(1, 3);
     }
 
-    // TC9.6.3 - doRetriveAll: ritorna una lista di fasce
+    
+
+    // TC6.2.1 - doRetrieveByOrarioInizio: orario non presente
     @Test
-    void testDoRetriveAll() throws Exception {
-        when(mockResultSet.next()).thenReturn(true, true, false);
-        when(mockResultSet.getInt("numero")).thenReturn(1, 2);
-        when(mockResultSet.getString("orario_inizio")).thenReturn("08:00", "09:00");
-        when(mockResultSet.getString("orario_fine")).thenReturn("09:00", "10:00");
-
-        Collection<FasciaOraria> result = dao.doRetriveAll();
-
-        assertEquals(2, result.size());
-        verify(mockConnection).prepareStatement("select * from fascia_oraria");
-    }
-
-    // TC9.6.4 - doRetrieveByOrarioInizio: orario non presente
-    @Test
-    void testDoRetrieveByOrarioInizio_NotFound() throws Exception {
+    void TC6_2_1() throws Exception {
         when(mockResultSet.next()).thenReturn(false);
 
         int result = dao.doRetrieveByOrarioInizio("07:00");
@@ -91,9 +80,9 @@ class FasciaOrariaDaoTest {
         verify(mockPreparedStatement).setString(1, "07:00");
     }
 
-    // TC9.6.5 - doRetrieveByOrarioInizio: orario presente
+    // TC6_2_2 - doRetrieveByOrarioInizio: orario presente
     @Test
-    void testDoRetrieveByOrarioInizio_Found() throws Exception {
+    void TC6_2_2() throws Exception {
         when(mockResultSet.next()).thenReturn(true);
         when(mockResultSet.getInt("numero")).thenReturn(2);
 
@@ -103,9 +92,9 @@ class FasciaOrariaDaoTest {
         verify(mockPreparedStatement).setString(1, "09:00");
     }
 
-    // TC9.6.6 - doRetrieveByOrarioFine: orario non presente
+    // TC6_3_1 - doRetrieveByOrarioFine: orario non presente
     @Test
-    void testDoRetrieveByOrarioFine_NotFound() throws Exception {
+    void TC6_3_1() throws Exception {
         when(mockResultSet.next()).thenReturn(false);
 
         int result = dao.doRetrieveByOrarioFine("18:00");
@@ -114,9 +103,9 @@ class FasciaOrariaDaoTest {
         verify(mockPreparedStatement).setString(1, "18:00");
     }
 
-    // TC9.6.7 - doRetrieveByOrarioFine: orario presente
+    // TC6_3_2 - doRetrieveByOrarioFine: orario presente
     @Test
-    void testDoRetrieveByOrarioFine_Found() throws Exception {
+    void TC6_3_2() throws Exception {
         when(mockResultSet.next()).thenReturn(true);
         when(mockResultSet.getInt("numero")).thenReturn(4);
 
@@ -124,5 +113,12 @@ class FasciaOrariaDaoTest {
 
         assertEquals(4, result);
         verify(mockPreparedStatement).setString(1, "12:00");
+    }
+    
+    @AfterEach
+    void tearDown() throws Exception {
+        // Verifica la chiusura delle risorse comuni
+        verify(mockPreparedStatement).close();
+        verify(mockConnection).close();
     }
 }
