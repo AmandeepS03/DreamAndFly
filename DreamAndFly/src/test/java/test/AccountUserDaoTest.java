@@ -1,4 +1,4 @@
-package ciao;
+package test;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -52,6 +52,11 @@ class AccountUserDaoTest {
 
         verify(mockPreparedStatement).setString(1, "nonexistent@example.com");
         verify(mockPreparedStatement).executeQuery();
+        
+     // Verifica la chiusura delle risorse
+        verify(mockResultSet).close();
+        verify(mockPreparedStatement).close();
+        verify(mockConnection).close();
     }
 
     // TC4_1.2 - Email presente
@@ -76,6 +81,12 @@ class AccountUserDaoTest {
 
         verify(mockPreparedStatement).setString(1, "test@example.com");
         verify(mockPreparedStatement).executeQuery();
+        verify(mockResultSet, times(1)).next();
+
+     // Verifica la chiusura delle risorse
+        verify(mockResultSet).close();
+        verify(mockPreparedStatement).close();
+        verify(mockConnection).close();
     }
 
     // TC4_2.1 - doUpdateNumber con email non presente
@@ -88,6 +99,11 @@ class AccountUserDaoTest {
         verify(mockPreparedStatement).setString(1, "1112223333");
         verify(mockPreparedStatement).setString(2, "wrong@example.com");
         verify(mockPreparedStatement).executeUpdate();
+        
+     // Verifica la chiusura delle risorse
+        verify(mockResultSet).close();
+        verify(mockPreparedStatement).close();
+        verify(mockConnection).close();
     }
 
     // TC4_2.2 - doUpdateNumber con email presente
@@ -100,6 +116,10 @@ class AccountUserDaoTest {
         verify(mockPreparedStatement).setString(1, "3334445555");
         verify(mockPreparedStatement).setString(2, "test@example.com");
         verify(mockPreparedStatement).executeUpdate();
+        
+        verify(mockResultSet).close();
+        verify(mockPreparedStatement).close();
+        verify(mockConnection).close();
     }
 
     // TC4_3.1 - doUpdatePassword con email non presente
@@ -112,6 +132,10 @@ class AccountUserDaoTest {
         verify(mockPreparedStatement).setString(1, "newpw");
         verify(mockPreparedStatement).setString(2, "ghost@example.com");
         verify(mockPreparedStatement).executeUpdate();
+        
+        verify(mockResultSet).close();
+        verify(mockPreparedStatement).close();
+        verify(mockConnection).close();
     }
 
     // TC4_3.2 - doUpdatePassword con email presente
@@ -124,6 +148,10 @@ class AccountUserDaoTest {
         verify(mockPreparedStatement).setString(1, "securepass");
         verify(mockPreparedStatement).setString(2, "test@example.com");
         verify(mockPreparedStatement).executeUpdate();
+        
+        verify(mockResultSet).close();
+        verify(mockPreparedStatement).close();
+        verify(mockConnection).close();
     }
 
     // TC4_4.1 - doSave con utente non presente
@@ -146,6 +174,10 @@ class AccountUserDaoTest {
         verify(mockPreparedStatement).setString(4, "Cognome");
         verify(mockPreparedStatement).setString(5, "123");
         verify(mockPreparedStatement).executeUpdate();
+        
+        verify(mockResultSet).close();
+        verify(mockPreparedStatement).close();
+        verify(mockConnection).close();
     }
 
     // TC4_4.2 - doSave con utente già presente (simuliamo che executeUpdate = 0)
@@ -163,6 +195,10 @@ class AccountUserDaoTest {
         dao.doSave(u);
 
         verify(mockPreparedStatement).executeUpdate();
+        
+        verify(mockResultSet).close();
+        verify(mockPreparedStatement).close();
+        verify(mockConnection).close();
     }
 
     // TC4_5.1 - doDelete con email non presente
@@ -174,6 +210,10 @@ class AccountUserDaoTest {
 
         verify(mockPreparedStatement).setString(1, "nobody@example.com");
         verify(mockPreparedStatement).executeUpdate();
+        
+        verify(mockResultSet).close();
+        verify(mockPreparedStatement).close();
+        verify(mockConnection).close();
     }
 
     // TC4_5.2 - doDelete con email presente
@@ -185,6 +225,10 @@ class AccountUserDaoTest {
 
         verify(mockPreparedStatement).setString(1, "delete@example.com");
         verify(mockPreparedStatement).executeUpdate();
+        
+        verify(mockResultSet).close();
+        verify(mockPreparedStatement).close();
+        verify(mockConnection).close();
     }
 
     // TC4_6.1 - doSaveGestore utente non presente
@@ -209,6 +253,10 @@ class AccountUserDaoTest {
         verify(mockPreparedStatement).setString(5, "999");
         verify(mockPreparedStatement).setInt(6, 1);
         verify(mockPreparedStatement).executeUpdate();
+        
+        verify(mockResultSet).close();
+        verify(mockPreparedStatement).close();
+        verify(mockConnection).close();
     }
 
     // TC4_6.2 - doSaveGestore utente già presente (simulate executeUpdate = 0)
@@ -227,6 +275,10 @@ class AccountUserDaoTest {
         dao.doSaveGestore(u);
 
         verify(mockPreparedStatement).executeUpdate();
+        
+        verify(mockResultSet).close();
+        verify(mockPreparedStatement).close();
+        verify(mockConnection).close();
     }
     
 
