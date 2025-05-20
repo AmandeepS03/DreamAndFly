@@ -54,7 +54,7 @@ class PrenotazioneDaoTest {
         assertEquals(1234, result.getCodiceDiAccesso());
     }
 
-    // TC8_2_1 - prenotazione non presente
+    // TC8_2_1 - prenotazione non presente non va, settare parametri in prenotazione
     @Test
     void TC8_2_1_doSave_PrenotazioneNonPresente() throws Exception {
         Prenotazione p = new Prenotazione();
@@ -62,7 +62,7 @@ class PrenotazioneDaoTest {
         assertDoesNotThrow(() -> dao.doSave(p));
     }
 
-    // TC8_2_2 - prenotazione già presente
+    // TC8_2_2 - prenotazione già presente non va, settare parametri in prenotazione
     @Test
     void TC8_2_2_doSave_PrenotazioneGiaPresente() throws Exception {
         Prenotazione p = new Prenotazione();
@@ -180,17 +180,17 @@ class PrenotazioneDaoTest {
         assertEquals(1, dao.doRetrivePrenotazioniByNumeroCapsulaAll(1).size());
     }
 
-    // TC8_9_1 - Email non presente
+    // TC8_9_1 - Email non presente, non va
     @Test
     void TC8_9_1_doRetrievePrenotazioniByAccount_EmailNonPresente() throws Exception {
         when(mockResultSet.next()).thenReturn(false);
         assertNull(dao.doRetrivePrenotazioniByAccount("notfound@example.com"));
     }
 
-    // TC8_9_2 - Email presente
+    // TC8_9_2 - Email presente, modificato
     @Test
     void TC8_9_2_doRetrievePrenotazioniByAccount_EmailPresente() throws Exception {
-        when(mockResultSet.next()).thenReturn(true);
+    	when(mockResultSet.next()).thenReturn(true, false); // una sola riga nel resultset
         assertNotNull(dao.doRetrivePrenotazioniByAccount("user@example.com"));
     }
 
