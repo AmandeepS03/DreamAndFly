@@ -148,14 +148,6 @@ class PrenotazioneDaoTest {
         verify(mockPreparedStatement).executeUpdate();
     }
 
-
-    
-
-
-
-    
-
-
     // TC9_5_1 - doRetrieveByEmail: Email non presente nel DB
     @Test
     void TC9_5_1_doRetrieveByEmail_EmailNonPresente() throws Exception {

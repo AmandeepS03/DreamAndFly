@@ -1,4 +1,4 @@
-package integrationTest;
+package integrationTesting;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,7 +16,7 @@ import java.sql.Statement;
 import java.util.Collection;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class PrenotazioneDaoIT {
+public class PrenotazioneDaoIntegrationTest {
 
     private static DataSource ds;
     private PrenotazioneDao dao;
