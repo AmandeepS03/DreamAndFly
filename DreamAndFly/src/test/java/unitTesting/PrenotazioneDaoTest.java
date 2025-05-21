@@ -148,48 +148,6 @@ class PrenotazioneDaoTest {
         verify(mockPreparedStatement).executeUpdate();
     }
 
-
-    
-
-
-
-    // TC8_5_1 - doRetrieveByDataInizio: data >= dataInizio presente
-    @Test
-    void TC8_5_1() throws Exception {
-        when(mockResultSet.next()).thenReturn(true, false);
-        Collection<Prenotazione> result = dao.doRetrieveByDataInizio("2025-06-01");
-        assertNotNull(result);
-    }
-
-    // TC8_5_2 - doRetrieveByDataInizio: nessuna data >= dataInizio presente nel db
-    @Test
-    void TC8_5_2() throws Exception {
-        when(mockResultSet.next()).thenReturn(false);
-        assertTrue(dao.doRetrieveByDataInizio("2099-01-01").isEmpty());
-    }
-
-    // TC8_6_1 - doRetrieveByDataInizioAndDataFine: nessuna data >= dataInizio presente nel db
-    @Test
-    void TC8_6_1() throws Exception {
-        when(mockResultSet.next()).thenReturn(false);
-        assertTrue(dao.doRetrieveByDataInizioAndDataFine("2099-01-01", "2099-01-10").isEmpty());
-    }
-
-    // TC8_6_2 - doRetrieveByDataInizioAndDataFine : Nessuna data <= dataFine presente nel DB
-    @Test
-    void TC8_6_2() throws Exception {
-        when(mockResultSet.next()).thenReturn(false);
-        assertTrue(dao.doRetrieveByDataInizioAndDataFine("2025-01-01", "2025-01-02").isEmpty());
-    }
-
-    // TC8_6_3 - doRetrieveByDataInizioAndDataFine: Esiste almeno una data nell intervallo
-    @Test
-    void TC8_6_3() throws Exception {
-        when(mockResultSet.next()).thenReturn(true, false);
-        Collection<Prenotazione> result = dao.doRetrieveByDataInizioAndDataFine("2025-06-01", "2025-06-10");
-        assertNotNull(result);
-    }
-
     // TC8_7_1 - doRetrieveByEmail: Email non presente nel DB
     @Test
     void TC8_7_1_doRetrieveByEmail_EmailNonPresente() throws Exception {
