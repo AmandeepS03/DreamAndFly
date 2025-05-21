@@ -42,7 +42,7 @@ public class VisualizzaPrenotazioniGestoreServlet extends HttpServlet {
 		
 		PrenotazioneDao pDao = new PrenotazioneDao(ds);
 		try {
-			request.setAttribute("listaUtentiPrenotati", pDao.doRetriveEmailWithPrenotazione());
+			request.setAttribute("listaUtentiPrenotati", pDao.doRetrieveEmailWithPrenotazione());
 			
 			
 			

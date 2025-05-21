@@ -55,7 +55,7 @@ public class LeMiePrenotazioniServlet extends HttpServlet {
 		String email=auth.getEmail();
 		
 		try {
-			request.setAttribute("prenotazioni", pDAO.doRetriveByEmail(email,auth.getRuolo()));
+			request.setAttribute("prenotazioni", pDAO.doRetrieveByEmail(email,auth.getRuolo()));
 		}catch (SQLException e) {
 			logger.log(Level.WARNING, "Errore SQL", e);
 			
