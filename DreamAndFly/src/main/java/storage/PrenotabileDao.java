@@ -153,7 +153,7 @@ public class PrenotabileDao {
 
 }
 
-	//TODO cambia nome in doRetrieveByDataInizioAndDataFine
+	//TODO cambia nome in doRetrieveIdByDataInizioAndDataFine
 	public synchronized Collection<Integer> doRetrieveByDataInizioDataFine(String dataInizio,String dataFine) throws SQLException{
 		ResultSet rs;
 		String query;

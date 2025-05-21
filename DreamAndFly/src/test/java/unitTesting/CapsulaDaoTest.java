@@ -39,9 +39,9 @@ class CapsulaDaoTest {
     }
 
     
-    // TC5_1.1 - doRetrieveByKey: ID non presente
+    // TC6_1.1 - doRetrieveByKey: ID non presente
     @Test
-    void TC5_1_1() throws Exception {
+    void TC6_1_1() throws Exception {
         when(mockResultSet.next()).thenReturn(false);
 
         Capsula result = dao.doRetrieveByKey(999);
@@ -53,9 +53,9 @@ class CapsulaDaoTest {
         verify(mockPreparedStatement).executeQuery();
     }
 
-    // TC5_1.2 - doRetrieveByKey: ID presente
+    // TC6_1.2 - doRetrieveByKey: ID presente
     @Test
-    void TC5_1_2() throws Exception {
+    void TC6_1_2() throws Exception {
         when(mockResultSet.next()).thenReturn(true);
         when(mockResultSet.getInt("id")).thenReturn(1);
         when(mockResultSet.getFloat("prezzo_orario")).thenReturn(19.99f);
@@ -71,9 +71,9 @@ class CapsulaDaoTest {
         verify(mockPreparedStatement).executeQuery();
     }
 
-    // TC5_2.1 - doUpdatePrezzoOrario: ID non presente
+    // TC6_2.1 - doUpdatePrezzoOrario: ID non presente
     @Test
-    void TC5_2_1() throws Exception {
+    void TC6_2_1() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(0); // nessuna riga modificata
 
         dao.doUpdatePrezzoOrario(999, 25.0f);
@@ -83,9 +83,9 @@ class CapsulaDaoTest {
         verify(mockPreparedStatement).executeUpdate();
     }
 
-    // TC5_2.2 - doUpdatePrezzoOrario: ID presente
+    // TC6_2.2 - doUpdatePrezzoOrario: ID presente
     @Test
-    void TC5_2_2() throws Exception {
+    void TC6_2_2() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(1); // una riga modificata
 
         dao.doUpdatePrezzoOrario(2, 22.5f);
@@ -96,9 +96,9 @@ class CapsulaDaoTest {
     }
 
     //TODO
-    // TC5_3.1 - doSave: capsula non presente (simulazione: insert riuscito)
+    // TC6_3.1 - doSave: capsula non presente (simulazione: insert riuscito)
     @Test
-    void TC5_3_1() throws Exception {
+    void TC6_3_1() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(1); // inserimento riuscito
 
         Capsula capsula = new Capsula();
@@ -114,9 +114,9 @@ class CapsulaDaoTest {
         verify(mockPreparedStatement).executeUpdate();
     }
 
-    // TC5_3.2 - doSave: capsula già presente (simulazione: insert fallito)
+    // TC6_3.2 - doSave: capsula già presente (simulazione: insert fallito)
     @Test
-    void TC5_3_2() throws Exception {
+    void TC6_3_2() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(0); // simuliamo che non venga inserita
 
         Capsula capsula = new Capsula();
