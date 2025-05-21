@@ -67,7 +67,7 @@ class PrenotabileDaoTest {
 
  // TC7_2_1 - doDelete: data non presente
     @Test
-    void TC7_2_1_doDelete_DataNonPresente() throws Exception {
+    void TC7_2_1() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(0);
         dao.doDelete("2099-12-31", 1, 1);
         verify(mockPreparedStatement).executeUpdate();
@@ -75,7 +75,7 @@ class PrenotabileDaoTest {
 
     // TC7_2_2 - doDelete: capsula_id non presente
     @Test
-    void TC7_2_2_doDelete_CapsulaIdNonPresente() throws Exception {
+    void TC7_2_2() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(0);
         dao.doDelete("2025-06-01", 9999, 1);
         verify(mockPreparedStatement).executeUpdate();
@@ -83,7 +83,7 @@ class PrenotabileDaoTest {
 
     // TC7_2_3 - doDelete: fascia oraria non presente
     @Test
-    void TC7_2_3_doDelete_FasciaNonPresente() throws Exception {
+    void TC7_2_3() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(0);
         dao.doDelete("2025-06-01", 1, 9999);
         verify(mockPreparedStatement).executeUpdate();
@@ -91,7 +91,7 @@ class PrenotabileDaoTest {
 
     // TC7_2_4 - doDelete: tutti i dati presenti
     @Test
-    void TC7_2_4_doDelete_TuttiPresenti() throws Exception {
+    void TC7_2_4() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(1);
         dao.doDelete("2025-06-01", 1, 2);
         verify(mockPreparedStatement).executeUpdate();
@@ -149,7 +149,7 @@ class PrenotabileDaoTest {
 
     // TC7_5_2 - doRetrieveByIdAndDate: data non presente nel DB
     @Test
-    void TC7_5_2_doRetrieveByIdAndDate_DataNonPresente() throws Exception {
+    void TC7_5_2() throws Exception {
         // Simuliamo che il ResultSet non abbia risultati (data non presente)
         when(mockResultSet.next()).thenReturn(false);
 
@@ -258,7 +258,7 @@ class PrenotabileDaoTest {
 
     // TC7_9_3 - doRetrivePrenotabiliByCapsulaAndDataInizio: Tutti i dati presenti
     @Test
-    void TC7_9_3_doRetrievePrenotabiliByCapsulaIdAndDataInizio_TuttiPresenti() throws Exception {
+    void TC7_9_3() throws Exception {
         when(mockResultSet.next()).thenReturn(true, false);
         when(mockResultSet.getString("data_prenotabile")).thenReturn("2025-06-03");
         when(mockResultSet.getInt("capsula_id")).thenReturn(4);
