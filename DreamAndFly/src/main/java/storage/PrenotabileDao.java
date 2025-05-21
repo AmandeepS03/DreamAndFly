@@ -24,7 +24,7 @@ public class PrenotabileDao {
 		this.ds=ds;
 	}
 	
-	public Collection<Prenotabile> doRetriveAll() throws SQLException {
+	public Collection<Prenotabile> doRetrieveAll() throws SQLException {
 		Connection con = null;
 		PreparedStatement pst = null;
 		Collection<Prenotabile> prenotabilelist = new LinkedList<>();
@@ -354,7 +354,7 @@ public class PrenotabileDao {
 	}
 
 	//TODO retrieve, capsulaId
-	public Collection<Prenotabile> doRetrivePrenotabiliByCapsulaAndDataInizio(Integer capsula_id, String dataInizio) throws SQLException {
+	public Collection<Prenotabile> doRetrievePrenotabiliByCapsulaAndDataInizio(Integer capsula_id, String dataInizio) throws SQLException {
 		ResultSet rs;
 		String query;
 		PreparedStatement pst=null;
@@ -402,7 +402,7 @@ public class PrenotabileDao {
 	
 	//TODO retrieve, capsulaId nel nome
 	//visualizza le capsule prenotabili fino a quella data
-	public Collection<Prenotabile> doRetrivePrenotabiliByCapsulaAndDataFine(Integer capsula_id, String dataFine) throws SQLException {
+	public Collection<Prenotabile> doRetrievePrenotabiliByCapsulaAndDataFine(Integer capsula_id, String dataFine) throws SQLException {
 		ResultSet rs;
 		String query;
 		PreparedStatement pst=null;
@@ -540,7 +540,7 @@ public class PrenotabileDao {
 	}
 
 	//TODO retrieve, CapsulaId nel nome
-	public Collection<Prenotabile> doRetrivePrenotabileByCapsulaAndDataInizioAndDataFine(Integer capsula_id, String dataInizio,String dataFine) throws SQLException {
+	public Collection<Prenotabile> doRetrievePrenotabileByCapsulaAndDataInizioAndDataFine(Integer capsula_id, String dataInizio,String dataFine) throws SQLException {
 		ResultSet rs;
 		String query;
 		PreparedStatement pst=null;

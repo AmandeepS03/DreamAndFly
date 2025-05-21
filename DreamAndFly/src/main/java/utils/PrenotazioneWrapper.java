@@ -37,4 +37,6 @@ public class PrenotazioneWrapper {
     public String getTipologiaCapsula() {
         return tipologiaCapsula;
     }
+
+
 }

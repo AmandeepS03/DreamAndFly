@@ -257,7 +257,7 @@ public class PrenotazioneDao {
 
 	
 	//gestore 
-		public synchronized Collection<Prenotazione> doRetriveAll() throws SQLException {
+		public synchronized Collection<Prenotazione> doRetrieveAll() throws SQLException {
 			Connection con = null;
 			PreparedStatement pst = null;
 			Collection<Prenotazione> prenotazionelist = new LinkedList<>();
@@ -301,7 +301,7 @@ public class PrenotazioneDao {
 			
 	
 
-	  public synchronized Collection<PrenotazioneWrapper> doRetriveByEmail(String email,int chiamante) throws SQLException { 
+	  public synchronized Collection<PrenotazioneWrapper> doRetrieveByEmail(String email,int chiamante) throws SQLException { 
 		  ResultSet rs; 
 		  String query; 
 		  PreparedStatement pst=null;
@@ -364,7 +364,7 @@ public class PrenotazioneDao {
 	  }
 
 		
-	  public synchronized Collection<Prenotazione> doRetriveEmailWithPrenotazione() throws SQLException { 
+	  public synchronized Collection<Prenotazione> doRetrieveEmailWithPrenotazione() throws SQLException { 
 		  ResultSet rs; 
 		  String query; 
 		  PreparedStatement pst=null;
@@ -407,7 +407,7 @@ public class PrenotazioneDao {
 	  }
 	  
 	  
-	  public synchronized Collection<Prenotazione> doRetrivePrenotazioniByNumeroCapsulaAll(Integer numeroCapsula) throws SQLException { 
+	  public synchronized Collection<Prenotazione> doRetrievePrenotazioniByNumeroCapsulaAll(Integer numeroCapsula) throws SQLException { 
 		  ResultSet rs; 
 		  String query; 
 		  PreparedStatement pst=null;
@@ -464,7 +464,7 @@ public class PrenotazioneDao {
 	  
 	  
 	  
-	  public synchronized Collection<Prenotazione> doRetrivePrenotazioniByAccount(String email) throws SQLException { 
+	  public synchronized Collection<Prenotazione> doRetrievePrenotazioniByAccount(String email) throws SQLException { 
 		  ResultSet rs; 
 		  String query; 
 		  PreparedStatement pst=null;
@@ -518,7 +518,7 @@ public class PrenotazioneDao {
 	  
 	  }
 	  
-	  public synchronized Collection<Prenotazione> doRetrivePrenotazioniByDataInizio(String dataInizio) throws SQLException { 
+	  public synchronized Collection<Prenotazione> doRetrievePrenotazioniByDataInizio(String dataInizio) throws SQLException { 
 		  ResultSet rs; 
 		  String query; 
 		  PreparedStatement pst=null;
@@ -573,7 +573,7 @@ public class PrenotazioneDao {
 	  
 	  }
 	  
-	  public synchronized Collection<Prenotazione> doRetrivePrenotazioniByDataFine(String dataFine) throws SQLException { 
+	  public synchronized Collection<Prenotazione> doRetrievePrenotazioniByDataFine(String dataFine) throws SQLException { 
 		  ResultSet rs; 
 		  String query; 
 		  PreparedStatement pst=null;
@@ -629,7 +629,7 @@ public class PrenotazioneDao {
 	  }
 	  
 	  
-	  public synchronized Collection<Prenotazione> doRetrivePrenotazioniByDataInizioAndFine(String dataInizio, String dataFine) throws SQLException { 
+	  public synchronized Collection<Prenotazione> doRetrievePrenotazioniByDataInizioAndFine(String dataInizio, String dataFine) throws SQLException { 
 		  ResultSet rs; 
 		  String query; 
 		  PreparedStatement pst=null;
@@ -686,7 +686,7 @@ public class PrenotazioneDao {
 	  }
 	  
 	   
-	  public synchronized Collection<Prenotazione> doRetrivePrenotazioniByDataInizioAndAccount(String dataInizio, String userAccountEmail) throws SQLException { 
+	  public synchronized Collection<Prenotazione> doRetrievePrenotazioniByDataInizioAndAccount(String dataInizio, String userAccountEmail) throws SQLException { 
 		  ResultSet rs; 
 		  String query; 
 		  PreparedStatement pst=null;
@@ -798,7 +798,7 @@ public class PrenotazioneDao {
 	  
 	  }
 	
-	  public synchronized Collection<Prenotazione> doRetrivePrenotazioniByNumeroCapsulaAndAccount(Integer capsulaID, String userAccountEmail) throws SQLException { 
+	  public synchronized Collection<Prenotazione> doRetrievePrenotazioniByNumeroCapsulaAndAccount(Integer capsulaID, String userAccountEmail) throws SQLException { 
 		  ResultSet rs; 
 		  String query; 
 		  PreparedStatement pst=null;
@@ -854,7 +854,7 @@ public class PrenotazioneDao {
 	  
 	  }
 	  
-	  public synchronized Collection<Prenotazione> doRetrivePrenotazioniByAll(Integer capsulaID, String userAccountEmail, String dataInizio, String dataFine) throws SQLException { 
+	  public synchronized Collection<Prenotazione> doRetrievePrenotazioniByAll(Integer capsulaID, String userAccountEmail, String dataInizio, String dataFine) throws SQLException { 
 		  ResultSet rs; 
 		  String query; 
 		  PreparedStatement pst=null;
@@ -912,7 +912,7 @@ public class PrenotazioneDao {
 	  
 	  }
 	  
-	  public synchronized Collection<Prenotazione> doRetrivePrenotazioniByAccountAndIdAndDataInizio(Integer capsulaID, String userAccountEmail, String dataInizio) throws SQLException { 
+	  public synchronized Collection<Prenotazione> doRetrievePrenotazioniByAccountAndIdAndDataInizio(Integer capsulaID, String userAccountEmail, String dataInizio) throws SQLException { 
 		  ResultSet rs; 
 		  String query; 
 		  PreparedStatement pst=null;
@@ -970,7 +970,7 @@ public class PrenotazioneDao {
 	  }
 	  
 	  
-	  public synchronized Collection<Prenotazione> doRetrivePrenotazioniByAccountAndIdAndDataFine(Integer capsulaID, String userAccountEmail, String dataFine) throws SQLException { 
+	  public synchronized Collection<Prenotazione> doRetrievePrenotazioniByAccountAndIdAndDataFine(Integer capsulaID, String userAccountEmail, String dataFine) throws SQLException { 
 		  ResultSet rs; 
 		  String query; 
 		  PreparedStatement pst=null;
@@ -1027,7 +1027,7 @@ public class PrenotazioneDao {
 	  
 	  }
 
-	public Collection<Prenotazione> doRetrivePrenotazioneByCapsulaAndDataInizio(Integer numeroCapsulaSelect, String dataInizio) throws SQLException {
+	public Collection<Prenotazione> doRetrievePrenotazioneByCapsulaAndDataInizio(Integer numeroCapsulaSelect, String dataInizio) throws SQLException {
 		ResultSet rs; 
 		  String query; 
 		  PreparedStatement pst=null;
@@ -1084,7 +1084,7 @@ public class PrenotazioneDao {
 	}
 	
 	//visualizza le capsule prenotate fino a quella data 
-	public Collection<Prenotazione> doRetrivePrenotazioneByCapsulaAndDataFine(Integer numeroCapsulaSelect, String dataFine) throws SQLException {
+	public Collection<Prenotazione> doRetrievePrenotazioneByCapsulaAndDataFine(Integer numeroCapsulaSelect, String dataFine) throws SQLException {
 		ResultSet rs; 
 		  String query; 
 		  PreparedStatement pst=null;
@@ -1140,7 +1140,7 @@ public class PrenotazioneDao {
 		
 	}
 
-	public Collection<Prenotazione> doRetrivePrenotazioneByCapsulaAndDataInizioAndDataFine(Integer numeroCapsulaSelect, String dataInizio,
+	public Collection<Prenotazione> doRetrievePrenotazioneByCapsulaAndDataInizioAndDataFine(Integer numeroCapsulaSelect, String dataInizio,
 			String dataFine) throws SQLException {
 		ResultSet rs; 
 		  String query; 
@@ -1198,7 +1198,7 @@ public class PrenotazioneDao {
 	}
 
 	//prenotazioni in un range di tempo di un account preciso
-	public Collection<Prenotazione> doRetrivePrenotazioniByAccountAndDataInizioAndDataFine(String dataInizio, String account,
+	public Collection<Prenotazione> doRetrievePrenotazioniByAccountAndDataInizioAndDataFine(String dataInizio, String account,
 			String dataFine) throws SQLException {
 		ResultSet rs; 
 		  String query; 
