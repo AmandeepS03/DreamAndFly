@@ -107,4 +107,101 @@ public class PrenotazioneDaoIntegrationTest {
         // Controlla che tra queste ci sia quella appena creata
         assertTrue(list.stream().anyMatch(pr -> pr.getCodiceDiAccesso() == generatedId));
     }
+    
+    @Test
+    @Order(6)
+    public void testDoRetrievePrenotazioniByAll() throws SQLException {
+        // Parametri coerenti con quelli della prenotazione creata nel testDoSave
+        Integer capsulaID = 1;
+        String email = "mario.rossi@gmail.com";
+        String dataInizio = "2025-06-01";
+        String dataFine = "2025-06-30";
+
+        Collection<Prenotazione> results = dao.doRetrievePrenotazioniByAll(capsulaID, email, dataInizio, dataFine);
+
+        assertNotNull(results, "La lista non deve essere null");
+        assertFalse(results.isEmpty(), "Deve esserci almeno una prenotazione trovata");
+
+        boolean found = results.stream()
+            .anyMatch(p -> p.getCodiceDiAccesso() == generatedId);
+
+        assertTrue(found, "La prenotazione creata deve essere presente nei risultati");
+    }
+    
+    @Test
+    @Order(7)
+    public void testDoRetrievePrenotazioniByAll_NoResults() throws SQLException {
+        // Parametri che non dovrebbero mai trovare corrispondenze
+        Integer capsulaID = 9999; // ID inesistente
+        String email = "utente.inesistente@dreamfly.com"; // email non registrata
+        String dataInizio = "2030-01-01"; // ben oltre l'intervallo delle date salvate
+        String dataFine = "2030-12-31";
+
+        Collection<Prenotazione> results = dao.doRetrievePrenotazioniByAll(capsulaID, email, dataInizio, dataFine);
+
+        assertNotNull(results, "La lista deve essere non null");
+        assertTrue(results.isEmpty(), "Non deve esserci alcuna prenotazione trovata");
+    }
+
+    
+    @Test
+    @Order(8)
+    public void testDoRetrievePrenotazioniByDataFine() throws SQLException {
+        // Scegliamo una dataFine che includa la prenotazione salvata (15 giugno 2025)
+        String limiteDataFine = "2025-06-30";
+
+        Collection<Prenotazione> results = dao.doRetrievePrenotazioniByDataFine(limiteDataFine);
+
+        assertNotNull(results, "La lista non deve essere null");
+        assertFalse(results.isEmpty(), "Ci si aspetta almeno una prenotazione");
+
+        boolean found = results.stream()
+            .anyMatch(p -> p.getCodiceDiAccesso() == generatedId);
+
+        assertTrue(found, "La prenotazione con data_fine <= 2025-06-30 deve essere presente");
+    }
+    
+    @Test
+    @Order(9)
+    public void testDoRetrievePrenotazioniByDataFine_NoResults() throws SQLException {
+        String limiteDataFine = "2020-01-01"; // molto prima della data della prenotazione
+
+        Collection<Prenotazione> results = dao.doRetrievePrenotazioniByDataFine(limiteDataFine);
+
+        assertNotNull(results, "La lista deve essere non null");
+        assertTrue(results.isEmpty(), "Nessuna prenotazione deve essere trovata con data_fine <= 2020-01-01");
+    }
+    
+    @Test
+    @Order(10)
+    public void testDoRetrievePrenotazioniByDataInizio() throws SQLException {
+        // La prenotazione creata ha data_inizio = "2025-06-15"
+        String dataInizio = "2025-06-01";
+
+        Collection<Prenotazione> results = dao.doRetrievePrenotazioniByDataInizio(dataInizio);
+
+        assertNotNull(results, "La lista non deve essere null");
+        assertFalse(results.isEmpty(), "Almeno una prenotazione dovrebbe essere presente");
+
+        boolean found = results.stream()
+            .anyMatch(p -> p.getCodiceDiAccesso() == generatedId);
+
+        assertTrue(found, "La prenotazione con data_inizio >= 2025-06-01 deve essere trovata");
+    }
+
+    @Test
+    @Order(11)
+    public void testDoRetrievePrenotazioniByDataInizio_NoResults() throws SQLException {
+        // Nessuna prenotazione dovrebbe avere data_inizio dopo il 1° gennaio 2030
+        String dataInizio = "2030-01-01";
+
+        Collection<Prenotazione> results = dao.doRetrievePrenotazioniByDataInizio(dataInizio);
+
+        assertNotNull(results, "La lista deve essere non null");
+        assertTrue(results.isEmpty(), "Non ci dovrebbero essere prenotazioni dopo il 2030");
+    }
+
+
+
+
 }
