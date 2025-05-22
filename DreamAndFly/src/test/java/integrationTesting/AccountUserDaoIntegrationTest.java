@@ -17,23 +17,21 @@ public class AccountUserDaoIntegrationTest {
 
     private static DataSource dataSource;
     private AccountUserDao dao;
+    private static ConnectionTest connessionetest = new ConnectionTest();
 
     @BeforeAll
     public static void initDataSource() {
-        MysqlDataSource ds = new MysqlDataSource();
-        ds.setURL("jdbc:mysql://localhost:3306/dreamandfly_test");
-        ds.setUser("root"); // Sostituisci con il tuo utente
-        ds.setPassword("Amandeep"); // Sostituisci con la tua password
-        dataSource = ds;
+    	connessionetest.connessione();
+    	dataSource = connessionetest.getDataSource();
     }
 
     @BeforeEach
     public void setup() throws Exception {
         dao = new AccountUserDao(dataSource);
-        try (Connection conn = dataSource.getConnection(); 
-        	Statement stmt = conn.createStatement()) {
-            stmt.execute("DELETE FROM user_account");
-        }
+		/*
+		 * try (Connection conn = dataSource.getConnection(); Statement stmt =
+		 * conn.createStatement()) { stmt.execute("DELETE FROM user_account"); }
+		 */
     }
 
     @Test
