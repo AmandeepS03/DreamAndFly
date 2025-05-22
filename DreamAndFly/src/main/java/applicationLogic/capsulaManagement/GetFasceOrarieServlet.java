@@ -43,7 +43,7 @@ public class GetFasceOrarieServlet extends HttpServlet {
 		
 		
 		try {
-			request.setAttribute("listaFasceOrarie", tool.doRetriveAll() );
+			request.setAttribute("listaFasceOrarie", tool.doRetrieveAll() );
 			
 			
 		}catch (SQLException e){

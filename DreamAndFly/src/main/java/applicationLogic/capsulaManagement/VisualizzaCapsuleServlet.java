@@ -40,7 +40,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		Integer page = (Integer) request.getAttribute("page");
 		
 		try {
-			request.setAttribute("listaCapsule", tool.doRetriveAll() );
+			request.setAttribute("listaCapsule", tool.doRetrieveAll() );
 			
 			
 		}catch (SQLException e){
