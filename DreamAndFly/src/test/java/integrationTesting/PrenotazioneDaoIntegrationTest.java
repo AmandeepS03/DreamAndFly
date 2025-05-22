@@ -28,7 +28,7 @@ public class PrenotazioneDaoIntegrationTest {
         MysqlDataSource mysqlDs = new MysqlDataSource();
         mysqlDs.setURL("jdbc:mysql://localhost:3306/dreamandfly_test?serverTimezone=UTC");
         mysqlDs.setUser("root");
-        mysqlDs.setPassword("Basididati01");
+        mysqlDs.setPassword("Amandeep");
         ds = mysqlDs;
 
         // Pulisce solo i record creati dai test precedenti (opzionale)
