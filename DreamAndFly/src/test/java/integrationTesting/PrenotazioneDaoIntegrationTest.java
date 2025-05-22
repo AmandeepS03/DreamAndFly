@@ -21,15 +21,15 @@ public class PrenotazioneDaoIntegrationTest {
     private static DataSource ds;
     private PrenotazioneDao dao;
     private static int generatedId;
+    private static ConnectionTest connessionetest = new ConnectionTest();
+
 
     @BeforeAll
     public static void initDataSource() throws SQLException {
-        // Configura DataSource per MySQL
-        MysqlDataSource mysqlDs = new MysqlDataSource();
-        mysqlDs.setURL("jdbc:mysql://localhost:3306/dreamandfly_test?serverTimezone=UTC");
-        mysqlDs.setUser("root");
-        mysqlDs.setPassword("Amandeep");
-        ds = mysqlDs;
+  
+    	connessionetest.connessione();
+    	ds = connessionetest.getDataSource();
+
 
         // Pulisce solo i record creati dai test precedenti (opzionale)
         try (Connection con = ds.getConnection();
@@ -45,15 +45,6 @@ public class PrenotazioneDaoIntegrationTest {
 
     @Test
     @Order(1)
-    public void testDoRetrieveByKey_Existing() throws SQLException {
-        // Il dump contiene codice_di_accesso = 1
-        Prenotazione p = dao.doRetrieveByKey(1);
-        assertNotNull(p, "Prenotazione con ID=1 deve esistere");
-        assertEquals(1, p.getCodiceDiAccesso());
-    }
-
-    @Test
-    @Order(2)
     public void testDoSave() throws SQLException {
         Prenotazione p = new Prenotazione();
         p.setOrarioInizio("16:00");
@@ -77,6 +68,17 @@ public class PrenotazioneDaoIntegrationTest {
         assertEquals("16:00", saved.getOrarioInizio());
         assertEquals(55.0f, saved.getPrezzoTotale());
     }
+    
+    @Test
+    @Order(2)
+    public void testDoRetrieveByKey_Existing() throws SQLException {
+        // Il dump contiene codice_di_accesso = 1
+        Prenotazione p = dao.doRetrieveByKey(generatedId);
+        assertNotNull(p, "Prenotazione con ID="+generatedId+" deve esistere");
+        assertEquals(generatedId, p.getCodiceDiAccesso());
+    }
+
+    
 
     @Test
     @Order(3)
