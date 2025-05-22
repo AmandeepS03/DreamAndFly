@@ -26,8 +26,10 @@ public class PrenotazioneDaoIntegrationTest {
 
     @BeforeAll
     public static void initDataSource() throws SQLException {
+  
     	connessionetest.connessione();
     	ds = connessionetest.getDataSource();
+
 
         // Pulisce solo i record creati dai test precedenti (opzionale)
         try (Connection con = ds.getConnection();

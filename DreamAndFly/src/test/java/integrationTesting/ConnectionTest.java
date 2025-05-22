@@ -19,7 +19,7 @@ public class ConnectionTest {
 		MysqlDataSource ds = new MysqlDataSource();
         ds.setURL("jdbc:mysql://localhost:3306/dreamandfly_test");
         ds.setUser("root"); // Sostituisci con il tuo utente
-        ds.setPassword("Basididati01"); // Sostituisci con la tua password
+        ds.setPassword("Amandeep"); // Sostituisci con la tua password
         setDataSource(ds);
 	}
 
