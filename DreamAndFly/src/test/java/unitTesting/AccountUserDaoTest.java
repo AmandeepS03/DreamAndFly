@@ -1,6 +1,5 @@
 package unitTesting;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,7 +37,7 @@ class AccountUserDaoTest {
         dao = new AccountUserDao(mockDataSource);
     }
 
-    // TC5_1.1 - Email non presente
+    // TC5_1.1 - doRetrieveByKey: Email non presente
     @Test
     void TC5_1_1() throws Exception {
         when(mockResultSet.next()).thenReturn(false);
@@ -58,7 +57,7 @@ class AccountUserDaoTest {
         
     }
 
-    // TC5_1.2 - Email presente
+    // TC5_1.2 - doRetrieveByKey: Email presente
     @Test
     void TC5_1_2() throws Exception {
         when(mockResultSet.next()).thenReturn(true);

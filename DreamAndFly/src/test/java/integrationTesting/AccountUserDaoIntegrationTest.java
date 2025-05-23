@@ -61,7 +61,7 @@ public class AccountUserDaoIntegrationTest {
         user.setPassword("password123");
         user.setNumber("1234567890");
 
-        saveAndTrack(user);
+        saveAndTrack(user); 
 
         AccountUser retrieved = dao.doRetrieveByKey("test@email.com");
 
