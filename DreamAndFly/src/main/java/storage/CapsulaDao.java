@@ -108,7 +108,7 @@ private DataSource ds=null;
 		}
 	}
 	
-	public synchronized Collection<Capsula> doRetriveAll() throws SQLException {
+	public synchronized Collection<Capsula> doRetrieveAll() throws SQLException {
 	    Connection con=null;
 	    PreparedStatement pst=null;
 	    Collection<Capsula> capsulalist = new LinkedList<>();

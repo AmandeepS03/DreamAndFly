@@ -23,7 +23,6 @@ import storage.Prenotazione;
 import storage.PrenotazioneDao;
 import utils.HelperClass;
 import storage.FasciaOrariaDao;
-import storage.FasciaOraria;
 import storage.Prenotabile;
 import storage.PrenotabileDao;
 
@@ -65,7 +64,6 @@ public class PagamentoServlet extends HttpServlet {
 
 	
 		if(codicePrenotazione!=null) {
-			System.out.println("codice: "+ codicePrenotazione);
 			DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 	        PrenotazioneDao toolPrenotazione = new PrenotazioneDao(ds);
 	        Prenotazione prenotazione = new Prenotazione();
@@ -165,11 +163,7 @@ public class PagamentoServlet extends HttpServlet {
 			//Integer capsula_id = Integer.valueOf((String) request.getSession().getAttribute("capsulaId"));
 			
 			
-			System.out.println("orario inizio: "+ orario_inizio);
-			System.out.println("orario Fine: "+ orario_fine);
-			System.out.println("data Inizio: "+ dataInizio);
-			System.out.println("data fine: "+ dataFine);
-			System.out.println("id: "+ capsula_id);
+			
 			
 			//dataEffettuazione è la data odierna
 			LocalDate dataCorrente = LocalDate.now();
@@ -178,7 +172,6 @@ public class PagamentoServlet extends HttpServlet {
 	        // Trasformare la data in stringa
 	        String dataEffettuazione = dataCorrente.format(formatter);
 	        
-	        System.out.println("sono a 131");
 	        AccountUser user = (AccountUser) request.getSession().getAttribute("auth");	//TODO
 	        String account_user_email = user.getEmail();
 	 
@@ -188,7 +181,6 @@ public class PagamentoServlet extends HttpServlet {
 	        DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 	        PrenotazioneDao toolPrenotazione = new PrenotazioneDao(ds);
 	        try {
-	        	System.out.println("sono a 141");
 				int codiceDiAccesso = toolPrenotazione.doSave(savePrenotazione);
 				request.setAttribute("codiceDiAccesso", codiceDiAccesso);
 			} catch (SQLException e) {
@@ -197,18 +189,14 @@ public class PagamentoServlet extends HttpServlet {
 	        
 	       	//b) eliminare da 'e_prenotabile' le date e fasce orarie non piu prenotabili (query=doDelete da chiamare tante quante sono le cose da eliminare. 
 			//Per ogni giorno prenotato e per ogni fascia oraria prenotata)
-	        System.out.println("sono a 150");
 	        LocalDate dataInizioDate = LocalDate.parse(dataInizio);
 			LocalDate dataFineDate = LocalDate.parse(dataFine);
 	        FasciaOrariaDao toolFasciaOraria = new FasciaOrariaDao(ds);
-	        System.out.println("sono a 154");
 	        int orarioInizioInt=0;
 	        int orarioFineInt=0;
 	        PrenotabileDao toolPrenotabile=new PrenotabileDao(ds);
-	        System.out.println("sono a 157");
 				        
 	        try {
-	        	System.out.println("sono a 158");
 				orarioInizioInt = toolFasciaOraria.doRetrieveByOrarioInizio(orario_inizio);
 				orarioFineInt = toolFasciaOraria.doRetrieveByOrarioFine(orario_fine);
 			} catch (SQLException e) {
@@ -219,7 +207,6 @@ public class PagamentoServlet extends HttpServlet {
 			if(dataInizioDate.equals(dataFineDate)) {
 				for(int fascia = orarioInizioInt; fascia<= orarioFineInt; fascia ++) {
 					try {
-						System.out.println("sono a 169");
 						toolPrenotabile.doDelete(dataInizio,capsula_id,fascia);						
 					}catch (SQLException e){
 						logger.log(Level.WARNING, "Problema Sql!",e);
@@ -255,7 +242,6 @@ public class PagamentoServlet extends HttpServlet {
 	        
 	        
 			
-			System.out.println("sono a 203");
 		//ridirezionare a confermaPagamento.jsp: salva il codice generato(request.setAttribute()) e scrivilo in conferma pagamento.
 	        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Interface/UtenteRegistratoGUI/ConfermaPrenotazione.jsp");
 		    dispatcher.forward(request, response);	

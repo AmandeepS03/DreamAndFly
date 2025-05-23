@@ -53,8 +53,8 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 		//non inserisce nessun filtro: mostra tutto
 		if(vuota(numeroCapsula) && vuota( account) && vuota( dataInizio) && vuota( dataFine) ) {
 			try {
-				request.setAttribute("listaPrenotazioni", pDao.doRetriveAll());
-				request.setAttribute("listaPrenotabili", prenotabileDao.doRetriveAll() );
+				request.setAttribute("listaPrenotazioni", pDao.doRetrieveAll());
+				request.setAttribute("listaPrenotabili", prenotabileDao.doRetrieveAll() );
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} 
@@ -64,8 +64,8 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 		if(!vuota(numeroCapsula) && vuota( account) && vuota( dataInizio) && !vuota( dataFine) ) {
 			try {
 				Integer numeroCapsulaSelect = Integer.parseInt(request.getParameter("numeroCapsula")); 
-				request.setAttribute("listaPrenotazioneByCapsulaAndDataFine", pDao.doRetrivePrenotazioneByCapsulaAndDataFine(numeroCapsulaSelect,dataFine));
-				request.setAttribute("listaPrenotabiliByCapsulaAndDataFine", prenotabileDao.doRetrivePrenotabiliByCapsulaAndDataFine(numeroCapsulaSelect,dataFine));
+				request.setAttribute("listaPrenotazioneByCapsulaAndDataFine", pDao.doRetrievePrenotazioneByCapsulaAndDataFine(numeroCapsulaSelect,dataFine));
+				request.setAttribute("listaPrenotabiliByCapsulaAndDataFine", prenotabileDao.doRetrievePrenotabiliByCapsulaAndDataFine(numeroCapsulaSelect,dataFine));
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} 
@@ -79,7 +79,7 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 			  Integer numeroCapsulaSelect = Integer.parseInt(request.getParameter("numeroCapsula")); 
 			  
 				  try {
-					request.setAttribute("listaPrenotazioneByCapsula", pDao.doRetrivePrenotazioniByNumeroCapsulaAll(numeroCapsulaSelect));
+					request.setAttribute("listaPrenotazioneByCapsula", pDao.doRetrievePrenotazioniByNumeroCapsulaAll(numeroCapsulaSelect));
 					request.setAttribute("listaPrenotabiliByCapsula", prenotabileDao.doRetrieveById(numeroCapsulaSelect));
 					
 				} catch (SQLException e) {
@@ -95,8 +95,8 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 			  
 			  Integer numeroCapsulaSelect = Integer.parseInt(request.getParameter("numeroCapsula"));   
 				  try {
-					request.setAttribute("listaPrenotazioneByCapsulaAndDataInizio", pDao.doRetrivePrenotazioneByCapsulaAndDataInizio(numeroCapsulaSelect,dataInizio));
-					request.setAttribute("listaPrenotabiliByCapsulaAndDataInizio", prenotabileDao.doRetrivePrenotabiliByCapsulaAndDataInizio(numeroCapsulaSelect,dataInizio));
+					request.setAttribute("listaPrenotazioneByCapsulaAndDataInizio", pDao.doRetrievePrenotazioneByCapsulaAndDataInizio(numeroCapsulaSelect,dataInizio));
+					request.setAttribute("listaPrenotabiliByCapsulaAndDataInizio", prenotabileDao.doRetrievePrenotabiliByCapsulaAndDataInizio(numeroCapsulaSelect,dataInizio));
 					
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -111,8 +111,8 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 			  
 			  Integer numeroCapsulaSelect = Integer.parseInt(request.getParameter("numeroCapsula"));   
 				  try {
-					request.setAttribute("listaPrenotazioneByCapsulaAndDataInizioAndDataFine", pDao.doRetrivePrenotazioneByCapsulaAndDataInizioAndDataFine(numeroCapsulaSelect,dataInizio,dataFine));
-					request.setAttribute("listaPrenotabiliByCapsulaAndDataInizioAndDataFine", prenotabileDao.doRetrivePrenotabileByCapsulaAndDataInizioAndDataFine(numeroCapsulaSelect,dataInizio,dataFine));
+					request.setAttribute("listaPrenotazioneByCapsulaAndDataInizioAndDataFine", pDao.doRetrievePrenotazioneByCapsulaAndDataInizioAndDataFine(numeroCapsulaSelect,dataInizio,dataFine));
+					request.setAttribute("listaPrenotabiliByCapsulaAndDataInizioAndDataFine", prenotabileDao.doRetrievePrenotabileByCapsulaAndDataInizioAndDataFine(numeroCapsulaSelect,dataInizio,dataFine));
 					
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -124,7 +124,7 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 		//insersce solo l'account
 		if(!vuota( account) && vuota( dataInizio) && vuota( dataFine) && vuota( numeroCapsula)) {
 			try {
-				request.setAttribute("listaPrenotazioneByAccount", pDao.doRetrivePrenotazioniByAccount(request.getParameter("account")));
+				request.setAttribute("listaPrenotazioneByAccount", pDao.doRetrievePrenotazioniByAccount(request.getParameter("account")));
 			} catch (SQLException e) {
 					e.printStackTrace();
 			}
@@ -135,7 +135,7 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 		if(!vuota(dataInizio) && vuota( dataFine) && vuota( account) && vuota( numeroCapsula)) {
 			try {
 				
-				request.setAttribute("listaPrenotazioneByDate", pDao.doRetrivePrenotazioniByDataInizio(request.getParameter("dataInizio")));
+				request.setAttribute("listaPrenotazioneByDate", pDao.doRetrievePrenotazioniByDataInizio(request.getParameter("dataInizio")));
 				request.setAttribute("listaPrenotabileByDateInizio", prenotabileDao.doRetrieveByDataInizio(request.getParameter("dataInizio")));
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -146,7 +146,7 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 		//inserisce solo la data di fine
 		if(!vuota( dataFine) &&  vuota( dataInizio) && vuota( account) && vuota( numeroCapsula)) {
 			try {
-				request.setAttribute("listaPrenotazioneByDateFine", pDao.doRetrivePrenotazioniByDataFine(request.getParameter("dataFine")));
+				request.setAttribute("listaPrenotazioneByDateFine", pDao.doRetrievePrenotazioniByDataFine(request.getParameter("dataFine")));
 				request.setAttribute("listaPrenotabileByDateFine", prenotabileDao.doRetrieveByDataFine(request.getParameter("dataFine")));
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -156,7 +156,7 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 		//inserisce la data di inizio e la data di fine, ma non il numero capsula e l account 
 		if(!vuota(dataInizio) && !vuota(dataFine) && vuota( account) && vuota( numeroCapsula)) {
 			try {
-				request.setAttribute("listaPrenotazioneByDateInizioAndFine", pDao.doRetrivePrenotazioniByDataInizioAndFine(request.getParameter("dataInizio"), request.getParameter("dataFine") ));
+				request.setAttribute("listaPrenotazioneByDateInizioAndFine", pDao.doRetrievePrenotazioniByDataInizioAndFine(request.getParameter("dataInizio"), request.getParameter("dataFine") ));
 				request.setAttribute("listaPrenotabileByDateInizioAndFine", prenotabileDao.doRetrieveByDataInizioAndDataFine(request.getParameter("dataInizio"), request.getParameter("dataFine") ));
 
 			} catch (SQLException e) {
@@ -167,7 +167,7 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 		//inserisce la data di inizio e l account, ma non la data di fine e il numero capsula
 		if(!vuota(dataInizio) && !vuota(account) && vuota( dataFine) && vuota( numeroCapsula)) {
 			try {
-				request.setAttribute("prenotazioneByDateInizioAndAccount", pDao.doRetrivePrenotazioniByDataInizioAndAccount(dataInizio,account ));
+				request.setAttribute("prenotazioneByDateInizioAndAccount", pDao.doRetrievePrenotazioniByDataInizioAndAccount(dataInizio,account ));
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -187,7 +187,7 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 			
 			Integer numeroCapsulaSelected = Integer.parseInt(request.getParameter("numeroCapsula")); 
 			try {
-				request.setAttribute("prenotazioneByNumeroCapsulaAndAccount", pDao.doRetrivePrenotazioniByNumeroCapsulaAndAccount(numeroCapsulaSelected, account  ));
+				request.setAttribute("prenotazioneByNumeroCapsulaAndAccount", pDao.doRetrievePrenotazioniByNumeroCapsulaAndAccount(numeroCapsulaSelected, account  ));
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -200,7 +200,7 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 			
 			Integer numeroCapsulaSelected = Integer.parseInt(request.getParameter("numeroCapsula")); 
 			try {
-				request.setAttribute("prenotazioneByAll", pDao.doRetrivePrenotazioniByAll(numeroCapsulaSelected, account, dataInizio, dataFine  ));
+				request.setAttribute("prenotazioneByAll", pDao.doRetrievePrenotazioniByAll(numeroCapsulaSelected, account, dataInizio, dataFine  ));
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -212,7 +212,7 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 			
 			Integer numeroCapsulaSelected = Integer.parseInt(request.getParameter("numeroCapsula")); 
 			try {
-				request.setAttribute("prenotazioneByAccountAndIdAndDataInizio", pDao.doRetrivePrenotazioniByAccountAndIdAndDataInizio(numeroCapsulaSelected, account, dataInizio));
+				request.setAttribute("prenotazioneByAccountAndIdAndDataInizio", pDao.doRetrievePrenotazioniByAccountAndIdAndDataInizio(numeroCapsulaSelected, account, dataInizio));
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -222,7 +222,7 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 		//inserisce data inizio, data fine, account
 		if( !vuota( account) && vuota( numeroCapsula) && !vuota(dataFine) && !vuota( dataInizio)) {
 			try {
-				request.setAttribute("listaPrenotazioneByAccountAndDataInizioAndDataFine", pDao.doRetrivePrenotazioniByAccountAndDataInizioAndDataFine(dataInizio, account, dataFine));
+				request.setAttribute("listaPrenotazioneByAccountAndDataInizioAndDataFine", pDao.doRetrievePrenotazioniByAccountAndDataInizioAndDataFine(dataInizio, account, dataFine));
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -234,7 +234,7 @@ public class VisualizzaPrenotazioniGestoreFiltriServlet extends HttpServlet {
 			
 			Integer numeroCapsulaSelected = Integer.parseInt(request.getParameter("numeroCapsula")); 
 			try {
-				request.setAttribute("prenotazioneByAccountAndIdAndDataFine", pDao.doRetrivePrenotazioniByAccountAndIdAndDataFine(numeroCapsulaSelected, account, dataFine));
+				request.setAttribute("prenotazioneByAccountAndIdAndDataFine", pDao.doRetrievePrenotazioniByAccountAndIdAndDataFine(numeroCapsulaSelected, account, dataFine));
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

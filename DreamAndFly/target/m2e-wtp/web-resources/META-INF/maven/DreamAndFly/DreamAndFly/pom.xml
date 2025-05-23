@@ -1,9 +1,19 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>DreamAndFly</groupId>
   <artifactId>DreamAndFly</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <selenium.version>4.10.0</selenium.version>
+    <junit.version>5.10.0</junit.version>
+    <mockito.version>5.12.0</mockito.version>
+  </properties>
+
   <build>
     <plugins>
       <plugin>
@@ -20,20 +30,56 @@
           <warSourceDirectory>WEBCONTENT</warSourceDirectory>
         </configuration>
       </plugin>
+      <!-- Plugin per eseguire i test JUnit 5 -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.1.2</version>
+      </plugin>
     </plugins>
   </build>
+
   <dependencies>
-  	<dependency>
-  		<groupId>org.junit.jupiter</groupId>
-  		<artifactId>junit-jupiter-api</artifactId>
-  		<version>5.8.1</version>
-  		<scope>test</scope>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.mockito</groupId>
-  		<artifactId>mockito-core</artifactId>
-  		<version>5.9.0</version>
-  		<scope>test</scope>
-  	</dependency>
+    <!-- Selenium WebDriver -->
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>${selenium.version}</version>
+    </dependency>
+
+    <!-- JUnit 5 -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    
+    <dependency>
+    <groupId>io.github.bonigarcia</groupId>
+    <artifactId>webdrivermanager</artifactId>
+    <version>5.6.3</version> <!-- Ultima versione disponibile -->
+    <scope>test</scope>
+</dependency>
+
+    <!-- Mockito -->
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>${mockito.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-junit-jupiter</artifactId>
+      <version>${mockito.version}</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 </project>

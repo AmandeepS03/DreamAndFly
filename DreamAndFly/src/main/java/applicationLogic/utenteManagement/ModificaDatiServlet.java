@@ -34,7 +34,6 @@ public class ModificaDatiServlet extends HttpServlet {
 		String email = "";
 		//se sto reimpostando da password dimenticata
 		String pageModifica = (String) request.getSession().getAttribute("pageModifica");
-		System.out.println("PageModifica:" + pageModifica);
 		if(pageModifica!= null && pageModifica.equals("1")) {
 			email = (String) request.getSession().getAttribute("email");
 		}else {

@@ -25,6 +25,8 @@ private DataSource ds=null;
 		this.ds=ds;
 	}
 
+
+
 	public AccountUser doRetrieveByKey(String email) throws SQLException {
 		ResultSet rs;
 		String query;
@@ -136,7 +138,7 @@ public void doSave(AccountUser user) throws SQLException {
 	}
 }
 
-	public synchronized Collection<AccountUser> doRetriveAll() throws SQLException {
+	public synchronized Collection<AccountUser> doRetrieveAll() throws SQLException {
 	    Connection con=null;
 	    PreparedStatement pst=null;
 	    Collection<AccountUser> accountlist = new LinkedList<>();
@@ -208,6 +210,7 @@ public void doSaveGestore(AccountUser user) throws SQLException {
 		pst.setString(5,user.getNumber());
 		pst.setInt(6, user.getRuolo());
 		pst.executeUpdate();
+		
 	}finally {
 		try {
 			if(pst != null)

@@ -5,9 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.Collection;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -157,230 +155,9 @@ public class PrenotazioneDao {
 			}
 		}
 	}
-
-	public synchronized Collection<Prenotazione> doRetrieveByDataInizio(String dataInizio) throws SQLException {
-		ResultSet rs;
-		String query;
-		PreparedStatement pst = null;
-		Connection con = null;
-		Collection<Prenotazione> prenotazionelist = new LinkedList<>();
-		Prenotazione prenotazione = new Prenotazione();
-		try {
-			con = ds.getConnection();
-			query = "select * from prenotazione where dataInizio >= ? order by data_inizio ASC"; /**/
-			pst = con.prepareStatement(query);
-			pst.setString(1, dataInizio);
-			rs = pst.executeQuery();
-
-			while (rs.next()) {
-
-				prenotazione.setCodiceDiAccesso(rs.getInt("codice_di_accesso"));
-				prenotazione.setOrarioInizio(rs.getString("orario_inizio"));
-				prenotazione.setOrarioFine(rs.getString("orario_fine"));
-				prenotazione.setDataInizio(rs.getString("data_inizio"));
-				prenotazione.setDataFine(rs.getString("data_fine"));
-				prenotazione.setPrezzoTotale(rs.getFloat("prezzo_totale"));
-				prenotazione.setDataEffettuazione(rs.getString("data_effettuazione"));
-				prenotazione.setValidita(rs.getBoolean("validita"));
-				prenotazione.setRimborso(rs.getFloat("rimborso"));
-				prenotazione.setUserAccountEmail(rs.getString("user_account_email"));
-				prenotazione.setCapsulaId(rs.getInt("capsula_id"));
-				prenotazionelist.add(prenotazione);
-			}
-
-		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage());
-			logger.log(Level.SEVERE, e.getMessage());
-		} finally {
-			try {
-				if (pst != null)
-					pst.close();
-			} finally {
-				if (con != null)
-					con.close();
-			}
-
-		}
-		return prenotazionelist;
-
-	}
-
-	public  synchronized Collection<Prenotazione> doRetrieveByDataInizioAndDataFine(String dataInizio, String dataFine) throws SQLException {
-		ResultSet rs;
-		String query;
-		PreparedStatement pst = null;
-		Connection con = null;
-		Collection<Prenotazione> prenotazionelist = new LinkedList<>();
-		Prenotazione prenotazione = new Prenotazione();
-		try {
-			con = ds.getConnection();
-			query = "select * from prenotazione where data_inizio >= ? AND data_fine <= ? order by data_fine ASC";
-			pst = con.prepareStatement(query);
-			pst.setString(1, dataInizio);
-			pst.setString(2, dataFine);
-			rs = pst.executeQuery();
-			
-			if (rs.next()) {
-
-				prenotazione.setCodiceDiAccesso(rs.getInt("codice_di_accesso"));
-				prenotazione.setOrarioInizio(rs.getString("orario_inizio"));
-				prenotazione.setOrarioFine(rs.getString("orario_fine"));
-				prenotazione.setDataInizio(rs.getString("data_inizio"));
-				prenotazione.setDataFine(rs.getString("data_fine"));
-				prenotazione.setPrezzoTotale(rs.getFloat("prezzo_totale"));
-				prenotazione.setDataEffettuazione(rs.getString("data_effettuazione"));
-				prenotazione.setValidita(rs.getBoolean("validita"));
-				prenotazione.setRimborso(rs.getFloat("rimborso"));
-				prenotazione.setUserAccountEmail(rs.getString("user_account_email"));
-				prenotazione.setCapsulaId(rs.getInt("capsula_id"));
-				prenotazionelist.add(prenotazione);
-			}
-
-		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage());
-			logger.log(Level.SEVERE, e.getMessage());
-		} finally {
-			try {
-				if (pst != null)
-					pst.close();
-			} finally {
-				if (con != null)
-					con.close();
-			}
-
-		}
-		return prenotazionelist;
-
-	}
-
-	public synchronized Prenotazione doRetrieveByDataFine(String dataFine) throws SQLException {
-		ResultSet rs;
-		String query;
-		PreparedStatement pst = null;
-		Connection con = null;
-		Prenotazione prenotazione = new Prenotazione();
-		Collection<Prenotazione> prenotazionelist = new LinkedList<>();
-		try {
-			con = ds.getConnection();
-			query = "select * from prenotazione where data_fine <= ? order by data_fine DESC"; /*mostra le prenotazioni dalla data di fine fino alla prima prenotazione*/
-			pst = con.prepareStatement(query);
-			pst.setString(1, dataFine);
-			rs = pst.executeQuery();
-			
-			if (rs.next()) {
-
-				prenotazione.setCodiceDiAccesso(rs.getInt("codice_di_accesso"));
-				prenotazione.setOrarioInizio(rs.getString("orario_inizio"));
-				prenotazione.setOrarioFine(rs.getString("orario_fine"));
-				prenotazione.setDataInizio(rs.getString("data_inizio"));
-				prenotazione.setDataFine(rs.getString("data_fine"));
-				prenotazione.setPrezzoTotale(rs.getFloat("prezzo_totale"));
-				prenotazione.setDataEffettuazione(rs.getString("data_effettuazione"));
-				prenotazione.setValidita(rs.getBoolean("validita"));
-				prenotazione.setRimborso(rs.getFloat("rimborso"));
-				prenotazione.setUserAccountEmail(rs.getString("user_account_email"));
-				prenotazione.setCapsulaId(rs.getInt("capsula_id"));
-				prenotazionelist.add(prenotazione);
-			}
-
-		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage());
-			logger.log(Level.SEVERE, e.getMessage());
-		} finally {
-			try {
-				if (pst != null)
-					pst.close();
-			} finally {
-				if (con != null)
-					con.close();
-			}
-
-		}
-		return prenotazione;
-
-	}
-
 	
-
-	public synchronized Prenotazione doRetrieveByNumeroCapsula(Integer numeroCapsula) throws SQLException {
-		ResultSet rs;
-		String query;
-		PreparedStatement pst = null;
-		Connection con = null;
-		Prenotazione prenotazione = new Prenotazione();
-		try {
-			con = ds.getConnection();
-			query = "select * from prenotazione where numeroCapsula = ? "; /**/
-			pst = con.prepareStatement(query);
-			pst.setInt(1, numeroCapsula);
-			rs = pst.executeQuery();
-
-			if (rs.next()) {
-
-				prenotazione.setCodiceDiAccesso(rs.getInt("codice_di_accesso"));
-				prenotazione.setOrarioInizio(rs.getString("orario_inizio"));
-				prenotazione.setOrarioFine(rs.getString("orario_fine"));
-				prenotazione.setDataInizio(rs.getString("data_inizio"));
-				prenotazione.setDataFine(rs.getString("data_fine"));
-				prenotazione.setPrezzoTotale(rs.getFloat("prezzo_totale"));
-				prenotazione.setDataEffettuazione(rs.getString("data_effettuazione"));
-				prenotazione.setValidita(rs.getBoolean("validita"));
-				prenotazione.setRimborso(rs.getFloat("rimborso"));
-				prenotazione.setUserAccountEmail(rs.getString("user_account_email"));
-				prenotazione.setCapsulaId(rs.getInt("capsula_id"));
-
-			}
-
-		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage());
-			logger.log(Level.SEVERE, e.getMessage());
-		} finally {
-			try {
-				if (pst != null)
-					pst.close();
-			} finally {
-				if (con != null)
-					con.close();
-			}
-
-		}
-		return prenotazione;
-
-	}
-	
-	public synchronized Prenotazione deletePrenotazione(Integer codicediAccesso) throws SQLException {
-		ResultSet rs;
-		String query;
-		PreparedStatement pst = null;
-		Connection con = null;
-		Prenotazione prenotazione = new Prenotazione();
-		try {
-			con = ds.getConnection();
-			query = "delete from prenotazione where codice_di_accesso = ? "; /**/
-			pst = con.prepareStatement(query);
-			pst.setInt(1, codicediAccesso);
-			int numeroRighe = pst.executeUpdate();
-			
-			
-
-		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.getMessage());
-			logger.log(Level.SEVERE, e.getMessage());
-		} finally {
-			try {
-				if (pst != null)
-					pst.close();
-			} finally {
-				if (con != null)
-					con.close();
-			}
-
-		}
-		return prenotazione;
-
-	}
 	//gestore 
-		public synchronized Collection<Prenotazione> doRetriveAll() throws SQLException {
+		public synchronized Collection<Prenotazione> doRetrieveAll() throws SQLException {
 			Connection con = null;
 			PreparedStatement pst = null;
 			Collection<Prenotazione> prenotazionelist = new LinkedList<>();
@@ -424,7 +201,7 @@ public class PrenotazioneDao {
 			
 	
 
-	  public synchronized Collection<PrenotazioneWrapper> doRetriveByEmail(String email,int chiamante) throws SQLException { 
+	  public synchronized Collection<PrenotazioneWrapper> doRetrieveByEmail(String email,int chiamante) throws SQLException { 
 		  ResultSet rs; 
 		  String query; 
 		  PreparedStatement pst=null;
@@ -487,7 +264,7 @@ public class PrenotazioneDao {
 	  }
 
 		
-	  public synchronized Collection<Prenotazione> doRetriveEmailWithPrenotazione() throws SQLException { 
+	  public synchronized Collection<Prenotazione> doRetrieveEmailWithPrenotazione() throws SQLException { 
 		  ResultSet rs; 
 		  String query; 
 		  PreparedStatement pst=null;
@@ -530,7 +307,7 @@ public class PrenotazioneDao {
 	  }
 	  
 	  
-	  public synchronized Collection<Prenotazione> doRetrivePrenotazioniByNumeroCapsulaAll(Integer numeroCapsula) throws SQLException { 
+	  public synchronized Collection<Prenotazione> doRetrievePrenotazioniByNumeroCapsulaAll(Integer numeroCapsula) throws SQLException { 
 		  ResultSet rs; 
 		  String query; 
 		  PreparedStatement pst=null;
@@ -587,7 +364,7 @@ public class PrenotazioneDao {
 	  
 	  
 	  
-	  public synchronized Collection<Prenotazione> doRetrivePrenotazioniByAccount(String email) throws SQLException { 
+	  public synchronized Collection<Prenotazione> doRetrievePrenotazioniByAccount(String email) throws SQLException { 
 		  ResultSet rs; 
 		  String query; 
 		  PreparedStatement pst=null;
@@ -641,7 +418,7 @@ public class PrenotazioneDao {
 	  
 	  }
 	  
-	  public synchronized Collection<Prenotazione> doRetrivePrenotazioniByDataInizio(String dataInizio) throws SQLException { 
+	  public synchronized Collection<Prenotazione> doRetrievePrenotazioniByDataInizio(String dataInizio) throws SQLException { 
 		  ResultSet rs; 
 		  String query; 
 		  PreparedStatement pst=null;
@@ -691,16 +468,12 @@ public class PrenotazioneDao {
 	  
 	  } 
 	  
-	  System.out.println("Prenotazioni: ");
-	  for(Prenotazione p: prenotazionelist) {
-		  System.out.println(p.getDataInizio());
-	  }
 	  
 	  return prenotazionelist;
 	  
 	  }
 	  
-	  public synchronized Collection<Prenotazione> doRetrivePrenotazioniByDataFine(String dataFine) throws SQLException { 
+	  public synchronized Collection<Prenotazione> doRetrievePrenotazioniByDataFine(String dataFine) throws SQLException { 
 		  ResultSet rs; 
 		  String query; 
 		  PreparedStatement pst=null;
@@ -756,7 +529,7 @@ public class PrenotazioneDao {
 	  }
 	  
 	  
-	  public synchronized Collection<Prenotazione> doRetrivePrenotazioniByDataInizioAndFine(String dataInizio, String dataFine) throws SQLException { 
+	  public synchronized Collection<Prenotazione> doRetrievePrenotazioniByDataInizioAndFine(String dataInizio, String dataFine) throws SQLException { 
 		  ResultSet rs; 
 		  String query; 
 		  PreparedStatement pst=null;
@@ -813,7 +586,7 @@ public class PrenotazioneDao {
 	  }
 	  
 	   
-	  public synchronized Collection<Prenotazione> doRetrivePrenotazioniByDataInizioAndAccount(String dataInizio, String userAccountEmail) throws SQLException { 
+	  public synchronized Collection<Prenotazione> doRetrievePrenotazioniByDataInizioAndAccount(String dataInizio, String userAccountEmail) throws SQLException { 
 		  ResultSet rs; 
 		  String query; 
 		  PreparedStatement pst=null;
@@ -925,7 +698,7 @@ public class PrenotazioneDao {
 	  
 	  }
 	
-	  public synchronized Collection<Prenotazione> doRetrivePrenotazioniByNumeroCapsulaAndAccount(Integer capsulaID, String userAccountEmail) throws SQLException { 
+	  public synchronized Collection<Prenotazione> doRetrievePrenotazioniByNumeroCapsulaAndAccount(Integer capsulaID, String userAccountEmail) throws SQLException { 
 		  ResultSet rs; 
 		  String query; 
 		  PreparedStatement pst=null;
@@ -981,7 +754,7 @@ public class PrenotazioneDao {
 	  
 	  }
 	  
-	  public synchronized Collection<Prenotazione> doRetrivePrenotazioniByAll(Integer capsulaID, String userAccountEmail, String dataInizio, String dataFine) throws SQLException { 
+	  public synchronized Collection<Prenotazione> doRetrievePrenotazioniByAll(Integer capsulaID, String userAccountEmail, String dataInizio, String dataFine) throws SQLException { 
 		  ResultSet rs; 
 		  String query; 
 		  PreparedStatement pst=null;
@@ -1039,7 +812,7 @@ public class PrenotazioneDao {
 	  
 	  }
 	  
-	  public synchronized Collection<Prenotazione> doRetrivePrenotazioniByAccountAndIdAndDataInizio(Integer capsulaID, String userAccountEmail, String dataInizio) throws SQLException { 
+	  public synchronized Collection<Prenotazione> doRetrievePrenotazioniByAccountAndIdAndDataInizio(Integer capsulaID, String userAccountEmail, String dataInizio) throws SQLException { 
 		  ResultSet rs; 
 		  String query; 
 		  PreparedStatement pst=null;
@@ -1097,7 +870,7 @@ public class PrenotazioneDao {
 	  }
 	  
 	  
-	  public synchronized Collection<Prenotazione> doRetrivePrenotazioniByAccountAndIdAndDataFine(Integer capsulaID, String userAccountEmail, String dataFine) throws SQLException { 
+	  public synchronized Collection<Prenotazione> doRetrievePrenotazioniByAccountAndIdAndDataFine(Integer capsulaID, String userAccountEmail, String dataFine) throws SQLException { 
 		  ResultSet rs; 
 		  String query; 
 		  PreparedStatement pst=null;
@@ -1154,7 +927,7 @@ public class PrenotazioneDao {
 	  
 	  }
 
-	public Collection<Prenotazione> doRetrivePrenotazioneByCapsulaAndDataInizio(Integer numeroCapsulaSelect, String dataInizio) throws SQLException {
+	public Collection<Prenotazione> doRetrievePrenotazioneByCapsulaAndDataInizio(Integer numeroCapsulaSelect, String dataInizio) throws SQLException {
 		ResultSet rs; 
 		  String query; 
 		  PreparedStatement pst=null;
@@ -1211,7 +984,7 @@ public class PrenotazioneDao {
 	}
 	
 	//visualizza le capsule prenotate fino a quella data 
-	public Collection<Prenotazione> doRetrivePrenotazioneByCapsulaAndDataFine(Integer numeroCapsulaSelect, String dataFine) throws SQLException {
+	public Collection<Prenotazione> doRetrievePrenotazioneByCapsulaAndDataFine(Integer numeroCapsulaSelect, String dataFine) throws SQLException {
 		ResultSet rs; 
 		  String query; 
 		  PreparedStatement pst=null;
@@ -1267,7 +1040,7 @@ public class PrenotazioneDao {
 		
 	}
 
-	public Collection<Prenotazione> doRetrivePrenotazioneByCapsulaAndDataInizioAndDataFine(Integer numeroCapsulaSelect, String dataInizio,
+	public Collection<Prenotazione> doRetrievePrenotazioneByCapsulaAndDataInizioAndDataFine(Integer numeroCapsulaSelect, String dataInizio,
 			String dataFine) throws SQLException {
 		ResultSet rs; 
 		  String query; 
@@ -1325,7 +1098,7 @@ public class PrenotazioneDao {
 	}
 
 	//prenotazioni in un range di tempo di un account preciso
-	public Collection<Prenotazione> doRetrivePrenotazioniByAccountAndDataInizioAndDataFine(String dataInizio, String account,
+	public Collection<Prenotazione> doRetrievePrenotazioniByAccountAndDataInizioAndDataFine(String dataInizio, String account,
 			String dataFine) throws SQLException {
 		ResultSet rs; 
 		  String query; 
