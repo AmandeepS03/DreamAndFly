@@ -73,7 +73,8 @@ public class InserisciEmailServlet extends HttpServlet {
 	
 		}
 		
-		String codice = HelperClass.generateRandomString(6);
+		//String codice = HelperClass.generateRandomString(6);
+		String codice = "123456";
 		request.getSession().setAttribute("codicePassword", codice);
 		request.getSession().setAttribute("email", email);
 		

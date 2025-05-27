@@ -25,7 +25,7 @@
 					<label for="email">Email:</label> <input type="email" id="email"
 						name="email" required>
 				</div>
-				<p  style="color:red "> <%=error %> </p> 				
+				<p style="color:red " id="errorEmail"> <%=error %> </p> 				
 
 				<button type="submit" onclick="errorLogin()">Invia</button>
 			</form>

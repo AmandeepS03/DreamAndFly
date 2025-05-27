@@ -25,7 +25,7 @@
 					<label for="codice">Codice:</label> <input type="text" id="codice"
 						name="codice" required maxlength="6" >
 				</div>
-				<p  style="color:red "> <%=error %> </p> 				
+				<p  id="errorCodice" style="color:red "> <%=error %> </p> 				
 
 				<button type="submit">Invia</button>
 			</form>
