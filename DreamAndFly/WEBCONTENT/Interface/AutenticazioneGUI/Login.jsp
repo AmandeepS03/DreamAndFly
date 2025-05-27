@@ -33,7 +33,9 @@
 						id="password" name="password" required>
 				</div>
 				
+
 			<p  id= "errorLogin" style="color:red "> <%=error %> </p> 
+
 				
 				
 

@@ -206,7 +206,7 @@
 	%>
 	
 	<table id="accountTable" border="1">
-				
+				<caption>Prenotazioni</caption>
 
 				<tr>
 					<th>Codice prenotazione</th>
@@ -495,7 +495,7 @@
 			
 			
 			<table id="accountTable2" border="1">
-				
+				<caption>Disponibilità</caption>
 
 				<tr>
 					<th>Numero capsula</th>

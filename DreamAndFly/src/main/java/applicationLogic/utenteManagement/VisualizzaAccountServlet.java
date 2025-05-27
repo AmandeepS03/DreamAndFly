@@ -40,8 +40,8 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		AccountUserDao tool=new AccountUserDao(ds);
 		
 		try {
-			request.setAttribute("listaUtenti", tool.doRetriveAll() );
-			request.setAttribute("listaUtentiPerSelect", tool.doRetriveAll() );
+			request.setAttribute("listaUtenti", tool.doRetrieveAll() );
+			request.setAttribute("listaUtentiPerSelect", tool.doRetrieveAll() );
 			
 		}catch (SQLException e){
 			logger.log(Level.WARNING, "Problema Sql!",e);

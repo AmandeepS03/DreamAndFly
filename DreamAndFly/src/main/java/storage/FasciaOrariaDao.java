@@ -60,7 +60,7 @@ private DataSource ds=null;
 
 	}
 	
-	public synchronized Collection<FasciaOraria> doRetriveAll() throws SQLException {
+	public synchronized Collection<FasciaOraria> doRetrieveAll() throws SQLException {
 	    Connection con=null;
 	    PreparedStatement pst=null;
 	    Collection<FasciaOraria> fasciaOrarialist = new LinkedList<>();

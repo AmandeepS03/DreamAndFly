@@ -138,7 +138,7 @@ public void doSave(AccountUser user) throws SQLException {
 	}
 }
 
-	public synchronized Collection<AccountUser> doRetriveAll() throws SQLException {
+	public synchronized Collection<AccountUser> doRetrieveAll() throws SQLException {
 	    Connection con=null;
 	    PreparedStatement pst=null;
 	    Collection<AccountUser> accountlist = new LinkedList<>();

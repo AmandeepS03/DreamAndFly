@@ -306,7 +306,7 @@ public class PrenotazioneDao {
 	  
 	  }
 	  
-	  //da testare
+	  
 	  public synchronized Collection<Prenotazione> doRetrievePrenotazioniByNumeroCapsulaAll(Integer numeroCapsula) throws SQLException { 
 		  ResultSet rs; 
 		  String query; 
