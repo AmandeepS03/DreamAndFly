@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -164,24 +165,25 @@ class AccountUserDaoTest {
         
     }
 
-    // TC5_4.2 - doSave con utente già presente (simuliamo che executeUpdate = 0)
+    // TC5_4.2 - doSave con utente già presente (lancia eccezione)   
     @Test
     void TC5_4_2() throws Exception {
-        when(mockPreparedStatement.executeUpdate()).thenReturn(0);
+        // Simula la violazione del vincolo di unicità sull'email
+        when(mockPreparedStatement.executeUpdate()).thenThrow(new SQLException("Duplicate entry"));
 
         AccountUser u = new AccountUser();
-        u.setEmail("existing@b.it");
+        u.setEmail("existing@b.it");  // Email già presente nel DB
         u.setPassword("p");
         u.setName("Nome");
         u.setSurname("Cognome");
         u.setNumber("123");
 
-        dao.doSave(u);
+        // Verifica che venga lanciata una SQLException
+        assertThrows(SQLException.class, () -> dao.doSave(u));
 
         verify(mockPreparedStatement).executeUpdate();
-        
-       
     }
+
 
     // TC5_5.1 - doDelete con email non presente
     @Test

@@ -84,6 +84,7 @@ public class PrenotabileDaoIntegrationTest {
         Prenotabile p = dao.doRetrieveLastDateById(6);
         assertEquals(6, p.getCapsulaId());
         assertEquals("2026-06-11", p.getDataPrenotabile());
+        assertEquals(1,p.getFasciaOrariaNumero());
     }
 
     // TC8_7_1_IT: doRetrieveById con ID inesistente
