@@ -39,7 +39,6 @@ public class PrenotazioneDaoIntegrationTest {
     }
     
     
-    //TODO do save non fallisce perche la chiave: codice di accesso, non può duplicarsi dato che viene autogenerata.
     // TC9_2_1_IT : doSave prenotazione non presente nel DB, prenotazione inserita
     @Test
     @Order(1)
@@ -51,8 +50,6 @@ public class PrenotazioneDaoIntegrationTest {
         p.setDataFine("2025-06-15");
         p.setPrezzoTotale(55.0f);
         p.setDataEffettuazione("2025-05-21");
-        p.setValidita(true);
-        p.setRimborso(0.0f);
         p.setUserAccountEmail("mario.rossi@gmail.com");  // deve esistere
         p.setCapsulaId(1);                               // deve esistere
 
@@ -67,53 +64,53 @@ public class PrenotazioneDaoIntegrationTest {
         assertEquals(55.0f, saved.getPrezzoTotale());
     }
     
-    //TC9_1_1_IT doRetrieveByKey: Ritorna la prenotazione relativa a quel codiceDiAccesso.
+    
+  //TC9_1_1_IT doRetrieveByKey:codice non presente, ritorna un oggetto vuoto.
     @Test
     @Order(2)
     public void TC9_1_1_IT() throws SQLException {
-        // Il dump contiene codice_di_accesso = 1
-        Prenotazione p = dao.doRetrieveByKey(generatedId);
-        assertNotNull(p, "Prenotazione con ID="+generatedId+" deve esistere");
-        assertEquals(generatedId, p.getCodiceDiAccesso());
-    }
-    
-    //TC9_1_2 doRetrieveByKey: Ritorna un oggetto vuoto.
-    @Test
-    @Order(3)
-    public void TC9_1_2() throws SQLException {
-        int nonExistingId = 999999;
+        
+    	int nonExistingId = 999999;
 
         Prenotazione p = dao.doRetrieveByKey(nonExistingId);
 
         // Verifica che l'oggetto non sia null
-        assertNotNull(p, "L'oggetto non deve essere null se il DAO restituisce un oggetto vuoto");
-
-        // Verifica che i campi siano vuoti o di default
-        assertNull(p.getUserAccountEmail(), "Email dovrebbe essere null per una prenotazione inesistente");
-        assertEquals(0, p.getCapsulaId(), "capsulaId dovrebbe essere 0 per una prenotazione inesistente");
-        assertNull(p.getDataInizio(), "Data inizio dovrebbe essere null");
-        assertNull(p.getDataFine(), "Data fine dovrebbe essere null");
-        assertEquals(0.0f, p.getPrezzoTotale(), 0.001, "Prezzo totale dovrebbe essere 0.0");
-        assertFalse(p.isValidita(), "Validità dovrebbe essere false");
+        assertNotNull(p);
+     // Verifica che i campi siano vuoti o di default
+        assertNull(p.getUserAccountEmail());
+        assertEquals(0, p.getCapsulaId());
+        assertNull(p.getDataInizio());
+        assertNull(p.getDataFine());
+        assertEquals(0.0f, p.getPrezzoTotale());
+        assertFalse(p.isValidita());
+    	
+    	
+       
     }
-
-
     
-
-
+    //TC9_1_2_IT doRetrieveByKey: codice presente nel db. Ritorna la prenotazione relativa a quel codiceDiAccesso.
+    @Test
+    @Order(3)
+    public void TC9_1_2_IT() throws SQLException {
+    	Prenotazione p = dao.doRetrieveByKey(generatedId);
+        assertNotNull(p, "Prenotazione con ID="+generatedId+" deve esistere");
+        assertEquals(generatedId, p.getCodiceDiAccesso());	
+        
+    }
     
-    //TC9_3_2_IT doUpdateValidita: modifica della validita effettuata
+    
+    
+    //TC9_3_2_IT doUpdateValidita: codice presente, modifica della validita effettuata
     @Test
     @Order(4)
     public void TC9_3_2_IT() throws SQLException {
         // Disattiva la prenotazione appena creata
         dao.doUpdateValidita(generatedId, false);
         Prenotazione p = dao.doRetrieveByKey(generatedId);
-        assertFalse(p.isValidita(), "La validita deve essere false dopo l'update");
+        assertFalse(p.isValidita());
     }
     
-    //TC9_3_1_IT doUpdateValidita: la validita non viene aggiornata
-
+    //TC9_3_1_IT doUpdateValidita: codice non presente del db, la validita non viene aggiornata
     @Test
     @Order(5)
     public void TC9_3_1_IT() throws SQLException {
@@ -125,35 +122,26 @@ public class PrenotazioneDaoIntegrationTest {
         Prenotazione p = dao.doRetrieveByKey(nonExistingId);
 
         // Verifica che l'oggetto non sia null
-        assertNotNull(p, "L'oggetto non deve essere null");
+        assertNotNull(p);
 
         // Verifica che i campi siano valori di default perché la prenotazione non esiste
-        assertNull(p.getUserAccountEmail(), "Email dovrebbe essere null per prenotazione inesistente");
-        assertEquals(0, p.getCapsulaId(), "capsulaId dovrebbe essere 0 per prenotazione inesistente");
-        assertNull(p.getDataInizio(), "Data inizio dovrebbe essere null");
-        assertNull(p.getDataFine(), "Data fine dovrebbe essere null");
+        assertNull(p.getUserAccountEmail());
+        assertEquals(0, p.getCapsulaId());
+        assertNull(p.getDataInizio());
+        assertNull(p.getDataFine());
 
         // La validità potrebbe essere false, perché l'update è stato chiamato,
         // ma siccome la prenotazione non esiste, non ci aspettiamo che cambi realmente.
         // Puoi anche rimuovere questo controllo oppure controllare che sia false per sicurezza
-        assertFalse(p.isValidita(), "Validità dovrebbe essere false dopo update, anche se la prenotazione non esiste");
+        assertFalse(p.isValidita());
     }
 
-    //TC9_4_1_IT doUpdateRimborso: Modifica del rimborso effettuato.
-
+    
+    
+    //TC9_4_1_IT doUpdateRimborso:codice non presente nel db. Modifica del rimborso non effettuato.    
     @Test
     @Order(6)
     public void TC9_4_1_IT() throws SQLException {
-        // Imposta un rimborso
-        dao.doUpdateRimborso(generatedId, 12.5f);
-        Prenotazione p = dao.doRetrieveByKey(generatedId);
-        assertEquals(12.5f, p.getRimborso(), 0.001, "Rimborso aggiornato correttamente");
-    }
-    
-    //TC9_4_2_IT doUpdateRimborso: Modifica del rimborso effettuato.    
-    @Test
-    @Order(7)
-    public void TC9_4_2_IT() throws SQLException {
         int nonExistingId = 999999;
 
         // Prova a impostare rimborso su una prenotazione inesistente
@@ -165,29 +153,39 @@ public class PrenotazioneDaoIntegrationTest {
         assertNotNull(p, "L'oggetto non deve essere null");
 
         // Controlla che i campi siano valori di default perché la prenotazione non esiste
-        assertNull(p.getUserAccountEmail(), "Email dovrebbe essere null per prenotazione inesistente");
-        assertEquals(0, p.getCapsulaId(), "capsulaId dovrebbe essere 0 per prenotazione inesistente");
-        assertNull(p.getDataInizio(), "Data inizio dovrebbe essere null");
-        assertNull(p.getDataFine(), "Data fine dovrebbe essere null");
+        assertNull(p.getUserAccountEmail());
+        assertEquals(0, p.getCapsulaId());
+        assertNull(p.getDataInizio());
+        assertNull(p.getDataFine());
 
         // Rimborso dovrebbe essere il valore di default (0.0f) perché la prenotazione non esiste realmente
-        assertEquals(0.0f, p.getRimborso(), 0.001, "Rimborso deve restare a default per prenotazione inesistente");
+        assertEquals(0.0f, p.getRimborso());
+    }
+    
+  //TC9_4_2_IT doUpdateRimborso: codice presente nel db. Modifica del rimborso effettuato.
+    @Test
+    @Order(7)
+    public void TC9_4_2_IT() throws SQLException {
+        // Imposta un rimborso
+        dao.doUpdateRimborso(generatedId, 12.5f);
+        Prenotazione p = dao.doRetrieveByKey(generatedId);
+        assertEquals(12.5f, p.getRimborso());
     }
 
 
     
-    //TC9_7_2_IT DoRetrievePrenotazioniByAccount: Ritorna la lista contenente le prenotazioni effettuate da quell’indirizzo e-mail
+    //TC9_7_2_IT DoRetrievePrenotazioniByAccount: email presente. Ritorna la lista contenente le prenotazioni effettuate da quell’indirizzo e-mail
     @Test
     @Order(8)
     public void TC9_7_2_IT() throws SQLException {
         Collection<Prenotazione> list = dao.doRetrievePrenotazioniByAccount("mario.rossi@gmail.com");
         assertNotNull(list);
-        assertFalse(list.isEmpty(), "Deve tornare almeno le prenotazioni di Mario Rossi");
+        assertFalse(list.isEmpty());
         // Controlla che tra queste ci sia quella appena creata
         assertTrue(list.stream().anyMatch(pr -> pr.getCodiceDiAccesso() == generatedId));
     }
     
-    //TC9_7_1_IT DoRetrievePrenotazioniByAccount: Ritorna un oggetto vuoto.
+    //TC9_7_1_IT DoRetrievePrenotazioniByAccount: email non presente nel db. Ritorna un oggetto vuoto.
     @Test
     @Order(9)
     public void TC9_7_1_IT() throws SQLException {
@@ -195,8 +193,8 @@ public class PrenotazioneDaoIntegrationTest {
 
         Collection<Prenotazione> list = dao.doRetrievePrenotazioniByAccount(emailInesistente);
 
-        assertNotNull(list, "La lista non deve essere null anche se non ci sono risultati");
-        assertTrue(list.isEmpty(), "Non dovrebbero esserci prenotazioni per un utente inesistente");
+        assertNotNull(list);
+        assertTrue(list.isEmpty());
     }
 
     //TC9_14_5_IT DoRetrievePrenotazioniByAll: prenotazione presente
@@ -211,19 +209,19 @@ public class PrenotazioneDaoIntegrationTest {
 
         Collection<Prenotazione> results = dao.doRetrievePrenotazioniByAll(capsulaID, email, dataInizio, dataFine);
 
-        assertNotNull(results, "La lista non deve essere null");
-        assertFalse(results.isEmpty(), "Deve esserci almeno una prenotazione trovata");
+        assertNotNull(results);
+        assertFalse(results.isEmpty());
 
         boolean found = results.stream()
             .anyMatch(p -> p.getCodiceDiAccesso() == generatedId);
 
-        assertTrue(found, "La prenotazione creata deve essere presente nei risultati");
+        assertTrue(found);
     }
     
-    //TC9_14_1_TC9_14_2_TC9_14_3_4_IT - doRetrievePrenotazioniByAll: dati nonn presenti
+    //TC9_14_1_TC9_14_2_TC9_14_3_TC9_14_4_IT - doRetrievePrenotazioniByAll: dati non presenti
     @Test
     @Order(11)
-    public void TC9_14_1_TC9_14_2_TC9_14_3_4_IT() throws SQLException {
+    public void TC9_14_1_TC9_14_2_TC9_14_3_TC9_14_4_IT() throws SQLException {
         // Parametri che non dovrebbero mai trovare corrispondenze
         Integer capsulaID = 9999; // ID inesistente
         String email = "utente.inesistente@dreamfly.com"; // email non registrata
@@ -232,8 +230,8 @@ public class PrenotazioneDaoIntegrationTest {
 
         Collection<Prenotazione> results = dao.doRetrievePrenotazioniByAll(capsulaID, email, dataInizio, dataFine);
 
-        assertNotNull(results, "La lista deve essere non null");
-        assertTrue(results.isEmpty(), "Non deve esserci alcuna prenotazione trovata");
+        assertNotNull(results);
+        assertTrue(results.isEmpty());
     }
 
     //TC9_9_1_IT DoRetrievePrenotazioniByDataFine: Esiste almeno una data <= DataFine nel DB.
@@ -245,13 +243,13 @@ public class PrenotazioneDaoIntegrationTest {
 
         Collection<Prenotazione> results = dao.doRetrievePrenotazioniByDataFine(limiteDataFine);
 
-        assertNotNull(results, "La lista non deve essere null");
-        assertFalse(results.isEmpty(), "Ci si aspetta almeno una prenotazione");
+        assertNotNull(results);
+        assertFalse(results.isEmpty());
 
         boolean found = results.stream()
             .anyMatch(p -> p.getCodiceDiAccesso() == generatedId);
 
-        assertTrue(found, "La prenotazione con data_fine <= 2025-06-30 deve essere presente");
+        assertTrue(found);
     }
     
     //TC9_9_2_IT DoRetrievePrenotazioniByDataFine: Nessuna data <= di quella fornita è presente DB.
@@ -262,8 +260,8 @@ public class PrenotazioneDaoIntegrationTest {
 
         Collection<Prenotazione> results = dao.doRetrievePrenotazioniByDataFine(limiteDataFine);
 
-        assertNotNull(results, "La lista deve essere non null");
-        assertTrue(results.isEmpty(), "Nessuna prenotazione deve essere trovata con data_fine <= 2020-01-01");
+        assertNotNull(results);
+        assertTrue(results.isEmpty());
     }
     
     //TC9_8_2_IT DoRetrievePrenotazioniByDataInizio: Esiste almeno una data >= DataInizio nel DB. 
@@ -275,13 +273,13 @@ public class PrenotazioneDaoIntegrationTest {
 
         Collection<Prenotazione> results = dao.doRetrievePrenotazioniByDataInizio(dataInizio);
 
-        assertNotNull(results, "La lista non deve essere null");
-        assertFalse(results.isEmpty(), "Almeno una prenotazione dovrebbe essere presente");
+        assertNotNull(results);
+        assertFalse(results.isEmpty());
 
         boolean found = results.stream()
             .anyMatch(p -> p.getCodiceDiAccesso() == generatedId);
 
-        assertTrue(found, "La prenotazione con data_inizio >= 2025-06-01 deve essere trovata");
+        assertTrue(found);
     }
     
     //TC9_8_1_IT DoRetrievePrenotazioniByDataInizio: Nessuna data >= di quella fornita è presente DB.
@@ -293,8 +291,8 @@ public class PrenotazioneDaoIntegrationTest {
 
         Collection<Prenotazione> results = dao.doRetrievePrenotazioniByDataInizio(dataInizio);
 
-        assertNotNull(results, "La lista deve essere non null");
-        assertTrue(results.isEmpty(), "Non ci dovrebbero essere prenotazioni dopo il 2030");
+        assertNotNull(results);
+        assertTrue(results.isEmpty());
     }
     
     //TC9_6_2_IT DoRetrievePrenotazioniByNumeroCapsulaAll: numeroCapsula presente nel DB.
@@ -306,13 +304,13 @@ public class PrenotazioneDaoIntegrationTest {
 
         Collection<Prenotazione> results = dao.doRetrievePrenotazioniByNumeroCapsulaAll(capsulaId);
 
-        assertNotNull(results, "La lista non deve essere null");
-        assertFalse(results.isEmpty(), "Ci devono essere prenotazioni per la capsula 1");
+        assertNotNull(results);
+        assertFalse(results.isEmpty());
 
         boolean found = results.stream()
             .anyMatch(p -> p.getCodiceDiAccesso() == generatedId);
 
-        assertTrue(found, "La prenotazione creata deve essere tra i risultati");
+        assertTrue(found);
     }
     
     //TC9_6_1_IT DoRetrievePrenotazioniByNumeroCapsulaAll: numeroCapsula non presente nel DB.
@@ -323,8 +321,8 @@ public class PrenotazioneDaoIntegrationTest {
 
         Collection<Prenotazione> results = dao.doRetrievePrenotazioniByNumeroCapsulaAll(capsulaId);
 
-        assertNotNull(results, "La lista deve essere non null");
-        assertTrue(results.isEmpty(), "Non ci devono essere prenotazioni per capsula inesistente");
+        assertNotNull(results);
+        assertTrue(results.isEmpty());
     }
 
 

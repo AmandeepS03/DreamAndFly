@@ -43,7 +43,7 @@ class PrenotazioneDaoTest {
     @Test
     void TC9_1_1() throws Exception {
         when(mockResultSet.next()).thenReturn(false);
-        Prenotazione result = dao.doRetrieveByKey(9999);
+        Prenotazione result = dao.doRetrieveByKey(999999);
         assertNotNull(result);
         assertNull(result.getCodiceDiAccesso());
     }
@@ -63,14 +63,14 @@ class PrenotazioneDaoTest {
     @Test
     void TC9_2_1() throws Exception {
         Prenotazione p = new Prenotazione();
-        p.setOrarioInizio("10:00");
-        p.setOrarioFine("11:00");
-        p.setDataInizio("2025-06-01");
-        p.setDataFine("2025-06-01");
-        p.setPrezzoTotale(100.0f);
-        p.setDataEffettuazione("2025-05-20");
-        p.setUserAccountEmail("utente@example.com");
-        p.setCapsulaId(1);
+        p.setOrarioInizio("16:00");
+        p.setOrarioFine("17:00");
+        p.setDataInizio("2025-06-15");
+        p.setDataFine("2025-06-15");
+        p.setPrezzoTotale(55.0f);
+        p.setDataEffettuazione("2025-05-21");
+        p.setUserAccountEmail("mario.rossi@gmail.com");  // deve esistere
+        p.setCapsulaId(1); // deve esistere
 
         // Prepara i mock
         when(mockDataSource.getConnection()).thenReturn(mockConnection);
@@ -84,7 +84,7 @@ class PrenotazioneDaoTest {
         assertDoesNotThrow(() -> dao.doSave(p));
     }
 
-    
+    /*
     // TC9_2_2 - doSave: Prenotazione già presente nel DB
     @Test
     void TC9_2_2() throws Exception {
@@ -107,14 +107,15 @@ class PrenotazioneDaoTest {
 
         assertThrows(SQLIntegrityConstraintViolationException.class, () -> dao.doSave(p));
     }
+    */
 
  // TC9_3_1 doUpdateValidita: codice non presente nel DB
     @Test
     void TC9_3_1() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(0);
-        dao.doUpdateValidita(9999, true);
+        dao.doUpdateValidita(999999, true);
         verify(mockPreparedStatement).setBoolean(1, true);
-        verify(mockPreparedStatement).setInt(2, 9999);
+        verify(mockPreparedStatement).setInt(2, 999999);
         verify(mockPreparedStatement).executeUpdate();
     }
 
@@ -132,9 +133,9 @@ class PrenotazioneDaoTest {
     @Test
     void TC9_4_1() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(0);
-        dao.doUpdateRimborso(9999, 5.0f);
-        verify(mockPreparedStatement).setFloat(1, 5.0f);
-        verify(mockPreparedStatement).setInt(2, 9999);
+        dao.doUpdateRimborso(999999, 15.0f);
+        verify(mockPreparedStatement).setFloat(1, 15.0f);
+        verify(mockPreparedStatement).setInt(2, 999999);
         verify(mockPreparedStatement).executeUpdate();
     }
 
@@ -142,8 +143,8 @@ class PrenotazioneDaoTest {
     @Test
     void TC9_4_2() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(1);
-        dao.doUpdateRimborso(1234, 15.0f);
-        verify(mockPreparedStatement).setFloat(1, 15.0f);
+        dao.doUpdateRimborso(1234, 12.5f);
+        verify(mockPreparedStatement).setFloat(1, 12.5f);
         verify(mockPreparedStatement).setInt(2, 1234);
         verify(mockPreparedStatement).executeUpdate();
     }
@@ -166,7 +167,7 @@ class PrenotazioneDaoTest {
     @Test
     void TC9_6_1() throws Exception {
         when(mockResultSet.next()).thenReturn(false);
-        assertTrue(dao.doRetrievePrenotazioniByNumeroCapsulaAll(999).isEmpty());
+        assertTrue(dao.doRetrievePrenotazioniByNumeroCapsulaAll(9999).isEmpty());
     }
 
     // TC9_6_2 - doRetrievePrenotazioniByNumeroCapsulaAll: numeroCapsula presente nel DB
@@ -180,7 +181,7 @@ class PrenotazioneDaoTest {
     // TC9_7_1 -doRetrievePrenotazioniByAccount: Email non presente nel DB
     @Test
     void TC9_7_1() throws Exception {
-        String emailInesistente = "nonpresente@example.com";
+        String emailInesistente = "utente.inesistente@dummy.com";
 
         // Mock delle dipendenze
         when(mockDataSource.getConnection()).thenReturn(mockConnection);
@@ -201,7 +202,7 @@ class PrenotazioneDaoTest {
     @Test
     void TC9_7_2() throws Exception {
     	when(mockResultSet.next()).thenReturn(true, false); // una sola riga nel resultset
-        assertNotNull(dao.doRetrievePrenotazioniByAccount("user@example.com"));
+        assertNotNull(dao.doRetrievePrenotazioniByAccount("mario.rossi@gmail.com"));
     }
 
 
@@ -210,7 +211,7 @@ class PrenotazioneDaoTest {
     @Test
     void TC9_8_1() throws Exception {
         when(mockResultSet.next()).thenReturn(false);
-        assertTrue(dao.doRetrievePrenotazioniByDataInizio("2099-01-01").isEmpty());
+        assertTrue(dao.doRetrievePrenotazioniByDataInizio("2030-01-01").isEmpty());
     }
 
     // TC9_8_2 - doRetrievePrenotazioniByDataInizio: Almeno una data >= dataInizio è presente nel DB
@@ -224,14 +225,14 @@ class PrenotazioneDaoTest {
     @Test
     void TC9_9_1() throws Exception {
         when(mockResultSet.next()).thenReturn(false);
-        assertTrue(dao.doRetrievePrenotazioniByDataFine("2000-01-01").isEmpty());
+        assertTrue(dao.doRetrievePrenotazioniByDataFine("2025-06-30").isEmpty());
     }
 
     // TC9_9_2 - doRetrievePrenotazioniByDataFine: Almeno una data <= dataFine è presente nel DB
     @Test
     void TC9_9_2() throws Exception {
         when(mockResultSet.next()).thenReturn(true, false);
-        assertEquals(1, dao.doRetrievePrenotazioniByDataFine("2025-06-10").size());
+        assertEquals(1, dao.doRetrievePrenotazioniByDataFine("2020-01-01").size());
     }
 
     // TC9_10_1 - doRetrievePrenotazioniByDataInizioAndFine: Nessuna data >= dataInizio è presente nel DB
@@ -325,35 +326,35 @@ class PrenotazioneDaoTest {
     @Test
     void TC9_14_1() throws Exception {
         when(mockResultSet.next()).thenReturn(false);
-        assertTrue(dao.doRetrievePrenotazioniByAll(1, "user@example.com", "2099-01-01", "2099-12-31").isEmpty());
+        assertTrue(dao.doRetrievePrenotazioniByAll(9999, "utente.inesistente@dreamfly.com", "2030-01-01", "2030-12-31").isEmpty());
     }
 
     // TC9_14_2 doRetrievePrenotazioniByAll: Nessuna data <= di quella di fine è presente DB
     @Test
     void TC9_14_2() throws Exception {
         when(mockResultSet.next()).thenReturn(false);
-        assertTrue(dao.doRetrievePrenotazioniByAll(1, "user@example.com", "2025-01-01", "2025-01-02").isEmpty());
+        assertTrue(dao.doRetrievePrenotazioniByAll(9999, "utente.inesistente@dreamfly.com", "2030-01-01", "2030-12-31").isEmpty());
     }
 
     // TC9_14_3 doRetrievePrenotazioniByAll: capsulaID non presente DB
     @Test
     void TC9_14_3() throws Exception {
         when(mockResultSet.next()).thenReturn(false);
-        assertTrue(dao.doRetrievePrenotazioniByAll(999, "user@example.com", "2025-06-01", "2025-06-10").isEmpty());
+        assertTrue(dao.doRetrievePrenotazioniByAll(9999, "utente.inesistente@dreamfly.com", "2030-01-01", "2030-12-31").isEmpty());
     }
 
     // TC9_14_4 doRetrievePrenotazioniByAll: userAccountEmail non presente nel DB
     @Test
     void TC9_14_4() throws Exception {
         when(mockResultSet.next()).thenReturn(false);
-        assertTrue(dao.doRetrievePrenotazioniByAll(1, "missing@example.com", "2025-06-01", "2025-06-10").isEmpty());
+        assertTrue(dao.doRetrievePrenotazioniByAll(9999, "utente.inesistente@dreamfly.com", "2030-01-01", "2030-12-31").isEmpty());
     }
 
     // TC9_14_5 doRetrievePrenotazioniByAll: Dati presenti nel DB
     @Test
     void TC9_14_5() throws Exception {
         when(mockResultSet.next()).thenReturn(true, false);
-        assertEquals(1, dao.doRetrievePrenotazioniByAll(1, "user@example.com", "2025-06-01", "2025-06-10").size());
+        assertEquals(1, dao.doRetrievePrenotazioniByAll(1, "mario.rossi@gmail.com", "2025-06-01", "2025-06-30").size());
     }
 
     // TC9_15_1 doRetrievePrenotazioniByAccountAndIdAndDataInizio: Nessuna data >= di quella di inizio

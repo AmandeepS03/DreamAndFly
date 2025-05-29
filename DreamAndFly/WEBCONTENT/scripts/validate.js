@@ -17,7 +17,7 @@ const dataRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
 
 const nameErrorMessage = "Un nome valido deve contenere solo lettere";
 const lastnameErrorMessage = "Un cognome valido deve contenere solo lettere";
-const emailErrorMessage = "Una email valida deve essere nella forma username@domain.ext";
+const emailErrorMessage = "Una e-mail valida deve essere nella forma username@domain.ext";
 const mismatchPSWD = "Password e conferma password non corrispondono";
 const pswdMessage = "La password deve avere almeno 8 caratteri, almeno una lettera minuscola, una maiuscola, un numero e un carattere speciale";
 const celMessage="Numero di telefono non valido";

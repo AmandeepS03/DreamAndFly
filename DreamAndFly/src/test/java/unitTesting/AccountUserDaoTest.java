@@ -42,7 +42,7 @@ class AccountUserDaoTest {
     void TC5_1_1() throws Exception {
         when(mockResultSet.next()).thenReturn(false);
 
-        AccountUser user = dao.doRetrieveByKey("nonexistent@example.com");
+        AccountUser user = dao.doRetrieveByKey("notfound@email.com");
 
         assertNull(user.getEmail());
         assertNull(user.getPassword());
@@ -51,7 +51,7 @@ class AccountUserDaoTest {
         assertNull(user.getNumber());
         assertEquals(0, user.getRuolo());
 
-        verify(mockPreparedStatement).setString(1, "nonexistent@example.com");
+        verify(mockPreparedStatement).setString(1, "notfound@email.com");
         verify(mockPreparedStatement).executeQuery();
         
         
@@ -61,23 +61,23 @@ class AccountUserDaoTest {
     @Test
     void TC5_1_2() throws Exception {
         when(mockResultSet.next()).thenReturn(true);
-        when(mockResultSet.getString("email")).thenReturn("test@example.com");
-        when(mockResultSet.getString("passw")).thenReturn("pw");
+        when(mockResultSet.getString("email")).thenReturn("test@email.com");
+        when(mockResultSet.getString("passw")).thenReturn("password123");
         when(mockResultSet.getString("nome")).thenReturn("Mario");
         when(mockResultSet.getString("cognome")).thenReturn("Rossi");
         when(mockResultSet.getString("telefono")).thenReturn("1234567890");
         when(mockResultSet.getInt("ruolo")).thenReturn(1);
 
-        AccountUser user = dao.doRetrieveByKey("test@example.com");
+        AccountUser user = dao.doRetrieveByKey("test@email.com");
 
-        assertEquals("test@example.com", user.getEmail());
-        assertEquals("pw", user.getPassword());
+        assertEquals("test@email.com", user.getEmail());
+        assertEquals("password123", user.getPassword());
         assertEquals("Mario", user.getName());
         assertEquals("Rossi", user.getSurname());
         assertEquals("1234567890", user.getNumber());
         assertEquals(1, user.getRuolo());
 
-        verify(mockPreparedStatement).setString(1, "test@example.com");
+        verify(mockPreparedStatement).setString(1, "test@email.com");
         verify(mockPreparedStatement).executeQuery();
         verify(mockResultSet, times(1)).next();
 
@@ -89,10 +89,10 @@ class AccountUserDaoTest {
     void TC5_2_1() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(0);
 
-        dao.doUpdateNumber("wrong@example.com", "1112223333");
+        dao.doUpdateNumber("nonexistent@email.com", "0000000000");
 
-        verify(mockPreparedStatement).setString(1, "1112223333");
-        verify(mockPreparedStatement).setString(2, "wrong@example.com");
+        verify(mockPreparedStatement).setString(1, "0000000000");
+        verify(mockPreparedStatement).setString(2, "nonexistent@email.com");
         verify(mockPreparedStatement).executeUpdate();
         
      
@@ -103,10 +103,10 @@ class AccountUserDaoTest {
     void TC5_2_2() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(1);
 
-        dao.doUpdateNumber("test@example.com", "3334445555");
+        dao.doUpdateNumber("update@email.com", "9999999999");
 
-        verify(mockPreparedStatement).setString(1, "3334445555");
-        verify(mockPreparedStatement).setString(2, "test@example.com");
+        verify(mockPreparedStatement).setString(1, "9999999999");
+        verify(mockPreparedStatement).setString(2, "update@email.com");
         verify(mockPreparedStatement).executeUpdate();
         
         
@@ -117,24 +117,24 @@ class AccountUserDaoTest {
     void TC5_3_1() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(0);
 
-        dao.doUpdatePassword("ghost@example.com", "newpw");
+        dao.doUpdatePassword("ghost@email.com", "secure123");
 
-        verify(mockPreparedStatement).setString(1, "newpw");
-        verify(mockPreparedStatement).setString(2, "ghost@example.com");
+        verify(mockPreparedStatement).setString(1, "secure123");
+        verify(mockPreparedStatement).setString(2, "ghost@email.com");
         verify(mockPreparedStatement).executeUpdate();
         
        
     }
 
-    // TC5_3.2 - doUpdatePassword con email presente
+    // TC5_3.2 - doUpdatePassword con email presente nel DB
     @Test
     void TC5_3_2() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(1);
 
-        dao.doUpdatePassword("test@example.com", "securepass");
+        dao.doUpdatePassword("pwd@email.com", "newpass");
 
-        verify(mockPreparedStatement).setString(1, "securepass");
-        verify(mockPreparedStatement).setString(2, "test@example.com");
+        verify(mockPreparedStatement).setString(1, "newpass");
+        verify(mockPreparedStatement).setString(2, "pwd@email.com");
         verify(mockPreparedStatement).executeUpdate();
         
         
@@ -146,19 +146,19 @@ class AccountUserDaoTest {
         when(mockPreparedStatement.executeUpdate()).thenReturn(1);
 
         AccountUser u = new AccountUser();
-        u.setEmail("a@b.it");
-        u.setPassword("p");
-        u.setName("Nome");
-        u.setSurname("Cognome");
-        u.setNumber("123");
+        u.setEmail("test@email.com");
+        u.setPassword("password123");
+        u.setName("Mario");
+        u.setSurname("Rossi");
+        u.setNumber("1234567890");
 
         dao.doSave(u);
 
-        verify(mockPreparedStatement).setString(1, "a@b.it");
-        verify(mockPreparedStatement).setString(2, "p");
-        verify(mockPreparedStatement).setString(3, "Nome");
-        verify(mockPreparedStatement).setString(4, "Cognome");
-        verify(mockPreparedStatement).setString(5, "123");
+        verify(mockPreparedStatement).setString(1, "test@email.com");
+        verify(mockPreparedStatement).setString(2, "password123");
+        verify(mockPreparedStatement).setString(3, "Mario");
+        verify(mockPreparedStatement).setString(4, "Rossi");
+        verify(mockPreparedStatement).setString(5, "1234567890");
         verify(mockPreparedStatement).executeUpdate();
         
         
@@ -170,11 +170,11 @@ class AccountUserDaoTest {
         when(mockPreparedStatement.executeUpdate()).thenReturn(0);
 
         AccountUser u = new AccountUser();
-        u.setEmail("existing@b.it");
-        u.setPassword("p");
-        u.setName("Nome");
-        u.setSurname("Cognome");
-        u.setNumber("123");
+        u.setEmail("dup@email.com");
+        u.setPassword("123");
+        u.setName("Dup");
+        u.setSurname("User");
+        u.setNumber("111");
 
         dao.doSave(u);
 
@@ -188,9 +188,9 @@ class AccountUserDaoTest {
     void TC5_5_1() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(0);
 
-        dao.doDelete("nobody@example.com");
+        dao.doDelete("fake@email.com");
 
-        verify(mockPreparedStatement).setString(1, "nobody@example.com");
+        verify(mockPreparedStatement).setString(1, "fake@email.com");
         verify(mockPreparedStatement).executeUpdate();
         
         
@@ -201,9 +201,9 @@ class AccountUserDaoTest {
     void TC5_5_2() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(1);
 
-        dao.doDelete("delete@example.com");
+        dao.doDelete("delete@email.com");
 
-        verify(mockPreparedStatement).setString(1, "delete@example.com");
+        verify(mockPreparedStatement).setString(1, "delete@email.com");
         verify(mockPreparedStatement).executeUpdate();
         
         
@@ -215,37 +215,37 @@ class AccountUserDaoTest {
         when(mockPreparedStatement.executeUpdate()).thenReturn(1);
 
         AccountUser u = new AccountUser();
-        u.setEmail("g@e.it");
-        u.setPassword("pw");
-        u.setName("Gest");
-        u.setSurname("Ore");
-        u.setNumber("999");
+        u.setEmail("gestore@email.com");
+        u.setPassword("gestorepass");
+        u.setName("Laura");
+        u.setSurname("Bianchi");
+        u.setNumber("3216549870");
         u.setRuolo(1);
 
         dao.doSaveGestore(u);
 
-        verify(mockPreparedStatement).setString(1, "g@e.it");
-        verify(mockPreparedStatement).setString(2, "pw");
-        verify(mockPreparedStatement).setString(3, "Gest");
-        verify(mockPreparedStatement).setString(4, "Ore");
-        verify(mockPreparedStatement).setString(5, "999");
+        verify(mockPreparedStatement).setString(1, "gestore@email.com");
+        verify(mockPreparedStatement).setString(2, "gestorepass");
+        verify(mockPreparedStatement).setString(3, "Laura");
+        verify(mockPreparedStatement).setString(4, "Bianchi");
+        verify(mockPreparedStatement).setString(5, "3216549870");
         verify(mockPreparedStatement).setInt(6, 1);
         verify(mockPreparedStatement).executeUpdate();
         
         
     }
 
-    // TC5_6.2 - doSaveGestore utente già presente (simulate executeUpdate = 0)
+    // TC5_6.2 - doSaveGestore con email già presente (simulate executeUpdate = 0)
     @Test
     void TC5_6_2() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(0);
 
         AccountUser u = new AccountUser();
-        u.setEmail("g@old.it");
-        u.setPassword("pw");
-        u.setName("Gest");
-        u.setSurname("Ore");
-        u.setNumber("888");
+        u.setEmail("dupgestore@email.com");
+        u.setPassword("pass1");
+        u.setName("Giovanni");
+        u.setSurname("Neri");
+        u.setNumber("1231231234");
         u.setRuolo(1);
 
         dao.doSaveGestore(u);
