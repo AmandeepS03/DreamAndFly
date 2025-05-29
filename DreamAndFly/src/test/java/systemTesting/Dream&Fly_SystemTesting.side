@@ -4773,7 +4773,7 @@
       "command": "assertText",
       "target": "id=errorEmail",
       "targets": [],
-      "value": "Una email valida deve essere nella forma username@domain.ext"
+      "value": "Una e-mail valida deve essere nella forma username@domain.ext"
     }, {
       "id": "c635d75f-21b4-4fdf-894a-7b91edc72f0a",
       "comment": "",

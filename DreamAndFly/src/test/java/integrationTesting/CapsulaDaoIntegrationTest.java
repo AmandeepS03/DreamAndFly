@@ -65,13 +65,13 @@ public class CapsulaDaoIntegrationTest {
         Capsula nuova = new Capsula();
         nuova.setId(999);
         nuova.setPrezzo_orario(20.0f);
-        nuova.setTipologia("Test");
+        nuova.setTipologia("Deluxe");
 
         dao.doSave(nuova);
         Capsula retrieved = dao.doRetrieveByKey(999);
         assertEquals(999, retrieved.getId());
         assertEquals(20.0f, retrieved.getPrezzo_orario());
-        assertEquals("Test", retrieved.getTipologia());
+        assertEquals("Deluxe", retrieved.getTipologia());
 
         // cleanup
         Connection con = dataSource.getConnection();
@@ -88,7 +88,7 @@ public class CapsulaDaoIntegrationTest {
         Capsula duplicata = new Capsula();
         duplicata.setId(1); // ID già esistente
         duplicata.setPrezzo_orario(15.0f);
-        duplicata.setTipologia("Duplicata");
+        duplicata.setTipologia("Standard");
 
         assertThrows(SQLException.class, () -> dao.doSave(duplicata));
     }

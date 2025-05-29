@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -40,36 +41,43 @@ class PrenotabileDaoTest {
     @Test
     void TC8_1_1() throws Exception {
         Prenotabile pren = new Prenotabile();
-        pren.setDataPrenotabile("2025-06-01");
-        pren.setCapsulaId(1);
-        pren.setFasciaOrariaNumero(2);
+        pren.setDataPrenotabile("2026-12-31");
+        pren.setCapsulaId(5);
+        pren.setFasciaOrariaNumero(1);
 
         when(mockPreparedStatement.executeUpdate()).thenReturn(1);
         dao.doSave(pren);
 
-        verify(mockPreparedStatement).setString(1, "2025-06-01");
-        verify(mockPreparedStatement).setInt(2, 1);
-        verify(mockPreparedStatement).setInt(3, 2);
+        verify(mockPreparedStatement).setString(1, "2026-12-31");
+        verify(mockPreparedStatement).setInt(2, 5);
+        verify(mockPreparedStatement).setInt(3, 1);
         verify(mockPreparedStatement).executeUpdate();
     }
 
     // TC8_1_2 - doSave - Oggetto già presente
     @Test
     void TC8_1_2() throws Exception {
-        Prenotabile pren = new Prenotabile();
-        pren.setDataPrenotabile("2025-06-01");
-        pren.setCapsulaId(1);
-        pren.setFasciaOrariaNumero(2);
+        // Simula una SQLException per violazione di vincolo (es. riga già presente)
+        when(mockPreparedStatement.executeUpdate()).thenThrow(new SQLException("Duplicate entry"));
 
-        when(mockPreparedStatement.executeUpdate()).thenThrow(new java.sql.SQLIntegrityConstraintViolationException());
-        assertThrows(java.sql.SQLIntegrityConstraintViolationException.class, () -> dao.doSave(pren));
+        Prenotabile prenotabile = new Prenotabile();
+        prenotabile.setDataPrenotabile("2026-05-10");
+        prenotabile.setCapsulaId(5);
+        prenotabile.setFasciaOrariaNumero(1);
+
+        // Verifica che venga lanciata una SQLException
+        assertThrows(SQLException.class, () -> dao.doSave(prenotabile));
+
+        // Verifica che executeUpdate sia stato chiamato
+        verify(mockPreparedStatement).executeUpdate();
     }
+
 
  // TC8_2_1 - doDelete: data non presente
     @Test
     void TC8_2_1() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(0);
-        dao.doDelete("2099-12-31", 1, 1);
+        dao.doDelete("2099-01-01", 1, 1);
         verify(mockPreparedStatement).executeUpdate();
     }
 
@@ -77,7 +85,7 @@ class PrenotabileDaoTest {
     @Test
     void TC8_2_2() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(0);
-        dao.doDelete("2025-06-01", 9999, 1);
+        dao.doDelete("2025-06-01", 99, 1);
         verify(mockPreparedStatement).executeUpdate();
     }
 
@@ -85,7 +93,7 @@ class PrenotabileDaoTest {
     @Test
     void TC8_2_3() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(0);
-        dao.doDelete("2025-06-01", 1, 9999);
+        dao.doDelete("2025-06-01", 1, 99);
         verify(mockPreparedStatement).executeUpdate();
     }
 
@@ -93,7 +101,7 @@ class PrenotabileDaoTest {
     @Test
     void TC8_2_4() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(1);
-        dao.doDelete("2025-06-01", 1, 2);
+        dao.doDelete("2026-12-30", 6, 2);
         verify(mockPreparedStatement).executeUpdate();
     }
 
@@ -102,7 +110,7 @@ class PrenotabileDaoTest {
     @Test
     void TC8_3_1() throws Exception {
         when(mockResultSet.next()).thenReturn(false);
-        Prenotabile result = dao.doRetrieveLastDateById(999);
+        Prenotabile result = dao.doRetrieveLastDateById(99);
         assertNotNull(result);
         assertNull(result.getDataPrenotabile());
     }
@@ -111,11 +119,11 @@ class PrenotabileDaoTest {
     @Test
     void TC8_3_2() throws Exception {
         when(mockResultSet.next()).thenReturn(true);
-        when(mockResultSet.getString("data_prenotabile")).thenReturn("2025-06-05");
-        when(mockResultSet.getInt("capsula_id")).thenReturn(1);
-        when(mockResultSet.getInt("fascia_oraria_numero")).thenReturn(2);
-        Prenotabile result = dao.doRetrieveLastDateById(1);
-        assertEquals("2025-06-05", result.getDataPrenotabile());
+        when(mockResultSet.getString("data_prenotabile")).thenReturn("2026-06-11");
+        when(mockResultSet.getInt("capsula_id")).thenReturn(6);
+        when(mockResultSet.getInt("fascia_oraria_numero")).thenReturn(1);
+        Prenotabile result = dao.doRetrieveLastDateById(6);
+        assertEquals("2026-06-11", result.getDataPrenotabile());
     }
 
     // TC8_4_1 - doRetrieveIdByDataInizioAndDataFine: Nessuna data >= dataInizio è presente nel DB.
@@ -210,17 +218,17 @@ class PrenotabileDaoTest {
     @Test
     void TC8_7_1() throws Exception {
         when(mockResultSet.next()).thenReturn(false);
-        assertTrue(dao.doRetrieveById(999).isEmpty());
+        assertTrue(dao.doRetrieveById(100).isEmpty());
     }
 
     // TC8_7_2 - doRetrieveById: capsula_id presente
     @Test
     void TC8_7_2() throws Exception {
         when(mockResultSet.next()).thenReturn(true, false);
-        when(mockResultSet.getString("data_prenotabile")).thenReturn("2025-06-01");
-        when(mockResultSet.getInt("capsula_id")).thenReturn(1);
+        when(mockResultSet.getString("data_prenotabile")).thenReturn("2026-05-10");
+        when(mockResultSet.getInt("capsula_id")).thenReturn(5);
         when(mockResultSet.getInt("fascia_oraria_numero")).thenReturn(2);
-        assertEquals(1, dao.doRetrieveById(1).size());
+        assertEquals(1, dao.doRetrieveById(5).size());
     }
 
 
@@ -236,10 +244,10 @@ class PrenotabileDaoTest {
     @Test
     void TC8_8_2() throws Exception {
         when(mockResultSet.next()).thenReturn(true, false);
-        when(mockResultSet.getString("data_prenotabile")).thenReturn("2025-06-10");
+        when(mockResultSet.getString("data_prenotabile")).thenReturn("2026-05-10");
         when(mockResultSet.getInt("capsula_id")).thenReturn(2);
         when(mockResultSet.getInt("fascia_oraria_numero")).thenReturn(1);
-        assertEquals(1, dao.doRetrieveByDataInizio("2025-06-01").size());
+        assertEquals(1, dao.doRetrieveByDataInizio("2026-05-10").size());
     }
 
     // TC8_9_1 - doRetrievePrenotabiliByCapsulaAndDataInizio: capsula_id non presente
@@ -294,17 +302,17 @@ class PrenotabileDaoTest {
     @Test
     void TC8_11_1() throws Exception {
         when(mockResultSet.next()).thenReturn(false);
-        assertTrue(dao.doRetrieveByDataFine("2000-01-01").isEmpty());
+        assertTrue(dao.doRetrieveByDataFine("1999-01-01").isEmpty());
     }
 
     // TC8_11_2 - doRetrieveByDataFine: Esiste almeno una data <= fornita è presente nel DB
     @Test
     void TC8_11_2() throws Exception {
         when(mockResultSet.next()).thenReturn(true, false);
-        when(mockResultSet.getString("data_prenotabile")).thenReturn("2025-06-01");
+        when(mockResultSet.getString("data_prenotabile")).thenReturn("2026-05-10");
         when(mockResultSet.getInt("capsula_id")).thenReturn(3);
         when(mockResultSet.getInt("fascia_oraria_numero")).thenReturn(3);
-        assertEquals(1, dao.doRetrieveByDataFine("2025-06-10").size());
+        assertEquals(1, dao.doRetrieveByDataFine("2026-05-10").size());
     }
 
     // TC8_12_1 - doRetrieveByDataInizioAndDataFine: Nessuna data >= dataInizio

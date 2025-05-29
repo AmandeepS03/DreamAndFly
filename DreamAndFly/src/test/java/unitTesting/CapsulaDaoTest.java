@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -58,14 +59,14 @@ class CapsulaDaoTest {
     void TC6_1_2() throws Exception {
         when(mockResultSet.next()).thenReturn(true);
         when(mockResultSet.getInt("id")).thenReturn(1);
-        when(mockResultSet.getFloat("prezzo_orario")).thenReturn(19.99f);
-        when(mockResultSet.getString("tipologia")).thenReturn("Standard");
+        when(mockResultSet.getFloat("prezzo_orario")).thenReturn(9.0f);
+        when(mockResultSet.getString("tipologia")).thenReturn("Deluxe");
 
         Capsula result = dao.doRetrieveByKey(1);
 
         assertEquals(1, result.getId());
-        assertEquals(19.99f, result.getPrezzo_orario());
-        assertEquals("Standard", result.getTipologia());
+        assertEquals(9.0f, result.getPrezzo_orario());
+        assertEquals("Deluxe", result.getTipologia());
 
         verify(mockPreparedStatement).setInt(1, 1);
         verify(mockPreparedStatement).executeQuery();
@@ -76,9 +77,9 @@ class CapsulaDaoTest {
     void TC6_2_1() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(0); // nessuna riga modificata
 
-        dao.doUpdatePrezzoOrario(999, 25.0f);
+        dao.doUpdatePrezzoOrario(999, 15.0f);
 
-        verify(mockPreparedStatement).setFloat(1, 25.0f);
+        verify(mockPreparedStatement).setFloat(1, 15.0f);
         verify(mockPreparedStatement).setInt(2, 999);
         verify(mockPreparedStatement).executeUpdate();
     }
@@ -88,9 +89,9 @@ class CapsulaDaoTest {
     void TC6_2_2() throws Exception {
         when(mockPreparedStatement.executeUpdate()).thenReturn(1); // una riga modificata
 
-        dao.doUpdatePrezzoOrario(2, 22.5f);
+        dao.doUpdatePrezzoOrario(2, 12.5f);
 
-        verify(mockPreparedStatement).setFloat(1, 22.5f);
+        verify(mockPreparedStatement).setFloat(1, 12.5f);
         verify(mockPreparedStatement).setInt(2, 2);
         verify(mockPreparedStatement).executeUpdate();
     }
@@ -102,14 +103,14 @@ class CapsulaDaoTest {
         when(mockPreparedStatement.executeUpdate()).thenReturn(1); // inserimento riuscito
 
         Capsula capsula = new Capsula();
-        capsula.setId(5);
-        capsula.setPrezzo_orario(30.0f);
+        capsula.setId(999);
+        capsula.setPrezzo_orario(20.0f);
         capsula.setTipologia("Deluxe");
 
         dao.doSave(capsula);
 
-        verify(mockPreparedStatement).setInt(1, 5);
-        verify(mockPreparedStatement).setFloat(2, 30.0f);
+        verify(mockPreparedStatement).setInt(1, 999);
+        verify(mockPreparedStatement).setFloat(2, 20.0f);
         verify(mockPreparedStatement).setString(3, "Deluxe");
         verify(mockPreparedStatement).executeUpdate();
     }
@@ -117,17 +118,22 @@ class CapsulaDaoTest {
     // TC6_3.2 - doSave: capsula già presente (simulazione: insert fallito)
     @Test
     void TC6_3_2() throws Exception {
-        when(mockPreparedStatement.executeUpdate()).thenReturn(0); // simuliamo che non venga inserita
+        // Simuliamo una violazione di vincolo (es. chiave primaria già esistente)
+        when(mockPreparedStatement.executeUpdate()).thenThrow(new SQLException("Duplicate entry"));
 
         Capsula capsula = new Capsula();
-        capsula.setId(1);
-        capsula.setPrezzo_orario(19.99f);
+        capsula.setId(1); // Supponiamo che l'ID 1 sia già presente nel DB
+        capsula.setPrezzo_orario(15.0f);
         capsula.setTipologia("Standard");
 
-        dao.doSave(capsula);
+        // Verifica che venga lanciata una SQLException
+        assertThrows(SQLException.class, () -> dao.doSave(capsula));
 
+        // Verifica che executeUpdate sia stato chiamato
         verify(mockPreparedStatement).executeUpdate();
     }
+
+    
     
     @AfterEach
     void tearDown() throws Exception {
