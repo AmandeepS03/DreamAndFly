@@ -151,7 +151,7 @@ class PrenotazioneDaoTest {
 
     // TC9_5_1 - doRetrieveByEmail: Email non presente nel DB
     @Test
-    void TC9_5_1_doRetrieveByEmail_EmailNonPresente() throws Exception {
+    void TC9_5_1() throws Exception {
         when(mockResultSet.next()).thenReturn(false);
         assertTrue(dao.doRetrieveByEmail("missing@example.com", 0).isEmpty());
     }
