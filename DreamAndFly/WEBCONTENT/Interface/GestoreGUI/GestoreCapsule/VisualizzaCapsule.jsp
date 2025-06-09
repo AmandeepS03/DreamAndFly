@@ -1,3 +1,8 @@
+<%
+    
+    int ruolo = (int) session.getAttribute("ruolo");
+    if (ruolo == 1) {
+%> 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="java.util.*, storage.*" %>
 <!DOCTYPE html>
@@ -54,3 +59,10 @@
 </body>
 <%@ include file="../../Footer.jsp" %>	
 </html>
+<%
+    } else{
+%> 
+<h2>Accesso negato.</h2>
+<%
+    }
+%> 
