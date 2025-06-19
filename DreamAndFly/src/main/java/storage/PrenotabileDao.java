@@ -152,9 +152,7 @@ public class PrenotabileDao {
 	return prenotabile;
 
 }
-
-	//TODO cambia nome in doRetrieveIdByDataInizioAndDataFine
-	public synchronized Collection<Integer> doRetrieveByDataInizioDataFine(String dataInizio,String dataFine) throws SQLException{
+	public synchronized Collection<Integer> doRetrieveIdByDataInizioDataFine(String dataInizio,String dataFine) throws SQLException{
 		ResultSet rs;
 		String query;
 		PreparedStatement pst=null;
@@ -353,8 +351,7 @@ public class PrenotabileDao {
 
 	}
 
-	//TODO retrieve, capsulaId
-	public Collection<Prenotabile> doRetrievePrenotabiliByCapsulaAndDataInizio(Integer capsula_id, String dataInizio) throws SQLException {
+	public Collection<Prenotabile> doRetrievePrenotabiliByCapsulaAndDataInizio(Integer capsulaId, String dataInizio) throws SQLException {
 		ResultSet rs;
 		String query;
 		PreparedStatement pst=null;
@@ -365,7 +362,7 @@ public class PrenotabileDao {
 			con=ds.getConnection();
 			query = "SELECT * FROM e_prenotabile WHERE capsula_id= ? AND data_prenotabile >= ?";
 			pst = con.prepareStatement(query);
-			pst.setInt(1, capsula_id);
+			pst.setInt(1, capsulaId);
 			pst.setString(2, dataInizio);
 			rs = pst.executeQuery();
 
@@ -400,9 +397,9 @@ public class PrenotabileDao {
 		return prenotabileList;
 	}
 	
-	//TODO retrieve, capsulaId nel nome
+	
 	//visualizza le capsule prenotabili fino a quella data
-	public Collection<Prenotabile> doRetrievePrenotabiliByCapsulaAndDataFine(Integer capsula_id, String dataFine) throws SQLException {
+	public Collection<Prenotabile> doRetrievePrenotabiliByCapsulaIdAndDataFine(Integer capsula_id, String dataFine) throws SQLException {
 		ResultSet rs;
 		String query;
 		PreparedStatement pst=null;
@@ -539,8 +536,8 @@ public class PrenotabileDao {
 
 	}
 
-	//TODO retrieve, CapsulaId nel nome
-	public Collection<Prenotabile> doRetrievePrenotabileByCapsulaAndDataInizioAndDataFine(Integer capsula_id, String dataInizio,String dataFine) throws SQLException {
+	
+	public Collection<Prenotabile> doRetrievePrenotabileByCapsulaIdAndDataInizioAndDataFine(Integer capsula_id, String dataInizio,String dataFine) throws SQLException {
 		ResultSet rs;
 		String query;
 		PreparedStatement pst=null;

@@ -130,14 +130,14 @@ class PrenotabileDaoTest {
     @Test
     void TC8_4_1() throws Exception {
         when(mockResultSet.next()).thenReturn(false);
-        assertTrue(dao.doRetrieveByDataInizioDataFine("2099-01-01", "2099-01-31").isEmpty());
+        assertTrue(dao.doRetrieveIdByDataInizioDataFine("2099-01-01", "2099-01-31").isEmpty());
     }
 
     // TC8_4_2 - doRetrieveByDataInizioDataFine: Nessuna data <= dataFine è presente nel DB.
     @Test
     void TC8_4_2() throws Exception {
         when(mockResultSet.next()).thenReturn(false);
-        assertTrue(dao.doRetrieveByDataInizioDataFine("2025-01-01", "2025-01-02").isEmpty());
+        assertTrue(dao.doRetrieveIdByDataInizioDataFine("2025-01-01", "2025-01-02").isEmpty());
     }
 
     // TC8_4_3 - doRetrieveByDataInizioDataFine: Date presenti nel DB
@@ -145,7 +145,7 @@ class PrenotabileDaoTest {
     void TC8_4_3() throws Exception {
         when(mockResultSet.next()).thenReturn(true, false);
         when(mockResultSet.getInt("capsula_id")).thenReturn(1);
-        assertEquals(1, dao.doRetrieveByDataInizioDataFine("2025-06-01", "2025-06-05").size());
+        assertEquals(1, dao.doRetrieveIdByDataInizioDataFine("2025-06-01", "2025-06-05").size());
     }
 
     // TC8_5_1 - doRetrieveByIdAndDate: capsula_id non presente
@@ -278,14 +278,14 @@ class PrenotabileDaoTest {
     @Test
     void TC8_10_1() throws Exception {
         when(mockResultSet.next()).thenReturn(false);
-        assertTrue(dao.doRetrievePrenotabiliByCapsulaAndDataFine(999, "2025-06-01").isEmpty());
+        assertTrue(dao.doRetrievePrenotabiliByCapsulaIdAndDataFine(999, "2025-06-01").isEmpty());
     }
 
     // TC8_10_2 -doRetrievePrenotabiliByCapsulaAndDataFine:  Nessuna data <= dataFine è presente nel DB
     @Test
     void TC8_10_2() throws Exception {
         when(mockResultSet.next()).thenReturn(false);
-        assertTrue(dao.doRetrievePrenotabiliByCapsulaAndDataFine(1, "2000-01-01").isEmpty());
+        assertTrue(dao.doRetrievePrenotabiliByCapsulaIdAndDataFine(1, "2000-01-01").isEmpty());
     }
 
     // TC8_10_3 - doRetrievePrenotabiliByCapsulaAndDataFine: Tutti presenti
@@ -295,7 +295,7 @@ class PrenotabileDaoTest {
         when(mockResultSet.getString("data_prenotabile")).thenReturn("2025-05-30");
         when(mockResultSet.getInt("capsula_id")).thenReturn(5);
         when(mockResultSet.getInt("fascia_oraria_numero")).thenReturn(1);
-        assertEquals(1, dao.doRetrievePrenotabiliByCapsulaAndDataFine(5, "2025-06-01").size());
+        assertEquals(1, dao.doRetrievePrenotabiliByCapsulaIdAndDataFine(5, "2025-06-01").size());
     }
 
     // TC8_11_1 -  doRetrieveByDataFine : Nessuna data <= di quella fornita è presente nel DB
@@ -343,21 +343,21 @@ class PrenotabileDaoTest {
     @Test
     void TC8_13_1() throws Exception {
         when(mockResultSet.next()).thenReturn(false);
-        assertTrue(dao.doRetrievePrenotabileByCapsulaAndDataInizioAndDataFine(999, "2025-06-01", "2025-06-10").isEmpty());
+        assertTrue(dao.doRetrievePrenotabileByCapsulaIdAndDataInizioAndDataFine(999, "2025-06-01", "2025-06-10").isEmpty());
     }
 
     // TC8_13_2 - doRetrievePrenotabileByCapsulaAndDataInizioAndDataFine: Nessuna data >= di quella fornita è presente DB.
     @Test
     void TC8_13_2 () throws Exception {
         when(mockResultSet.next()).thenReturn(false);
-        assertTrue(dao.doRetrievePrenotabileByCapsulaAndDataInizioAndDataFine(1, "2099-01-01", "2099-12-31").isEmpty());
+        assertTrue(dao.doRetrievePrenotabileByCapsulaIdAndDataInizioAndDataFine(1, "2099-01-01", "2099-12-31").isEmpty());
     }
 
     // TC8_13_3 - doRetrievePrenotabileByCapsulaAndDataInizioAndDataFine: Nessuna data <= di quella fornita è presente DB.
     @Test
     void TC8_13_3() throws Exception {
         when(mockResultSet.next()).thenReturn(false);
-        assertTrue(dao.doRetrievePrenotabileByCapsulaAndDataInizioAndDataFine(1, "2025-01-01", "2025-01-02").isEmpty());
+        assertTrue(dao.doRetrievePrenotabileByCapsulaIdAndDataInizioAndDataFine(1, "2025-01-01", "2025-01-02").isEmpty());
     }
 
 
@@ -371,7 +371,7 @@ class PrenotabileDaoTest {
         when(mockResultSet.getInt("capsula_id")).thenReturn(6);
         when(mockResultSet.getInt("fascia_oraria_numero")).thenReturn(2);
 
-        Collection<Prenotabile> result = dao.doRetrievePrenotabileByCapsulaAndDataInizioAndDataFine(
+        Collection<Prenotabile> result = dao.doRetrievePrenotabileByCapsulaIdAndDataInizioAndDataFine(
             6, "2025-06-01", "2025-06-10");
 
         assertNotNull(result);

@@ -75,7 +75,7 @@ public class RicercaDisponibilitaServlet extends HttpServlet {
 		Collection<Integer> idList = new ArrayList<>() ;
 		
 		try {
-			idList = tool.doRetrieveByDataInizioDataFine(dataInizioStringa, dataFineStringa);
+			idList = tool.doRetrieveIdByDataInizioDataFine(dataInizioStringa, dataFineStringa);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}			
