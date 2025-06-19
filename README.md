@@ -6,6 +6,11 @@
 
 Negli aeroporti i viaggiatori si trovano spesso a dover attendere per lunghi periodi senza disporre di uno spazio confortevole. Dream&Fly offre un'interfaccia semplice e intuitiva per prenotare capsule di riposo, migliorando la qualità del tempo trascorso in aeroporto.
 
+## Documentazione di progetto
+
+Per la documentazione del progetto si consulti la directory `Deliverables`: in essa sono contenuti i documenti di progetto (RAD, SDD, ODD, TP, TCS, TER).
+
+
 ## 🛠️ Tecnologie Utilizzate
 
 - **Java** (Servlet)
